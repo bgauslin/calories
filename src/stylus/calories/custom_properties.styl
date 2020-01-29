@@ -1,0 +1,38 @@
+:root
+  --dark-grey #222
+  --light-grey #aaa
+  --lighter-grey #ddd
+  --medium-grey #555
+  --off-white #f7f7f7
+
+  --site-header px_to_rem(16)  
+  --fineprint px_to_rem(12)
+
+  --footer-height px_to_rem(44)
+  --grid-gap GRID_GAP
+  --header-height px_to_rem(44)
+
+  --transition .3s
+  --transition-slow .5s
+
+  // Values set via JS
+  --sticky-offset 0 
+  --sticky-shift 0
+
+  @media Breakpoint.MEDIUM
+    --site-header px_to_rem(20)
+    --fineprint px_to_rem(14)
+
+    --grid-gap GRID_GAP_MEDIUM
+    --footer-height px_to_rem(60)
+    --header-height px_to_rem(60)
+
+  [theme=light]
+    --background white
+    --border mix(black, white, 15%)
+    --text rgba(black, .8)
+
+  [theme=dark]
+    --background '%s' % Theme.DARK
+    --border mix(black, white, 75%)
+    --text rgba(white, .7)

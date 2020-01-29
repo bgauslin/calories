@@ -1,0 +1,56 @@
+{
+  "name": "calories",
+  "description": "Calories calculator web app",
+  "version": "0.1.0",
+  "license": "UNLICENSED",
+  "repository": "https://github.com/bgauslin/calories",
+  "scripts": {
+    "test": "webpack-dev-server --open --config webpack.dev.js",
+    "start": "http-server dist",
+    "build": "webpack --config webpack.prod.js"
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {},
+      "cssnano": {}
+    }
+  },
+  "browserslist": [
+    "last 2 version",
+    ">1%",
+    "iOS >= 9",
+    "not dead"
+  ],
+  "dependencies": {
+    "@types/fastclick": "^1.0.28",
+    "fastclick": "^1.0.6" 
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.0",
+    "@babel/preset-typescript": "^7.3.3",
+    "autoprefixer": "^9.6.1",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^5.0.3",
+    "css-loader": "^3.0.0",
+    "cssnano": "^4.1.10",
+    "dotenv-webpack": "^1.7.0",
+    "file-loader": "^4.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "http-server": "^0.11.1",
+    "mini-css-extract-plugin": "^0.8.0",
+    "postcss-loader": "^3.0.0",
+    "pug-html-loader": "^1.1.5",
+    "raw-loader": "^3.0.0",
+    "style-loader": "^0.23.1",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.2",
+    "typescript": "^3.5.3",
+    "webpack": "^4.35.2",
+    "webpack-cli": "^3.3.5",
+    "webpack-dev-server": "^3.7.2",
+    "webpack-merge": "^4.2.1",
+    "workbox-webpack-plugin": "^4.3.1"
+  }
+}

@@ -1,0 +1,54 @@
+all_webfonts()
+
+html
+body
+  webfont()
+  margin 0
+  padding 0
+  -webkit-tap-highlight-color transparent
+  text-size-adjust none
+
+body
+  background var(--background)
+  color var(--text)
+  display grid
+  grid-template-columns var(--grid-gap) 1fr var(--grid-gap)
+  grid-template-rows var(--header-height) 1fr auto
+  min-height 100vh // fallback
+  min-height calc(var(--viewport-unit, 1vh) * 100)
+
+  @media Breakpoint.SMALL
+    background var(--canvas)
+
+*
+  box-sizing border-box
+
+a
+  text-decoration none
+
+input
+button
+  appearance none
+  background 0
+  border 0
+  margin 0
+  padding 0
+
+input[type=radio]
+  height 0
+  width 0
+
+input[type=number]
+  -moz-appearance textfield
+
+  &::-webkit-inner-spin-button
+  &::-webkit-outer-spin-button
+    appearance none
+    margin 0
+
+input:focus
+button:focus
+  outline 0
+
+svg path
+  fill currentColor

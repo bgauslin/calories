@@ -1,0 +1,22 @@
+@import 'functions'
+
+// @type Hash
+Theme = {
+  DARK: #282c35
+}
+
+// @const String
+GRID_GAP = px_to_rem(16)
+
+// @const String
+GRID_GAP_MEDIUM = px_to_rem(24)
+
+// -----------------------------------------------------------------------------
+// Calculated constants and breakpoints
+
+// @type Hash
+Breakpoint = {
+  SMALL:  'screen and (min-width: %s)' % px_to_rem(420)
+  MEDIUM: 'screen and (min-width: %s)' % px_to_rem(640)
+  LARGE:  'screen and (min-width: %s)' % px_to_rem(960)
+}

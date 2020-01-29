@@ -1,0 +1,22 @@
+[
+  {
+    "name": "base",
+    "mediaQuery": "(min-width: 0)",
+    "margin": "1rem"
+  },
+  {
+    "name": "small",
+    "mediaQuery": "(min-width: 26.25rem)",
+    "margin": "1rem"
+  },
+  {
+    "name": "medium",
+    "mediaQuery": "(min-width: 43rem)",
+    "margin": "1.5rem"
+  },
+  {
+    "name": "large",
+    "mediaQuery": "(min-width: 62.5rem)",
+    "width": "59.5rem"
+  }
+]
