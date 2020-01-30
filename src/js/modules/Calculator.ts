@@ -52,24 +52,13 @@ class Calculator {
   }
 
   /**
-   * Basal Metabolic Rate
-   * Harris-Benedict formula
+   * Harris-Benedict BMR formula
    */
-  private bmr_(sex: string, weight: number,  height: number, age: number): number {
-      const male = 66 + (6.3 * weight) + (12.9 * height) - (6.8 * age);
-      const female = 655 + (4.3 * weight) + (4.7 * height) - (4.7 * age);
+  private basalMetabolicRate_(sex: string, weight: number, height: number, age: number): number {
+    const male = 66 + (6.3 * weight) + (12.9 * height) - (6.8 * age);
+    const female = 655 + (4.3 * weight) + (4.7 * height) - (4.7 * age);
   
-      return (s === 'male') ? male : female;
-  }
-
-  /**
-   * TODO...
-   */
-  private restingMetabolicRate_(age: number, height: number, weight: number): number {
-    const w = weight * 6.25;
-    const h = height * 12.7;
-    const a = (age * 6.76) + 66;
-    return (w + h - a) * 1.1;
+    return (s === 'male') ? male : female;
   }
 
   /**
@@ -80,6 +69,9 @@ class Calculator {
     return result.toFixed(1);
   }
 
+  /**
+   * TODO...
+   */
   private totalDailyCalories_(bmr: number, level: string, loss: string = null): number {
     const activity = ACTIVITY.find(item => item.label === level);
     const total = (bmr * activity.multiplier);
@@ -95,7 +87,7 @@ class Calculator {
    * TODO...
    */
   public test(): void {
-    const rate = this.restingMetabolicRate_(this.age_, this.height_, this.weight_);
+    const rate = this.basalMetabolicRate_(this.sex_, this.weight_, this.height_, this.age_);
 
     const el = document.createElement('div');
     el.classList.add('results');
@@ -106,7 +98,7 @@ class Calculator {
       ${this.age_} years old<br>
       <br>
       BMI = ${this.bodyMassIndex_(this.height_, this.weight_)}<br>
-      RMR = ${rate} calories<br>
+      BMR = ${rate} calories<br>
     `;
   }
 }
