@@ -4,6 +4,13 @@ interface Activity {
   multiplier: number,
 }
 
+interface Stats {
+  age: number,
+  height: number,
+  sex: string,
+  weight: number,
+}
+
 const ACTIVITY: Activity[] = [
   {
     description: null,
@@ -33,73 +40,28 @@ WEEKLY_LOSS.set('1 lb.', 500);
 WEEKLY_LOSS.set('1 1/2 lbs.', 750);
 WEEKLY_LOSS.set('2 lbs.', 1000);
 
-const AGE: number = 48;
-const HEIGHT: number = 70;
-const WEIGHT: number = 174;
-const SEX: string = 'male';
-
 class Calculator {
-  private age_: number;
-  private height_: number;
-  private sex_: string;
-  private weight_: number;
-
-  constructor() {
-    this.age_ = AGE;
-    this.height_ = HEIGHT;
-    this.sex_ = SEX;
-    this.weight_= WEIGHT;
-  }
-
-  /**
-   * Harris-Benedict BMR formula
-   */
-  private basalMetabolicRate_(sex: string, weight: number, height: number, age: number): number {
+  /** Harris-Benedict formula. */
+  public basalMetabolicRate(stats: Stats): number {
+    const {age, height, sex, weight} = stats;
     const male = 66 + (6.3 * weight) + (12.9 * height) - (6.8 * age);
     const female = 655 + (4.3 * weight) + (4.7 * height) - (4.7 * age);
-  
-    return (s === 'male') ? male : female;
+
+    return (sex === 'male') ? male : female;
   }
 
-  /**
-   * TODO...
-   */
-  private bodyMassIndex_(height: number, weight: number): string {
+  public bodyMassIndex(stats: Stats): string {
+    const {height, weight} = stats;
     const result = (weight * 703) / (height ** 2);
+
     return result.toFixed(1);
   }
 
-  /**
-   * TODO...
-   */
-  private totalDailyCalories_(bmr: number, level: string, loss: string = null): number {
+  public totalDailyCalories(bmr: number, level: string, loss: string = null): number {
     const activity = ACTIVITY.find(item => item.label === level);
     const total = (bmr * activity.multiplier);
-  
-    if (loss) {
-      const totalLoss = WEEKLY_LOSS.get(loss);
-    }
-  
-    return loss ? (total - totalLoss) : total;
-  }
 
-  /**
-   * TODO...
-   */
-  public test(): void {
-    const rate = this.basalMetabolicRate_(this.sex_, this.weight_, this.height_, this.age_);
-
-    const el = document.createElement('div');
-    el.classList.add('results');
-    document.body.appendChild(el);
-    el.innerHTML = `
-      ${this.weight_} lbs.<br>
-      ${this.height_}" height<br>
-      ${this.age_} years old<br>
-      <br>
-      BMI = ${this.bodyMassIndex_(this.height_, this.weight_)}<br>
-      BMR = ${rate} calories<br>
-    `;
+    return loss ? (total - WEEKLY_LOSS.get(loss)) : total;
   }
 }
 
