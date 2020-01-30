@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-import {Calculator} from './modules/Calculator';
+import {App} from './modules/App';
 import {ShiftyHeader} from './components/ShiftyHeader';
 import {Themifier} from './components/Themifier';
 import {UserValues} from './components/UserValues';
@@ -16,7 +16,7 @@ map.set(UserValues, 'user-values');
 map.forEach((key, value) => customElements.define(key, value));
 
 // Initialize the app.
-document.addEventListener('DOMContentLoaded', () => new Calculator().test());
+document.addEventListener('DOMContentLoaded', () => new App('2019').init());
 
 // Register the Service Worker.
 // if ('serviceWorker' in navigator) {
