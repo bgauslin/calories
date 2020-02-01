@@ -27,6 +27,12 @@ const ACTIVITY: Activity[] = [
   },
 ];
 
+const WEEKLY_LOSS = new Map();
+WEEKLY_LOSS.set('1/2 lb.', 250);
+WEEKLY_LOSS.set('1 lb.', 500);
+WEEKLY_LOSS.set('1 1/2 lbs.', 750);
+WEEKLY_LOSS.set('2 lbs.', 1000);
+
 enum Attribute {
   NO_TOUCH = 'no-touch',
   THEME = 'theme',
@@ -37,4 +43,4 @@ enum Theme {
   DEFAULT = 'light',
 }
 
-export {ACTIVITY, Attribute, Theme};
+export {ACTIVITY, Attribute, Theme, WEEKLY_LOSS};

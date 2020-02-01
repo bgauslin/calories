@@ -39,31 +39,32 @@ const UserInputs: InputAttributes[] = [
     min: 0,
     name: 'inches',
     pattern: '[0-9]{0,1}[0-1]{1}',
-    type: 'text',
+    type: 'number',
   },
   {
     inputmode: 'decimal',
     label: 'Age',
     max: 100,
     min: 1,
-    name: 'periods',
+    name: 'age',
     pattern: '[0-9]+',
     type: 'number',
   }
 ];
 
+
 // CSS classnames for DOM elements.
 enum CssClass {
-  LIST = 'list',
-  TOTAL = 'total',
+  RESULT = 'result',
+  VALUES = 'values',
 }
 
 class UserValues extends HTMLElement {
   calculator_: Calculator;
-  listEl_: HTMLElement;
   observer_: MutationObserver;
   resultEl_: HTMLElement;
   userValues_: string;
+  valuesEl_: HTMLElement;
 
   constructor() {
     super();
@@ -88,7 +89,7 @@ class UserValues extends HTMLElement {
    * Creates DOM elements and populates them if there are stored user values.
    */
   private setup_(): void {
-    let listHtml = '';
+    let valuesHtml = '';
     UserInputs.forEach((el, index) => {
       const autofocus = (index === 0) ? 'autofocus' : '';
       const min = el.min ? `min="${el.min}"` : '';
@@ -101,20 +102,20 @@ class UserValues extends HTMLElement {
           <input class="values__input" type="${el.type}" name="${el.name}" inputmode="${el.inputmode}" ${min} ${max} ${pattern} aria-label="${el.label}" required ${autofocus}>\
         </li>\
       `;
-      listHtml += input;
+      valuesHtml += input;
     });
 
     const html = `\
       <ul class="${CssClass.LIST}">\
-        ${listHtml}\
+        ${valuesHtml}\
       </ul>\
-      <div class="${CssClass.TOTAL}"></div>\
+      <div class="${CssClass.RESULT}"></div>\
     `;
 
     this.innerHTML = html.replace(/\s\s/g, '');
 
-    this.listEl_ = this.querySelector(`.${CssClass.LIST}`);
-    this.resultEl_ = this.querySelector(`.${CssClass.TOTAL}`);
+    this.valuesEl_ = this.querySelector(`.${CssClass.LIST}`);
+    this.resultEl_ = this.querySelector(`.${CssClass.RESULT}`);
 
     if (this.userValues_) {
       this.populateInputs_();
@@ -138,6 +139,7 @@ class UserValues extends HTMLElement {
    * Updates 'result' element after calculating all values.
    */
   private updateResult_(): void {
+    // Collect all input values.
     const values = {};
     UserInputs.forEach((field) => {
       const el = <HTMLInputElement>this.querySelector(`[name=${field.name}]`);
@@ -146,9 +148,38 @@ class UserValues extends HTMLElement {
       }
     });
 
+    // TODO: Update UI for 'sex' value.
+    // Create new object for passing into calculator.
+    const data = {
+      age: values['age'],
+      height: (values['feet'] * 12) + values['inches'],
+      sex: 'male',
+      weight: values['weight'],
+    }
+
+    const bmr = this.calculator_.basalMetabolicRate(data);
+    const bmi = this.calculator_.bodyMassIndex(data);
+
+    // TODO: Update UI for 'level' and 'loss' values.
+    const goals = {
+      bmr,
+      level: 'Lightly active',
+      loss: '2 lbs.',
+    };
+    const tdc = this.calculator_.totalDailyCalories(goals);
+
+    const result = `
+      ${goals.level} activity level<br>
+      Lose ${goals.loss} per week<br>
+      <br>
+      <b>${tdc.toFixed(0)}</b> Total Daily Calories<br>
+      <br>
+      ${bmi.toFixed(1)} Body Mass Index<br>
+      ${bmr.toFixed(0)} Basal Metabolic Rate<br>
+    `;
+
     if (this.querySelectorAll(':invalid').length === 0) {
-      // TODO:
-      // this.resultEl_.textContent = result;
+      this.resultEl_.innerHTML = result;
       this.resultEl_.removeAttribute(EMPTY_ATTR);
       localStorage.setItem(LOCAL_STORAGE, JSON.stringify(values));
     } else {

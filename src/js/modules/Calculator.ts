@@ -1,4 +1,4 @@
-import {ACTIVITY} from './Constants';
+import {ACTIVITY, WEEKLY_LOSS} from './Constants';
 
 interface Stats {
   age: number,
@@ -7,11 +7,11 @@ interface Stats {
   weight: number,
 }
 
-const WEEKLY_LOSS = new Map();
-WEEKLY_LOSS.set('1/2 lb.', 250);
-WEEKLY_LOSS.set('1 lb.', 500);
-WEEKLY_LOSS.set('1 1/2 lbs.', 750);
-WEEKLY_LOSS.set('2 lbs.', 1000);
+interface Goal {
+  bmr: number,
+  level: string,
+  loss?: string,
+}
 
 class Calculator {
   /** Harris-Benedict formula. */
@@ -23,14 +23,12 @@ class Calculator {
     return (sex === 'male') ? male : female;
   }
 
-  public bodyMassIndex(stats: Stats): string {
-    const {height, weight} = stats;
-    const result = (weight * 703) / (height ** 2);
-
-    return result.toFixed(1);
+  public bodyMassIndex(stats: Stats): number {
+    return (stats.weight * 703) / (stats.height ** 2);
   }
 
-  public totalDailyCalories(bmr: number, level: string, loss: string = null): number {
+  public totalDailyCalories(goal: Goal): number {
+    const {bmr, level, loss} = goal;
     const activity = ACTIVITY.find(item => item.label === level);
     const total = (bmr * activity.multiplier);
 

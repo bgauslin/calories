@@ -3,6 +3,7 @@ import {Utils} from './Utils';
 enum CssClass {
   CONTENT = 'content',
   HEADER = 'header__frame',
+  NO_JS = 'content--no-js',
 }
 
 class App {
@@ -37,7 +38,8 @@ class App {
    */
   private updateContent_(): void {
     const contentEl = document.querySelector(`.${CssClass.CONTENT}`);
-    contentEl.innerHTML += '<user-values class="user-values"></user-values>';
+    contentEl.classList.remove(CssClass.NO_JS);
+    contentEl.innerHTML = '<user-values class="user-values"></user-values>';
   }
 
   /**
