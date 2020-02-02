@@ -190,11 +190,7 @@ class UserValues extends HTMLElement {
       goal,
     });
 
-    const result = `
-      ${bmi.toFixed(1)} Body Mass Index<br>
-      ${bmr.toFixed(0)} Basal Metabolic Rate<br>
-      ${tdc.toFixed(0)} Total Daily Calories
-    `;
+    const result = `${tdc.toFixed(0)} Total Daily Calories`;
 
     if (this.querySelectorAll(':invalid').length === 0) {
       this.resultEl_.innerHTML = result;
