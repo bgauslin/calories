@@ -120,7 +120,7 @@ class UserValues extends HTMLElement {
     let allHtml = '';
     buttons.forEach((button, index) => {
       const {description, label, value} = button;
-      const desc = description ? ` <span>(${description})</span>` : '';
+      const desc = description ? ` <span class="description">(${description})</span>` : '';
       const checked = (index === 0) ? ' checked' : '';
       const html = `\
         <dd id="" class="values__item">\
@@ -145,41 +145,37 @@ class UserValues extends HTMLElement {
   private populateInputs_(): void {
     const values = JSON.parse(this.userValues_);
     this.allFieldNames_.forEach((name) => {
-      const inputEl = <HTMLInputElement>this.querySelector(`[name=${name}]`);
-      switch (inputEl.type) {
-        case 'number':
-        case 'text':
-          inputEl.value = values[name];
-          break;
-        case 'radio':
-          inputEl.checked = true;
-          break;
-      }
+      const inputEls = this.querySelectorAll(`[name=${name}]`);
+      
+      inputEls.forEach((el: HTMLInputElement) => {
+        switch (el.type) {
+          case 'number':
+          case 'text':
+            el.value = values[name];
+            break;
+          case 'radio':
+            el.checked = (el.value === values[name]);
+            break;
+        }
+      });
     });
   }
 
   /**
-   * Updates 'result' element after calculating all values.
+   * Updates 'result' element after getting all values and passing them into
+   * the BMR, BMI, and TDC formulas.
    */
   private updateResult_(): void {
-    // TODO: Use formData() here to collect all values.
-    // https://developer.mozilla.org/en-US/docs/Web/API/FormData/FormData
-
+    const formData = new FormData(this.querySelector('form'));
     const values = {};
-    this.allFieldNames_.forEach((name) => {
-      const el = <HTMLInputElement>this.querySelector(`[name=${name}]`);
-      if (el.value || el.checked) {
-        values[name] = el.value;
-      }
-    });
+    this.allFieldNames_.forEach((name) => values[name] = formData.get(name));
 
-    // Create new objects for passing into formulas.
     const metrics = {
       age: Number(values['age']),
       height: Number(values['feet'] * 12) + Number(values['inches']),
       sex: values['sex'],
       weight: Number(values['weight']),
-    }
+    };
 
     const activityLevel = ActivityLevel.find(level => values['activity'] === level.value);
     const goalLevel = WeightGoal.find(level => values['goal'] === level.value);
