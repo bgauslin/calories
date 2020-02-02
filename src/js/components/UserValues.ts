@@ -3,8 +3,8 @@ import {ActivityLevel, InputNumber, InputRadio, Metrics, Sex, WeightGoal} from '
 
 const EMPTY_ATTR: string = 'empty';
 const LOCAL_STORAGE: string = 'values';
+const RESULT_LABEL: string = 'Total Daily Calories';
 
-// CSS classnames for DOM elements.
 enum CssClass {
   RESULT = 'result',
   VALUES = 'values',
@@ -17,17 +17,17 @@ enum FieldName {
 }
 
 class UserValues extends HTMLElement {
-  allFieldNames_: string[];
+  allFields_: string[];
+  formEl_: HTMLFormElement;
   formulas_: Formulas;
   resultEl_: HTMLElement;
-  userValues_: string;
-  valuesEl_: HTMLElement;
+  storage_: string;
 
   constructor() {
     super();
 
     this.formulas_ = new Formulas();
-    this.userValues_ = localStorage.getItem(LOCAL_STORAGE);
+    this.storage_ = localStorage.getItem(LOCAL_STORAGE);
 
     this.addEventListener('keyup', () => this.updateResult_());
     this.addEventListener('change', () => this.updateResult_());
@@ -47,7 +47,7 @@ class UserValues extends HTMLElement {
    */
   private setup_(): void {
     const html = `\
-      <form id="user-values">\
+      <form>\
         <dl class="${CssClass.VALUES}">\
           <dt>Metrics</dt>
           ${this.radioButtons_(FieldName.SEX, Sex)}
@@ -67,17 +67,18 @@ class UserValues extends HTMLElement {
 
     this.innerHTML = html.replace(/\s\s/g, '');
 
+    this.formEl_ = this.querySelector('form');
     this.resultEl_ = this.querySelector(`.${CssClass.RESULT}`);
-    this.valuesEl_ = this.querySelector(`.${CssClass.VALUES}`);
 
-    // Map all fields to new array to simplify subsequent loops.
+    // Place all fields in an array to simplify looping.
     const metricsFieldNames = Metrics.map(field => field.name);
-    this.allFieldNames_ = [
+    this.allFields_ = [
       ...metricsFieldNames,
       ...Object.values(FieldName),
     ];
 
-    if (this.userValues_) {
+    // Render user data on page load if it exists.
+    if (this.storage_) {
       this.populateInputs_();
       this.updateResult_();
     }
@@ -141,18 +142,18 @@ class UserValues extends HTMLElement {
    * element with its corresponding user value.
    */
   private populateInputs_(): void {
-    const values = JSON.parse(this.userValues_);
-    this.allFieldNames_.forEach((name) => {
+    const stored = JSON.parse(this.storage_);
+    this.allFields_.forEach((name) => {
       const inputEls = this.querySelectorAll(`[name=${name}]`);
       
       inputEls.forEach((el: HTMLInputElement) => {
         switch (el.type) {
           case 'number':
           case 'text':
-            el.value = values[name];
+            el.value = stored[name];
             break;
           case 'radio':
-            el.checked = (el.value === values[name]);
+            el.checked = (el.value === stored[name]);
             break;
         }
       });
@@ -164,9 +165,9 @@ class UserValues extends HTMLElement {
    * the BMR, BMI, and TDC formulas.
    */
   private updateResult_(): void {
-    const formData = new FormData(this.querySelector('form'));
     const values = {};
-    this.allFieldNames_.forEach((name) => values[name] = formData.get(name));
+    const formData = new FormData(this.formEl_);
+    this.allFields_.forEach((name) => values[name] = formData.get(name));
 
     const metrics = {
       age: Number(values['age']),
@@ -175,23 +176,26 @@ class UserValues extends HTMLElement {
       weight: Number(values['weight']),
     };
 
+    // Get BMR and BMI based on metrics.
+    const bmr = this.formulas_.basalMetabolicRate(metrics);
+    // const bmi = this.formulas_.bodyMassIndex(metrics);
+
+    // Get factors based on selected values for calculating calorie needs.
     const activityLevel = ActivityLevel.find(level => values['activity'] === level.value);
     const goalLevel = WeightGoal.find(level => values['goal'] === level.value);
     const activity = activityLevel.factor;
     const goal = goalLevel.factor;
 
-    const bmi = this.formulas_.bodyMassIndex(metrics);
-    const bmr = this.formulas_.basalMetabolicRate(metrics);
+    // Get calorie needs.
     const tdc = this.formulas_.totalDailyCalories({
       activity,
       bmr,
       goal,
     });
 
-    const result = `${tdc.toFixed(0)} Total Daily Calories`;
-
+    // Display and save the result when all fields are filled in or selected.
     if (this.querySelectorAll(':invalid').length === 0) {
-      this.resultEl_.innerHTML = result;
+      this.resultEl_.innerHTML = `${tdc.toFixed(0)} ${RESULT_LABEL}`;
       this.resultEl_.removeAttribute(EMPTY_ATTR);
       localStorage.setItem(LOCAL_STORAGE, JSON.stringify(values));
     } else {
