@@ -19,7 +19,6 @@ enum FieldName {
 class UserValues extends HTMLElement {
   allFieldNames_: string[];
   formulas_: Formulas;
-  observer_: MutationObserver;
   resultEl_: HTMLElement;
   userValues_: string;
   valuesEl_: HTMLElement;
@@ -28,7 +27,6 @@ class UserValues extends HTMLElement {
     super();
 
     this.formulas_ = new Formulas();
-    this.observer_ = new MutationObserver(() => this.updateResult_());
     this.userValues_ = localStorage.getItem(LOCAL_STORAGE);
 
     this.addEventListener('keyup', () => this.updateResult_());
@@ -40,8 +38,8 @@ class UserValues extends HTMLElement {
   }
 
   disconnectedCallback(): void {
-    this.observer_.disconnect();
     this.removeEventListener('keyup', null);
+    this.removeEventListener('change', null);
   }
 
   /**
