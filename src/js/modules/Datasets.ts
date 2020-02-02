@@ -1,20 +1,18 @@
-interface InputAttributes {
-  inputmode: string,
+interface InputNumber {
   label: string,
   max: number,
-  min?: number,
+  min: number,
   name: string,
   pattern: string,
-  type: string,
 }
 
-interface RadioButtonAttributes {
+interface InputRadio {
   description?: string,
   label: string,
   value: number|string,
 }
 
-const ActivityLevel: RadioButtonAttributes[] = [
+const ActivityLevel: InputRadio[] = [
   {
     description: 'No exercise',
     label: 'Sedentary',
@@ -37,7 +35,7 @@ const ActivityLevel: RadioButtonAttributes[] = [
   },
 ];
 
-const Sex: RadioButtonAttributes[] = [
+const Sex: InputRadio[] = [
   {
     label: 'Male',
     value: 'male',
@@ -48,46 +46,38 @@ const Sex: RadioButtonAttributes[] = [
   },
 ];
 
-// TODO: Rename this to something like 'Metrics'.
-const UserInputs: InputAttributes[] = [
+const Metrics: InputNumber[] = [
   {
-    inputmode: 'decimal',
     label: 'Weight',
     max: 300,
+    min: 0,
     name: 'weight',
     pattern: '[0-9]{0,3}[\\.]?[0-9]{1}',
-    type: 'number',
   },
   {
-    inputmode: 'decimal',
     label: 'Feet',
     max: 7,
     min: 3,
     name: 'feet',
     pattern: '[3-7]',
-    type: 'number',
   },
   {
-    inputmode: 'decimal',
     label: 'Inches',
     max: 11,
     min: 0,
     name: 'inches',
     pattern: '[0-9]{0,1}[0-1]{1}',
-    type: 'number',
   },
   {
-    inputmode: 'decimal',
     label: 'Age',
     max: 100,
     min: 1,
     name: 'age',
     pattern: '[0-9]+',
-    type: 'number',
   }
 ];
 
-const WeightGoal: RadioButtonAttributes[] = [
+const WeightGoal: InputRadio[] = [
   {
     label: 'Maintain weight',
     value: 0,
@@ -112,9 +102,9 @@ const WeightGoal: RadioButtonAttributes[] = [
 
 export {
   ActivityLevel,
-  InputAttributes,
-  RadioButtonAttributes,
+  InputNumber,
+  InputRadio,
+  Metrics,
   Sex,
-  UserInputs,
   WeightGoal,
 };
