@@ -1,7 +1,7 @@
 interface CalorieNeeds {
-  activity: string,
+  activity: number,
   bmr: number,
-  goal: string,
+  goal: number,
 }
 
 interface Stats {
@@ -55,7 +55,7 @@ class Formulas {
    */
   public totalDailyCalories(userData: CalorieNeeds): number {
     const {bmr, activity, goal} = userData;
-    return (bmr * Number(activity)) - Number(goal);
+    return (bmr * activity) - goal;
   }
 
   /**

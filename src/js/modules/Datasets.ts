@@ -8,41 +8,35 @@ interface InputNumber {
 
 interface InputRadio {
   description?: string,
+  factor?: number,
   label: string,
-  value: number|string,
+  value: string,
 }
 
 const ActivityLevel: InputRadio[] = [
   {
     description: 'No exercise',
+    factor: 1.2,
     label: 'Sedentary',
-    value: 1.2,
+    value: '0',
   },
   {
     description: 'Exercise 1-3 days a week',
+    factor: 1.375,
     label: 'Lightly active',
-    value: 1.375,
+    value: '1',
   },
   {
     description: 'Exercise 3-5 days a week',
+    factor: 1.55,
     label: 'Moderately active',
-    value: 1.55,
+    value: '2',
   },
   {
     description: 'Exercise 6-7 days a week',
+    factor: 1.725,
     label: 'Very active',
-    value: 1.725,
-  },
-];
-
-const Sex: InputRadio[] = [
-  {
-    label: 'Male',
-    value: 'male',
-  },
-  {
-    label: 'Female',
-    value: 'female',
+    value: '3',
   },
 ];
 
@@ -77,26 +71,42 @@ const Metrics: InputNumber[] = [
   }
 ];
 
+const Sex: InputRadio[] = [
+  {
+    label: 'Male',
+    value: 'male',
+  },
+  {
+    label: 'Female',
+    value: 'female',
+  },
+];
+
 const WeightGoal: InputRadio[] = [
   {
+    factor: 0,
     label: 'Maintain weight',
-    value: 0,
+    value: '0',
   },
   {
+    factor: 250,
     label: 'Lose 1/2 lb. per week',
-    value: 250,
+    value: '1',
   },
   {
+    factor: 500,
     label: 'Lose 1 lb. per week',
-    value: 500,
+    value: '2',
   },
   {
+    factor: 750,
     label: 'Lose 1 1/2 lbs. per week',
-    value: 750,
+    value: '3',
   },
   {
+    factor: 1000,
     label: 'Lose 2 lbs. per week',
-    value: 1000,
+    value: '4',
   },
 ];
 

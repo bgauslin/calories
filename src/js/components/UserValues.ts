@@ -49,20 +49,22 @@ class UserValues extends HTMLElement {
    */
   private setup_(): void {
     const html = `\
-      <dl class="${CssClass.VALUES}">\
-        <dt>Metrics</dt>
-        ${this.radioButtons_(FieldName.SEX, Sex)}
-        ${this.numberInputs_(Metrics)}\
-      </dl>\
-      <dl class="${CssClass.VALUES}">\
-        <dt>Activity Level</dt>
-        ${this.radioButtons_(FieldName.ACTIVITY, ActivityLevel)}
-      </dl>\
-      <dl class="${CssClass.VALUES}">\
-        <dt>Weight Goal</dt>
-        ${this.radioButtons_(FieldName.GOAL, WeightGoal)}\
-      </dl>\
-      <div class="${CssClass.RESULT}"></div>\
+      <form id="user-values">\
+        <dl class="${CssClass.VALUES}">\
+          <dt>Metrics</dt>
+          ${this.radioButtons_(FieldName.SEX, Sex)}
+          ${this.numberInputs_(Metrics)}\
+        </dl>\
+        <dl class="${CssClass.VALUES}">\
+          <dt>Activity Level</dt>
+          ${this.radioButtons_(FieldName.ACTIVITY, ActivityLevel)}
+        </dl>\
+        <dl class="${CssClass.VALUES}">\
+          <dt>Weight Goal</dt>
+          ${this.radioButtons_(FieldName.GOAL, WeightGoal)}\
+        </dl>\
+        <div class="${CssClass.RESULT}"></div>\
+      </form>\
     `;
 
     this.innerHTML = html.replace(/\s\s/g, '');
@@ -74,9 +76,7 @@ class UserValues extends HTMLElement {
     const metricsFieldNames = Metrics.map(field => field.name);
     this.allFieldNames_ = [
       ...metricsFieldNames,
-      FieldName.ACTIVITY,
-      FieldName.GOAL,
-      FieldName.SEX,
+      ...Object.values(FieldName),
     ];
 
     if (this.userValues_) {
@@ -163,6 +163,7 @@ class UserValues extends HTMLElement {
    */
   private updateResult_(): void {
     // TODO: Use formData() here to collect all values.
+    // https://developer.mozilla.org/en-US/docs/Web/API/FormData/FormData
 
     const values = {};
     this.allFieldNames_.forEach((name) => {
@@ -180,17 +181,18 @@ class UserValues extends HTMLElement {
       weight: Number(values['weight']),
     }
 
-    const activity = values['activity'];
-    const bmr = this.formulas_.basalMetabolicRate(metrics);
-    const goal = values['goal'];
+    const activityLevel = ActivityLevel.find(level => values['activity'] === level.value);
+    const goalLevel = WeightGoal.find(level => values['goal'] === level.value);
+    const activity = activityLevel.factor;
+    const goal = goalLevel.factor;
 
+    const bmi = this.formulas_.bodyMassIndex(metrics);
+    const bmr = this.formulas_.basalMetabolicRate(metrics);
     const tdc = this.formulas_.totalDailyCalories({
       activity,
       bmr,
       goal,
     });
-
-    const bmi = this.formulas_.bodyMassIndex(metrics);
 
     const result = `
       ${bmi.toFixed(1)} Body Mass Index<br>
