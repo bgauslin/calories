@@ -1,3 +1,9 @@
+interface CalorieNeeds {
+  activity: string,
+  bmr: number,
+  goal: string,
+}
+
 interface Stats {
   age: number,
   height: number,
@@ -5,17 +11,10 @@ interface Stats {
   weight: number,
 }
 
-interface FinalResult {
-  activity: string,
-  bmr: number,
-  goal: string,
-}
-
 class Formulas {
   /**
-   * Basal Metabolic Rate (BMR) formulas as found at
-   * https://www.freedieting.com/calorie-needs
-   **/ 
+   * Basal Metabolic Rate (BMR) formulas per https://www.freedieting.com/calorie-needs
+   */ 
   public basalMetabolicRate(stats: Stats, formulaName: string = 'Mifflin-StJeor', bodyFatPercentage?: number): number {
     const {age, height, sex, weight} = stats;
     let formula: number;
@@ -54,7 +53,7 @@ class Formulas {
    * Returns total daily calorie needs based on BMR, activity level, and
    * weight loss goal.
    */
-  public totalDailyCalories(userData: FinalResult): number {
+  public totalDailyCalories(userData: CalorieNeeds): number {
     const {bmr, activity, goal} = userData;
     return (bmr * Number(activity)) - Number(goal);
   }
@@ -63,7 +62,7 @@ class Formulas {
    * Returns Imperial weight converted to metric weight.
    */
   private kg_(pounds: number): number {
-    return (pounds * 2.2);
+    return (pounds / 2.2);
   }
 
   /**

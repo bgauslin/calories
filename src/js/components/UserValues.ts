@@ -1,5 +1,5 @@
 import {Formulas} from '../modules/Formulas';
-import {ActivityLevel, InputNumber, Metrics, InputRadio, Sex, WeightGoal} from '../modules/Datasets';
+import {ActivityLevel, InputNumber, InputRadio, Metrics, Sex, WeightGoal} from '../modules/Datasets';
 
 const EMPTY_ATTR: string = 'empty';
 const LOCAL_STORAGE: string = 'values';
@@ -10,7 +10,14 @@ enum CssClass {
   VALUES = 'values',
 }
 
+enum FieldName {
+  ACTIVITY = 'activity',
+  GOAL = 'goal',
+  SEX = 'sex',
+}
+
 class UserValues extends HTMLElement {
+  allFieldNames_: string[];
   formulas_: Formulas;
   observer_: MutationObserver;
   resultEl_: HTMLElement;
@@ -25,6 +32,7 @@ class UserValues extends HTMLElement {
     this.userValues_ = localStorage.getItem(LOCAL_STORAGE);
 
     this.addEventListener('keyup', () => this.updateResult_());
+    this.addEventListener('change', () => this.updateResult_());
   }
 
   connectedCallback(): void {
@@ -43,16 +51,16 @@ class UserValues extends HTMLElement {
     const html = `\
       <dl class="${CssClass.VALUES}">\
         <dt>Metrics</dt>
-        ${this.radioButtons_('sex', Sex)}
+        ${this.radioButtons_(FieldName.SEX, Sex)}
         ${this.numberInputs_(Metrics)}\
       </dl>\
       <dl class="${CssClass.VALUES}">\
         <dt>Activity Level</dt>
-        ${this.radioButtons_('activity', ActivityLevel)}
+        ${this.radioButtons_(FieldName.ACTIVITY, ActivityLevel)}
       </dl>\
       <dl class="${CssClass.VALUES}">\
         <dt>Weight Goal</dt>
-        ${this.radioButtons_('goal', WeightGoal)}\
+        ${this.radioButtons_(FieldName.GOAL, WeightGoal)}\
       </dl>\
       <div class="${CssClass.RESULT}"></div>\
     `;
@@ -61,6 +69,15 @@ class UserValues extends HTMLElement {
 
     this.resultEl_ = this.querySelector(`.${CssClass.RESULT}`);
     this.valuesEl_ = this.querySelector(`.${CssClass.VALUES}`);
+
+    // Map all fields to new array to simplify subsequent loops.
+    const metricsFieldNames = Metrics.map(field => field.name);
+    this.allFieldNames_ = [
+      ...metricsFieldNames,
+      FieldName.ACTIVITY,
+      FieldName.GOAL,
+      FieldName.SEX,
+    ];
 
     if (this.userValues_) {
       this.populateInputs_();
@@ -78,7 +95,16 @@ class UserValues extends HTMLElement {
       const html = `\
         <dd id="${name}" class="values__item">\
           <label for="${name}" class="values__label">${label}</label>\
-          <input class="values__input" type="number" name="${name}" inputmode="decimal" ${min} ${max} ${pattern} aria-label="${label}" required>\
+          <input \
+            class="values__input" \
+            name="${name}" \
+            type="number" \
+            inputmode="decimal" \
+            min="${min}" \
+            max="${max}" \
+            pattern="${pattern}" \
+            aria-label="${label}" \
+            required>\
         </dd>\
       `;
       allHtml += html;
@@ -98,8 +124,11 @@ class UserValues extends HTMLElement {
       const checked = (index === 0) ? ' checked' : '';
       const html = `\
         <dd id="" class="values__item">\
-          <input type="radio" name="${name}" value="${value}"${checked}>
-            ${label}${desc}
+          <label>
+            <input \
+              type="radio" \
+              name="${name}" \
+              value="${value}"${checked}> ${label}${desc}
           </label>\
         </dd>\
       `;
@@ -115,9 +144,17 @@ class UserValues extends HTMLElement {
    */
   private populateInputs_(): void {
     const values = JSON.parse(this.userValues_);
-    Metrics.forEach((field) => {
-      const inputEl = <HTMLInputElement>this.querySelector(`[name=${field.name}]`);
-      inputEl.value = values[field.name];
+    this.allFieldNames_.forEach((name) => {
+      const inputEl = <HTMLInputElement>this.querySelector(`[name=${name}]`);
+      switch (inputEl.type) {
+        case 'number':
+        case 'text':
+          inputEl.value = values[name];
+          break;
+        case 'radio':
+          inputEl.checked = true;
+          break;
+      }
     });
   }
 
@@ -125,45 +162,31 @@ class UserValues extends HTMLElement {
    * Updates 'result' element after calculating all values.
    */
   private updateResult_(): void {
-    // Collect all text/number input values.
-    const values = {};
+    // TODO: Use formData() here to collect all values.
 
-    // TODO: refactor this loop to include radio button values.
-    Metrics.forEach((field) => {
-      const el = <HTMLInputElement>this.querySelector(`[name=${field.name}]`);
-      if (el.value) {
-        values[field.name] = Number(el.value);
+    const values = {};
+    this.allFieldNames_.forEach((name) => {
+      const el = <HTMLInputElement>this.querySelector(`[name=${name}]`);
+      if (el.value || el.checked) {
+        values[name] = el.value;
       }
     });
 
-    // TODO: Include these in the loop above.
-    // Collect all radio button values.
-    const activityEl = <HTMLInputElement>this.querySelector('[name=activity]');
-    const goalEl = <HTMLInputElement>this.querySelector('[name=goal]');
-    const sexEl = <HTMLInputElement>this.querySelector('[name=sex]');
-
-    const activity = activityEl.value;
-    const goal = goalEl.value;
-    const sex = sexEl.value;
-
-    values['activity'] = activity;
-    values['goal'] = goal;
-    values['sex'] = sex;
-
-    // TODO: Update UI for 'sex' value.
-    // Create new object for passing into calculator.
+    // Create new objects for passing into formulas.
     const metrics = {
-      age: values['age'],
-      height: (values['feet'] * 12) + values['inches'],
+      age: Number(values['age']),
+      height: Number(values['feet'] * 12) + Number(values['inches']),
       sex: values['sex'],
-      weight: values['weight'],
+      weight: Number(values['weight']),
     }
 
+    const activity = values['activity'];
     const bmr = this.formulas_.basalMetabolicRate(metrics);
+    const goal = values['goal'];
 
     const tdc = this.formulas_.totalDailyCalories({
-      bmr,
       activity,
+      bmr,
       goal,
     });
 
