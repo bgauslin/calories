@@ -1,57 +1,8 @@
 import {Calculator} from '../modules/Calculator';
-
-interface InputAttributes {
-  inputmode: string,
-  label: string,
-  max: number,
-  min?: number,
-  name: string,
-  pattern: string,
-  type: string,
-}
+import {ActivityLevel, InputAttributes, RadioButtonAttributes, Sex, UserInputs, WeightGoal} from '../modules/Datasets';
 
 const EMPTY_ATTR: string = 'empty';
-
 const LOCAL_STORAGE: string = 'values';
-
-const UserInputs: InputAttributes[] = [
-  {
-    inputmode: 'decimal',
-    label: 'Weight',
-    max: 300,
-    name: 'weight',
-    pattern: '[0-9]{0,3}[\\.]?[0-9]{1}',
-    type: 'number',
-  },
-  {
-    inputmode: 'decimal',
-    label: 'Feet',
-    max: 7,
-    min: 3,
-    name: 'feet',
-    pattern: '[3-7]',
-    type: 'number',
-  },
-  {
-    inputmode: 'decimal',
-    label: 'Inches',
-    max: 11,
-    min: 0,
-    name: 'inches',
-    pattern: '[0-9]{0,1}[0-1]{1}',
-    type: 'number',
-  },
-  {
-    inputmode: 'decimal',
-    label: 'Age',
-    max: 100,
-    min: 1,
-    name: 'age',
-    pattern: '[0-9]+',
-    type: 'number',
-  }
-];
-
 
 // CSS classnames for DOM elements.
 enum CssClass {
@@ -89,38 +40,78 @@ class UserValues extends HTMLElement {
    * Creates DOM elements and populates them if there are stored user values.
    */
   private setup_(): void {
-    let valuesHtml = '';
-    UserInputs.forEach((el, index) => {
-      const autofocus = (index === 0) ? 'autofocus' : '';
-      const min = el.min ? `min="${el.min}"` : '';
-      const max = el.max ? `max="${el.max}"` : '';
-      const pattern = el.pattern ? `pattern="${el.pattern}"` : '';
-
-      const input = `\
-        <li id="${el.name}" class="values__item">\
-          <label for="${el.name}" class="values__label">${el.label}</label>\
-          <input class="values__input" type="${el.type}" name="${el.name}" inputmode="${el.inputmode}" ${min} ${max} ${pattern} aria-label="${el.label}" required ${autofocus}>\
-        </li>\
-      `;
-      valuesHtml += input;
-    });
-
+    // TODO: Render weekly loss and activity...
     const html = `\
-      <ul class="${CssClass.LIST}">\
-        ${valuesHtml}\
-      </ul>\
+      <dl class="${CssClass.VALUES}">\
+        <dt>Metrics</dt>
+        ${this.radioButtons_('sex', Sex)}
+        ${this.textInputs_(UserInputs)}\
+      </dl>\
+      <dl class="${CssClass.VALUES}">\
+        <dt>Activity Level</dt>
+        ${this.radioButtons_('activity', ActivityLevel)}
+      </dl>\
+      <dl class="${CssClass.VALUES}">\
+        <dt>Weight Goal</dt>
+        ${this.radioButtons_('goal', WeightGoal)}\
+      </dl>\
       <div class="${CssClass.RESULT}"></div>\
     `;
 
     this.innerHTML = html.replace(/\s\s/g, '');
 
-    this.valuesEl_ = this.querySelector(`.${CssClass.LIST}`);
     this.resultEl_ = this.querySelector(`.${CssClass.RESULT}`);
+    this.valuesEl_ = this.querySelector(`.${CssClass.VALUES}`);
 
     if (this.userValues_) {
       this.populateInputs_();
       this.updateResult_();
     }
+  }
+
+  /**
+   * Returns rendered input fields.
+   */
+  private textInputs_(inputs: InputAttributes[]): string {
+    let allHtml = '';
+    inputs.forEach((input, index) => {
+      const autofocus = (index === 0) ? 'autofocus' : '';
+      const min = input.min ? `min="${input.min}"` : '';
+      const max = input.max ? `max="${input.max}"` : '';
+      const pattern = input.pattern ? `pattern="${input.pattern}"` : '';
+
+      const html = `\
+        <dd id="${input.name}" class="values__item">\
+          <label for="${input.name}" class="values__label">${input.label}</label>\
+          <input class="values__input" type="${input.type}" name="${input.name}" inputmode="${input.inputmode}" ${min} ${max} ${pattern} aria-label="${input.label}" required ${autofocus}>\
+        </dd>\
+      `;
+      allHtml += html;
+    });
+
+    return allHtml;
+  }
+
+  /**
+   * Returns rendered radio buttons.
+   */
+  private radioButtons_(name: string, buttons: RadioButtonAttributes[]): string {
+    let allHtml = '';
+    buttons.forEach((button, index) => {
+      const {description, label, value} = button;
+      const desc = description ? ` <span>(${description})</span>` : '';
+      const checked = (index === 0) ? ' checked' : '';
+      const html = `\
+        <dd id="" class="values__item">\
+          <input type="radio" name="${name}" value="${value}"${checked}>
+            ${label}${desc}
+          </label>\
+        </dd>\
+      `;
+      allHtml += html;
+    });
+
+    return allHtml;
   }
 
   /**
@@ -139,8 +130,10 @@ class UserValues extends HTMLElement {
    * Updates 'result' element after calculating all values.
    */
   private updateResult_(): void {
-    // Collect all input values.
+    // Collect all text/number input values.
     const values = {};
+
+    // TODO: refactor this loop to include radio button values.
     UserInputs.forEach((field) => {
       const el = <HTMLInputElement>this.querySelector(`[name=${field.name}]`);
       if (el.value) {
@@ -148,34 +141,43 @@ class UserValues extends HTMLElement {
       }
     });
 
+    // TODO: Include these in the loop above.
+    // Collect all radio button values.
+    const activityEl = <HTMLInputElement>this.querySelector('[name=activity]');
+    const goalEl = <HTMLInputElement>this.querySelector('[name=goal]');
+    const sexEl = <HTMLInputElement>this.querySelector('[name=sex]');
+
+    const activity = activityEl.value;
+    const goal = goalEl.value;
+    const sex = sexEl.value;
+
+    values['activity'] = activity;
+    values['goal'] = goal;
+    values['sex'] = sex;
+
     // TODO: Update UI for 'sex' value.
     // Create new object for passing into calculator.
-    const data = {
+    const metrics = {
       age: values['age'],
       height: (values['feet'] * 12) + values['inches'],
-      sex: 'male',
+      sex: values['sex'],
       weight: values['weight'],
     }
 
-    const bmr = this.calculator_.basalMetabolicRate(data);
-    const bmi = this.calculator_.bodyMassIndex(data);
+    const bmr = this.calculator_.basalMetabolicRate(metrics);
 
-    // TODO: Update UI for 'level' and 'loss' values.
-    const goals = {
+    const tdc = this.calculator_.totalDailyCalories({
       bmr,
-      level: 'Lightly active',
-      loss: '2 lbs.',
-    };
-    const tdc = this.calculator_.totalDailyCalories(goals);
+      activity,
+      goal,
+    });
+
+    const bmi = this.calculator_.bodyMassIndex(metrics);
 
     const result = `
-      ${goals.level} activity level<br>
-      Lose ${goals.loss} per week<br>
-      <br>
-      <b>${tdc.toFixed(0)}</b> Total Daily Calories<br>
-      <br>
       ${bmi.toFixed(1)} Body Mass Index<br>
       ${bmr.toFixed(0)} Basal Metabolic Rate<br>
+      ${tdc.toFixed(0)} Total Daily Calories
     `;
 
     if (this.querySelectorAll(':invalid').length === 0) {

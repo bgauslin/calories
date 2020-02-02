@@ -1,5 +1,3 @@
-import {ACTIVITY, WEEKLY_LOSS} from './Constants';
-
 interface Stats {
   age: number,
   height: number,
@@ -7,10 +5,10 @@ interface Stats {
   weight: number,
 }
 
-interface Goal {
+interface FinalResult {
+  activity: string,
   bmr: number,
-  level: string,
-  loss?: string,
+  goal: string,
 }
 
 class Calculator {
@@ -23,16 +21,19 @@ class Calculator {
     return (sex === 'male') ? male : female;
   }
 
+  /** Returns Body Mass index based on height and weight. */
   public bodyMassIndex(stats: Stats): number {
-    return (stats.weight * 703) / (stats.height ** 2);
+    const {height, weight} = stats;
+    return (weight * 703) / (height ** 2);
   }
 
-  public totalDailyCalories(goal: Goal): number {
-    const {bmr, level, loss} = goal;
-    const activity = ACTIVITY.find(item => item.label === level);
-    const total = (bmr * activity.multiplier);
-
-    return loss ? (total - WEEKLY_LOSS.get(loss)) : total;
+  /**
+   * Returns total daily calorie needs based on BMR, activity level, and
+   * weight loss goal.
+   */
+  public totalDailyCalories(userData: FinalResult): number {
+    const {bmr, activity, goal} = userData;
+    return (bmr * Number(activity)) - Number(goal);
   }
 }
 
