@@ -3,7 +3,7 @@ import {ActivityLevel, InputNumber, InputRadio, Metrics, Sex, WeightGoal} from '
 
 const EMPTY_ATTR: string = 'empty';
 const LOCAL_STORAGE: string = 'values';
-const RESULT_LABEL: string = 'Total Daily Calories';
+// const RESULT_LABEL: string = 'Total Daily Calories';
 
 enum CssClass {
   RESULT = 'result',
@@ -197,7 +197,7 @@ class UserValues extends HTMLElement {
 
     // Display and save the result when all fields are filled in or selected.
     if (this.querySelectorAll(':invalid').length === 0) {
-      this.resultEl_.innerHTML = `${tdc.toFixed(0)} ${RESULT_LABEL}`;
+      this.resultEl_.innerHTML = tdc.toFixed(0);
       this.resultEl_.removeAttribute(EMPTY_ATTR);
       localStorage.setItem(LOCAL_STORAGE, JSON.stringify(values));
     } else {
