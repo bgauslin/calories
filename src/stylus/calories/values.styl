@@ -1,0 +1,63 @@
+.user-values
+  margin 2rem
+
+.values
+  margin 0 0 2rem
+
+.values__heading
+  font-size 80%
+  letter-spacing .1em
+  margin 0 0 1rem
+  text-transform uppercase
+
+.values__item
+  align-items center
+  display flex
+  margin 0 0 .5rem
+  padding 0
+
+.values__item--sex
+  display inline-flex
+  margin 0 0 .75rem
+
+.values__item--sex:first-of-type::before
+  content 'Sex'
+
+.values__item--sex:not(:first-of-type)
+  margin-left 1rem
+
+.values__item--feet
+.values__item--inches
+  display inline-flex
+
+.values__item--feet::before
+  content 'Height'
+
+.values__item--feet > label
+.values__item--inches > label
+  margin 0 1rem 0 .375rem
+  opacity .5
+  order 2
+
+.values__label
+  align-items center
+  display flex
+
+.values__item--sex:first-of-type::before
+.values__item--feet::before
+.values__label--age
+.values__label--weight
+  width 5rem
+
+input[type=number]
+  font-size 1em
+  padding .25rem .5rem
+  text-align right
+  width 3rem
+
+.values__label__description
+  margin-left .5em
+  opacity .5
+
+.result
+  font-size 150%

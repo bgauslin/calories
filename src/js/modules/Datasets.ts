@@ -1,4 +1,5 @@
 interface InputNumber {
+  id: string,
   label: string,
   max: number,
   min: number,
@@ -9,39 +10,45 @@ interface InputNumber {
 interface InputRadio {
   description?: string,
   factor?: number,
+  id: string,
   label: string,
   value: string,
 }
 
 const ActivityLevel: InputRadio[] = [
   {
-    description: 'No exercise',
+    description: null,
     factor: 1.2,
+    id: 'level-0',
     label: 'Sedentary',
     value: '0',
   },
   {
-    description: 'Exercise 1-3 days a week',
+    description: '1-3 days a week',
     factor: 1.375,
-    label: 'Lightly active',
+    id: 'level-1',
+    label: 'Light',
     value: '1',
   },
   {
-    description: 'Exercise 3-5 days a week',
+    description: '3-5 days a week',
     factor: 1.55,
-    label: 'Moderately active',
+    id: 'level-2',
+    label: 'Moderate',
     value: '2',
   },
   {
-    description: 'Exercise 6-7 days a week',
+    description: '6-7 days a week',
     factor: 1.725,
-    label: 'Very active',
+    id: 'level-3',
+    label: 'High',
     value: '3',
   },
 ];
 
 const Metrics: InputNumber[] = [
   {
+    id: 'weight',
     label: 'Weight',
     max: 300,
     min: 0,
@@ -49,6 +56,7 @@ const Metrics: InputNumber[] = [
     pattern: '[0-9]{0,3}[\\.]?[0-9]{1}',
   },
   {
+    id: 'feet',
     label: 'Feet',
     max: 7,
     min: 3,
@@ -56,6 +64,7 @@ const Metrics: InputNumber[] = [
     pattern: '[3-7]',
   },
   {
+    id: 'inches',
     label: 'Inches',
     max: 11,
     min: 0,
@@ -63,6 +72,7 @@ const Metrics: InputNumber[] = [
     pattern: '[0-9]{0,1}[0-1]{1}',
   },
   {
+    id: 'age',
     label: 'Age',
     max: 100,
     min: 1,
@@ -73,10 +83,12 @@ const Metrics: InputNumber[] = [
 
 const Sex: InputRadio[] = [
   {
+    id: 'male',
     label: 'Male',
     value: 'male',
   },
   {
+    id: 'female',
     label: 'Female',
     value: 'female',
   },
@@ -85,27 +97,32 @@ const Sex: InputRadio[] = [
 const WeightGoal: InputRadio[] = [
   {
     factor: 0,
-    label: 'Maintain weight',
+    id: 'goal-0',
+    label: 'Maintenance',
     value: '0',
   },
   {
     factor: 250,
-    label: 'Lose 1/2 lb. per week',
+    id: 'goal-1',
+    label: '1/2 lb.',
     value: '1',
   },
   {
     factor: 500,
-    label: 'Lose 1 lb. per week',
+    id: 'goal-2',
+    label: '1 lb.',
     value: '2',
   },
   {
     factor: 750,
-    label: 'Lose 1 1/2 lbs. per week',
+    id: 'goal-3',
+    label: '1 1/2 lbs.',
     value: '3',
   },
   {
     factor: 1000,
-    label: 'Lose 2 lbs. per week',
+    id: 'goal-4',
+    label: '2 lbs.',
     value: '4',
   },
 ];

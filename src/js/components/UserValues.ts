@@ -48,17 +48,17 @@ class UserValues extends HTMLElement {
   private setup_(): void {
     const html = `\
       <form>\
-        <dl class="${CssClass.VALUES}">\
-          <dt>Metrics</dt>
+        <dl class="${CssClass.VALUES} ${CssClass.VALUES}--metrics">\
+          <dt class="${CssClass.VALUES}__heading">Metrics</dt>
           ${this.radioButtons_(FieldName.SEX, Sex)}
           ${this.numberInputs_(Metrics)}\
         </dl>\
-        <dl class="${CssClass.VALUES}">\
-          <dt>Activity Level</dt>
+        <dl class="${CssClass.VALUES} ${CssClass.VALUES}--activity">\
+          <dt class="${CssClass.VALUES}__heading">Activity Level</dt>
           ${this.radioButtons_(FieldName.ACTIVITY, ActivityLevel)}
         </dl>\
-        <dl class="${CssClass.VALUES}">\
-          <dt>Weight Goal</dt>
+        <dl class="${CssClass.VALUES} ${CssClass.VALUES}--loss">\
+          <dt class="${CssClass.VALUES}__heading">Weekly weight loss</dt>
           ${this.radioButtons_(FieldName.GOAL, WeightGoal)}\
         </dl>\
         <div class="${CssClass.RESULT}"></div>\
@@ -90,13 +90,14 @@ class UserValues extends HTMLElement {
   private numberInputs_(inputs: InputNumber[]): string {
     let allHtml = '';
     inputs.forEach((input) => {
-      const {label, max, min, name, pattern} = input;
+      const {id, label, max, min, name, pattern} = input;
       const html = `\
-        <dd id="${name}" class="values__item">\
-          <label for="${name}" class="values__label">${label}</label>\
+        <dd class="${CssClass.VALUES}__item ${CssClass.VALUES}__item--${name}">\
+          <label for="${id}" class="${CssClass.VALUES}__label ${CssClass.VALUES}__label--${name}">${label}</label>\
           <input \
             class="values__input" \
             name="${name}" \
+            id="${id}" \
             type="number" \
             inputmode="decimal" \
             min="${min}" \
@@ -118,15 +119,16 @@ class UserValues extends HTMLElement {
   private radioButtons_(name: string, buttons: InputRadio[]): string {
     let allHtml = '';
     buttons.forEach((button, index) => {
-      const {description, label, value} = button;
-      const desc = description ? ` <span class="description">(${description})</span>` : '';
+      const {description, id, label, value} = button;
+      const desc = description ? ` <span class="${CssClass.VALUES}__label__description">(${description})</span>` : '';
       const checked = (index === 0) ? ' checked' : '';
       const html = `\
-        <dd id="" class="values__item">\
-          <label>
+        <dd class="${CssClass.VALUES}__item ${CssClass.VALUES}__item--${name}">\
+          <label for="${id}" class="${CssClass.VALUES}__label ${CssClass.VALUES}__label--${name}">\
             <input \
               type="radio" \
               name="${name}" \
+              id="${id}" \
               value="${value}"${checked}> ${label}${desc}
           </label>\
         </dd>\
