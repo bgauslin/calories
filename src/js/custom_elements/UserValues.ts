@@ -49,10 +49,10 @@ class UserValues extends HTMLElement {
     const html = `\
       <form>\
         <dl class="${CssClass.VALUES} ${CssClass.VALUES}--metrics">\
+          ${this.numberInputs_(Metrics)}\
           <dd class="values__item values__item--sex">\
             ${this.radioButtons_(FieldName.SEX, Sex, false)}\
           </dd>\
-          ${this.numberInputs_(Metrics)}\
         </dl>\
         <dl class="${CssClass.VALUES} ${CssClass.VALUES}--activity">\
           <dt class="${CssClass.VALUES}__heading">\

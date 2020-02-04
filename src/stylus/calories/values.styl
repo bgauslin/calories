@@ -71,6 +71,12 @@
 .values__label--weight
   width 5rem
 
+[no-touch] .values__label--sex:hover
+[no-touch] .values__label--activity:hover
+[no-touch] .values__label--goal:hover
+  color var(--branding)
+  cursor pointer
+
 .values__input[type=number]
   font-size 1em
   text-align right
@@ -90,16 +96,25 @@
 
 input[type=number]
 input[type=radio] ~ span
+  border 2px solid transparent
   border-radius 4px
   padding .375rem .5rem
 
-input[type=number]
-input[type=radio]:checked ~ span
-  background rgba(black, .05)
-
+// [1] Disable pointer events on elements within radio button labels so that
+// iOS Safari can register a tap on the label.
 input[type=radio] ~ span
+  pointer-events none // [1]
   text-align center
   width 100%
+
+input[type=number]
+  background rgba(black, .05)
+
+input[type=number]:focus
+input[type=radio]:checked ~ span
+  background 0
+  border-color var(--branding)
+  color var(--branding)
 
 .result
   font-size 200%
