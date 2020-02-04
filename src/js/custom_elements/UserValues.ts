@@ -49,16 +49,21 @@ class UserValues extends HTMLElement {
     const html = `\
       <form>\
         <dl class="${CssClass.VALUES} ${CssClass.VALUES}--metrics">\
-          <dt class="${CssClass.VALUES}__heading">Metrics</dt>
-          ${this.radioButtons_(FieldName.SEX, Sex)}
+          <dd class="values__item values__item--sex">\
+            ${this.radioButtons_(FieldName.SEX, Sex, false)}\
+          </dd>\
           ${this.numberInputs_(Metrics)}\
         </dl>\
         <dl class="${CssClass.VALUES} ${CssClass.VALUES}--activity">\
-          <dt class="${CssClass.VALUES}__heading">Activity Level</dt>
+          <dt class="${CssClass.VALUES}__heading">\
+            Exercise <span>days per week</span>\
+          </dt>\
           ${this.radioButtons_(FieldName.ACTIVITY, ActivityLevel)}
         </dl>\
         <dl class="${CssClass.VALUES} ${CssClass.VALUES}--loss">\
-          <dt class="${CssClass.VALUES}__heading">Weekly weight loss</dt>
+          <dt class="${CssClass.VALUES}__heading">\
+            Weight loss <span>lbs. per week</span>\
+          </dt>\
           ${this.radioButtons_(FieldName.GOAL, WeightGoal)}\
         </dl>\
         <div class="${CssClass.RESULT}"></div>\
@@ -87,15 +92,22 @@ class UserValues extends HTMLElement {
   /**
    * Returns rendered input fields.
    */
-  private numberInputs_(inputs: InputNumber[]): string {
+  private numberInputs_(inputs: InputNumber[], tags: boolean = true): string {
     let allHtml = '';
+    let startTag: string = ''
+    let endTag: string = '';
+
     inputs.forEach((input) => {
       const {id, label, max, min, name, pattern} = input;
+      if (tags) {
+        startTag = `<dd class="${CssClass.VALUES}__item ${CssClass.VALUES}__item--${name}">`;
+        endTag = '</dd>';
+      }
       const html = `\
-        <dd class="${CssClass.VALUES}__item ${CssClass.VALUES}__item--${name}">\
+        ${startTag}\
           <label for="${id}" class="${CssClass.VALUES}__label ${CssClass.VALUES}__label--${name}">${label}</label>\
           <input \
-            class="values__input" \
+            class="values__input values__input--${name}" \
             name="${name}" \
             id="${id}" \
             type="number" \
@@ -105,7 +117,7 @@ class UserValues extends HTMLElement {
             pattern="${pattern}" \
             aria-label="${label}" \
             required>\
-        </dd>\
+        ${endTag}\
       `;
       allHtml += html;
     });
@@ -116,22 +128,32 @@ class UserValues extends HTMLElement {
   /**
    * Returns rendered radio buttons.
    */
-  private radioButtons_(name: string, buttons: InputRadio[]): string {
+  private radioButtons_(name: string, buttons: InputRadio[], tags: boolean = true): string {
     let allHtml = '';
+    let startTag: string = ''
+    let endTag: string = '';
+
+
     buttons.forEach((button, index) => {
       const {description, id, label, value} = button;
-      const desc = description ? ` <span class="${CssClass.VALUES}__label__description">(${description})</span>` : '';
       const checked = (index === 0) ? ' checked' : '';
+      // const desc = description ? ` <span class="${CssClass.VALUES}__label__description">(${description})</span>` : '';
+      if (tags) {
+        startTag = `<dd class="${CssClass.VALUES}__item ${CssClass.VALUES}__item--${name}">`;
+        endTag = '</dd>';
+      }
       const html = `\
-        <dd class="${CssClass.VALUES}__item ${CssClass.VALUES}__item--${name}">\
+        ${startTag}\
           <label for="${id}" class="${CssClass.VALUES}__label ${CssClass.VALUES}__label--${name}">\
             <input \
+              class="values__input values__input--${name}" \
               type="radio" \
               name="${name}" \
               id="${id}" \
-              value="${value}"${checked}> ${label}${desc}
+              value="${value}"${checked}>\
+              <span>${label}</span>\
           </label>\
-        </dd>\
+        ${endTag}\
       `;
       allHtml += html;
     });

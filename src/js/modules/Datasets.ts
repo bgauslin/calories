@@ -17,44 +17,36 @@ interface InputRadio {
 
 const ActivityLevel: InputRadio[] = [
   {
-    description: null,
+    description: 'Sedentary',
     factor: 1.2,
     id: 'level-0',
-    label: 'Sedentary',
+    label: '0',
     value: '0',
   },
   {
-    description: '1-3 days a week',
+    description: 'Lightly active',
     factor: 1.375,
     id: 'level-1',
-    label: 'Light',
+    label: '1–3',
     value: '1',
   },
   {
-    description: '3-5 days a week',
+    description: 'Moderately active',
     factor: 1.55,
     id: 'level-2',
-    label: 'Moderate',
+    label: '3–5',
     value: '2',
   },
   {
-    description: '6-7 days a week',
+    description: 'Highly active',
     factor: 1.725,
     id: 'level-3',
-    label: 'High',
+    label: '6–7',
     value: '3',
   },
 ];
 
 const Metrics: InputNumber[] = [
-  {
-    id: 'weight',
-    label: 'Weight',
-    max: 300,
-    min: 0,
-    name: 'weight',
-    pattern: '[0-9]{0,3}[\\.]?[0-9]{1}',
-  },
   {
     id: 'feet',
     label: 'Feet',
@@ -70,6 +62,14 @@ const Metrics: InputNumber[] = [
     min: 0,
     name: 'inches',
     pattern: '[0-9]{0,1}[0-1]{1}',
+  },
+  {
+    id: 'weight',
+    label: 'Weight',
+    max: 300,
+    min: 0,
+    name: 'weight',
+    pattern: '[0-9]{0,3}[\\.]?[0-9]{1}',
   },
   {
     id: 'age',
@@ -98,31 +98,31 @@ const WeightGoal: InputRadio[] = [
   {
     factor: 0,
     id: 'goal-0',
-    label: 'Maintenance',
+    label: '0',
     value: '0',
   },
   {
     factor: 250,
     id: 'goal-1',
-    label: '½ lb.',
+    label: '½',
     value: '1',
   },
   {
     factor: 500,
     id: 'goal-2',
-    label: '1 lb.',
+    label: '1',
     value: '2',
   },
   {
     factor: 750,
     id: 'goal-3',
-    label: '1½ lbs.',
+    label: '1½',
     value: '3',
   },
   {
     factor: 1000,
     id: 'goal-4',
-    label: '2 lbs.',
+    label: '2',
     value: '4',
   },
 ];
