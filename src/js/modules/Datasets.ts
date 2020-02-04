@@ -104,7 +104,7 @@ const WeightGoal: InputRadio[] = [
   {
     factor: 250,
     id: 'goal-1',
-    label: '1/2 lb.',
+    label: '½ lb.',
     value: '1',
   },
   {
@@ -116,7 +116,7 @@ const WeightGoal: InputRadio[] = [
   {
     factor: 750,
     id: 'goal-3',
-    label: '1 1/2 lbs.',
+    label: '1½ lbs.',
     value: '3',
   },
   {
