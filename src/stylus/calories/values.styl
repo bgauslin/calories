@@ -1,28 +1,30 @@
 INPUT_HEIGHT = 2rem
+TEXT_OPACITY = .6
+SELECTED_ALPHA = .15
 
 .values__heading
+  display flex
   margin 0 0 .5rem
 
 .values__heading__note
-  opacity .7
-
-.values__heading__note::before
-  content '('
-
-.values__heading__note::after
-  content ')'
+  opacity TEXT_OPACITY
+  margin-left auto
 
 .values__list
   margin 0
   padding 0
 
+.values__list--metrics
+  margin 0 0 1rem
+
 .values__list--activity
 .values__list--goal
+.values__list--sex
   background rgba(black, .1)
   border 2px solid transparent
   border-radius 4px
   display flex
-  margin 0 0 .75rem
+  margin 0 0 1rem
 
 .values__item
   align-items center
@@ -32,12 +34,10 @@ INPUT_HEIGHT = 2rem
 
 .values__item--activity
 .values__item--goal
+.values__item--sex
   flex 1
   height INPUT_HEIGHT
   margin 0
-
-.values__item--sex::before
-  content 'Sex'
 
 .values__item--feet
 .values__item--inches
@@ -46,28 +46,29 @@ INPUT_HEIGHT = 2rem
 .values__item--feet::before
   content 'Height'
 
-.values__item--feet > label
-.values__item--inches > label
-  margin 0 .75rem 0 .375rem
-  opacity .5
-  order 2
-
 .values__label
   display flex
 
 .values__label--activity
 .values__label--goal
+.values__label--sex
   height 100%
   width 100%
 
 .values__label--sex:not(:first-of-type)
   margin-left 1rem
 
-.values__item--sex::before
+.values__label--feet
+.values__label--inches
+  margin 0 1rem 0 .5rem
+  opacity TEXT_OPACITY
+  order 2
+  text-transform lowercase
+
 .values__item--feet::before
 .values__label--age
 .values__label--weight
-  width 5rem
+  width 4.55rem
 
 [no-touch] .values__label--sex:hover
 [no-touch] .values__label--activity:hover
@@ -81,12 +82,30 @@ INPUT_HEIGHT = 2rem
   height INPUT_HEIGHT
   padding 0 .5rem
   text-align right
-  width 3.5rem
+  width 3rem
+
+.values__input[type=number]:focus
+  background 0
+  border-color var(--branding)
+
+// [1] Disable pointer events on elements within radio button labels so that
+// iOS Safari can register a tap on the label.
+.values__input[type=radio] ~ span
+  align-items center
+  border-radius 2px
+  display flex
+  justify-content center
+  pointer-events none // [1]
+  width 100%
+
+.values__input[type=number]
+.values__input[type=radio]:checked ~ span
+  background rgba(black, SELECTED_ALPHA)
 
 .values__item--weight::after
 .values__item--age::after
   margin-left .5em
-  opacity .6
+  opacity TEXT_OPACITY
   pointer-events none
 
 .values__item--weight::after
@@ -95,23 +114,6 @@ INPUT_HEIGHT = 2rem
 .values__item--age::after
   content 'years'
 
-// [1] Disable pointer events on elements within radio button labels so that
-// iOS Safari can register a tap on the label.
-input[type=radio] ~ span
-  align-items center
-  border-radius 2px
-  display flex
-  justify-content center
-  pointer-events none // [1]
-  width 100%
-
-input[type=number]
-  background rgba(black, .1)
-
-input[type=number]:focus
-input[type=radio]:checked ~ span
-  background rgba(black, .15)
-
 .result
   color var(--branding)
   font-size 200%
@@ -119,7 +121,6 @@ input[type=radio]:checked ~ span
   text-align center
 
 .result::after
-  color rgba(black, .4)
   content 'kcal'
   font-size .75em
   margin-left .5rem

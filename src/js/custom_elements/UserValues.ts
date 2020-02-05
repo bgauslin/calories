@@ -52,21 +52,25 @@ class UserValues extends HTMLElement {
         <div class="${className}">\
           <ul class="${className}__list ${className}__list--metrics">\
             ${this.numberInputs_(Metrics)}\
-            <li class="values__item values__item--sex">\
-              ${this.radioButtons_(FieldName.SEX, Sex, false)}\
-            </li>\
           </ul>\
         </div>\
-        
+
         <div class="${className}">\
-          ${this.fieldHeading_('Exercise', 'days per week', className)}\
+          ${this.fieldHeading_(className, 'Sex')}\
+          <ul class="${className}__list ${className}__list--sex">\
+            ${this.radioButtons_(FieldName.SEX, Sex)}\
+          </ul>\
+        </div>\
+
+        <div class="${className}">\
+          ${this.fieldHeading_(className, 'Exercise', 'days per week')}\
           <ul class="${className}__list ${className}__list--activity">\
             ${this.radioButtons_(FieldName.ACTIVITY, ActivityLevel)}
           </ul>\
         </div>\
 
         <div class="${className}">\
-          ${this.fieldHeading_('Weight loss', 'lbs. per week', className)}\
+          ${this.fieldHeading_(className, 'Weight loss', 'lbs. per week')}\
           <ul class="${className}__list ${className}__list--goal">\
             ${this.radioButtons_(FieldName.GOAL, WeightGoal)}\
           </ul>\
@@ -98,12 +102,9 @@ class UserValues extends HTMLElement {
   /**
    * Returns rendered heading for a field or group of fields.
    */
-  private fieldHeading_(label: string, note: string, className: string): string {
-    return `\
-      <h4 class="${className}__heading">\
-        ${label} <span class="${className}__heading__note">${note}</span>\
-      </h4>\
-    `;
+  private fieldHeading_(className: string, label: string, note?: string): string {
+    const fieldNote = note ? ` <span class="${className}__heading__note">${note}</span>` : '';
+    return `<h4 class="${className}__heading">${label}${fieldNote}</h4>`;
   }
     
   /**

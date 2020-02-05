@@ -49,7 +49,7 @@ const ActivityLevel: InputRadio[] = [
 const Metrics: InputNumber[] = [
   {
     id: 'feet',
-    label: 'Feet',
+    label: 'Ft.',
     max: 7,
     min: 3,
     name: 'feet',
@@ -57,7 +57,7 @@ const Metrics: InputNumber[] = [
   },
   {
     id: 'inches',
-    label: 'Inches',
+    label: 'In.',
     max: 11,
     min: 0,
     name: 'inches',
