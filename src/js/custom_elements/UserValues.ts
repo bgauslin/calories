@@ -46,26 +46,32 @@ class UserValues extends HTMLElement {
    * Creates DOM elements and populates them if there are stored user values.
    */
   private setup_(): void {
+    const className = CssClass.VALUES;
     const html = `\
       <form>\
-        <dl class="${CssClass.VALUES} ${CssClass.VALUES}--metrics">\
-          ${this.numberInputs_(Metrics)}\
-          <dd class="values__item values__item--sex">\
-            ${this.radioButtons_(FieldName.SEX, Sex, false)}\
-          </dd>\
-        </dl>\
-        <dl class="${CssClass.VALUES} ${CssClass.VALUES}--activity">\
-          <dt class="${CssClass.VALUES}__heading">\
-            Exercise <span>days per week</span>\
-          </dt>\
-          ${this.radioButtons_(FieldName.ACTIVITY, ActivityLevel)}
-        </dl>\
-        <dl class="${CssClass.VALUES} ${CssClass.VALUES}--loss">\
-          <dt class="${CssClass.VALUES}__heading">\
-            Weight loss <span>lbs. per week</span>\
-          </dt>\
-          ${this.radioButtons_(FieldName.GOAL, WeightGoal)}\
-        </dl>\
+        <div class="${className}">\
+          <ul class="${className}__list ${className}__list--metrics">\
+            ${this.numberInputs_(Metrics)}\
+            <li class="values__item values__item--sex">\
+              ${this.radioButtons_(FieldName.SEX, Sex, false)}\
+            </li>\
+          </ul>\
+        </div>\
+        
+        <div class="${className}">\
+          ${this.fieldHeading_('Exercise', 'days per week', className)}\
+          <ul class="${className}__list ${className}__list--activity">\
+            ${this.radioButtons_(FieldName.ACTIVITY, ActivityLevel)}
+          </ul>\
+        </div>\
+
+        <div class="${className}">\
+          ${this.fieldHeading_('Weight loss', 'lbs. per week', className)}\
+          <ul class="${className}__list ${className}__list--goal">\
+            ${this.radioButtons_(FieldName.GOAL, WeightGoal)}\
+          </ul>\
+        </div>\
+
         <div class="${CssClass.RESULT}"></div>\
       </form>\
     `;
@@ -90,6 +96,17 @@ class UserValues extends HTMLElement {
   }
 
   /**
+   * Returns rendered heading for a field or group of fields.
+   */
+  private fieldHeading_(label: string, note: string, className: string): string {
+    return `\
+      <h4 class="${className}__heading">\
+        ${label} <span class="${className}__heading__note">${note}</span>\
+      </h4>\
+    `;
+  }
+    
+  /**
    * Returns rendered input fields.
    */
   private numberInputs_(inputs: InputNumber[], tags: boolean = true): string {
@@ -100,8 +117,8 @@ class UserValues extends HTMLElement {
     inputs.forEach((input) => {
       const {id, label, max, min, name, pattern} = input;
       if (tags) {
-        startTag = `<dd class="${CssClass.VALUES}__item ${CssClass.VALUES}__item--${name}">`;
-        endTag = '</dd>';
+        startTag = `<li class="${CssClass.VALUES}__item ${CssClass.VALUES}__item--${name}">`;
+        endTag = '</li>';
       }
       const html = `\
         ${startTag}\
@@ -139,8 +156,8 @@ class UserValues extends HTMLElement {
       const checked = (index === 0) ? ' checked' : '';
       // const desc = description ? ` <span class="${CssClass.VALUES}__label__description">(${description})</span>` : '';
       if (tags) {
-        startTag = `<dd class="${CssClass.VALUES}__item ${CssClass.VALUES}__item--${name}">`;
-        endTag = '</dd>';
+        startTag = `<li class="${CssClass.VALUES}__item ${CssClass.VALUES}__item--${name}">`;
+        endTag = '</li>';
       }
       const html = `\
         ${startTag}\

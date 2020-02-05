@@ -1,41 +1,40 @@
-.values
+INPUT_HEIGHT = 2rem
+
+.values__heading
+  margin 0 0 .5rem
+
+.values__heading__note
+  opacity .7
+
+.values__heading__note::before
+  content '('
+
+.values__heading__note::after
+  content ')'
+
+.values__list
   margin 0
   padding 0
 
-.values--activity
-.values--loss
+.values__list--activity
+.values__list--goal
+  background rgba(black, .1)
+  border 2px solid transparent
+  border-radius 4px
   display flex
-  flex-wrap wrap
-
-.values--activity > .values__heading
-.values--loss > .values__heading
-  flex-basis 100%
-
-.values--activity > .values__item
-.values--loss > .values__item
-  flex 1
-
-.values__label--activity
-.values__label--goal
-  width 100%
-
-.values__heading
-  margin .5rem 0
-
-.values__heading > span
-  opacity .7
-
-.values__heading > span::before
-  content '('
-
-.values__heading > span::after
-  content ')'
+  margin 0 0 .75rem
 
 .values__item
   align-items center
   display flex
   margin 0 0 .75rem
   padding 0
+
+.values__item--activity
+.values__item--goal
+  flex 1
+  height INPUT_HEIGHT
+  margin 0
 
 .values__item--sex::before
   content 'Sex'
@@ -53,14 +52,13 @@
   opacity .5
   order 2
 
-.values__item--activity
-.values__item--goal
-  display inline-flex
-  padding 0 1rem 0 0
-
 .values__label
-  align-items center
   display flex
+
+.values__label--activity
+.values__label--goal
+  height 100%
+  width 100%
 
 .values__label--sex:not(:first-of-type)
   margin-left 1rem
@@ -74,11 +72,14 @@
 [no-touch] .values__label--sex:hover
 [no-touch] .values__label--activity:hover
 [no-touch] .values__label--goal:hover
-  color var(--branding)
   cursor pointer
 
 .values__input[type=number]
+  border 2px solid transparent
+  border-radius 4px
   font-size 1em
+  height INPUT_HEIGHT
+  padding 0 .5rem
   text-align right
   width 3.5rem
 
@@ -94,34 +95,31 @@
 .values__item--age::after
   content 'years'
 
-input[type=number]
-input[type=radio] ~ span
-  border 2px solid transparent
-  border-radius 4px
-  padding .375rem .5rem
-
 // [1] Disable pointer events on elements within radio button labels so that
 // iOS Safari can register a tap on the label.
 input[type=radio] ~ span
+  align-items center
+  border-radius 2px
+  display flex
+  justify-content center
   pointer-events none // [1]
-  text-align center
   width 100%
 
 input[type=number]
-  background rgba(black, .05)
+  background rgba(black, .1)
 
 input[type=number]:focus
 input[type=radio]:checked ~ span
-  background 0
-  border-color var(--branding)
-  color var(--branding)
+  background rgba(black, .15)
 
 .result
+  color var(--branding)
   font-size 200%
   margin 2rem
   text-align center
 
 .result::after
+  color rgba(black, .4)
   content 'kcal'
+  font-size .75em
   margin-left .5rem
-  opacity .6
