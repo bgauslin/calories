@@ -50,30 +50,36 @@ class UserValues extends HTMLElement {
     const html = `\
       <form>\
         <div class="${className}">\
+          ${this.fieldHeading_(className, 'Sex')}\
+          <fancy-marker>\
+            <ul class="${className}__list ${className}__list--sex">\
+              ${this.radioButtons_(FieldName.SEX, Sex)}\
+            </ul>\
+          </fancy-marker>\
+        </div>\
+
+        <div class="${className}">\
           <ul class="${className}__list ${className}__list--metrics">\
             ${this.numberInputs_(Metrics)}\
           </ul>\
         </div>\
 
         <div class="${className}">\
-          ${this.fieldHeading_(className, 'Sex')}\
-          <ul class="${className}__list ${className}__list--sex">\
-            ${this.radioButtons_(FieldName.SEX, Sex)}\
-          </ul>\
+          ${this.fieldHeading_(className, 'Exercise', 'times / week')}\
+          <fancy-marker>\
+            <ul class="${className}__list ${className}__list--activity">\
+              ${this.radioButtons_(FieldName.ACTIVITY, ActivityLevel)}
+            </ul>\
+          </fancy-marker>\
         </div>\
 
         <div class="${className}">\
-          ${this.fieldHeading_(className, 'Exercise', 'days per week')}\
-          <ul class="${className}__list ${className}__list--activity">\
-            ${this.radioButtons_(FieldName.ACTIVITY, ActivityLevel)}
-          </ul>\
-        </div>\
-
-        <div class="${className}">\
-          ${this.fieldHeading_(className, 'Weight loss', 'lbs. per week')}\
-          <ul class="${className}__list ${className}__list--goal">\
-            ${this.radioButtons_(FieldName.GOAL, WeightGoal)}\
-          </ul>\
+          ${this.fieldHeading_(className, 'Weight loss', 'lbs. / week')}\
+          <fancy-marker>\
+            <ul class="${className}__list ${className}__list--goal">\
+              ${this.radioButtons_(FieldName.GOAL, WeightGoal)}\
+            </ul>\
+          </fancy-marker>\
         </div>\
 
         <div class="${CssClass.RESULT}"></div>\

@@ -20,7 +20,6 @@ SELECTED_ALPHA = .15
 .values__list--activity
 .values__list--goal
 .values__list--sex
-  background rgba(black, .1)
   border 2px solid transparent
   border-radius 4px
   display flex
@@ -76,6 +75,7 @@ SELECTED_ALPHA = .15
   cursor pointer
 
 .values__input[type=number]
+  background rgba(black, SELECTED_ALPHA)
   border 2px solid transparent
   border-radius 4px
   font-size 1em
@@ -97,10 +97,6 @@ SELECTED_ALPHA = .15
   justify-content center
   pointer-events none // [1]
   width 100%
-
-.values__input[type=number]
-.values__input[type=radio]:checked ~ span
-  background rgba(black, SELECTED_ALPHA)
 
 .values__item--weight::after
 .values__item--age::after

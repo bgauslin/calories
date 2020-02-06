@@ -1,0 +1,13 @@
+fancy-marker
+fancy-marker .marker
+  background rgba(black, .1)
+
+fancy-marker
+  display block
+  z-index -1
+
+fancy-marker .marker
+  left var(--marker-left)
+  position absolute
+  transition left var(--transition), width var(--transition)
+  width var(--marker-width)

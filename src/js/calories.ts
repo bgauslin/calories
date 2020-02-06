@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 import {App} from './modules/App';
+import {FancyMarker} from './custom_elements/FancyMarker';
 import {ShiftyHeader} from './custom_elements/ShiftyHeader';
 import {Themifier} from './custom_elements/Themifier';
 import {UserValues} from './custom_elements/UserValues';
@@ -10,6 +11,7 @@ import '../stylus/calories.styl';
 
 // Define all custom elements.
 const map = new Map();
+map.set(FancyMarker, 'fancy-marker');
 map.set(ShiftyHeader, 'app-header');
 map.set(Themifier, 'app-theme');
 map.set(UserValues, 'user-values');
