@@ -9,6 +9,7 @@ class FancyMarker extends HTMLElement {
   constructor() {
     super();
     this.addEventListener('change', () => this.update_());
+    window.addEventListener('resize', () => this.update_());
   }
 
   static get observedAttributes(): string[] {
@@ -25,6 +26,7 @@ class FancyMarker extends HTMLElement {
 
   disconnectedCallback(): void {
     this.removeEventListener('change', null);
+    window.removeEventListener('resize', null);
   }
 
   private renderMarker_(): void {

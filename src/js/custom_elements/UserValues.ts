@@ -48,8 +48,8 @@ class UserValues extends HTMLElement {
   private setup_(): void {
     const className = CssClass.VALUES;
     const html = `\
-      <form>\
-        <div class="${className}">\
+      <form class="${className}__form">\
+        <div class="${className}__group">\
           ${this.fieldHeading_(className, 'Sex')}\
           <fancy-marker>\
             <ul class="${className}__list ${className}__list--sex">\
@@ -58,14 +58,14 @@ class UserValues extends HTMLElement {
           </fancy-marker>\
         </div>\
 
-        <div class="${className}">\
+        <div class="${className}__group">\
           <ul class="${className}__list ${className}__list--metrics">\
             ${this.numberInputs_(Metrics)}\
           </ul>\
         </div>\
 
-        <div class="${className}">\
-          ${this.fieldHeading_(className, 'Exercise', 'times / week')}\
+        <div class="${className}__group">\
+          ${this.fieldHeading_(className, 'Exercise', 'times per week')}\
           <fancy-marker>\
             <ul class="${className}__list ${className}__list--activity">\
               ${this.radioButtons_(FieldName.ACTIVITY, ActivityLevel)}
@@ -73,17 +73,17 @@ class UserValues extends HTMLElement {
           </fancy-marker>\
         </div>\
 
-        <div class="${className}">\
-          ${this.fieldHeading_(className, 'Weight loss', 'lbs. / week')}\
+        <div class="${className}__group">\
+          ${this.fieldHeading_(className, 'Weight loss', 'lbs. per week')}\
           <fancy-marker>\
             <ul class="${className}__list ${className}__list--goal">\
               ${this.radioButtons_(FieldName.GOAL, WeightGoal)}\
             </ul>\
           </fancy-marker>\
         </div>\
-
-        <div class="${CssClass.RESULT}"></div>\
       </form>\
+
+      <div class="${CssClass.RESULT}"></div>\
     `;
 
     this.innerHTML = html.replace(/\s\s/g, '');

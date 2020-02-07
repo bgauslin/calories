@@ -1,9 +1,8 @@
-INPUT_HEIGHT = 2rem
-TEXT_OPACITY = .6
-SELECTED_ALPHA = .15
-
 user-values
   display block
+
+.values__form
+  margin 2rem 0 0
 
 .values__heading
   display flex
@@ -80,7 +79,7 @@ user-values
   cursor pointer
 
 .values__input[type=number]
-  background rgba(black, SELECTED_ALPHA)
+  background rgba(black, .15)
   border 2px solid transparent
   border-radius 4px
   font-size 1em
@@ -118,7 +117,7 @@ user-values
 .result
   color var(--branding)
   font-size 200%
-  margin 2rem
+  margin 3rem 0
   text-align center
 
 .result::after

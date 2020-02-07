@@ -39,7 +39,7 @@ class App {
   private updateContent_(): void {
     const contentEl = document.querySelector(`.${CssClass.CONTENT}`);
     contentEl.classList.remove(CssClass.NO_JS);
-    contentEl.innerHTML = '<user-values class="user-values"></user-values>';
+    contentEl.innerHTML = '<user-values class="values"></user-values>';
   }
 
   /**
