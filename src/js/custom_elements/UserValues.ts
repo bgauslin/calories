@@ -101,11 +101,12 @@ class UserValues extends HTMLElement {
     // Render user data on page load if it exists.
     if (this.storage_) {
       this.populateInputs_();
-      this.updateResult_();
     }
 
-    // Trigger each fancy-marker to set its marker position.
-    this.updateFancyMarkers_()
+    // Trigger each fancy-marker to set its marker position and set the
+    // result's visibility.
+    this.updateFancyMarkers_();
+    this.updateResult_();
   }
 
   /**
