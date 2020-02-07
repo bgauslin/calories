@@ -2,6 +2,9 @@ INPUT_HEIGHT = 2rem
 TEXT_OPACITY = .6
 SELECTED_ALPHA = .15
 
+user-values
+  display block
+
 .values__heading
   display flex
   margin 0 0 .5rem
@@ -20,8 +23,6 @@ SELECTED_ALPHA = .15
 .values__list--activity
 .values__list--goal
 .values__list--sex
-  border 2px solid transparent
-  border-radius 4px
   display flex
   margin 0 0 1rem
 
@@ -52,7 +53,11 @@ SELECTED_ALPHA = .15
 .values__label--goal
 .values__label--sex
   height 100%
+  padding 0 1rem
   width 100%
+
+  &:active
+    color var(--branding)
 
 .values__label--sex:not(:first-of-type)
   margin-left 1rem

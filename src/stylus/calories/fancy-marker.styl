@@ -1,13 +1,16 @@
 fancy-marker
+  background rgba(black, .1)
+  border-radius 4px
+  display block
+  position relative
+
 fancy-marker .marker
   background rgba(black, .1)
-
-fancy-marker
-  display block
-  z-index -1
-
-fancy-marker .marker
+  border-radius 4px
+  height 100%
   left var(--marker-left)
   position absolute
-  transition left var(--transition), width var(--transition)
+  top 0
+  transition left var(--transition) ease-out, width var(--transition) ease-out
   width var(--marker-width)
+  z-index -1

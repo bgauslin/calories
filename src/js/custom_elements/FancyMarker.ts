@@ -1,52 +1,60 @@
+const INIT_ATTR: string = 'init';
+
 enum CustomProperty {
   LEFT = 'left',
   WIDTH = 'width',
 }
 
 class FancyMarker extends HTMLElement {
-  private left_: number;
-  private width_: number;
-  private height_: number;
-  private top_: number;
-  private marker_: HTMLElement;
-
   constructor() {
     super();
+    this.addEventListener('change', () => this.update_());
+  }
+
+  static get observedAttributes(): string[] {
+    return [INIT_ATTR];
   }
 
   connectedCallback(): void {
     this.renderMarker_();
+  }
+
+  attributeChangedCallback(): void {
     this.update_();
-    this.addEventListener('change', (e) => this.update_());
+  }
+
+  disconnectedCallback(): void {
+    this.removeEventListener('change', null);
   }
 
   private renderMarker_(): void {
     const marker = document.createElement('div');
     marker.classList.add('marker');
     this.appendChild(marker);
-
-    this.marker_ = this.querySelector('.marker');
   }
 
   private update_(): void {
+    // Remove 'init' attribute since it's only needed on initial page load.
+    this.removeAttribute(INIT_ATTR);
+
+    // Get the checked element, then its parent since the checkbox itself has
+    // no dimensions, relies on its sibling to trigger it, and their parent is
+    // the target where CSS layout is applied and what we need for determining
+    // the marker's position.
     const checked = this.querySelector(':checked');
-    const parent = <HTMLElement>checked.parentNode;
+    const targetEl = <HTMLElement>checked.parentNode;
 
-    const rect = parent.getBoundingClientRect();
+    // The marker and this element rely on relative/absolute positioning, so
+    // subtract this element's position in the viewport from the marker
+    // target's position in order to make the starting edge of this element
+    // equal to zero.
+    const leftPos = targetEl.getBoundingClientRect().left - this.getBoundingClientRect().left;
 
-    this.left_ = rect.left;
-    this.top_ = rect.top;
-    this.width_ = parent.offsetWidth;
-    this.height_ = parent.offsetHeight;
-
-    this.marker_.style.height = `${this.height_ / 16}rem`;
-    this.marker_.style.top = `${this.top_ / 16}rem`;
-
+    // Update custom properties and let the CSS handle take over.
     this.style.setProperty(
-      `--marker-${CustomProperty.LEFT}`, `${this.left_ / 16}rem`);
+      `--marker-${CustomProperty.LEFT}`, `${leftPos / 16}rem`);
     this.style.setProperty(
-      `--marker-${CustomProperty.WIDTH}`, `${this.width_ / 16}rem`);
-
+      `--marker-${CustomProperty.WIDTH}`, `${targetEl.clientWidth / 16}rem`);
   }
 }
 

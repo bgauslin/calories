@@ -103,6 +103,9 @@ class UserValues extends HTMLElement {
       this.populateInputs_();
       this.updateResult_();
     }
+
+    // Trigger each fancy-marker to set its marker position.
+    this.updateFancyMarkers_()
   }
 
   /**
@@ -206,6 +209,15 @@ class UserValues extends HTMLElement {
         }
       });
     });
+  }
+
+  /**
+   * Sets an attribute on each fancy-marker so that they auto-update on 
+   * initial page load.
+   */
+  updateFancyMarkers_(): void {
+    const markers = this.querySelectorAll('fancy-marker');
+    markers.forEach((marker) => marker.setAttribute('init', ''));
   }
 
   /**
