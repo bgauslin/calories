@@ -1,0 +1,20 @@
+.themifier
+  align-items center
+  color var(--background)
+  cursor pointer
+  display flex
+  height var(--header-height)
+  justify-content center
+  margin-right px_to_rem(-8)
+  pointer-events auto
+  transition color var(--transition), transform var(--transition)
+  width var(--button-width)
+
+.themifier:focus
+  outline 0
+
+.themifier:active
+  transform scale(.8)
+
+.themifier__icon
+  flex 0 0 px_to_rem(20)

@@ -1,24 +1,17 @@
 :root
   --branding '%s' % Branding.RED
 
-  --dark-grey #222
-  --light-grey #aaa
-  --lighter-grey #ddd
-  --medium-grey #555
-  --off-white #f7f7f7
-
   --site-header px_to_rem(16)  
   --fineprint px_to_rem(12)
 
+  --button-width px_to_rem(44)
   --footer-height px_to_rem(44)
   --grid-gap GRID_GAP
   --header-height px_to_rem(44)
 
-  --transition .3s
-  --transition-slow .5s
+  --transition .2s
 
   // Values set via JS
-  --sticky-offset 0
   --sticky-shift 0
 
   @media Breakpoint.MEDIUM
@@ -31,10 +24,16 @@
 
   [theme=light]
     --background white
-    --border mix(black, white, 15%)
+    --field-background #ddd
+    --focus rgba(black, .5)
+    --marker-background #ddd
+    --marker-canvas-background rgba(black, .05)
     --text rgba(black, .8)
 
   [theme=dark]
     --background '%s' % Theme.DARK
-    --border mix(black, white, 75%)
+    --field-background #555
+    --focus white
+    --marker-background #555
+    --marker-canvas-background rgba(white, .05)
     --text rgba(white, .7)

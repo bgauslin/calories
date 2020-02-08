@@ -53,6 +53,7 @@ user-values
 
 .values__label
   display flex
+  transition color var(--transition)
 
 .values__label--activity
 .values__label--goal
@@ -63,9 +64,6 @@ user-values
 
   &:active
     color var(--branding)
-
-.values__label--sex:not(:first-of-type)
-  margin-left 1rem
 
 .values__label--feet
 .values__label--inches
@@ -85,9 +83,10 @@ user-values
   cursor pointer
 
 .values__input[type=number]
-  background rgba(black, .15)
+  background var(--field-background)
   border 2px solid transparent
   border-radius 4px
+  color var(--text)
   font-size 1em
   height INPUT_HEIGHT
   padding 0 .5rem
@@ -95,8 +94,7 @@ user-values
   width 3rem
 
 .values__input[type=number]:focus
-  background 0
-  border-color var(--branding)
+  border-color var(--focus)
 
 // [1] Disable pointer events on elements within radio button labels so that
 // iOS Safari can register a tap on the label.
