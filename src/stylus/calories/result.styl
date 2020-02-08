@@ -2,8 +2,10 @@ result-counter
   display block
 
 .result
-  color var(--branding)
-  font-size 200%
+  background '-webkit-linear-gradient(%s, %s)' % (Branding.ORANGE Branding.RED)
+  -webkit-background-clip text
+  -webkit-text-fill-color transparent
+  font-size 250%
   margin 3rem 0
   text-align center
 
