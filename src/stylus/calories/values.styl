@@ -4,32 +4,45 @@ user-values
 .values__form
   margin 2rem 0 0
 
+.values__group
+  margin 0 0 1.5rem
+
+.values__group--metrics
+  margin-bottom .5rem
+
 .values__heading
   display flex
   margin 0 0 .5rem
+
+.values__heading--sex
+  left -100vw
+  position absolute
 
 .values__heading__note
   opacity TEXT_OPACITY
   margin-left auto
 
 .values__list
-  margin 0
-  padding 0
-
-.values__list--metrics
-  margin 0 0 1rem
-
-.values__list--activity
-.values__list--goal
-.values__list--sex
-  display flex
-  margin 0 0 1rem
-
 .values__item
   align-items center
   display flex
-  margin 0 0 .75rem
   padding 0
+
+.values__list
+  margin 0
+
+.values__list--metrics
+  flex-wrap wrap
+
+.values__item
+  margin 0 0 1rem
+
+.values__item--weight
+.values__item--age
+  flex 0 0 100%
+
+.values__item--feet::before
+  content 'Height'
 
 .values__item--activity
 .values__item--goal
@@ -37,13 +50,6 @@ user-values
   flex 1
   height INPUT_HEIGHT
   margin 0
-
-.values__item--feet
-.values__item--inches
-  display inline-flex
-
-.values__item--feet::before
-  content 'Height'
 
 .values__label
   display flex
@@ -112,7 +118,7 @@ user-values
   content 'lbs.'
 
 .values__item--age::after
-  content 'years'
+  content 'yrs.'
 
 .result
   color var(--branding)

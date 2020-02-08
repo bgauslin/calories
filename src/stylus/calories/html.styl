@@ -41,12 +41,17 @@ input[type=radio]
   width 0
 
 input[type=number]
+  webfont()
   -moz-appearance textfield
 
   &::-webkit-inner-spin-button
   &::-webkit-outer-spin-button
     appearance none
     margin 0
+  
+  &:invalid
+    background rgba(BRAND_COLOR, .2)
+    color var(--branding)
 
 svg path
   fill currentColor

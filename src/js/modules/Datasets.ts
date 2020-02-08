@@ -34,7 +34,7 @@ const ActivityLevel: InputRadio[] = [
     description: 'Moderately active',
     factor: 1.55,
     id: 'level-2',
-    label: '3–5',
+    label: '4–5',
     value: '2',
   },
   {
@@ -98,7 +98,7 @@ const WeightGoal: InputRadio[] = [
   {
     factor: 0,
     id: 'goal-0',
-    label: 'None',
+    label: '0',
     value: '0',
   },
   {

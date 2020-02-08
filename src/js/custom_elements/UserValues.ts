@@ -3,7 +3,6 @@ import {ActivityLevel, InputNumber, InputRadio, Metrics, Sex, WeightGoal} from '
 
 const EMPTY_ATTR: string = 'empty';
 const LOCAL_STORAGE: string = 'values';
-// const RESULT_LABEL: string = 'Total Daily Calories';
 
 enum CssClass {
   RESULT = 'result',
@@ -49,8 +48,8 @@ class UserValues extends HTMLElement {
     const className = CssClass.VALUES;
     const html = `\
       <form class="${className}__form">\
-        <div class="${className}__group">\
-          ${this.fieldHeading_(className, 'Sex')}\
+        <div class="${className}__group ${className}__group--sex">\
+          ${this.fieldHeading_(className, 'sex', 'Sex')}\
           <fancy-marker>\
             <ul class="${className}__list ${className}__list--sex">\
               ${this.radioButtons_(FieldName.SEX, Sex)}\
@@ -58,14 +57,14 @@ class UserValues extends HTMLElement {
           </fancy-marker>\
         </div>\
 
-        <div class="${className}__group">\
+        <div class="${className}__group ${className}__group--metrics">\
           <ul class="${className}__list ${className}__list--metrics">\
             ${this.numberInputs_(Metrics)}\
           </ul>\
         </div>\
 
-        <div class="${className}__group">\
-          ${this.fieldHeading_(className, 'Exercise', 'times per week')}\
+        <div class="${className}__group ${className}__group--activity">\
+          ${this.fieldHeading_(className, 'activity', 'Exercise', 'days per week')}\
           <fancy-marker>\
             <ul class="${className}__list ${className}__list--activity">\
               ${this.radioButtons_(FieldName.ACTIVITY, ActivityLevel)}
@@ -73,8 +72,8 @@ class UserValues extends HTMLElement {
           </fancy-marker>\
         </div>\
 
-        <div class="${className}__group">\
-          ${this.fieldHeading_(className, 'Weight loss', 'lbs. per week')}\
+        <div class="${className}__group ${className}__group--goal">\
+          ${this.fieldHeading_(className, 'goal', 'Weight loss', 'lbs. per week')}\
           <fancy-marker>\
             <ul class="${className}__list ${className}__list--goal">\
               ${this.radioButtons_(FieldName.GOAL, WeightGoal)}\
@@ -112,11 +111,11 @@ class UserValues extends HTMLElement {
   /**
    * Returns rendered heading for a field or group of fields.
    */
-  private fieldHeading_(className: string, label: string, note?: string): string {
+  private fieldHeading_(className: string, modifier: string, label: string, note?: string): string {
     const fieldNote = note ? ` <span class="${className}__heading__note">${note}</span>` : '';
-    return `<h4 class="${className}__heading">${label}${fieldNote}</h4>`;
+    return `<h4 class="${className}__heading ${className}__heading--${modifier}">${label}${fieldNote}</h4>`;
   }
-    
+
   /**
    * Returns rendered input fields.
    */
@@ -161,11 +160,9 @@ class UserValues extends HTMLElement {
     let startTag: string = ''
     let endTag: string = '';
 
-
     buttons.forEach((button, index) => {
-      const {description, id, label, value} = button;
+      const {id, label, value} = button;
       const checked = (index === 0) ? ' checked' : '';
-      // const desc = description ? ` <span class="${CssClass.VALUES}__label__description">(${description})</span>` : '';
       if (tags) {
         startTag = `<li class="${CssClass.VALUES}__item ${CssClass.VALUES}__item--${name}">`;
         endTag = '</li>';
