@@ -52,7 +52,7 @@ class FancyMarker extends HTMLElement {
     // equal to zero.
     const leftPos = targetEl.getBoundingClientRect().left - this.getBoundingClientRect().left;
 
-    // Update custom properties and let the CSS handle take over.
+    // Update custom properties and let the CSS take over.
     this.style.setProperty(
       `--marker-${CustomProperty.LEFT}`, `${leftPos / 16}rem`);
     this.style.setProperty(
