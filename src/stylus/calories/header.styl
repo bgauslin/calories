@@ -19,8 +19,11 @@ BRAND_ORANGE = #ff7a00
   height var(--header-height)
   justify-content space-between
   margin 0 auto
-  max-width CONTENT_WIDTH_LARGE
   padding 0 var(--grid-gap)
+
+  @media Breakpoint.MEDIUM
+    max-width CONTENT_MAX_WIDTH
+    padding 0
 
 .header__title
   font-size var(--site-header)

@@ -1,4 +1,4 @@
-const DIVISOR: number = 10;
+const DIVISOR: number = 11; // Prime number for variety.
 const INTERVAL_MS: number = 30;
 const VALUE_ATTR: string = 'value';
 
