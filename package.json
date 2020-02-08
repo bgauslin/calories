@@ -1,6 +1,6 @@
 {
   "name": "calories",
-  "description": "Calories calculator web app",
+  "description": "Calorie calculator PWA",
   "version": "0.1.0",
   "license": "UNLICENSED",
   "repository": "https://github.com/bgauslin/calories",
