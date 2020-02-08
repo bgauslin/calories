@@ -1,7 +1,7 @@
 {
-  "name": "Calories Calculator",
+  "name": "Calorie Calculator",
   "short_name": "Calories",
-  "description": "Progressive web app for calculating calories",
+  "description": "Progressive web app for calculating daily calorie needs",
   "theme_color": "#b22222",
   "background_color": "#ffffff",
   "display": "standalone",
