@@ -1,8 +1,8 @@
 const INIT_ATTR: string = 'init';
 
 enum CustomProperty {
-  LEFT = 'left',
-  WIDTH = 'width',
+  LEFT = '--marker-left',
+  WIDTH = '--marker-width',
 }
 
 class FancyMarker extends HTMLElement {
@@ -53,10 +53,8 @@ class FancyMarker extends HTMLElement {
     const leftPos = targetEl.getBoundingClientRect().left - this.getBoundingClientRect().left;
 
     // Update custom properties and let the CSS take over.
-    this.style.setProperty(
-      `--marker-${CustomProperty.LEFT}`, `${leftPos / 16}rem`);
-    this.style.setProperty(
-      `--marker-${CustomProperty.WIDTH}`, `${targetEl.clientWidth / 16}rem`);
+    this.style.setProperty(CustomProperty.LEFT, `${leftPos / 16}rem`);
+    this.style.setProperty(CustomProperty.WIDTH, `${targetEl.clientWidth / 16}rem`);
   }
 }
 
