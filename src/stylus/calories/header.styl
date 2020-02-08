@@ -1,9 +1,6 @@
-BRAND_ORANGE = #ff7a00
-
-// [1] Knockout matches theme's body background.
 .header
-  background 'linear-gradient(%s, %s)' % (Branding.RED Branding.ORANGE)
-  color var(--background) // [1]
+  background var(--header-background)
+  border-bottom 1px solid var(--border)
   height var(--header-height)
   left 0
   padding 0 env(safe-area-inset-right) 0 env(safe-area-inset-left)
@@ -26,6 +23,9 @@ BRAND_ORANGE = #ff7a00
     padding 0
 
 .header__title
+  background '-webkit-linear-gradient(%s, %s)' % (Branding.RED Branding.ORANGE)
+  -webkit-background-clip text
+  -webkit-text-fill-color transparent
   font-size var(--site-header)
   line-height 1
   margin 0
