@@ -68,7 +68,8 @@ user-values
 .values__label--activity:active
 .values__label--goal:active
 .values__label--sex:active
-  color var(--branding)
+  transform scale(.7)
+  transition transform var(--transition)
 
 .values__label--feet
 .values__label--inches
@@ -85,7 +86,6 @@ user-values
 [no-touch] .values__label--sex:hover
 [no-touch] .values__label--activity:hover
 [no-touch] .values__label--goal:hover
-  color var(--branding)
   cursor pointer
 
 .values__input[type=number]
@@ -113,7 +113,8 @@ user-values
   width 100%
 
 .values__input[type=radio]:focus ~ .values__label__caption
-  color var(--branding)
+  transform scale(1.2)
+  transition transform var(--transition)
 
 .values__item--weight::after
 .values__item--age::after
