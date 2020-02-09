@@ -4,6 +4,7 @@ user-values
 .values
   margin 2rem 0
 
+// Grouped inputs.
 .values__group
   margin 0 0 1.5rem
 
@@ -13,10 +14,12 @@ user-values
 .values__group--metrics
   margin-bottom .5rem
 
+// Headings.
 .values__heading
   display flex
   margin 0 0 .5rem
 
+// Pull 'Sex' heading out of the viewport since its options make this obvious.
 .values__heading--sex
   left -100vw
   position absolute
@@ -25,6 +28,7 @@ user-values
   opacity TEXT_OPACITY
   margin-left auto
 
+// Lists.
 .values__list
 .values__item
   align-items center
@@ -37,6 +41,7 @@ user-values
 .values__list--metrics
   flex-wrap wrap
 
+// Items.
 .values__item
   margin 0 0 1rem
 
@@ -54,9 +59,9 @@ user-values
   height INPUT_HEIGHT
   margin 0
 
+// Labels.
 .values__label
   display flex
-  transition color var(--transition)
 
 .values__label--activity
 .values__label--goal
@@ -65,11 +70,16 @@ user-values
   padding 0 1rem
   width 100%
 
-.values__label--activity:active
-.values__label--goal:active
-.values__label--sex:active
-  transform scale(.7)
-  transition transform var(--transition)
+  &:active
+    transform scale(.7)
+    transition transform var(--transition)
+
+  [no-touch] &:hover
+    cursor pointer
+
+  [no-touch] &:hover .values__label__caption
+    opacity 1
+    transition opacity var(--transition)
 
 .values__label--feet
 .values__label--inches
@@ -83,11 +93,7 @@ user-values
 .values__label--weight
   width 4.55rem
 
-[no-touch] .values__label--sex:hover
-[no-touch] .values__label--activity:hover
-[no-touch] .values__label--goal:hover
-  cursor pointer
-
+// Number inputs.
 .values__input[type=number]
   background var(--field-background)
   border 2px solid transparent
@@ -102,6 +108,7 @@ user-values
 .values__input[type=number]:focus
   border-color var(--focus)
 
+// Radio buttons.
 // [1] Disable pointer events on elements within radio button labels so that
 // iOS Safari can register a tap on the label.
 .values__input[type=radio] ~ .values__label__caption
@@ -109,13 +116,15 @@ user-values
   border-radius 2px
   display flex
   justify-content center
+  opacity TEXT_OPACITY
   pointer-events none // [1]
+  transition opacity var(--transition)
   width 100%
 
-.values__input[type=radio]:focus ~ .values__label__caption
-  transform scale(1.2)
-  transition transform var(--transition)
+.values__input[type=radio]:checked ~ .values__label__caption
+  opacity 1
 
+// Pseudo-elements.
 .values__item--weight::after
 .values__item--age::after
   margin-left .5em
