@@ -62,7 +62,7 @@ user-values
 // Labels.
 .values__label
   display flex
-
+  
 .values__label--activity
 .values__label--goal
 .values__label--sex
@@ -71,7 +71,7 @@ user-values
   width 100%
 
   &:active
-    transform scale(.7)
+    transform scale(.8)
     transition transform var(--transition)
 
   [no-touch] &:hover
@@ -79,7 +79,6 @@ user-values
 
   [no-touch] &:hover .values__label__caption
     opacity 1
-    transition opacity var(--transition)
 
 .values__label--feet
 .values__label--inches
@@ -108,7 +107,10 @@ user-values
 .values__input[type=number]:focus
   border-color var(--focus)
 
-// Radio buttons.
+// Radio button label captions.
+.values__label__caption
+  transition opacity var(--transition)
+
 // [1] Disable pointer events on elements within radio button labels so that
 // iOS Safari can register a tap on the label.
 .values__input[type=radio] ~ .values__label__caption
@@ -118,7 +120,6 @@ user-values
   justify-content center
   opacity TEXT_OPACITY
   pointer-events none // [1]
-  transition opacity var(--transition)
   width 100%
 
 .values__input[type=radio]:checked ~ .values__label__caption
