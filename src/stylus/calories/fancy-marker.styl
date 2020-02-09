@@ -1,17 +1,18 @@
 fancy-marker
   background var(--marker-canvas-background)
-  border-radius 4px
+  border-radius 8px
   display block
+  padding 4px
   position relative
   z-index 1
 
 fancy-marker .marker
   background var(--marker-background)
   border-radius 4px
-  height 100%
+  height var(--marker-height)
   left var(--marker-left)
   position absolute
-  top 0
+  top 4px
   transition left var(--transition) ease-out, width var(--transition) ease-out
   width var(--marker-width)
   z-index -1
