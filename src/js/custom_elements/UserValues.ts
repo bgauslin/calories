@@ -173,8 +173,9 @@ class UserValues extends HTMLElement {
               type="radio" \
               name="${name}" \
               id="${id}" \
-              value="${value}"${checked}>\
-              <span>${label}</span>\
+              value="${value}" \
+              ${checked}>\
+              <span class="values__label__caption">${label}</span>\
           </label>\
         ${endTag}\
       `;

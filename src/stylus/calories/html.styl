@@ -32,6 +32,7 @@ input
   padding 0
   user-select auto
 
+a:focus
 input:focus
   outline 0
 
@@ -51,6 +52,12 @@ input[type=number]
   &:invalid:not(:empty)
     background 'rgba(%s, .2)' % Branding.RED
     color var(--branding)
+
+svg
+  height auto
+  pointer-events none
+  vertical-align middle
+  width 100%
 
 svg path
   fill currentColor
