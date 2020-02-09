@@ -1,4 +1,4 @@
-const DIVISOR: number = 11; // Prime number for variety.
+const DIVISOR: number = 11; // Prime number ensures variety with each increment.
 const INTERVAL_MS: number = 30;
 const VALUE_ATTR: string = 'value';
 
@@ -25,7 +25,7 @@ class Counter extends HTMLElement {
       const increment = Math.floor(difference / DIVISOR);
 
       const interval = setInterval(() => {
-        if (difference < 0 && (incrementNumber <= newNumber) || difference > 0 && (incrementNumber >= newNumber)) {
+        if ((difference <= 0 && (incrementNumber <= newNumber)) || (difference >= 0 && (incrementNumber >= newNumber))) {
           incrementNumber = newNumber;
           clearInterval(interval);
         } else {
