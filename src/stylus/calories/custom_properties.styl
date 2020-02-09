@@ -15,19 +15,20 @@
     --footer-height px_to_rem(60)
     --header-height px_to_rem(60)
 
-  [theme=light]
-    --background white
-    --border #ddd
-    --field-background #eee
-    --focus rgba(black, .5)
-    --header-background rgba(white, .97)
-    --link DARK_GREY
-    --link-active rgba(DARK_GREY, .7)
-    --marker-background white
-    --marker-canvas-background #eee
-    --text DARK_GREY
+  // Default light theme.
+  --background white
+  --border #ddd
+  --field-background #eee
+  --focus rgba(black, .5)
+  --header-background rgba(white, .97)
+  --link DARK_GREY
+  --link-active rgba(DARK_GREY, .7)
+  --marker-background white
+  --marker-canvas-background #eee
+  --text DARK_GREY
 
-  [theme=dark]
+  // Dark theme per user settings.
+  @media (prefers-color-scheme dark)
     --background #262626
     --border #333
     --field-background #555

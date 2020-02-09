@@ -20,17 +20,8 @@ class App {
    */
   public init(): void {
     this.utils_.init();
-    this.updateHeader_();
     this.updateContent_();
     this.updateCopyright_();
-  }
-
-  /**
-   * Injects custom elements into the header.
-   */
-  private updateHeader_(): void {
-    const headerEl = document.querySelector(`.${CssClass.HEADER}`);
-    headerEl.innerHTML += '<app-theme class="themifier"></app-theme>';
   }
 
   /**
