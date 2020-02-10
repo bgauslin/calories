@@ -51,14 +51,14 @@ class UserValues extends HTMLElement {
   private setup_(): void {
     const html = `\
       <form class="${CssClass.BASE}__form">\
-        ${this.radioButtonsGroup_('sex', FieldName.SEX, Sex, 'Sex', null)}\
+        ${this.radioButtonsGroup_('sex', FieldName.SEX, Sex, false, 'Sex', null)}\
         <div class="${CssClass.BASE}__group ${CssClass.BASE}__group--metrics">\
           <ul class="${CssClass.BASE}__list ${CssClass.BASE}__list--metrics">\
             ${this.numberInputs_(Metrics)}\
           </ul>\
         </div>\
-        ${this.radioButtonsGroup_('activity', FieldName.ACTIVITY, ActivityLevel, 'Exercise', 'times per week')}\
-        ${this.radioButtonsGroup_('goal', FieldName.GOAL, WeightGoal, 'Weight loss', 'lbs. per week')}\
+        ${this.radioButtonsGroup_('activity', FieldName.ACTIVITY, ActivityLevel, true, 'Exercise', 'times per week')}\
+        ${this.radioButtonsGroup_('goal', FieldName.GOAL, WeightGoal, true, 'Weight loss', 'lbs. per week')}\
       </form>\
 
       <result-counter class="${CssClass.RESULT}"></result-counter>\
@@ -91,9 +91,10 @@ class UserValues extends HTMLElement {
    * Returns all rendered markup for a group of radio buttons: heading, marker,
    * and radio buttons.
    */
-  private radioButtonsGroup_(modifier: string, fieldName: string, buttons:InputRadio[], headingLabel: string, headingNote?: string): string {
+  private radioButtonsGroup_(modifier: string, fieldName: string, buttons:InputRadio[], invisible: boolean, headingLabel: string, headingNote?: string): string {
+    const isInvisible = invisible ? ' invisible' : '';
     return `\
-      <div class="${CssClass.BASE}__group ${CssClass.BASE}__group--${modifier}">\
+      <div class="${CssClass.BASE}__group ${CssClass.BASE}__group--${modifier}"${isInvisible}>\
         ${this.fieldHeading_(modifier, headingLabel, headingNote)}\
         <fancy-marker>\
           <ul class="${CssClass.BASE}__list ${CssClass.BASE}__list--${modifier}">\
@@ -115,19 +116,13 @@ class UserValues extends HTMLElement {
   /**
    * Returns rendered input fields.
    */
-  private numberInputs_(inputs: InputNumber[], tags: boolean = true): string {
+  private numberInputs_(inputs: InputNumber[]): string {
     let allHtml = '';
-    let startTag: string = ''
-    let endTag: string = '';
 
     inputs.forEach((input) => {
       const {id, label, max, min, name, pattern} = input;
-      if (tags) {
-        startTag = `<li class="${CssClass.BASE}__item ${CssClass.BASE}__item--${name}">`;
-        endTag = '</li>';
-      }
       const html = `\
-        ${startTag}\
+        <li class="${CssClass.BASE}__item ${CssClass.BASE}__item--${name}">\
           <label for="${id}" class="${CssClass.BASE}__label ${CssClass.BASE}__label--${name}">${label}</label>\
           <input \
             class="values__input values__input--${name}" \
@@ -140,7 +135,7 @@ class UserValues extends HTMLElement {
             pattern="${pattern}" \
             aria-label="${label}" \
             required>\
-        ${endTag}\
+        </li>\
       `;
       allHtml += html;
     });
