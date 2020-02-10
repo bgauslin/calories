@@ -98,7 +98,7 @@ const WeightGoal: InputRadio[] = [
   {
     factor: 0,
     id: 'goal-0',
-    label: '0',
+    label: 'None',
     value: '0',
   },
   {

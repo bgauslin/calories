@@ -43,41 +43,16 @@ class UserValues extends HTMLElement {
    * Creates DOM elements and populates them if there are stored user values.
    */
   private setup_(): void {
-    const className = CssClass.VALUES;
     const html = `\
-      <form class="${className}__form">\
-        <div class="${className}__group ${className}__group--sex">\
-          ${this.fieldHeading_(className, 'sex', 'Sex')}\
-          <fancy-marker>\
-            <ul class="${className}__list ${className}__list--sex">\
-              ${this.radioButtons_(FieldName.SEX, Sex)}\
-            </ul>\
-          </fancy-marker>\
-        </div>\
-
-        <div class="${className}__group ${className}__group--metrics">\
-          <ul class="${className}__list ${className}__list--metrics">\
+      <form class="${CssClass.VALUES}__form">\
+        ${this.radioButtonsGroup_('sex', FieldName.SEX, Sex, 'Sex', null)}\
+        <div class="${CssClass.VALUES}__group ${CssClass.VALUES}__group--metrics">\
+          <ul class="${CssClass.VALUES}__list ${CssClass.VALUES}__list--metrics">\
             ${this.numberInputs_(Metrics)}\
           </ul>\
         </div>\
-
-        <div class="${className}__group ${className}__group--activity">\
-          ${this.fieldHeading_(className, 'activity', 'Exercise', 'days per week')}\
-          <fancy-marker>\
-            <ul class="${className}__list ${className}__list--activity">\
-              ${this.radioButtons_(FieldName.ACTIVITY, ActivityLevel)}
-            </ul>\
-          </fancy-marker>\
-        </div>\
-
-        <div class="${className}__group ${className}__group--goal">\
-          ${this.fieldHeading_(className, 'goal', 'Weight loss', 'lbs. per week')}\
-          <fancy-marker>\
-            <ul class="${className}__list ${className}__list--goal">\
-              ${this.radioButtons_(FieldName.GOAL, WeightGoal)}\
-            </ul>\
-          </fancy-marker>\
-        </div>\
+        ${this.radioButtonsGroup_('activity', FieldName.ACTIVITY, ActivityLevel, 'Exercise', 'times per week')}\
+        ${this.radioButtonsGroup_('goal', FieldName.GOAL, WeightGoal, 'Weight loss', 'lbs. per week')}\
       </form>\
 
       <result-counter class="${CssClass.RESULT}"></result-counter>\
@@ -107,11 +82,28 @@ class UserValues extends HTMLElement {
   }
 
   /**
+   * Returns all rendered markup for a group of radio buttons: heading, marker,
+   * and radio buttons.
+   */
+  private radioButtonsGroup_(modifier: string, fieldName: string, buttons:InputRadio[], headingLabel: string, headingNote?: string): string {
+    return `\
+      <div class="${CssClass.VALUES}__group ${CssClass.VALUES}__group--${modifier}">\
+        ${this.fieldHeading_(modifier, headingLabel, headingNote)}\
+        <fancy-marker>\
+          <ul class="${CssClass.VALUES}__list ${CssClass.VALUES}__list--${modifier}">\
+            ${this.radioButtons_(fieldName, buttons)}\
+          </ul>\
+        </fancy-marker>\
+      </div>\
+    `;
+  }
+
+  /**
    * Returns rendered heading for a field or group of fields.
    */
-  private fieldHeading_(className: string, modifier: string, label: string, note?: string): string {
-    const fieldNote = note ? ` <span class="${className}__heading__note">${note}</span>` : '';
-    return `<h4 class="${className}__heading ${className}__heading--${modifier}">${label}${fieldNote}</h4>`;
+  private fieldHeading_(modifier: string, label: string, note?: string): string {
+    const fieldNote = note ? ` <span class="${CssClass.VALUES}__heading__note">${note}</span>` : '';
+    return `<h4 class="${CssClass.VALUES}__heading ${CssClass.VALUES}__heading--${modifier}">${label}${fieldNote}</h4>`;
   }
 
   /**
@@ -153,20 +145,14 @@ class UserValues extends HTMLElement {
   /**
    * Returns rendered radio buttons.
    */
-  private radioButtons_(name: string, buttons: InputRadio[], tags: boolean = true): string {
+  private radioButtons_(name: string, buttons: InputRadio[]): string {
     let allHtml = '';
-    let startTag: string = ''
-    let endTag: string = '';
 
     buttons.forEach((button, index) => {
       const {id, label, value} = button;
       const checked = (index === 0) ? ' checked' : '';
-      if (tags) {
-        startTag = `<li class="${CssClass.VALUES}__item ${CssClass.VALUES}__item--${name}">`;
-        endTag = '</li>';
-      }
       const html = `\
-        ${startTag}\
+      <li class="${CssClass.VALUES}__item ${CssClass.VALUES}__item--${name}">\
           <label for="${id}" class="${CssClass.VALUES}__label ${CssClass.VALUES}__label--${name}">\
             <input \
               class="values__input values__input--${name}" \
@@ -177,7 +163,7 @@ class UserValues extends HTMLElement {
               ${checked}>\
               <span class="values__label__caption">${label}</span>\
           </label>\
-        ${endTag}\
+        </li>\
       `;
       allHtml += html;
     });
