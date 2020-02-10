@@ -1,12 +1,12 @@
 import {Formulas} from '../modules/Formulas';
 import {ActivityLevel, InputNumber, InputRadio, Metrics, Sex, WeightGoal} from '../modules/Datasets';
 
-const EMPTY_ATTR: string = 'empty';
+const INVISIBLE_ATTR: string = 'invisible';
 const LOCAL_STORAGE: string = 'values';
 
 enum CssClass {
+  BASE = 'values',
   RESULT = 'result',
-  VALUES = 'values',
 }
 
 enum FieldName {
@@ -14,6 +14,12 @@ enum FieldName {
   GOAL = 'goal',
   SEX = 'sex',
 }
+
+const INVISIBLE: string[] = [
+  '.values__group--activity',
+  '.values__group--goal',
+  '.result',
+];
 
 class UserValues extends HTMLElement {
   allFields_: string[];
@@ -44,10 +50,10 @@ class UserValues extends HTMLElement {
    */
   private setup_(): void {
     const html = `\
-      <form class="${CssClass.VALUES}__form">\
+      <form class="${CssClass.BASE}__form">\
         ${this.radioButtonsGroup_('sex', FieldName.SEX, Sex, 'Sex', null)}\
-        <div class="${CssClass.VALUES}__group ${CssClass.VALUES}__group--metrics">\
-          <ul class="${CssClass.VALUES}__list ${CssClass.VALUES}__list--metrics">\
+        <div class="${CssClass.BASE}__group ${CssClass.BASE}__group--metrics">\
+          <ul class="${CssClass.BASE}__list ${CssClass.BASE}__list--metrics">\
             ${this.numberInputs_(Metrics)}\
           </ul>\
         </div>\
@@ -87,10 +93,10 @@ class UserValues extends HTMLElement {
    */
   private radioButtonsGroup_(modifier: string, fieldName: string, buttons:InputRadio[], headingLabel: string, headingNote?: string): string {
     return `\
-      <div class="${CssClass.VALUES}__group ${CssClass.VALUES}__group--${modifier}">\
+      <div class="${CssClass.BASE}__group ${CssClass.BASE}__group--${modifier}">\
         ${this.fieldHeading_(modifier, headingLabel, headingNote)}\
         <fancy-marker>\
-          <ul class="${CssClass.VALUES}__list ${CssClass.VALUES}__list--${modifier}">\
+          <ul class="${CssClass.BASE}__list ${CssClass.BASE}__list--${modifier}">\
             ${this.radioButtons_(fieldName, buttons)}\
           </ul>\
         </fancy-marker>\
@@ -102,8 +108,8 @@ class UserValues extends HTMLElement {
    * Returns rendered heading for a field or group of fields.
    */
   private fieldHeading_(modifier: string, label: string, note?: string): string {
-    const fieldNote = note ? ` <span class="${CssClass.VALUES}__heading__note">${note}</span>` : '';
-    return `<h4 class="${CssClass.VALUES}__heading ${CssClass.VALUES}__heading--${modifier}">${label}${fieldNote}</h4>`;
+    const fieldNote = note ? ` <span class="${CssClass.BASE}__heading__note">${note}</span>` : '';
+    return `<h4 class="${CssClass.BASE}__heading ${CssClass.BASE}__heading--${modifier}">${label}${fieldNote}</h4>`;
   }
 
   /**
@@ -117,12 +123,12 @@ class UserValues extends HTMLElement {
     inputs.forEach((input) => {
       const {id, label, max, min, name, pattern} = input;
       if (tags) {
-        startTag = `<li class="${CssClass.VALUES}__item ${CssClass.VALUES}__item--${name}">`;
+        startTag = `<li class="${CssClass.BASE}__item ${CssClass.BASE}__item--${name}">`;
         endTag = '</li>';
       }
       const html = `\
         ${startTag}\
-          <label for="${id}" class="${CssClass.VALUES}__label ${CssClass.VALUES}__label--${name}">${label}</label>\
+          <label for="${id}" class="${CssClass.BASE}__label ${CssClass.BASE}__label--${name}">${label}</label>\
           <input \
             class="values__input values__input--${name}" \
             name="${name}" \
@@ -152,8 +158,8 @@ class UserValues extends HTMLElement {
       const {id, label, value} = button;
       const checked = (index === 0) ? ' checked' : '';
       const html = `\
-      <li class="${CssClass.VALUES}__item ${CssClass.VALUES}__item--${name}">\
-          <label for="${id}" class="${CssClass.VALUES}__label ${CssClass.VALUES}__label--${name}">\
+        <li class="${CssClass.BASE}__item ${CssClass.BASE}__item--${name}">\
+          <label for="${id}" class="${CssClass.BASE}__label ${CssClass.BASE}__label--${name}">\
             <input \
               class="values__input values__input--${name}" \
               type="radio" \
@@ -236,13 +242,13 @@ class UserValues extends HTMLElement {
       goal,
     });
 
-    // Display and save the result when all fields are filled in or selected.
+    // Display all fields and save result when all required data is provided.
     if (this.querySelectorAll(':invalid').length === 0) {
+      INVISIBLE.forEach(selector => this.querySelector(selector).removeAttribute(INVISIBLE_ATTR));
       this.resultEl_.setAttribute('value', tdc.toFixed(0));
-      this.resultEl_.removeAttribute(EMPTY_ATTR);
       localStorage.setItem(LOCAL_STORAGE, JSON.stringify(values));
     } else {
-      this.resultEl_.setAttribute(EMPTY_ATTR, '');
+      INVISIBLE.forEach(selector => this.querySelector(selector).setAttribute(INVISIBLE_ATTR, ''));
     }
   }
 }
