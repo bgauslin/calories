@@ -15,7 +15,7 @@ enum FieldName {
   SEX = 'sex',
 }
 
-const INVISIBLE: string[] = [
+const INVISIBLE_ELEMENTS: string[] = [
   '.values__group--activity',
   '.values__group--goal',
   '.result',
@@ -30,10 +30,8 @@ class UserValues extends HTMLElement {
 
   constructor() {
     super();
-
     this.formulas_ = new Formulas();
     this.storage_ = localStorage.getItem(LOCAL_STORAGE);
-
     this.addEventListener('change', (e) => this.updateResult_(e));
   }
 
@@ -63,9 +61,9 @@ class UserValues extends HTMLElement {
 
       <result-counter class="${CssClass.RESULT}"></result-counter>\
     `;
-
     this.innerHTML = html.replace(/\s\s/g, '');
 
+    // Create references to primary elements.
     this.formEl_ = this.querySelector('form');
     this.resultEl_ = this.querySelector(`.${CssClass.RESULT}`);
 
@@ -222,6 +220,7 @@ class UserValues extends HTMLElement {
 
     // Get BMR and BMI based on metrics.
     const bmr = this.formulas_.basalMetabolicRate(metrics);
+    // TODO: Display BMI after the result.
     // const bmi = this.formulas_.bodyMassIndex(metrics);
 
     // Get factors based on selected values for calculating calorie needs.
@@ -247,11 +246,15 @@ class UserValues extends HTMLElement {
           this.resultEl_.removeAttribute(Attribute.INCREMENT);
         }
       }
-      this.resultEl_.setAttribute('value', tdc.toFixed(0));
-      INVISIBLE.forEach(selector => this.querySelector(selector).removeAttribute(Attribute.INVISIBLE));
+      this.resultEl_.setAttribute(Attribute.VALUE, tdc.toFixed(0));
+      INVISIBLE_ELEMENTS.forEach((selector) => {
+        this.querySelector(selector).removeAttribute(Attribute.INVISIBLE);
+      });
       localStorage.setItem(LOCAL_STORAGE, JSON.stringify(values));
     } else {
-      INVISIBLE.forEach(selector => this.querySelector(selector).setAttribute(Attribute.INVISIBLE, ''));
+      INVISIBLE_ELEMENTS.forEach((selector) => {
+        this.querySelector(selector).setAttribute(Attribute.INVISIBLE, '');
+      });
     }
   }
 }

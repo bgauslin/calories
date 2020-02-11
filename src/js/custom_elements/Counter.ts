@@ -16,6 +16,11 @@ class Counter extends HTMLElement {
     this.update_(oldValue, newValue);
   }
 
+  /**
+   * Increments the result when user changes radio buttons. If user changes
+   * number inputs, just display the result without incrementing since it's
+   * possible to get stuck in the setInterval() process and we don't want that.
+   */
   update_(oldValue: string, newValue: string) {
     const oldNumber = parseInt(oldValue, 10);
     const newNumber = parseInt(newValue, 10);

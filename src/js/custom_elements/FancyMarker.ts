@@ -30,12 +30,19 @@ class FancyMarker extends HTMLElement {
     window.removeEventListener('resize', null);
   }
 
+  /**
+   * Creates and injects a marker element into the DOM.
+   */
   private renderMarker_(): void {
     const marker = document.createElement('div');
     marker.classList.add('marker');
     this.appendChild(marker);
   }
 
+  /**
+   * Sets custom properties to make the marker move to the selected target
+   * via CSS transitions.
+   */
   private update_(): void {
     // Remove 'init' attribute since it's only needed on initial page load.
     this.removeAttribute(Attribute.INIT);
