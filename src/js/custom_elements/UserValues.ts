@@ -1,6 +1,6 @@
 import {Attribute} from '../modules/Constants';
-import {Formulas} from '../modules/Formulas';
 import {ActivityLevel, InputNumber, InputRadio, Metrics, Sex, WeightGoal} from '../modules/Datasets';
+import {Formulas} from '../modules/Formulas';
 
 const LOCAL_STORAGE: string = 'values';
 
@@ -16,9 +16,9 @@ enum FieldName {
 }
 
 const INVISIBLE_ELEMENTS: string[] = [
+  '.result',
   '.values__group--activity',
   '.values__group--goal',
-  '.result',
 ];
 
 class UserValues extends HTMLElement {
