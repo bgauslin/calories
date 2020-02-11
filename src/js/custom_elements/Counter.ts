@@ -25,11 +25,10 @@ class Counter extends HTMLElement {
       const increment = Math.floor(difference / DIVISOR);
 
       const interval = setInterval(() => {
-        if ((difference <= 0 && (incrementNumber <= newNumber)) || (difference >= 0 && (incrementNumber >= newNumber))) {
+        incrementNumber += increment;
+        if (difference >= 0 && incrementNumber >= newNumber || difference < 0 && incrementNumber <= newNumber) {
           incrementNumber = newNumber;
           clearInterval(interval);
-        } else {
-          incrementNumber += increment;
         }
         this.textContent = incrementNumber.toString();
       }, INTERVAL_MS);
