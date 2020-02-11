@@ -40,7 +40,7 @@ class App {
     const el = document.querySelector('.copyright__years');
     const startYear = this.startYear_.toString().substr(-2);
     const currentYear = new Date().getFullYear().toString().substr(-2);
-    el.textContent = (currentYear !== startYear) ? `© ${startYear}–${currentYear}` : `© ${startYear}`;
+    el.textContent = (currentYear !== startYear) ? `© ${this.startYear_}–${currentYear}` : `© ${this.startYear_}`;
   }
 }
 
