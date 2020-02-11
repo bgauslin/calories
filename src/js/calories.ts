@@ -18,7 +18,7 @@ map.set(UserValues, 'user-values');
 map.forEach((key, value) => customElements.define(key, value));
 
 // Initialize the app.
-document.addEventListener('DOMContentLoaded', () => new App('2019').init());
+document.addEventListener('DOMContentLoaded', () => new App('2020').init());
 
 // Register the Service Worker.
 if ('serviceWorker' in navigator) {

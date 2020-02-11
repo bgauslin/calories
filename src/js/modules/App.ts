@@ -38,8 +38,9 @@ class App {
    */
   private updateCopyright_(): void {
     const el = document.querySelector('.copyright__years');
+    const startYear = this.startYear_.toString().substr(-2);
     const currentYear = new Date().getFullYear().toString().substr(-2);
-    el.textContent = `© ${this.startYear_}–${currentYear}`;
+    el.textContent = (currentYear !== startYear) ? `© ${startYear}–${currentYear}` : `© ${startYear}`;
   }
 }
 
