@@ -1,11 +1,9 @@
 enum Attribute {
+  INCREMENT = 'increment',
+  INIT = 'init',
+  INVISIBLE = 'invisible',
   NO_TOUCH = 'no-touch',
-  THEME = 'theme',
+  VALUE = 'value',
 }
 
-enum Theme {
-  ALT = 'dark',
-  DEFAULT = 'light',
-}
-
-export {Attribute, Theme};
+export {Attribute};

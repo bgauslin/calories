@@ -1,6 +1,7 @@
+import {Attribute} from '../modules/Constants';
+
 const DIVISOR: number = 11; // Prime number ensures variety with each increment.
 const INTERVAL_MS: number = 30;
-const VALUE_ATTR: string = 'value';
 
 class Counter extends HTMLElement {
   constructor() {
@@ -8,7 +9,7 @@ class Counter extends HTMLElement {
   }
 
   static get observedAttributes(): string[] {
-    return [VALUE_ATTR];
+    return [Attribute.VALUE];
   }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
@@ -19,7 +20,7 @@ class Counter extends HTMLElement {
     const oldNumber = parseInt(oldValue, 10);
     const newNumber = parseInt(newValue, 10);
 
-    if (oldNumber && newNumber) {
+    if (oldNumber && newNumber && this.hasAttribute(Attribute.INCREMENT)) {
       let incrementNumber: number = oldNumber;
       const difference = newNumber - oldNumber;
       const increment = Math.floor(difference / DIVISOR);

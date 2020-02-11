@@ -1,7 +1,7 @@
+import {Attribute} from '../modules/Constants';
 import {Formulas} from '../modules/Formulas';
 import {ActivityLevel, InputNumber, InputRadio, Metrics, Sex, WeightGoal} from '../modules/Datasets';
 
-const INVISIBLE_ATTR: string = 'invisible';
 const LOCAL_STORAGE: string = 'values';
 
 enum CssClass {
@@ -34,7 +34,7 @@ class UserValues extends HTMLElement {
     this.formulas_ = new Formulas();
     this.storage_ = localStorage.getItem(LOCAL_STORAGE);
 
-    this.addEventListener('change', () => this.updateResult_());
+    this.addEventListener('change', (e) => this.updateResult_(e));
   }
 
   connectedCallback(): void {
@@ -84,7 +84,7 @@ class UserValues extends HTMLElement {
     // Trigger each fancy-marker to set its marker position and set the
     // result's visibility.
     this.updateFancyMarkers_();
-    this.updateResult_();
+    this.updateResult_(null);
   }
 
   /**
@@ -208,7 +208,7 @@ class UserValues extends HTMLElement {
    * Updates 'result' element after getting all values and passing them into
    * the BMR, BMI, and TDC formulas.
    */
-  private updateResult_(): void {
+  private updateResult_(e?: Event): void {
     const values = {};
     const formData = new FormData(this.formEl_);
     this.allFields_.forEach((name) => values[name] = formData.get(name));
@@ -239,11 +239,19 @@ class UserValues extends HTMLElement {
 
     // Display all fields and save result when all required data is provided.
     if (this.querySelectorAll(':invalid').length === 0) {
-      INVISIBLE.forEach(selector => this.querySelector(selector).removeAttribute(INVISIBLE_ATTR));
+      if (e) {
+        const target = <HTMLInputElement>e.target;
+        if (target && target.type === 'radio') {
+          this.resultEl_.setAttribute(Attribute.INCREMENT, '');
+        } else {
+          this.resultEl_.removeAttribute(Attribute.INCREMENT);
+        }
+      }
       this.resultEl_.setAttribute('value', tdc.toFixed(0));
+      INVISIBLE.forEach(selector => this.querySelector(selector).removeAttribute(Attribute.INVISIBLE));
       localStorage.setItem(LOCAL_STORAGE, JSON.stringify(values));
     } else {
-      INVISIBLE.forEach(selector => this.querySelector(selector).setAttribute(INVISIBLE_ATTR, ''));
+      INVISIBLE.forEach(selector => this.querySelector(selector).setAttribute(Attribute.INVISIBLE, ''));
     }
   }
 }

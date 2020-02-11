@@ -1,4 +1,4 @@
-const INIT_ATTR: string = 'init';
+import {Attribute} from '../modules/Constants';
 
 enum CustomProperty {
   HEIGHT = '--marker-height',
@@ -14,7 +14,7 @@ class FancyMarker extends HTMLElement {
   }
 
   static get observedAttributes(): string[] {
-    return [INIT_ATTR];
+    return [Attribute.INIT];
   }
 
   connectedCallback(): void {
@@ -38,7 +38,7 @@ class FancyMarker extends HTMLElement {
 
   private update_(): void {
     // Remove 'init' attribute since it's only needed on initial page load.
-    this.removeAttribute(INIT_ATTR);
+    this.removeAttribute(Attribute.INIT);
 
     // Get the checked element, then its parent since the checkbox itself has
     // no dimensions, relies on its sibling to trigger it, and their parent is
