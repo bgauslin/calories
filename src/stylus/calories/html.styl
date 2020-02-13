@@ -48,10 +48,16 @@ input[type=number]
   &::-webkit-outer-spin-button
     appearance none
     margin 0
-  
-  &:invalid
-    background Warning.BACKGROUND
-    color Warning.COLOR
+
+input[type=number]:focus
+  border-color var(--focus)
+
+input[type=number]:invalid
+  background var(--warning-background)
+  color var(--warning-color)
+
+input[type=number]:invalid:focus
+  border-color var(--warning-color)
 
 svg
   height auto
