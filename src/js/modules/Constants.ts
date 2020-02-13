@@ -1,7 +1,8 @@
 enum Attribute {
+  HIDDEN = 'hidden',
+  INACTIVE = 'inactive',
   INCREMENT = 'increment',
   INIT = 'init',
-  INVISIBLE = 'invisible',
   NO_TOUCH = 'no-touch',
   VALUE = 'value',
 }

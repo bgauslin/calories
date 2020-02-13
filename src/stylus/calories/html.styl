@@ -49,9 +49,9 @@ input[type=number]
     appearance none
     margin 0
   
-  &:invalid:not(:empty)
-    background 'rgba(%s, .2)' % Branding.RED
-    color var(--branding)
+  &:invalid
+    background Warning.BACKGROUND
+    color Warning.COLOR
 
 svg
   height auto
@@ -62,15 +62,30 @@ svg
 svg path
   fill currentColor
 
-// For fields that don't display until all required data is provided.
-[invisible]
-:not([invisible])
+// Elements that don't display until all required data is provided.
+[hidden]
+[inactive]
+:not([hidden])
   transition opacity var(--transition)
 
-[invisible]
+[hidden]
   opacity 0
   visibility hidden
 
-:not([invisible])
+:not([hidden])
   opacity 1
   visibility visible
+
+// Elements that are inactive/disabled until all required data is provided.
+[inactive]
+  opacity .3
+
+[inactive] *
+  pointer-events none !important
+
+[inactive] *:hover
+  cursor default !important
+
+:not([inactive])
+  opacity 1
+  pointer-events auto

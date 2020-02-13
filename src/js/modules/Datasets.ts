@@ -1,4 +1,5 @@
 interface InputNumber {
+  defaultValue: number,
   id: string,
   label: string,
   max: number,
@@ -48,6 +49,7 @@ const ActivityLevel: InputRadio[] = [
 
 const Metrics: InputNumber[] = [
   {
+    defaultValue: 5,
     id: 'feet',
     label: 'Ft.',
     max: 7,
@@ -56,29 +58,33 @@ const Metrics: InputNumber[] = [
     pattern: '[3-7]',
   },
   {
+    defaultValue: 6,
     id: 'inches',
     label: 'In.',
     max: 11,
     min: 0,
     name: 'inches',
-    pattern: '[0-9]{0,1}[0-1]{1}',
+    pattern: '[0-9]|1[01]',
   },
+  // TODO: Update weight regex.
   {
+    defaultValue: 165,
     id: 'weight',
     label: 'Weight',
     max: 300,
-    min: 0,
+    min: 1,
     name: 'weight',
-    pattern: '[0-9]{0,3}[\\.]?[0-9]{1}',
+    pattern: '[0-9]{0,3}',
   },
   {
+    defaultValue: 25,
     id: 'age',
     label: 'Age',
     max: 100,
     min: 1,
     name: 'age',
-    pattern: '[0-9]+',
-  }
+    pattern: '[1-9][0-9]?',
+  },
 ];
 
 const Sex: InputRadio[] = [

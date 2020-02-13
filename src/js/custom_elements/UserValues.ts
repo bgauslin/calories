@@ -15,8 +15,7 @@ enum FieldName {
   SEX = 'sex',
 }
 
-const INVISIBLE_ELEMENTS: string[] = [
-  '.result',
+const INACTIVE_ELEMENTS: string[] = [
   '.values__group--activity',
   '.values__group--goal',
 ];
@@ -118,15 +117,16 @@ class UserValues extends HTMLElement {
     let allHtml = '';
 
     inputs.forEach((input) => {
-      const {id, label, max, min, name, pattern} = input;
+      const {defaultValue, id, label, max, min, name, pattern} = input;
       const html = `\
         <li class="${CssClass.BASE}__item ${CssClass.BASE}__item--${name}">\
           <label for="${id}" class="${CssClass.BASE}__label ${CssClass.BASE}__label--${name}">${label}</label>\
           <input \
             class="values__input values__input--${name}" \
-            name="${name}" \
-            id="${id}" \
             type="number" \
+            name="${name}" \
+            value="${defaultValue}" \
+            id="${id}" \
             inputmode="decimal" \
             min="${min}" \
             max="${max}" \
@@ -246,14 +246,18 @@ class UserValues extends HTMLElement {
           this.resultEl_.removeAttribute(Attribute.INCREMENT);
         }
       }
+      // Show/enable fields.
       this.resultEl_.setAttribute(Attribute.VALUE, tdc.toFixed(0));
-      INVISIBLE_ELEMENTS.forEach((selector) => {
-        this.querySelector(selector).removeAttribute(Attribute.INVISIBLE);
+      this.resultEl_.removeAttribute(Attribute.HIDDEN);
+      INACTIVE_ELEMENTS.forEach((selector) => {
+        this.querySelector(selector).removeAttribute(Attribute.INACTIVE);
       });
       localStorage.setItem(LOCAL_STORAGE, JSON.stringify(values));
     } else {
-      INVISIBLE_ELEMENTS.forEach((selector) => {
-        this.querySelector(selector).setAttribute(Attribute.INVISIBLE, '');
+      // Hide/disable fields.
+      this.resultEl_.setAttribute(Attribute.HIDDEN, '');
+      INACTIVE_ELEMENTS.forEach((selector) => {
+        this.querySelector(selector).setAttribute(Attribute.INACTIVE, '');
       });
     }
   }
