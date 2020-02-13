@@ -26,8 +26,9 @@
   --marker-background white
   --marker-canvas-background #eee
   --text DARK_GREY
-  --warning-background Warning.BACKGROUND
-  --warning-color Warning.COLOR
+  --warning-background '%s' % rgba(Branding.RED, .2)
+  --warning-border-color Branding.RED
+  --warning-color Branding.RED
 
   // Dark theme per user settings.
   @media (prefers-color-scheme dark)
@@ -41,3 +42,6 @@
     --marker-background #555
     --marker-canvas-background rgba(white, .05)
     --text white
+    --warning-background '%s' % rgba(Branding.ORANGE, .3)
+    --warning-border-color Branding.ORANGE
+    --warning-color Branding.ORANGE

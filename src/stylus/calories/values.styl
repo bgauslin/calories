@@ -12,7 +12,7 @@ user-values
   margin-bottom 2rem
 
 .values__group--metrics
-  margin-bottom .375rem
+  margin-bottom .5rem
 
 // Headings.
 .values__heading
@@ -43,7 +43,7 @@ user-values
 
 // Items.
 .values__item
-  margin 0 0 1rem
+  margin 0 0 .75rem
 
 .values__item--weight
 .values__item--age
@@ -86,19 +86,20 @@ user-values
 .values__item--feet::before
 .values__label--age
 .values__label--weight
-  width 4.55rem
+  width 4.5rem
 
 // Number inputs.
 .values__input[type=number]
   background var(--field-background)
-  border 2px solid transparent
-  border-radius 4px
+  border 2px solid var(--background)
+  border-radius 6px
+  box-sizing content-box
   color var(--text)
   font-size 1em
   height INPUT_HEIGHT
   padding 0 .5rem
   text-align right
-  width 4rem
+  width 2.5rem
 
 // Radio button label captions.
 .values__label__caption
