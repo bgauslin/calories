@@ -9,7 +9,7 @@ enum CssClass {
   RESULT = 'result',
 }
 
-enum FieldName {
+enum RadioButtonsGroup {
   ACTIVITY = 'activity',
   GOAL = 'goal',
   SEX = 'sex',
@@ -48,14 +48,14 @@ class UserValues extends HTMLElement {
   private setup_(): void {
     const html = `\
       <form class="${CssClass.BASE}__form">\
-        ${this.radioButtonsGroup_('sex', FieldName.SEX, Sex, false, 'Sex', null)}\
+        ${this.radioButtonsGroup_('sex', RadioButtonsGroup.SEX, Sex, false, 'Sex', null)}\
         <div class="${CssClass.BASE}__group ${CssClass.BASE}__group--measurements">\
           <ul class="${CssClass.BASE}__list ${CssClass.BASE}__list--measurements">\
             ${this.numberInputs_(Measurements)}\
           </ul>\
         </div>\
-        ${this.radioButtonsGroup_('activity', FieldName.ACTIVITY, ActivityLevel, true, 'Exercise', 'times per week')}\
-        ${this.radioButtonsGroup_('goal', FieldName.GOAL, WeightGoal, true, 'Weight loss', 'lbs. per week')}\
+        ${this.radioButtonsGroup_('activity', RadioButtonsGroup.ACTIVITY, ActivityLevel, true, 'Exercise', 'times per week')}\
+        ${this.radioButtonsGroup_('goal', RadioButtonsGroup.GOAL, WeightGoal, true, 'Weight loss', 'lbs. per week')}\
       </form>\
 
       <result-counter class="${CssClass.RESULT}"></result-counter>\
@@ -67,10 +67,10 @@ class UserValues extends HTMLElement {
     this.resultEl_ = this.querySelector(`.${CssClass.RESULT}`);
 
     // Place all fields in an array to simplify looping.
-    const measurementFieldNames = Measurements.map(field => field.name);
+    const measurementFields = Measurements.map(field => field.name);
     this.allFields_ = [
-      ...measurementFieldNames,
-      ...Object.values(FieldName),
+      ...measurementFields,
+      ...Object.values(RadioButtonsGroup),
     ];
 
     // Render user data on page load if it exists.
@@ -88,14 +88,14 @@ class UserValues extends HTMLElement {
    * Returns all rendered markup for a group of radio buttons: heading, marker,
    * and radio buttons.
    */
-  private radioButtonsGroup_(modifier: string, fieldName: string, buttons:InputRadio[], invisible: boolean, headingLabel: string, headingNote?: string): string {
+  private radioButtonsGroup_(modifier: string, name: string, buttons:InputRadio[], invisible: boolean, headingLabel: string, headingNote?: string): string {
     const isInvisible = invisible ? ' invisible' : '';
     return `\
       <div class="${CssClass.BASE}__group ${CssClass.BASE}__group--${modifier}"${isInvisible}>\
         ${this.fieldHeading_(modifier, headingLabel, headingNote)}\
         <fancy-marker>\
           <ul class="${CssClass.BASE}__list ${CssClass.BASE}__list--${modifier}">\
-            ${this.radioButtons_(fieldName, buttons)}\
+            ${this.radioButtons_(name, buttons)}\
           </ul>\
         </fancy-marker>\
       </div>\
