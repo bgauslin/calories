@@ -4,7 +4,7 @@ interface CalorieNeeds {
   goal: number,
 }
 
-interface Stats {
+interface Measurements {
   age: number,
   height: number,
   sex: string,
@@ -15,8 +15,8 @@ class Formulas {
   /**
    * Basal Metabolic Rate (BMR) formulas per https://www.freedieting.com/calorie-needs
    */ 
-  public basalMetabolicRate(stats: Stats, formulaName: string = 'Mifflin-StJeor', bodyFatPercentage?: number): number {
-    const {age, height, sex, weight} = stats;
+  public basalMetabolicRate(measurements: Measurements, formulaName: string = 'Mifflin-StJeor', bodyFatPercentage?: number): number {
+    const {age, height, sex, weight} = measurements;
     let formula: number;
     let male: number;
     let female: number;
@@ -44,8 +44,8 @@ class Formulas {
   /**
    * Returns Body Mass Index (BMI) based on height and weight in Imperial units.
    */
-  public bodyMassIndex(stats: Stats): number {
-    const {height, weight} = stats;
+  public bodyMassIndex(measurements: Measurements): number {
+    const {height, weight} = measurements;
     return (weight * 703) / (height ** 2);
   }
 

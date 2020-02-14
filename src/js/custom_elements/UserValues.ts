@@ -1,5 +1,5 @@
 import {Attribute} from '../modules/Constants';
-import {ActivityLevel, InputNumber, InputRadio, Metrics, Sex, WeightGoal} from '../modules/Datasets';
+import {ActivityLevel, InputNumber, InputRadio, Measurements, Sex, WeightGoal} from '../modules/Datasets';
 import {Formulas} from '../modules/Formulas';
 
 const LOCAL_STORAGE: string = 'values';
@@ -49,9 +49,9 @@ class UserValues extends HTMLElement {
     const html = `\
       <form class="${CssClass.BASE}__form">\
         ${this.radioButtonsGroup_('sex', FieldName.SEX, Sex, false, 'Sex', null)}\
-        <div class="${CssClass.BASE}__group ${CssClass.BASE}__group--metrics">\
-          <ul class="${CssClass.BASE}__list ${CssClass.BASE}__list--metrics">\
-            ${this.numberInputs_(Metrics)}\
+        <div class="${CssClass.BASE}__group ${CssClass.BASE}__group--measurements">\
+          <ul class="${CssClass.BASE}__list ${CssClass.BASE}__list--measurements">\
+            ${this.numberInputs_(Measurements)}\
           </ul>\
         </div>\
         ${this.radioButtonsGroup_('activity', FieldName.ACTIVITY, ActivityLevel, true, 'Exercise', 'times per week')}\
@@ -67,9 +67,9 @@ class UserValues extends HTMLElement {
     this.resultEl_ = this.querySelector(`.${CssClass.RESULT}`);
 
     // Place all fields in an array to simplify looping.
-    const metricsFieldNames = Metrics.map(field => field.name);
+    const measurementFieldNames = Measurements.map(field => field.name);
     this.allFields_ = [
-      ...metricsFieldNames,
+      ...measurementFieldNames,
       ...Object.values(FieldName),
     ];
 
@@ -117,13 +117,13 @@ class UserValues extends HTMLElement {
     let allHtml = '';
 
     inputs.forEach((input) => {
-      const {defaultValue, id, label, max, min, name, pattern} = input;
+      const {defaultValue, id, label, max, min, name, pattern, type} = input;
       const html = `\
         <li class="${CssClass.BASE}__item ${CssClass.BASE}__item--${name}">\
           <label for="${id}" class="${CssClass.BASE}__label ${CssClass.BASE}__label--${name}">${label}</label>\
           <input \
             class="values__input values__input--${name}" \
-            type="number" \
+            type="${type}" \
             name="${name}" \
             value="${defaultValue}" \
             id="${id}" \
@@ -211,17 +211,17 @@ class UserValues extends HTMLElement {
     const formData = new FormData(this.formEl_);
     this.allFields_.forEach((name) => values[name] = formData.get(name));
 
-    const metrics = {
+    const measurements = {
       age: Number(values['age']),
       height: Number(values['feet'] * 12) + Number(values['inches']),
       sex: values['sex'],
       weight: Number(values['weight']),
     };
 
-    // Get BMR and BMI based on metrics.
-    const bmr = this.formulas_.basalMetabolicRate(metrics);
+    // Get BMR and BMI based on measurements.
+    const bmr = this.formulas_.basalMetabolicRate(measurements);
     // TODO: Display BMI after the result.
-    // const bmi = this.formulas_.bodyMassIndex(metrics);
+    // const bmi = this.formulas_.bodyMassIndex(measurements);
 
     // Get factors based on selected values for calculating calorie needs.
     const activityLevel = ActivityLevel.find(level => values['activity'] === level.value);

@@ -40,24 +40,28 @@ input[type=radio]
   height 0
   width 0
 
+input[type=text]
 input[type=number]
   webfont()
+
+  &:focus
+    border-color var(--focus)
+
+  &:invalid
+    background var(--warning-background)
+    color var(--warning-color)
+
+  &:invalid:focus
+    border-color var(--warning-border-color)
+
+// Hide the tiny up/down buttons within a number input.
+input[type=number]
   -moz-appearance textfield
 
   &::-webkit-inner-spin-button
   &::-webkit-outer-spin-button
     appearance none
     margin 0
-
-input[type=number]:focus
-  border-color var(--focus)
-
-input[type=number]:invalid
-  background var(--warning-background)
-  color var(--warning-color)
-
-input[type=number]:invalid:focus
-  border-color var(--warning-border-color)
 
 svg
   height auto
