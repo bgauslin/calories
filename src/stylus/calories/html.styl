@@ -47,12 +47,9 @@ input[type=number]
   &:focus
     border-color var(--focus)
 
-  &:invalid
+  &:invalid:not(:focus)
     background var(--warning-background)
     color var(--warning-color)
-
-  &:invalid:focus
-    border-color var(--warning-border-color)
 
 // Hide the tiny up/down buttons within a number input.
 input[type=number]

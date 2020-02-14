@@ -82,6 +82,9 @@ class UserValues extends HTMLElement {
     // result's visibility.
     this.updateFancyMarkers_();
     this.updateResult_(null);
+
+    // Add listeners to the text/number fields.
+    this.handleInputFocus_();
   }
 
   /**
@@ -191,6 +194,32 @@ class UserValues extends HTMLElement {
         }
       });
     });
+  }
+
+  /**
+   * Clears the input on focus and restores the previous value if the user
+   * decides not to change it.
+   */
+  private handleInputFocus_(): void {
+    const names = Measurements.map(field => field.name);
+    names.forEach((name) => {
+      let oldValue: string;
+      const el = <HTMLInputElement>this.querySelector(`[name=${name}]`);
+
+      // Save the old value on focus and clear the field.
+      el.addEventListener('focus', () => {
+        oldValue = el.value;
+        el.value = '';
+      });
+
+      // Put the old value back if the value doesn't change.
+      el.addEventListener('blur', () => {
+        const newValue = el.value;
+        if (!newValue) {
+          el.value = oldValue;
+        }
+      });
+    })
   }
 
   /**
