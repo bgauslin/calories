@@ -214,8 +214,7 @@ class UserValues extends HTMLElement {
 
       // Put the old value back if the value doesn't change.
       el.addEventListener('blur', () => {
-        const newValue = el.value;
-        if (!newValue) {
+        if (!el.value) {
           el.value = oldValue;
         }
       });
