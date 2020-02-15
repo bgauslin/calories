@@ -1,6 +1,7 @@
 import {Attribute} from '../modules/Constants';
-import {ActivityLevel, InputNumber, InputRadio, Measurements, Sex, WeightGoal} from '../modules/Datasets';
+import {ActivityLevel, Measurements, Sex, WeightGoal} from '../modules/Datasets';
 import {Formulas} from '../modules/Formulas';
+import {Templates} from '../modules/Templates';
 
 const LOCAL_STORAGE: string = 'values';
 
@@ -26,10 +27,12 @@ class UserValues extends HTMLElement {
   formulas_: Formulas;
   resultEl_: HTMLElement;
   storage_: string;
+  templates_: Templates;
 
   constructor() {
     super();
     this.formulas_ = new Formulas();
+    this.templates_ = new Templates();
     this.storage_ = localStorage.getItem(LOCAL_STORAGE);
     this.addEventListener('change', (e) => this.update_(e));
   }
@@ -56,14 +59,14 @@ class UserValues extends HTMLElement {
   private setup_(): void {
     const html = `\
       <form class="${CssClass.BASE}__form">\
-        ${this.radioButtonsGroup_('sex', RadioButtonsGroup.SEX, Sex, false, 'Sex', null)}\
+        ${this.templates_.radioButtonsGroup('sex', RadioButtonsGroup.SEX, Sex, false, 'Sex', null)}\
         <div class="${CssClass.BASE}__group ${CssClass.BASE}__group--measurements">\
           <ul class="${CssClass.BASE}__list ${CssClass.BASE}__list--measurements">\
-            ${this.numberInputs_(Measurements)}\
+            ${this.templates_.numberInputs(Measurements)}\
           </ul>\
         </div>\
-        ${this.radioButtonsGroup_('activity', RadioButtonsGroup.ACTIVITY, ActivityLevel, true, 'Exercise', 'times per week')}\
-        ${this.radioButtonsGroup_('goal', RadioButtonsGroup.GOAL, WeightGoal, true, 'Weight loss', 'lbs. per week')}\
+        ${this.templates_.radioButtonsGroup('activity', RadioButtonsGroup.ACTIVITY, ActivityLevel, true, 'Exercise', 'times per week')}\
+        ${this.templates_.radioButtonsGroup('goal', RadioButtonsGroup.GOAL, WeightGoal, true, 'Weight loss', 'lbs. per week')}\
       </form>\
 
       <result-counter class="${CssClass.RESULT}"></result-counter>\
@@ -93,92 +96,6 @@ class UserValues extends HTMLElement {
 
     // Add listeners to the text/number fields.
     this.handleInputFocus_();
-  }
-
-  /**
-   * Returns all rendered markup for a group of radio buttons: heading, marker,
-   * and radio buttons.
-   */
-  private radioButtonsGroup_(modifier: string, name: string, buttons:InputRadio[], invisible: boolean, headingLabel: string, headingNote?: string): string {
-    const isInvisible = invisible ? ' invisible' : '';
-    return `\
-      <div class="${CssClass.BASE}__group ${CssClass.BASE}__group--${modifier}"${isInvisible}>\
-        ${this.fieldHeading_(modifier, headingLabel, headingNote)}\
-        <fancy-marker>\
-          <ul class="${CssClass.BASE}__list ${CssClass.BASE}__list--${modifier}">\
-            ${this.radioButtons_(name, buttons)}\
-          </ul>\
-        </fancy-marker>\
-      </div>\
-    `;
-  }
-
-  /**
-   * Returns rendered heading for a field or group of fields.
-   */
-  private fieldHeading_(modifier: string, label: string, note?: string): string {
-    const fieldNote = note ? ` <span class="${CssClass.BASE}__heading__note">${note}</span>` : '';
-    return `<h4 class="${CssClass.BASE}__heading ${CssClass.BASE}__heading--${modifier}">${label}${fieldNote}</h4>`;
-  }
-
-  /**
-   * Returns rendered input fields.
-   */
-  private numberInputs_(inputs: InputNumber[]): string {
-    let allHtml = '';
-
-    inputs.forEach((input) => {
-      const {defaultValue, id, label, max, min, name, pattern, type} = input;
-      const html = `\
-        <li class="${CssClass.BASE}__item ${CssClass.BASE}__item--${name}">\
-          <label for="${id}" class="${CssClass.BASE}__label ${CssClass.BASE}__label--${name}">${label}</label>\
-          <input \
-            class="values__input values__input--${name}" \
-            type="${type}" \
-            name="${name}" \
-            value="${defaultValue}" \
-            id="${id}" \
-            inputmode="decimal" \
-            min="${min}" \
-            max="${max}" \
-            pattern="${pattern}" \
-            aria-label="${label}" \
-            required>\
-        </li>\
-      `;
-      allHtml += html;
-    });
-
-    return allHtml;
-  }
-
-  /**
-   * Returns rendered radio buttons.
-   */
-  private radioButtons_(name: string, buttons: InputRadio[]): string {
-    let allHtml = '';
-
-    buttons.forEach((button, index) => {
-      const {id, label, value} = button;
-      const checked = (index === 0) ? ' checked' : '';
-      const html = `\
-        <li class="${CssClass.BASE}__item ${CssClass.BASE}__item--${name}">\
-          <label for="${id}" class="${CssClass.BASE}__label ${CssClass.BASE}__label--${name}">\
-            <input \
-              class="values__input values__input--${name}" \
-              type="radio" \
-              name="${name}" \
-              id="${id}" \
-              value="${value}" \
-              ${checked}>\
-              <span class="values__label__caption">${label}</span>\
-          </label>\
-        </li>\
-      `;
-      allHtml += html;
-    });
-
-    return allHtml;
   }
 
   /**
