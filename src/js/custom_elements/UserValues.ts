@@ -31,11 +31,19 @@ class UserValues extends HTMLElement {
     super();
     this.formulas_ = new Formulas();
     this.storage_ = localStorage.getItem(LOCAL_STORAGE);
-    this.addEventListener('change', (e) => this.updateResult_(e));
+    this.addEventListener('change', (e) => this.update_(e));
+  }
+
+  static get observedAttributes(): string[] {
+    return [Attribute.FORMULA, Attribute.UNITS];
   }
 
   connectedCallback(): void {
     this.setup_();
+  }
+
+  attributeChangedCallback(): void {
+    this.update_();
   }
 
   disconnectedCallback(): void {
@@ -81,7 +89,7 @@ class UserValues extends HTMLElement {
     // Trigger each fancy-marker to set its marker position and set the
     // result's visibility.
     this.updateFancyMarkers_();
-    this.updateResult_(null);
+    this.update_(null);
 
     // Add listeners to the text/number fields.
     this.handleInputFocus_();
@@ -234,7 +242,7 @@ class UserValues extends HTMLElement {
    * Updates 'result' element after getting all values and passing them into
    * the BMR, BMI, and TDC formulas.
    */
-  private updateResult_(e?: Event): void {
+  private update_(e?: Event): void {
     const values = {};
     const formData = new FormData(this.formEl_);
     this.allFields_.forEach((name) => values[name] = formData.get(name));
