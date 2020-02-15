@@ -17,9 +17,9 @@ class Formulas {
    */ 
   public basalMetabolicRate(measurements: Measurements, formulaName: string = 'Mifflin-StJeor', bodyFatPercentage?: number): number {
     const {age, height, sex, weight} = measurements;
+    let female: number;
     let formula: number;
     let male: number;
-    let female: number;
 
     switch(formulaName) {
       case 'Mifflin-StJeor':
@@ -54,8 +54,8 @@ class Formulas {
    * weight loss goal.
    */
   public totalDailyCalories(userData: CalorieNeeds): number {
-    const {bmr, activity, goal} = userData;
-    return (bmr * activity) - goal;
+    const {activity, bmr, goal} = userData;
+    return (activity * bmr) - goal;
   }
 
   /**
