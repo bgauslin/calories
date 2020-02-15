@@ -25,12 +25,14 @@ class UserValues extends HTMLElement {
   allFields_: string[];
   formEl_: HTMLFormElement;
   formulas_: Formulas;
+  hasSetup_: boolean;
   resultEl_: HTMLElement;
   storage_: string;
   templates_: Templates;
 
   constructor() {
     super();
+    this.hasSetup_ = false;
     this.formulas_ = new Formulas();
     this.templates_ = new Templates();
     this.storage_ = localStorage.getItem(LOCAL_STORAGE);
@@ -46,7 +48,9 @@ class UserValues extends HTMLElement {
   }
 
   attributeChangedCallback(): void {
-    this.update_();
+    if (this.hasSetup_) {
+      this.update_(null);
+    }
   }
 
   disconnectedCallback(): void {
@@ -89,13 +93,18 @@ class UserValues extends HTMLElement {
       this.populateInputs_();
     }
 
-    // Trigger each fancy-marker to set its marker position and set the
-    // result's visibility.
-    this.updateFancyMarkers_();
-    this.update_(null);
-
-    // Add listeners to the text/number fields.
+    // Set attribute on each fancy-marker which will trigger it to set its
+    // marker position (and the result's visibility).
+    [...this.querySelectorAll('fancy-marker')].forEach((marker) => {
+      marker.setAttribute('init', '');
+    });
+    
+    // Add focus/blur listeners to text inputs.
     this.handleInputFocus_();
+
+    // All done.
+    this.hasSetup_ = true;
+    this.update_(null);
   }
 
   /**
@@ -147,15 +156,6 @@ class UserValues extends HTMLElement {
   }
 
   /**
-   * Sets an attribute on each fancy-marker so that they auto-update on 
-   * initial page load.
-   */
-  updateFancyMarkers_(): void {
-    const markers = this.querySelectorAll('fancy-marker');
-    markers.forEach((marker) => marker.setAttribute('init', ''));
-  }
-
-  /**
    * Updates 'result' element after getting all values and passing them into
    * the BMR, BMI, and TDC formulas.
    */
@@ -164,16 +164,36 @@ class UserValues extends HTMLElement {
     const formData = new FormData(this.formEl_);
     this.allFields_.forEach((name) => values[name] = formData.get(name));
 
+    // Get height and weight based on metric/Imperial units.
+    let height: number;
+    let weight: number;
+    const units = this.getAttribute(Attribute.UNITS);
+
+    // TODO: Add height/weight metric/imperial conversion helpers to Formulas.
+    switch (units) {
+      case 'metric':
+        height = values['cm'];
+        weight = Number(values['weight']);
+        break;
+      case 'imperial':
+        height = Number(values['feet'] * 12) + Number(values['inches']);
+        weight = Number(values['weight']);
+        break;
+    }
+
     const measurements = {
       age: Number(values['age']),
-      height: Number(values['feet'] * 12) + Number(values['inches']),
+      height,
       sex: values['sex'],
-      weight: Number(values['weight']),
+      weight,
     };
 
-    // Get BMR and BMI based on measurements.
-    const bmr = this.formulas_.basalMetabolicRate(measurements);
+    // Get BMR based on measurements.
+    const formula = this.getAttribute(Attribute.FORMULA) || '';
+    const bmr = this.formulas_.basalMetabolicRate(measurements, formula);
+
     // TODO: Display BMI after the result.
+    // Get BMI based on measurements.
     // const bmi = this.formulas_.bodyMassIndex(measurements);
 
     // Get factors based on selected values for calculating calorie needs.

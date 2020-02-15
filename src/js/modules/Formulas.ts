@@ -11,30 +11,36 @@ interface Measurements {
   weight: number,
 }
 
+enum Formula {
+  'ms' = 'Mifflin-StJeor',
+  'km' = 'Katch-McArdle',
+  'hb' = 'Harris-Benedict',
+}
+
 class Formulas {
   /**
    * Basal Metabolic Rate (BMR) formulas per https://www.freedieting.com/calorie-needs
    */ 
-  public basalMetabolicRate(measurements: Measurements, formulaName: string = 'Mifflin-StJeor', bodyFatPercentage?: number): number {
+  public basalMetabolicRate(measurements: Measurements, formula: string = 'ms', bodyFatPercentage?: number): number {
     const {age, height, sex, weight} = measurements;
+    let bmrCalc: number;
     let female: number;
-    let formula: number;
     let male: number;
 
-    switch(formulaName) {
+    switch(Formula[formula]) {
       case 'Mifflin-StJeor':
-        formula = (10 * this.kg_(weight)) + (6.25 * this.cm_(height)) - (5 * age);
-        male = formula + 5;
-        female = formula - 161;
+        bmrCalc = (10 * this.kg_(weight)) + (6.25 * this.cm_(height)) - (5 * age);
+        female = bmrCalc - 161;
+        male = bmrCalc + 5;
         break;
       case 'Katch-McArdle':
-        formula = (21.6 * (weight - (bodyFatPercentage * weight))) + 370;
-        male = formula;
-        female = formula;
+        bmrCalc = (21.6 * (weight - (bodyFatPercentage * weight))) + 370;
+        female = bmrCalc;
+        male = bmrCalc;
         break;
       case 'Harris-Benedict':
+        female = 655 + (4.3 * weight) + (4.7 * height) - (4.7 * age);  
         male = 66 + (6.3 * weight) + (12.9 * height) - (6.8 * age);
-        female = 655 + (4.3 * weight) + (4.7 * height) - (4.7 * age);
         break;
     }
 
