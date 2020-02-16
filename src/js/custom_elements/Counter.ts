@@ -26,6 +26,7 @@ class Counter extends HTMLElement {
     const newNumber = parseInt(newValue, 10);
 
     if (oldNumber && newNumber && this.hasAttribute(Attribute.INCREMENT)) {
+      this.removeAttribute(Attribute.INCREMENT);
       let incrementNumber: number = oldNumber;
       const difference = newNumber - oldNumber;
       const increment = Math.floor(difference / DIVISOR);
