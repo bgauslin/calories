@@ -183,20 +183,19 @@ class UserValues extends HTMLElement {
     const formData = new FormData(this.formEl_);
     this.allFields_.forEach((name) => values[name] = formData.get(name));
 
-    // Get height and weight based on metric/Imperial units.
+    // Convert height and weight to metric regardless of user-selected units.
     let height: number;
-    let weight: number;
+    let weight: number = values['weight'];
     const units = this.getAttribute(Attribute.UNITS);
 
-    // TODO: Add height/weight metric/imperial conversion helpers to Formulas.
+    // TODO: Add height/weight metric fields.
     switch (units) {
       case 'metric':
         height = values['cm'];
-        weight = Number(values['weight']);
         break;
       case 'imperial':
-        height = Number(values['feet'] * 12) + Number(values['inches']);
-        weight = Number(values['weight']);
+        height = this.formulas_.cm(Number(values['feet'] * 12) + Number(values['inches']));
+        weight = this.formulas_.kg(weight);
         break;
     }
 
