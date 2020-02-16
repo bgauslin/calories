@@ -4,7 +4,7 @@ interface RadioButtonsGroupData {
   buttons: InputRadio[],
   headingLabel: string,
   headingNote?: string,
-  invisible: boolean,
+  inactive?: boolean,
   modifier: string,
   name: string,
 }
@@ -20,10 +20,10 @@ class Templates {
    * and radio buttons.
    */
   public radioButtonsGroup(data: RadioButtonsGroupData): string {
-    const {modifier, name, buttons, invisible, headingLabel, headingNote} = data;
-    const isInvisible = invisible ? ' invisible' : '';
+    const {modifier, name, buttons, inactive, headingLabel, headingNote} = data;
+    const isInactive = inactive ? ' inactive' : '';
     return `\
-      <div class="${CssClass.BASE}__group ${CssClass.BASE}__group--${modifier}"${isInvisible}>\
+      <div class="${CssClass.BASE}__group ${CssClass.BASE}__group--${modifier}"${isInactive}>\
         ${this.fieldHeading_(modifier, headingLabel, headingNote)}\
         <fancy-marker>\
           <ul class="${CssClass.BASE}__list ${CssClass.BASE}__list--${modifier}">\

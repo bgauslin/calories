@@ -66,7 +66,6 @@ class UserValues extends HTMLElement {
         ${this.templates_.radioButtonsGroup({
           buttons: Sex,
           headingLabel: 'Sex',
-          invisible: false,
           modifier:  'sex',
           name: RadioButtonsGroup.SEX,
         })}\
@@ -79,7 +78,7 @@ class UserValues extends HTMLElement {
           buttons: ActivityLevel,
           headingLabel: 'Exercise',
           headingNote: 'times per week',
-          invisible: true,
+          inactive: true,
           modifier: 'activity',
           name: RadioButtonsGroup.ACTIVITY,
         })}\
@@ -87,7 +86,7 @@ class UserValues extends HTMLElement {
           buttons: WeightGoal,
           headingLabel: 'Weight loss',
           headingNote: 'lbs. per week',
-          invisible: true,
+          inactive: true,
           modifier: 'goal',
           name: RadioButtonsGroup.GOAL,
         })}\
