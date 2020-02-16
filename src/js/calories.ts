@@ -20,9 +20,11 @@ map.forEach((key, value) => customElements.define(key, value));
 // Initialize the app.
 document.addEventListener('DOMContentLoaded', () => new App('2020').init());
 
-// Register the Service Worker.
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js');
-  });
+// Register the Service Worker on production.
+if (process.env.NODE_ENV === 'production') {
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js');
+    });
+  }
 }
