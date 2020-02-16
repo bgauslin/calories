@@ -63,16 +63,35 @@ class UserValues extends HTMLElement {
   private setup_(): void {
     const html = `\
       <form class="${CssClass.BASE}__form">\
-        ${this.templates_.radioButtonsGroup('sex', RadioButtonsGroup.SEX, Sex, false, 'Sex', null)}\
+        ${this.templates_.radioButtonsGroup({
+          buttons: Sex,
+          headingLabel: 'Sex',
+          invisible: false,
+          modifier:  'sex',
+          name: RadioButtonsGroup.SEX,
+        })}\
         <div class="${CssClass.BASE}__group ${CssClass.BASE}__group--measurements">\
           <ul class="${CssClass.BASE}__list ${CssClass.BASE}__list--measurements">\
             ${this.templates_.numberInputs(Measurements)}\
           </ul>\
         </div>\
-        ${this.templates_.radioButtonsGroup('activity', RadioButtonsGroup.ACTIVITY, ActivityLevel, true, 'Exercise', 'times per week')}\
-        ${this.templates_.radioButtonsGroup('goal', RadioButtonsGroup.GOAL, WeightGoal, true, 'Weight loss', 'lbs. per week')}\
+        ${this.templates_.radioButtonsGroup({
+          buttons: ActivityLevel,
+          headingLabel: 'Exercise',
+          headingNote: 'times per week',
+          invisible: true,
+          modifier: 'activity',
+          name: RadioButtonsGroup.ACTIVITY,
+        })}\
+        ${this.templates_.radioButtonsGroup({
+          buttons: WeightGoal,
+          headingLabel: 'Weight loss',
+          headingNote: 'lbs. per week',
+          invisible: true,
+          modifier: 'goal',
+          name: RadioButtonsGroup.GOAL,
+        })}\
       </form>\
-
       <result-counter class="${CssClass.RESULT}"></result-counter>\
     `;
     this.innerHTML = html.replace(/\s\s/g, '');

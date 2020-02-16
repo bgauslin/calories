@@ -1,5 +1,14 @@
 import {InputNumber, InputRadio} from './Datasets';
 
+interface RadioButtonsGroupData {
+  buttons: InputRadio[],
+  headingLabel: string,
+  headingNote?: string,
+  invisible: boolean,
+  modifier: string,
+  name: string,
+}
+
 enum CssClass {
   BASE = 'values',
   RESULT = 'result',
@@ -10,7 +19,8 @@ class Templates {
    * Returns all rendered markup for a group of radio buttons: heading, marker,
    * and radio buttons.
    */
-  public radioButtonsGroup(modifier: string, name: string, buttons:InputRadio[], invisible: boolean, headingLabel: string, headingNote?: string): string {
+  public radioButtonsGroup(data: RadioButtonsGroupData): string {
+    const {modifier, name, buttons, invisible, headingLabel, headingNote} = data;
     const isInvisible = invisible ? ' invisible' : '';
     return `\
       <div class="${CssClass.BASE}__group ${CssClass.BASE}__group--${modifier}"${isInvisible}>\
