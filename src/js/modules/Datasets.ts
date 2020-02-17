@@ -1,5 +1,4 @@
 interface InputNumber {
-  defaultValue: number,
   id: string,
   label: string,
   max: number,
@@ -50,7 +49,6 @@ const ActivityLevel: InputRadio[] = [
 
 const Measurements: InputNumber[] = [
   {
-    defaultValue: 5,
     id: 'feet',
     label: 'Ft.',
     max: 7,
@@ -60,7 +58,6 @@ const Measurements: InputNumber[] = [
     type: 'number',
   },
   {
-    defaultValue: 6,
     id: 'inches',
     label: 'In.',
     max: 11,
@@ -70,7 +67,6 @@ const Measurements: InputNumber[] = [
     type: 'number',
   },
   {
-    defaultValue: 165,
     id: 'weight',
     label: 'Weight',
     max: 400,
@@ -80,7 +76,6 @@ const Measurements: InputNumber[] = [
     type: 'text',
   },
   {
-    defaultValue: 25,
     id: 'age',
     label: 'Age',
     max: 100,

@@ -49,7 +49,7 @@ class Templates {
     let allHtml = '';
 
     inputs.forEach((input) => {
-      const {defaultValue, id, label, max, min, name, pattern, type} = input;
+      const {id, label, max, min, name, pattern, type} = input;
       const html = `\
         <li class="${CssClass.BASE}__item ${CssClass.BASE}__item--${name}">\
           <label for="${id}" class="${CssClass.BASE}__label ${CssClass.BASE}__label--${name}">${label}</label>\
@@ -57,7 +57,6 @@ class Templates {
             class="values__input values__input--${name}" \
             type="${type}" \
             name="${name}" \
-            value="${defaultValue}" \
             id="${id}" \
             inputmode="decimal" \
             min="${min}" \
