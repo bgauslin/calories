@@ -36,7 +36,7 @@ class UserValues extends HTMLElement {
     this.formulas_ = new Formulas();
     this.templates_ = new Templates();
     this.storage_ = localStorage.getItem(LOCAL_STORAGE);
-    this.addEventListener('change', (e) => this.update_(e));
+    this.addEventListener('change', this.update_);
   }
 
   static get observedAttributes(): string[] {
@@ -54,7 +54,7 @@ class UserValues extends HTMLElement {
   }
 
   disconnectedCallback(): void {
-    this.removeEventListener('change', null);
+    this.removeEventListener('change', this.update_);
   }
 
   /**

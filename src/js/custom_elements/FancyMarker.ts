@@ -7,10 +7,13 @@ enum CustomProperty {
 }
 
 class FancyMarker extends HTMLElement {
+  private resizeListener_: any;
+
   constructor() {
     super();
     this.addEventListener('change', this.update_);
-    window.addEventListener('resize', this.update_);
+    this.resizeListener_ = this.update_.bind(this);
+    window.addEventListener('resize', this.resizeListener_);
   }
 
   static get observedAttributes(): string[] {
@@ -27,7 +30,7 @@ class FancyMarker extends HTMLElement {
 
   disconnectedCallback(): void {
     this.removeEventListener('change', this.update_);
-    window.removeEventListener('resize', this.update_);
+    window.removeEventListener('resize', this.resizeListener_);
   }
 
   /**
