@@ -9,8 +9,8 @@ enum CustomProperty {
 class FancyMarker extends HTMLElement {
   constructor() {
     super();
-    this.addEventListener('change', () => this.update_());
-    window.addEventListener('resize', () => this.update_());
+    this.addEventListener('change', this.update_);
+    window.addEventListener('resize', this.update_);
   }
 
   static get observedAttributes(): string[] {
@@ -26,8 +26,8 @@ class FancyMarker extends HTMLElement {
   }
 
   disconnectedCallback(): void {
-    this.removeEventListener('change', null);
-    window.removeEventListener('resize', null);
+    this.removeEventListener('change', this.update_);
+    window.removeEventListener('resize', this.update_);
   }
 
   /**
