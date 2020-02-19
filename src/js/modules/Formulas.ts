@@ -17,6 +17,17 @@ enum Formula {
   'ms' = 'Mifflin-StJeor',
 }
 
+/** Daily zig-zag calorie needs modifiers per day of the week. */
+const zigZagCalories = [
+  {day: 1, modifier: 1},
+  {day: 2, modifier: .9},
+  {day: 3, modifier: 1.1},
+  {day: 4, modifier: 1},
+  {day: 5, modifier: 1},
+  {day: 6, modifier: .8},
+  {day: 7, modifier: 1.2},
+];
+
 class Formulas {
   /**
    * Basal Metabolic Rate (BMR) formulas. To simplify things, all values are
