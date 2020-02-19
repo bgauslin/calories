@@ -20,15 +20,7 @@ enum Formula {
 }
 
 /** Daily zig-zag calorie needs modifiers per day of the week. */
-const zigZagCalories = [
-  {day: 1, modifier: 1},
-  {day: 2, modifier: .9},
-  {day: 3, modifier: 1.1},
-  {day: 4, modifier: 1},
-  {day: 5, modifier: 1},
-  {day: 6, modifier: .8},
-  {day: 7, modifier: 1.2},
-];
+const zigZagCalories = [1, .9, 1.1, 1, 1, .8, 1.2];
 
 class Formulas {
   /**
@@ -103,7 +95,7 @@ class Formulas {
   public zigZag(tdc: number) {
     const results = {}
     zigZagCalories.forEach((day, index) => {
-      results[`day ${index + 1}`] = (tdc * day.modifier).toFixed(0);
+      results[`Day ${index + 1}`] = (tdc * day).toFixed(0);
     });
     console.table(results);
   }
