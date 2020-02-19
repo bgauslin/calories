@@ -17,31 +17,31 @@ interface InputRadio {
 
 const ActivityLevel: InputRadio[] = [
   {
-    factor: 1.2,
+    factor: 1,
     id: 'level-0',
     label: 'None',
     value: '0',
   },
   {
-    factor: 1.375, // 1.2 * 1.1455
+    factor: 1.1455,
     id: 'level-3',
     label: '3',
     value: '3',
   },
   {
-    factor: 1.418, // 1.2 * 1.1819
+    factor: 1.1819,
     id: 'level-4',
     label: '4',
     value: '4',
   },
   {
-    factor: 1.463, // 1.2 * 1.2188
+    factor: 1.2188,
     id: 'level-5',
     label: '5',
     value: '5',
   },
   {
-    factor: 1.55, // 1.2 * 1.2916
+    factor: 1.2916,
     id: 'level-7',
     label: 'Daily',
     value: '7',

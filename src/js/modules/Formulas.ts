@@ -11,6 +11,8 @@ interface Measurements {
   weight: number,
 }
 
+const BMR_MULTIPLIER: number = 1.2;
+
 enum Formula {
   'hb' = 'Harris-Benedict',
   'km' = 'Katch-McArdle',
@@ -77,7 +79,7 @@ class Formulas {
    */
   public totalDailyCalories(userData: CalorieNeeds): number {
     const {activity, bmr, goal} = userData;
-    return (activity * bmr) - goal;
+    return (activity * bmr * BMR_MULTIPLIER) - goal;
   }
 
   /**
