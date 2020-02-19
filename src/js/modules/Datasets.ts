@@ -9,7 +9,6 @@ interface InputNumber {
 }
 
 interface InputRadio {
-  description?: string,
   factor?: number,
   id: string,
   label: string,
@@ -18,32 +17,34 @@ interface InputRadio {
 
 const ActivityLevel: InputRadio[] = [
   {
-    description: 'Sedentary',
     factor: 1.2,
     id: 'level-0',
     label: 'None',
     value: '0',
   },
   {
-    description: 'Lightly active',
-    factor: 1.375,
-    id: 'level-1',
-    label: '1–3',
-    value: '1',
-  },
-  {
-    description: 'Moderately active',
-    factor: 1.55,
-    id: 'level-2',
-    label: '4–5',
-    value: '2',
-  },
-  {
-    description: 'Highly active',
-    factor: 1.725,
+    factor: 1.375, // 1.2 * 1.1455
     id: 'level-3',
-    label: '6–7',
+    label: '3',
     value: '3',
+  },
+  {
+    factor: 1.418, // 1.2 * 1.1819
+    id: 'level-4',
+    label: '4',
+    value: '4',
+  },
+  {
+    factor: 1.463, // 1.2 * 1.2188
+    id: 'level-5',
+    label: '5',
+    value: '5',
+  },
+  {
+    factor: 1.55, // 1.2 * 1.2916
+    id: 'level-7',
+    label: 'Daily',
+    value: '7',
   },
 ];
 
@@ -107,25 +108,25 @@ const WeightGoal: InputRadio[] = [
     value: '0',
   },
   {
-    factor: 250,
+    factor: 250, // TODO: 10%
     id: 'goal-1',
     label: '½',
     value: '1',
   },
   {
-    factor: 500,
+    factor: 500, // TODO: 20%
     id: 'goal-2',
     label: '1',
     value: '2',
   },
   {
-    factor: 750,
+    factor: 750, // TODO: 30%
     id: 'goal-3',
     label: '1½',
     value: '3',
   },
   {
-    factor: 1000,
+    factor: 1000, // TODO: 40%
     id: 'goal-4',
     label: '2',
     value: '4',
