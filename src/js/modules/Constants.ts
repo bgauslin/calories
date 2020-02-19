@@ -1,4 +1,5 @@
 enum Attribute {
+  BMR = 'bmr',
   FORMULA = 'formula',
   HIDDEN = 'hidden',
   INACTIVE = 'inactive',

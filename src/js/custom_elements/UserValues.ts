@@ -238,6 +238,7 @@ class UserValues extends HTMLElement {
       }
       // Show/enable fields.
       this.resultEl_.setAttribute(Attribute.VALUE, tdc.toFixed(0));
+      this.resultEl_.setAttribute(Attribute.BMR, bmr.toFixed(0));
       this.resultEl_.removeAttribute(Attribute.HIDDEN);
       INACTIVE_ELEMENTS.forEach((selector) => {
         this.querySelector(selector).removeAttribute(Attribute.INACTIVE);
