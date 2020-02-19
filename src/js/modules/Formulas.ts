@@ -95,6 +95,18 @@ class Formulas {
   public cm(inches: number): number {
     return (inches * 2.54);
   }
+
+  /**
+   * Creates zig-zag calorie needs across 7 days where each day's needs differ
+   * to prevent weight loss plateau.
+   */
+  public zigZag(tdc: number) {
+    const results = {}
+    zigZagCalories.forEach((day, index) => {
+      results[`day ${index + 1}`] = (tdc * day.modifier).toFixed(0);
+    });
+    console.table(results);
+  }
 }
 
 export {Formulas};

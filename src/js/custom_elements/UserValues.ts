@@ -244,6 +244,10 @@ class UserValues extends HTMLElement {
         this.querySelector(selector).removeAttribute(Attribute.INACTIVE);
       });
       localStorage.setItem(LOCAL_STORAGE, JSON.stringify(values));
+
+      // Show zig-zag values.
+      this.formulas_.zigZag(tdc);
+
     } else {
       // Hide/disable fields.
       this.resultEl_.setAttribute(Attribute.HIDDEN, '');
