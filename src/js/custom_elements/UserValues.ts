@@ -243,13 +243,14 @@ class UserValues extends HTMLElement {
       this.resultEl_.setAttribute(Attribute.VALUE, tdc.toFixed(0));
       this.resultEl_.setAttribute(Attribute.BMR, bmr.toFixed(0));
       this.resultEl_.removeAttribute(Attribute.HIDDEN);
+
       INACTIVE_ELEMENTS.forEach((selector) => {
         this.querySelector(selector).removeAttribute(Attribute.INACTIVE);
       });
       localStorage.setItem(LOCAL_STORAGE, JSON.stringify(values));
 
       // Show zig-zag values.
-      this.formulas_.zigZag(tdc);
+      this.formulas_.zigZag(tdc, '#table .table__data');
 
     } else {
       // Hide/disable fields.

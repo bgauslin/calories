@@ -67,13 +67,13 @@ class App {
   }
 
   /**
-   * Hides elements if an observed element is empty since there's no target
+   * Hides elements if an observed element is hidden since there's no target
    * for the expandable to expand/collapse.
    */
   private setVisibility_(): void {
     const els = document.querySelectorAll(Visibility.TARGETS);
 
-    if (this.visibilitySourceEl_.hasAttribute(Attribute.EMPTY)) {
+    if (this.visibilitySourceEl_.hasAttribute(Attribute.HIDDEN)) {
       els.forEach((el) => el.setAttribute(Attribute.HIDDEN, ''));
     } else {
       els.forEach((el) => el.removeAttribute(Attribute.HIDDEN));

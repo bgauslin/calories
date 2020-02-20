@@ -92,12 +92,19 @@ class Formulas {
    * Creates zig-zag calorie needs across 7 days where each day's needs differ
    * to prevent weight loss plateau.
    */
-  public zigZag(tdc: number) {
-    const results = {}
+  public zigZag(tdc: number, selector: string) {
+    const targetEl = document.querySelector(selector);
+    let html = '';
     zigZagCalories.forEach((day, index) => {
-      results[`Day ${index + 1}`] = (tdc * day).toFixed(0);
+      html += `\
+        <tr>\
+          <td>Day ${index + 1}</td>\
+          <td>${(tdc * day).toFixed(0)}</td>\
+        </tr>\
+      `;
     });
-    console.table(results);
+    console.log(targetEl);
+    targetEl.innerHTML = html.replace(/\s\s/g, '');
   }
 }
 
