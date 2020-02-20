@@ -1,0 +1,72 @@
+// [1] Make variable font commas and decimal points align across table cells.
+// [2] Table should always display at this breakpoint and higher.
+.table
+  box-sizing border-box
+  font-variant-numeric tabular-nums // [1]
+  height auto
+  justify-self stretch
+  margin 0
+  opacity 1
+  overflow-x auto
+  overflow-y hidden
+  text-align center
+  transition height var(--transition-slow) ease-out, opacity var(--transition-slow) ease-out
+  
+  @media Breakpoint.MEDIUM
+    height auto !important // [2]
+    opacity 1
+
+  @media Breakpoint.LARGE
+    justify-self stretch
+    margin-top var(--grid-gap)
+    padding 0
+
+.table[hidden]
+  display none
+
+.table[expanded]
+  margin-bottom px_to_rem(16)
+
+  @media Breakpoint.MEDIUM
+    margin-bottom 0
+
+.table__frame
+  border-bottom 1px solid var(--border)
+  overflow-x auto
+
+  @media Breakpoint.SMALL
+    border 1px solid var(--border)
+    border-radius CORNER_RADIUS_CARD
+
+@media Breakpoint.SMALL
+  .table__data
+    background var(--background)
+
+th
+td
+  padding var(--table-padding-y) var(--table-padding-x)
+
+  &:first-child
+    text-align left
+    padding-left GRID_GAP
+
+    @media Breakpoint.SMALL
+      padding-left var(--table-padding-x)
+
+  &:last-child
+    padding-right GRID_GAP
+
+    @media Breakpoint.SMALL
+      padding-right var(--table-padding-x)
+
+  &.balance
+    padding-right GRID_GAP
+
+    @media Breakpoint.SMALL
+      padding-right var(--table-padding-x)
+
+tr:first-child
+  border-bottom 1px solid var(--border)
+
+tr:nth-child(even)
+  background var(--zebra-stripe)
