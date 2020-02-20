@@ -20,7 +20,17 @@ enum Formula {
 }
 
 /** Daily zig-zag calorie needs modifiers per day of the week. */
-const zigZagCalories = [1, .9, 1.1, 1, 1, .8, 1.2];
+const ZIGZAG_CALORIES: number[] = [1, .9, 1.1, 1, 1, .8, 1.2];
+
+const WEEKDAYS = [
+  ['Sun', 'Sunday'],
+  ['Mon', 'Monday'],
+  ['Tue', 'Tuesday'],
+  ['Wed', 'Wednesday'],
+  ['Thu', 'Thursday'],
+  ['Fri', 'Friday'],
+  ['Sat', 'Saturday'],
+];
 
 class Formulas {
   /**
@@ -94,16 +104,23 @@ class Formulas {
    */
   public zigZag(tdc: number, selector: string) {
     const targetEl = document.querySelector(selector);
-    let html = '';
-    zigZagCalories.forEach((day, index) => {
+
+    let html = `\
+      <tr>\
+        <th>Day</th>\
+        <th>Calories</th>\
+      </tr>\
+    `;
+
+    ZIGZAG_CALORIES.forEach((day, i) => {
       html += `\
         <tr>\
-          <td>Day ${index + 1}</td>\
+          <td>${WEEKDAYS[i][1]}</td>\
           <td>${(tdc * day).toFixed(0)}</td>\
         </tr>\
       `;
     });
-    console.log(targetEl);
+
     targetEl.innerHTML = html.replace(/\s\s/g, '');
   }
 }

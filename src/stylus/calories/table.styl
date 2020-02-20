@@ -45,6 +45,7 @@
 th
 td
   padding var(--table-padding-y) var(--table-padding-x)
+  text-align right
 
   &:first-child
     text-align left
@@ -58,15 +59,6 @@ td
 
     @media Breakpoint.SMALL
       padding-right var(--table-padding-x)
-
-  &.balance
-    padding-right GRID_GAP
-
-    @media Breakpoint.SMALL
-      padding-right var(--table-padding-x)
-
-tr:first-child
-  border-bottom 1px solid var(--border)
 
 tr:nth-child(even)
   background var(--zebra-stripe)

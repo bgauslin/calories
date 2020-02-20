@@ -7,13 +7,18 @@
   --header-height px_to_rem(48)
   --site-header px_to_rem(16)
   --sticky-shift 0 // set via JS
-  --transition .25s
+  --table px_to_rem(13)
+  --table-padding-x px_to_em(12)
+  --table-padding-y px_to_em(8)
+  --transition .3s
+  --transition-slow .5s
 
   @media Breakpoint.MEDIUM
     --site-header px_to_rem(20)
     --fineprint px_to_rem(14)
     --footer-height px_to_rem(60)
     --header-height px_to_rem(60)
+    --table px_to_rem(15)
 
   // Default light theme.
   --background white
@@ -27,6 +32,7 @@
   --marker-canvas-background #eee
   --text DARK_GREY
   --warning-color Branding.RED
+  --zebra-stripe mix(black, white, 3%)
 
   // Dark theme per user settings.
   @media (prefers-color-scheme dark)
@@ -41,3 +47,4 @@
     --marker-canvas-background rgba(white, .05)
     --text white
     --warning-color Branding.ORANGE
+    --zebra-stripe '%s' % mix(black, #262626, 10%)
