@@ -3,13 +3,10 @@
   --button-width px_to_rem(44)
   --fineprint px_to_rem(12)
   --footer-height px_to_rem(48)
-  --grid-gap GRID_GAP
+  --grid-gap px_to_rem(16)
   --header-height px_to_rem(48)
   --site-header px_to_rem(16)
   --sticky-shift 0 // set via JS
-  --table px_to_rem(13)
-  --table-padding-x px_to_em(12)
-  --table-padding-y px_to_em(8)
   --transition .3s
   --transition-slow .5s
 
@@ -18,7 +15,6 @@
     --fineprint px_to_rem(14)
     --footer-height px_to_rem(60)
     --header-height px_to_rem(60)
-    --table px_to_rem(15)
 
   // Default light theme.
   --background white
@@ -32,7 +28,7 @@
   --marker-canvas-background #eee
   --text DARK_GREY
   --warning-color Branding.RED
-  --zebra-stripe mix(black, white, 3%)
+  --zebra-stripe #eee
 
   // Dark theme per user settings.
   @media (prefers-color-scheme dark)
@@ -47,4 +43,4 @@
     --marker-canvas-background rgba(white, .05)
     --text white
     --warning-color Branding.ORANGE
-    --zebra-stripe '%s' % mix(black, #262626, 10%)
+    --zebra-stripe rgba(white, .05)

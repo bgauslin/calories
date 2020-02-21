@@ -2,34 +2,26 @@
   opacity 1
   transition opacity var(--transition) ease
 
-  @media Breakpoint.MEDIUM
-    display none !important // hide the button since we don't need it
-
 .expandable[hidden]
   opacity 0
   pointer-events none
 
-// [1] Knockout via theme's body background.
-// [2] Adjust side padding to coordinate with toggle arrow.
+// [1] Knockout color = theme's body background.
 .expandable__button
   webfont(600)
   align-items center
-  background var(--text)
+  background 0
   border 2px solid var(--text)
   border-radius (BUTTON_HEIGHT / 2)
-  color var(--background) // [1]
+  color var(--text)
   display flex
   font-size px_to_em(14)
   height BUTTON_HEIGHT
   justify-content center
   line-height 1
   margin auto
-  padding 0 px_to_rem(12) 0 0 // [2]
-  width 50vw
+  padding 0 px_to_rem(16)
   white-space nowrap
-
-  @media Breakpoint.SMALL
-    width 33vw
 
 [no-touch] .expandable__button
   transition border var(--transition) ease, color var(--transition) ease
@@ -37,13 +29,13 @@
 .expandable__button:focus
 .expandable__button:active
 [no-touch] .expandable__button:hover
-  background 0
-  color var(--text)
+  background var(--text)
+  color var(--background) // [1]
   cursor pointer
 
 // [1] Knockout via theme's body background.
 .expandable__button::before
-  css_triangle(var(--background), 5px, 'down') // [1]
+  css_triangle(var(--text), 5px, 'down') // [1]
   content ''
   display inline-block
   margin-right px_to_rem(8)
@@ -55,4 +47,4 @@
 .expandable__button:focus::before
 .expandable__button:active::before
 [no-touch] .expandable__button:hover::before
-  border-top-color var(--text)
+  border-top-color var(--background)

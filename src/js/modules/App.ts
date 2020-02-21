@@ -46,24 +46,11 @@ class App {
     contentEl.classList.remove(CssClass.NO_JS);
     const contentHtml = `\
       <user-values class="values" units="imperial" formula="ms"></user-values>\
-      ${this.renderTable_('table')}\
-      <app-expandable class="expandable" target="table" label="table"></app-expandable>\
+      <zig-zag id="zig-zag">\
+        <app-expandable class="expandable" target="zig-zag-table" label="zig-zag calories"></app-expandable>\
+      </zig-zag>\
     `;
     contentEl.innerHTML = contentHtml.replace(/\s\s/g, '');
-  }
-
-  /**
-   * Returns rendered table element for displaying zig-zag calories.
-   */
-  private renderTable_(classname: string, id: string = classname): string {
-    const html = `\
-      <div class="${classname}" id="${id}">\
-        <div class="${classname}__frame">\
-          <table class="${classname}__data"></table>\
-        </div>\
-      </div>\
-    `;
-    return html.replace(/\s\s/g, '');
   }
 
   /**

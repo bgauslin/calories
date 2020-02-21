@@ -6,8 +6,9 @@ enum Attribute {
   INCREMENT = 'increment',
   INIT = 'init',
   NO_TOUCH = 'no-touch',
-  VALUE = 'value',
+  TDC = 'tdc',
   UNITS = 'units',
+  VALUE = 'value',
 }
 
 export {Attribute};

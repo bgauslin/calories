@@ -19,19 +19,6 @@ enum Formula {
   'ms' = 'Mifflin-StJeor',
 }
 
-/** Daily zig-zag calorie needs modifiers per day of the week. */
-const ZIGZAG_CALORIES: number[] = [1, .9, 1.1, 1, 1, .8, 1.2];
-
-const WEEKDAYS = [
-  ['Sun', 'Sunday'],
-  ['Mon', 'Monday'],
-  ['Tue', 'Tuesday'],
-  ['Wed', 'Wednesday'],
-  ['Thu', 'Thursday'],
-  ['Fri', 'Friday'],
-  ['Sat', 'Saturday'],
-];
-
 class Formulas {
   /**
    * Basal Metabolic Rate (BMR) formulas. To simplify things, all values are
@@ -96,32 +83,6 @@ class Formulas {
    */
   public cm(inches: number): number {
     return (inches * 2.54);
-  }
-
-  /**
-   * Creates zig-zag calorie needs across 7 days where each day's needs differ
-   * to prevent weight loss plateau.
-   */
-  public zigZag(tdc: number, selector: string) {
-    const targetEl = document.querySelector(selector);
-
-    let html = `\
-      <tr>\
-        <th>Day</th>\
-        <th>Calories</th>\
-      </tr>\
-    `;
-
-    ZIGZAG_CALORIES.forEach((day, i) => {
-      html += `\
-        <tr>\
-          <td>${WEEKDAYS[i][1]}</td>\
-          <td>${(tdc * day).toFixed(0)}</td>\
-        </tr>\
-      `;
-    });
-
-    targetEl.innerHTML = html.replace(/\s\s/g, '');
   }
 }
 

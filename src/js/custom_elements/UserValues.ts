@@ -250,7 +250,8 @@ class UserValues extends HTMLElement {
       localStorage.setItem(LOCAL_STORAGE, JSON.stringify(values));
 
       // Show zig-zag values.
-      this.formulas_.zigZag(tdc, '#table .table__data');
+      // TODO: Refactor stuff to avoid doing it like this.
+      document.querySelector('#zig-zag').setAttribute('tdc', tdc.toFixed());
 
     } else {
       // Hide/disable fields.
