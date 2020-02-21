@@ -74,7 +74,6 @@ class Expandable extends HTMLElement {
       return;
     }
 
-    console.log('this.targetEl_', this.targetEl_);
     const elHeight = this.targetEl_.scrollHeight;
 
     if (action === 'expand') {

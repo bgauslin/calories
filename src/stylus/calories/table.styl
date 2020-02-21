@@ -7,9 +7,8 @@ zig-zag > app-expandable
   order 2
 
 .table
+  background var(--marker-canvas-background)
   border-radius 8px
-  border-left 1px solid var(--zebra-stripe)
-  border-right 1px solid var(--zebra-stripe)
   opacity 1
   overflow-y hidden
   transition height var(--transition-slow) ease-out, margin var(--transition-slow) ease-out, opacity var(--transition-slow) ease-out
@@ -22,11 +21,11 @@ zig-zag > app-expandable
 
 th
 td
-  padding .25rem .5rem
+  padding .5rem .75rem
   text-align right
 
   &:first-child
     text-align left
 
-tr:nth-child(odd)
-  background var(--zebra-stripe)
+tr:not(:last-child)
+  border-bottom 1px solid var(--background)
