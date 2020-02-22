@@ -1,4 +1,4 @@
-import {Attribute} from '../modules/Constants';
+const TDC_ATTR: string = 'tdc';
 
 /** Daily zig-zag calorie needs modifiers per day of the week. */
 const ZIGZAG_CALORIES: number[] = [1, .9, 1.1, 1, 1, .8, 1.2];
@@ -19,11 +19,8 @@ class ZigZag extends HTMLElement {
   }
 
   static get observedAttributes(): string[] {
-    return [Attribute.TDC];
+    return [TDC_ATTR];
   }
-
-  // connectedCallback(): void {
-  // }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
     this.renderTable_(newValue);
