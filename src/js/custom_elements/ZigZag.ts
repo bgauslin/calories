@@ -3,7 +3,7 @@ const WEEKDAYS: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 /** Zig-zag calories modifiers per day of the week. */
 const ZIGZAG_CALORIES: number[] = [1, .9, 1.1, 1, 1, .8, 1.2];
 
-const ZIGZAG_ID: string = 'zig-zag-data';
+const ZIGZAG_ID: string = 'zig-zag';
 
 class ZigZag extends HTMLElement {
   private counters_: NodeList;
@@ -26,7 +26,7 @@ class ZigZag extends HTMLElement {
    * that will udpate on user interaction.
    */
   private setupDom_() {
-    let html = `<div id="${ZIGZAG_ID}" class="${ZIGZAG_ID}">`;
+    let html = `<div id="${ZIGZAG_ID}" class="zig-zag">`;
     for (let i = 0; i < ZIGZAG_CALORIES.length; i++) {
       html += `\
         <div class="zig-zag__day">\
@@ -36,7 +36,9 @@ class ZigZag extends HTMLElement {
       `;
     }
     html += '</div>';
-    this.innerHTML += html.replace(/\s\s/g, '');
+    html += `<app-expandable class="expandable" target="${ZIGZAG_ID}" label="zig-zag calories"></app-expandable>`;
+
+    this.innerHTML = html.replace(/\s\s/g, '');
 
     this.counters_ = this.querySelectorAll('result-counter');
   }

@@ -47,9 +47,7 @@ class App {
     contentEl.classList.remove(CssClass.NO_JS);
     const contentHtml = `\
       <user-values class="values" units="imperial" formula="ms"></user-values>\
-      <zig-zag id="zig-zag">\
-        <app-expandable class="expandable" target="zig-zag-data" label="zig-zag calories"></app-expandable>\
-      </zig-zag>\
+      <zig-zag></zig-zag>\
     `;
     contentEl.innerHTML = contentHtml.replace(/\s\s/g, '');
   }
