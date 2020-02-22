@@ -1,0 +1,22 @@
+zig-zag
+  display flex
+  flex-direction column
+
+zig-zag > app-expandable
+  margin 0 0 2rem
+  order 2
+
+.zig-zag-data
+  margin 0
+  overflow hidden
+  transition height var(--transition-slow) ease-out, margin var(--transition-slow) ease-out
+  will-change height
+
+.zig-zag-data[expanded]
+  margin 0 0 2rem
+
+.zig-zag__day
+  border-bottom 1px solid var(--border)
+  display flex
+  justify-content space-between
+  padding .5rem 0

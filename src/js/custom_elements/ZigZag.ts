@@ -11,9 +11,15 @@ const WEEKDAYS = [
   ['Sat', 'Saturday'],
 ];
 
+const ZIGZAG_ID: string = 'zig-zag-data';
+
 class ZigZag extends HTMLElement {
+  private chart_: HTMLElement;
+  private counters_: NodeList;
+
   constructor() {
     super();
+    this.setupDom_();
   }
 
   static get observedAttributes(): string[] {
@@ -21,39 +27,40 @@ class ZigZag extends HTMLElement {
   }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
-    this.renderTable_(newValue);
+    this.update_(newValue);
   }
 
   /**
-   * Creates zig-zag calorie needs across 7 days where each day's needs differ
-   * to prevent weight loss plateau.
+   * Renders the DOM for the custom element.
    */
-  private renderTable_(newValue: string): void {
-    const table = this.querySelector('.table');
-    if (table) {
-      table.remove();
-    }
-
-    let html = `\
-      <div id="zig-zag-table" class="table">
-        <table>\
-    `;
-
-    ZIGZAG_CALORIES.forEach((day, i) => {
-      const dailyValue = (ZIGZAG_CALORIES[i] * parseInt(newValue, 10)).toFixed();
+  private setupDom_() {
+    let html = `<div id="${ZIGZAG_ID}" class="${ZIGZAG_ID}">`;
+    for (let i = 0; i < ZIGZAG_CALORIES.length; i++) {
       html += `\
-        <tr>\
-          <td>${WEEKDAYS[i][1]}</td>\
-          <td>${dailyValue}</td>\
-        </tr>\
+        <div class="zig-zag__day">\
+          <div class="zig-zag__label">${WEEKDAYS[i][1]}</div>\
+          <result-counter class="zig-zag__value"></result-counter>\
+        </div>\
       `;
-    });
-    html += `\
-        </table>\
-      </div>\
-    `;
+    }
+    html += '</div>';
 
     this.innerHTML += html.replace(/\s\s/g, '');
+
+    this.chart_ = this.querySelector(`#${ZIGZAG_ID}`);
+    this.counters_ = this.querySelectorAll('result-counter');
+  }
+
+  /**
+   * Updates all results counters with each day's zig-zag value.
+   */
+  private update_(newValue: string) {
+    ZIGZAG_CALORIES.forEach((day, i) => {
+      const dailyValue = (ZIGZAG_CALORIES[i] * parseInt(newValue, 10)).toFixed();
+      const el = <HTMLElement>this.counters_[i]
+      el.setAttribute('value', dailyValue);
+      el.setAttribute('increment', '');
+    });
   }
 }
 

@@ -254,7 +254,7 @@ class UserValues extends HTMLElement {
       localStorage.setItem(LOCAL_STORAGE, JSON.stringify(values));
 
       // Show zig-zag values.
-      document.querySelector('#zig-zag').setAttribute('tdc', tdc.toFixed());
+      document.getElementById('zig-zag').setAttribute('tdc', tdc.toFixed());
 
     } else {
       // Hide/disable fields.
