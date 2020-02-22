@@ -22,9 +22,7 @@ enum Formula {
 class Formulas {
   /**
    * Basal Metabolic Rate (BMR) formulas. To simplify things, all values are
-   * converted to metric before being passed to this function.
-   * https://www.freedieting.com/calorie-needs
-   * https://en.wikipedia.org/wiki/Harris%E2%80%93Benedict_equation
+   * converted to metric before being passed in.
    */ 
   public basalMetabolicRate(measurements: Measurements, formula: string = 'ms', bodyFatPercentage?: number): number {
     const {age, height, sex, weight} = measurements;
