@@ -1,4 +1,6 @@
 .expandable
+  display flex
+  justify-content center
   opacity 1
   transition opacity var(--transition) ease
 
@@ -10,8 +12,7 @@
 .expandable__button
   webfont(600)
   align-items center
-  background 0
-  border 2px solid var(--text)
+  background var(--marker-canvas-background)
   border-radius (BUTTON_HEIGHT / 2)
   color var(--text)
   display flex
@@ -19,23 +20,20 @@
   height BUTTON_HEIGHT
   justify-content center
   line-height 1
-  margin auto
-  padding 0 px_to_rem(16)
+  padding 0 px_to_rem(24)
   white-space nowrap
 
 [no-touch] .expandable__button
-  transition border var(--transition) ease, color var(--transition) ease
+  transition background var(--transition), color var(--transition)
 
 .expandable__button:focus
 .expandable__button:active
 [no-touch] .expandable__button:hover
-  background var(--text)
-  color var(--background) // [1]
+  background var(--marker-background)
   cursor pointer
 
-// [1] Knockout via theme's body background.
 .expandable__button::before
-  css_triangle(var(--text), 5px, 'down') // [1]
+  css_triangle(var(--text), 5px, 'down')
   content ''
   display inline-block
   margin-right px_to_rem(8)
@@ -43,8 +41,3 @@
 
 .expandable[expanded] > .expandable__button::before
   transform rotate(-180deg)
-
-.expandable__button:focus::before
-.expandable__button:active::before
-[no-touch] .expandable__button:hover::before
-  border-top-color var(--background)

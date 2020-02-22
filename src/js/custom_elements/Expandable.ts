@@ -12,7 +12,7 @@ class Expandable extends HTMLElement {
     this.hasSetup_ = false;
     this.label_ = this.getAttribute('label');
     this.target_ = this.getAttribute('target');
-    this.addEventListener('click', this.toggleExpanded_);
+    this.addEventListener('click', (e) => this.toggleExpanded_(e));
   }
 
   static get observedAttributes(): string[] {
@@ -59,11 +59,14 @@ class Expandable extends HTMLElement {
   /**
    * Toggles attribute which triggers the attributeChanged callback.
    */
-  private toggleExpanded_(): void {
-    if (this.hasAttribute(EXPANDED_ATTR)) {
-      this.removeAttribute(EXPANDED_ATTR);
-    } else {
-      this.setAttribute(EXPANDED_ATTR, '');
+  private toggleExpanded_(e: Event): void {
+    const target = <Element>e.target;
+    if (target.tagName.toLowerCase() === 'button') {
+      if (this.hasAttribute(EXPANDED_ATTR)) {
+        this.removeAttribute(EXPANDED_ATTR);
+      } else {
+        this.setAttribute(EXPANDED_ATTR, '');
+      }
     }
   }
 
