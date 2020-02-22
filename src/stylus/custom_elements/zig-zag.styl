@@ -11,16 +11,20 @@ zig-zag > app-expandable
   margin 0 0 2rem
 
 .zig-zag__day
-  display flex
-  margin .375rem 0
-
-.zig-zag__label
   background var(--marker-background)
   border-radius 0 4px 4px 0
-  margin-right .5rem
+  display flex
+  margin .375rem 0
   padding .375rem .5rem
+  transition background var(--transition), color var(--transition), width var(--transition-slow) ease-out
   width var(--width)
-  transition width var(--transition-slow) ease-out
+
+.zig-zag__day.warning
+  background #f8d7da
+  color #721c24
+
+.zig-zag__label
+  margin-right .5rem  
 
 .zig-zag__value
-  padding .25rem 0
+  margin-left auto

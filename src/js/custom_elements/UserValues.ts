@@ -216,21 +216,24 @@ class UserValues extends HTMLElement {
     const formula = this.getAttribute(FORMULA_ATTR) || '';
     const bmr = this.formulas_.basalMetabolicRate(measurements, formula);
 
-    // TODO: Display BMI after the result.
-    // Get BMI based on measurements.
-    // const bmi = this.formulas_.bodyMassIndex(measurements);
-
     // Get factors based on selected values for calculating calorie needs.
     const activityLevel = ActivityLevel.find(level => values['activity'] === level.value);
     const goalLevel = WeightGoal.find(level => values['goal'] === level.value);
     const activity = activityLevel.factor;
     const goal = goalLevel.factor;
 
-    // Get calorie needs.
+    // Get Total Daily Calorie (TDC) needs.
     const tdc = this.formulas_.totalDailyCalories({
       activity,
       bmr,
       goal,
+    });
+
+    // Get maximum TDC for zig-zag chart (maximum activity, no weight loss).
+    const tdcMax = this.formulas_.totalDailyCalories({
+      activity: ActivityLevel[ActivityLevel.length - 1].factor,
+      bmr,
+      goal: WeightGoal[0].factor,
     });
 
     // Display all fields and save result when all required data is provided.
@@ -253,8 +256,10 @@ class UserValues extends HTMLElement {
       });
       localStorage.setItem(LOCAL_STORAGE, JSON.stringify(values));
 
-      // Show zig-zag values.
-      document.querySelector('zig-zag').setAttribute('tdc', tdc.toFixed());
+      // Set zig-zag attributes so it can update itself.
+      const zigZag = document.querySelector('zig-zag')
+      zigZag.setAttribute('tdc', tdc.toFixed());
+      zigZag.setAttribute('max-tdc', tdcMax.toFixed());
 
     } else {
       // Hide/disable fields.
