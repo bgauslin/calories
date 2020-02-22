@@ -1,5 +1,6 @@
-import {Attribute} from './Constants';
 import {Utils} from './Utils';
+
+const HIDDEN_ATTR: string = 'hidden';
 
 enum CssClass {
   CONTENT = 'content',
@@ -60,10 +61,10 @@ class App {
   private setVisibility_(): void {
     const els = document.querySelectorAll(Visibility.TARGETS);
 
-    if (this.visibilitySourceEl_.hasAttribute(Attribute.HIDDEN)) {
-      els.forEach((el) => el.setAttribute(Attribute.HIDDEN, ''));
+    if (this.visibilitySourceEl_.hasAttribute(HIDDEN_ATTR)) {
+      els.forEach((el) => el.setAttribute(HIDDEN_ATTR, ''));
     } else {
-      els.forEach((el) => el.removeAttribute(Attribute.HIDDEN));
+      els.forEach((el) => el.removeAttribute(HIDDEN_ATTR));
     }
   }
 
