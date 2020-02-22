@@ -2,14 +2,12 @@ import {ActivityLevel, Measurements, Sex, WeightGoal} from '../modules/Datasets'
 import {Formulas} from '../modules/Formulas';
 import {Templates} from '../modules/Templates';
 
-const BMR_ATTR: string = 'bmr';
 const FORMULA_ATTR: string = 'formula';
 const HIDDEN_ATTR: string = 'hidden';
 const INACTIVE_ATTR: string = 'inactive';
 const INCREMENT_ATTR: string = 'increment';
 const LOCAL_STORAGE: string = 'values';
 const UNITS_ATTR: string = 'units';
-const VALUE_ATTR = 'value';
 
 enum CssClass {
   BASE = 'values',
@@ -246,8 +244,8 @@ class UserValues extends HTMLElement {
         }
       }
       // Show/enable fields.
-      this.resultEl_.setAttribute(VALUE_ATTR, tdc.toFixed(0));
-      this.resultEl_.setAttribute(BMR_ATTR, bmr.toFixed(0));
+      this.resultEl_.setAttribute('value', tdc.toFixed(0));
+      this.resultEl_.setAttribute('bmr', bmr.toFixed(0));
       this.resultEl_.removeAttribute(HIDDEN_ATTR);
 
       INACTIVE_ELEMENTS.forEach((selector) => {
