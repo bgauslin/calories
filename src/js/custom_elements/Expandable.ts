@@ -14,7 +14,6 @@ class Expandable extends HTMLElement {
     this.hasSetup_ = false;
     this.label_ = this.getAttribute(LABEL_ATTR);
     this.target_ = this.getAttribute(TARGET_ATTR);
-    this.targetEl_ = document.getElementById(this.target_);
     this.addEventListener('click', this.toggleExpanded_);
   }
 
@@ -40,19 +39,23 @@ class Expandable extends HTMLElement {
    * and related elements.
    */
   private setup_(): void {
-    this.innerHTML = `<button class="${this.className}__button"></button>`;
-    this.buttonEl_ = this.querySelector('button');
+    this.targetEl_ = document.getElementById(this.target_);
 
-    if (localStorage.getItem(EXPANDED_ATTR) === 'true') {
-      this.setAttribute(EXPANDED_ATTR, '');
-      this.targetEl_.setAttribute(EXPANDED_ATTR, '');
-    } else {
-      this.targetEl_.style.height = '0';
-      this.targetEl_.removeAttribute(EXPANDED_ATTR);
+    if (this.targetEl_) {
+      if (localStorage.getItem(EXPANDED_ATTR) === 'true') {
+        this.setAttribute(EXPANDED_ATTR, '');
+        this.targetEl_.setAttribute(EXPANDED_ATTR, '');
+      } else {
+        this.targetEl_.style.height = '0';
+        this.targetEl_.removeAttribute(EXPANDED_ATTR);
+      }
+
+      this.innerHTML = `<button class="${this.className}__button"></button>`;
+      this.buttonEl_ = this.querySelector('button');
+
+      this.updateLabel_();
+      this.hasSetup_ = true;
     }
-
-    this.updateLabel_();
-    this.hasSetup_ = true;
   }
 
   /**
