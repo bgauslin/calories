@@ -1,6 +1,4 @@
 const EXPANDED_ATTR: string = 'expanded';
-const LABEL_ATTR: string = 'label';
-const TARGET_ATTR: string = 'target';
 
 class Expandable extends HTMLElement {
   buttonEl_: HTMLElement;
@@ -12,8 +10,8 @@ class Expandable extends HTMLElement {
   constructor() {
     super();
     this.hasSetup_ = false;
-    this.label_ = this.getAttribute(LABEL_ATTR);
-    this.target_ = this.getAttribute(TARGET_ATTR);
+    this.label_ = this.getAttribute('label');
+    this.target_ = this.getAttribute('target');
     this.addEventListener('click', this.toggleExpanded_);
   }
 

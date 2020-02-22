@@ -1,5 +1,6 @@
-// Prime number for variety with each increment.
+/** Prime number provides more variety with each increment. */
 const DIVISOR: number = 11;
+
 const INCREMENT_ATTR: string = 'increment';
 const INTERVAL_MS: number = 30;
 const VALUE_ATTR: string = 'value';
@@ -18,9 +19,10 @@ class Counter extends HTMLElement {
   }
 
   /**
-   * Increments the result when user changes radio buttons. If user changes
-   * number inputs, just display the result without incrementing since it's
-   * possible to get stuck in the setInterval() process and we don't want that.
+   * Increments the value from old to new if the 'increment' attribute flag
+   * is set. Otherwise displays the new value without incrementing since it's
+   * possible to get stuck in the setInterval() and in some cases loop and
+   * we don't want that.
    */
   update_(oldValue: string, newValue: string) {
     const oldNumber = parseInt(oldValue, 10);
