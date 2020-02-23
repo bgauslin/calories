@@ -1,6 +1,4 @@
-/** Prime number provides more variety with each increment. */
-const DIVISOR: number = 11;
-
+const DIVISOR: number = 11; // Primes work best
 const INCREMENT_ATTR: string = 'increment';
 const INTERVAL_MS: number = 30;
 const VALUE_ATTR: string = 'value';
