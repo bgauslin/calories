@@ -1,9 +1,17 @@
+const DAILY_LABELS: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const DAILY_MODIFIERS: number[] = [1, .9, 1.1, 1, .8, 1, 1.2];
-const ID: string = 'zig-zag';
 const MINIMUM_TDC: number = 1200;
-const TDC_ATTR: string = 'tdc';
-const TDC_MAX_ATTR: string = 'max-tdc';
-const WEEKDAYS: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const WARNING_CLASS: string = 'warning';
+
+enum Attribute {
+  TDC = 'tdc',
+  TDC_MAX = 'max-tdc',
+}
+
+enum Expandable {
+  LABEL= 'zig-zag calories',
+  TARGET_ID = 'zig-zag',
+}
 
 class ZigZag extends HTMLElement {
   private counters_: NodeList;
@@ -15,12 +23,12 @@ class ZigZag extends HTMLElement {
   }
 
   static get observedAttributes(): string[] {
-    return [TDC_ATTR, TDC_MAX_ATTR];
+    return [Attribute.TDC, Attribute.TDC_MAX];
   }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
-    const tdc = this.getAttribute(TDC_ATTR);
-    const tdcMax = this.getAttribute(TDC_MAX_ATTR);
+    const tdc = this.getAttribute(Attribute.TDC);
+    const tdcMax = this.getAttribute(Attribute.TDC_MAX);
     this.update_(tdc, tdcMax);
   }
 
@@ -30,17 +38,17 @@ class ZigZag extends HTMLElement {
    * element, it needs a sibling element to target for expanding/collapsing.
    */
   private setupDom_() {
-    let html = `<div id="${ID}" class="${this.className}__data">`;
+    let html = `<div class="${this.className}__data" id="${Expandable.TARGET_ID}">`;
     for (let i = 0; i < DAILY_MODIFIERS.length; i++) {
       html += `\
         <div class="${this.className}__day">\
-          <div class="${this.className}__label">${WEEKDAYS[i]}</div>\
+          <div class="${this.className}__label">${DAILY_LABELS[i]}</div>\
           <result-counter class="${this.className}__value"></result-counter>\
         </div>\
       `;
     }
     html += '</div>';
-    html += `<app-expandable class="expandable" target="${ID}" label="zig-zag calories"></app-expandable>`;
+    html += `<app-expandable class="expandable" target="${Expandable.TARGET_ID}" label="${Expandable.LABEL}"></app-expandable>`;
 
     this.innerHTML = html.replace(/\s\s/g, '');
 
@@ -74,16 +82,16 @@ class ZigZag extends HTMLElement {
     // displays each as a bar graph value.
     barLengths.forEach((length, i) => {
       const day = <HTMLElement>this.days_[i];
-      day.style.setProperty('--width', `${length}%`);
+      day.style.width = `${length}%`;
     });
 
     // Set warning class for extremely low values.
     allValues.forEach((value, i) => {
       const day = <HTMLElement>this.days_[i];
       if (value < MINIMUM_TDC) {
-        day.classList.add('warning');
+        day.classList.add(WARNING_CLASS);
       } else {
-        day.classList.remove('warning');
+        day.classList.remove(WARNING_CLASS);
       }
     });
   }
