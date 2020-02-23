@@ -1,4 +1,3 @@
-const BASE_CLASS: string = 'zig-zag';
 const DAILY_MODIFIERS: number[] = [1, .9, 1.1, 1, .8, 1, 1.2];
 const ID: string = 'zig-zag';
 const MINIMUM_TDC: number = 1200;
@@ -27,15 +26,16 @@ class ZigZag extends HTMLElement {
 
   /**
    * Renders the custom element's DOM and creates reference to its elements
-   * that will udpate on user interaction.
+   * that will udpate on user interaction. Because expandable is within this
+   * element, it needs a sibling element to target for expanding/collapsing.
    */
   private setupDom_() {
-    let html = `<div id="${ID}" class="${BASE_CLASS}">`;
+    let html = `<div id="${ID}" class="${this.className}__data">`;
     for (let i = 0; i < DAILY_MODIFIERS.length; i++) {
       html += `\
-        <div class="${BASE_CLASS}__day">\
-          <div class="${BASE_CLASS}__label">${WEEKDAYS[i]}</div>\
-          <result-counter class="${BASE_CLASS}__value"></result-counter>\
+        <div class="${this.className}__day">\
+          <div class="${this.className}__label">${WEEKDAYS[i]}</div>\
+          <result-counter class="${this.className}__value"></result-counter>\
         </div>\
       `;
     }
@@ -45,7 +45,7 @@ class ZigZag extends HTMLElement {
     this.innerHTML = html.replace(/\s\s/g, '');
 
     this.counters_ = this.querySelectorAll('result-counter');
-    this.days_ = this.querySelectorAll(`.${BASE_CLASS}__day`);
+    this.days_ = this.querySelectorAll(`.${this.className}__day`);
   }
 
   /**
