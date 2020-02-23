@@ -5,7 +5,6 @@ import {Templates} from '../modules/Templates';
 const LOCAL_STORAGE: string = 'values';
 
 enum Attribute {
-  FORMULA = 'formula',
   HIDDEN = 'hidden',
   INACTIVE = 'inactive',
   INCREMENT = 'increment',
@@ -47,7 +46,7 @@ class UserValues extends HTMLElement {
   }
 
   static get observedAttributes(): string[] {
-    return [Attribute.FORMULA, Attribute.UNITS];
+    return [Attribute.UNITS];
   }
 
   connectedCallback(): void {
@@ -197,10 +196,11 @@ class UserValues extends HTMLElement {
     let weight: number = values['weight'];
     const units = this.getAttribute(Attribute.UNITS);
 
-    // TODO: Add height/weight metric fields.
+    // TODO(#4): Height and weight fields in metric units.
     switch (units) {
       case 'metric':
-        height = values['cm'];
+        height = Number(values['cm']);
+        weight = Number(values['kg']);
         break;
       case 'imperial':
         height = this.formulas_.cm(Number(values['feet'] * 12) + Number(values['inches']));
@@ -216,8 +216,7 @@ class UserValues extends HTMLElement {
     };
 
     // Get BMR based on measurements.
-    const formula = this.getAttribute(Attribute.FORMULA) || '';
-    const bmr = this.formulas_.basalMetabolicRate(measurements, formula);
+    const bmr = this.formulas_.basalMetabolicRate(measurements);
 
     // Get factors based on selected values for calculating calorie needs.
     const activityLevel = ActivityLevel.find(level => values['activity'] === level.value);

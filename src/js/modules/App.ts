@@ -46,7 +46,7 @@ class App {
     const contentEl = document.querySelector(`.${CssClass.CONTENT}`);
     contentEl.classList.remove(CssClass.NO_JS);
     const contentHtml = `\
-      <user-values class="values" units="imperial" formula="ms"></user-values>\
+      <user-values class="values" units="imperial"></user-values>\
       <zig-zag class="zig-zag"></zig-zag>\
     `;
     contentEl.innerHTML = contentHtml.replace(/\s\s/g, '');
