@@ -1,6 +1,6 @@
 {
   "name": "calories",
-  "description": "Calorie calculator PWA",
+  "description": "Progressive web app for calculating daily calorie needs",
   "version": "0.1.0",
   "license": "UNLICENSED",
   "repository": "https://github.com/bgauslin/calories",
