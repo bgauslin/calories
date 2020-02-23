@@ -1,19 +1,9 @@
-/** For bar graph chart. */
-// const DIVIDER: number = 500;
-
 const BASE_CLASS: string = 'zig-zag';
-
-/** Zig-zag calories modifiers per day of the week. */
-const DAILY_MODIFIERS: number[] = [1, .9, 1.1, 1, 1, .8, 1.2];
-
+const DAILY_MODIFIERS: number[] = [1, .9, 1.1, 1, .8, 1, 1.2];
 const ID: string = 'zig-zag';
-
 const MINIMUM_TDC: number = 1200;
-
 const TDC_ATTR: string = 'tdc';
-
 const TDC_MAX_ATTR: string = 'max-tdc';
-
 const WEEKDAYS: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 class ZigZag extends HTMLElement {
