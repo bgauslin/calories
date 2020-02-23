@@ -2,12 +2,15 @@ import {ActivityLevel, Measurements, Sex, WeightGoal} from '../modules/Datasets'
 import {Formulas} from '../modules/Formulas';
 import {Templates} from '../modules/Templates';
 
-const FORMULA_ATTR: string = 'formula';
-const HIDDEN_ATTR: string = 'hidden';
-const INACTIVE_ATTR: string = 'inactive';
-const INCREMENT_ATTR: string = 'increment';
 const LOCAL_STORAGE: string = 'values';
-const UNITS_ATTR: string = 'units';
+
+enum Attribute {
+  FORMULA = 'formula',
+  HIDDEN = 'hidden',
+  INACTIVE = 'inactive',
+  INCREMENT = 'increment',
+  UNITS = 'units',
+}
 
 enum CssClass {
   BASE = 'values',
@@ -44,7 +47,7 @@ class UserValues extends HTMLElement {
   }
 
   static get observedAttributes(): string[] {
-    return [FORMULA_ATTR, UNITS_ATTR];
+    return [Attribute.FORMULA, Attribute.UNITS];
   }
 
   connectedCallback(): void {
@@ -192,7 +195,7 @@ class UserValues extends HTMLElement {
     // Convert height and weight to metric regardless of user-selected units.
     let height: number;
     let weight: number = values['weight'];
-    const units = this.getAttribute(UNITS_ATTR);
+    const units = this.getAttribute(Attribute.UNITS);
 
     // TODO: Add height/weight metric fields.
     switch (units) {
@@ -213,7 +216,7 @@ class UserValues extends HTMLElement {
     };
 
     // Get BMR based on measurements.
-    const formula = this.getAttribute(FORMULA_ATTR) || '';
+    const formula = this.getAttribute(Attribute.FORMULA) || '';
     const bmr = this.formulas_.basalMetabolicRate(measurements, formula);
 
     // Get factors based on selected values for calculating calorie needs.
@@ -241,18 +244,18 @@ class UserValues extends HTMLElement {
       if (e) {
         const target = <HTMLInputElement>e.target;
         if (target && target.type === 'radio') {
-          this.resultEl_.setAttribute(INCREMENT_ATTR, '');
+          this.resultEl_.setAttribute(Attribute.INCREMENT, '');
         } else {
-          this.resultEl_.removeAttribute(INCREMENT_ATTR);
+          this.resultEl_.removeAttribute(Attribute.INCREMENT);
         }
       }
       // Show/enable fields.
       this.resultEl_.setAttribute('value', tdc.toFixed(0));
       this.resultEl_.setAttribute('bmr', bmr.toFixed(0));
-      this.resultEl_.removeAttribute(HIDDEN_ATTR);
+      this.resultEl_.removeAttribute(Attribute.HIDDEN);
 
       INACTIVE_ELEMENTS.forEach((selector) => {
-        this.querySelector(selector).removeAttribute(INACTIVE_ATTR);
+        this.querySelector(selector).removeAttribute(Attribute.INACTIVE);
       });
       localStorage.setItem(LOCAL_STORAGE, JSON.stringify(values));
 
@@ -263,9 +266,9 @@ class UserValues extends HTMLElement {
 
     } else {
       // Hide/disable fields.
-      this.resultEl_.setAttribute(HIDDEN_ATTR, '');
+      this.resultEl_.setAttribute(Attribute.HIDDEN, '');
       INACTIVE_ELEMENTS.forEach((selector) => {
-        this.querySelector(selector).setAttribute(INACTIVE_ATTR, '');
+        this.querySelector(selector).setAttribute(Attribute.INACTIVE, '');
       });
     }
   }
