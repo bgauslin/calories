@@ -19,7 +19,7 @@ class ZigZag extends HTMLElement {
 
   constructor() {
     super();
-    this.setupDom_();
+    this.setup_();
   }
 
   static get observedAttributes(): string[] {
@@ -37,7 +37,7 @@ class ZigZag extends HTMLElement {
    * that will udpate on user interaction. Because expandable is within this
    * element, it needs a sibling element to target for expanding/collapsing.
    */
-  private setupDom_() {
+  private setup_() {
     let html = `<div class="${this.className}__data" id="${Expandable.TARGET_ID}">`;
     for (let i = 0; i < DAILY_MODIFIERS.length; i++) {
       html += `\
