@@ -68,15 +68,6 @@ const Measurements: InputNumber[] = [
     type: 'number',
   },
   {
-    id: 'weight',
-    label: 'Weight',
-    max: 400,
-    min: 10,
-    name: 'weight',
-    pattern: '[0-9]{0,3}[\\.]?[0-9]?',
-    type: 'text',
-  },
-  {
     id: 'age',
     label: 'Age',
     max: 100,
@@ -84,6 +75,15 @@ const Measurements: InputNumber[] = [
     name: 'age',
     pattern: '[1-9][0-9]?',
     type: 'number',
+  },
+  {
+    id: 'weight',
+    label: 'Weight',
+    max: 400,
+    min: 10,
+    name: 'weight',
+    pattern: '[0-9]{0,3}[\\.]?[0-9]?',
+    type: 'text',
   },
 ];
 
