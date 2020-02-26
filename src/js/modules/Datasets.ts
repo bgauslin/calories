@@ -85,7 +85,6 @@ const Measurements: InputNumber[] = [
     pattern: '[0-9]{0,3}[\\.]?[0-9]?',
     type: 'text',
   },
-
 ];
 
 const Sex: InputRadio[] = [
