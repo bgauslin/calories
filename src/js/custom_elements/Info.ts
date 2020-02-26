@@ -31,14 +31,16 @@ class Info extends HTMLElement {
   private async fetchData_(): Promise<any> {
     const endpoint = (process.env.NODE_ENV === 'production') ? process.env.GRAPHQL_PROD : process.env.GRAPHQL_DEV;
     const query: string = `
-      calories: entries(section: ["calories"], limit: 1) {
-        ...on calories_calories_Entry {
-          heading
-          summary
-          copy @markdown
+      query {
+        calories: entries(section: ["calories"], limit: 1) {
+          ...on calories_calories_Entry {
+            heading
+            summary
+            copy @markdown
+          }
         }
       }
-    }`;
+    `;
 
     try {
       const response = await fetch(endpoint, {
@@ -62,9 +64,6 @@ class Info extends HTMLElement {
    */
   private handleClick_(e: Event): void {
     const target = <HTMLInputElement>e.target;
-
-    console.log('target', target);
-
     if (target.classList.contains(`${this.className}__toggle`)) {
       if (this.hasAttribute(OPEN_ATTR)) {
         this.removeAttribute(OPEN_ATTR);
@@ -97,7 +96,17 @@ class Info extends HTMLElement {
    * Renders fetched data into a panel.
    */
   private renderPanel_(): void {
-    console.log(this.content_);
+    const {heading, summary, copy} = this.content_.data.calories[0];
+    const html = `\
+      <div class="${this.className}__panel">\
+        <h2 class="${this.className}__heading">${heading}</h2>\
+        <div class="${this.className}__summary">${summary}</div>\
+        <div class="${this.className}__copy">\
+          ${copy}\
+        </div>\
+      </div>\
+    `;
+    this.innerHTML += html.replace(/\s\s/g, '');
   }
 }
 

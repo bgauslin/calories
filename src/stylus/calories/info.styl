@@ -15,3 +15,20 @@
 
 .info__icon
   flex 0 0 1.25rem
+
+.info .info__panel
+  background white
+  left 0
+  max-height 100vh
+  overflow auto
+  padding 1.5rem
+  position fixed
+  transform translateY(100%)
+  transition transform var(--transition) ease-out
+  width 100vw
+
+.info[open] .info__panel
+  transform translateY(0)
+
+.info__heading
+  margin-top 0
