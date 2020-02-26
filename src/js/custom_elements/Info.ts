@@ -99,11 +99,13 @@ class Info extends HTMLElement {
     const {heading, summary, copy} = this.content_.data.calories[0];
     const html = `\
       <div class="${this.className}__panel">\
-        <h2 class="${this.className}__heading">${heading}</h2>\
-        <div class="${this.className}__summary">${summary}</div>\
-        <div class="${this.className}__copy">\
-          ${copy}\
-        </div>\
+        <div class="${this.className}__panel__content">\
+          <h2 class="${this.className}__heading">${heading}</h2>\
+          <div class="${this.className}__summary">${summary}</div>\
+          <div class="${this.className}__copy">\
+            ${copy}\
+          </div>\
+          </div>\
       </div>\
     `;
     this.innerHTML += html.replace(/\s\s/g, '');
