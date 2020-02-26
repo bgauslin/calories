@@ -31,6 +31,7 @@ class App {
   public init(): void {
     this.utils_.init();
 
+    this.updateHeader_();
     this.updateContent_();
     this.updateCopyright_();
     
@@ -50,6 +51,14 @@ class App {
       <zig-zag class="zig-zag"></zig-zag>\
     `;
     contentEl.innerHTML = contentHtml.replace(/\s\s/g, '');
+  }
+
+  /**
+   * Injects a custom element into the header element.
+   */
+  private updateHeader_(): void {
+    const headerEl = document.querySelector(`.${CssClass.HEADER}`);
+    headerEl.innerHTML += '<app-info class="info"></app-info>';
   }
 
   /**
