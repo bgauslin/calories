@@ -100,7 +100,6 @@ class Info extends HTMLElement {
     const html = `\
       <div class="${this.className}__panel">\
         <div class="${this.className}__panel__content">\
-          <h2 class="${this.className}__heading">${heading}</h2>\
           <div class="${this.className}__summary">${summary}</div>\
           <div class="${this.className}__copy">\
             ${copy}\

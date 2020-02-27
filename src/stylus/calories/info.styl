@@ -18,13 +18,13 @@
 
 .info__panel
   background var(--background)
-  height calc(var(--viewport-unit, 1vh) * 100)
+  max-height calc((var(--viewport-unit, 1vh) * 100) - var(--header-height))
   left 0
   opacity 0
   overflow auto
   padding 0 env(safe-area-inset-right) 0 env(safe-area-inset-left)
   position fixed
-  top 0
+  top var(--header-height)
   transform translateY(100%)
   transition opacity var(--transition) ease-out, transform var(--transition) ease-out
   width 100vw
