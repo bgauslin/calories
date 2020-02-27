@@ -19,7 +19,7 @@ class Counter extends HTMLElement {
   /**
    * Increments the value from old to new if the 'increment' attribute flag
    * is set. Otherwise displays the new value without incrementing since it's
-   * possible to get stuck in the setInterval() and in some cases loop and
+   * possible to get stuck in the setInterval() loop in some cases and
    * we don't want that.
    */
   update_(oldValue: string, newValue: string) {
