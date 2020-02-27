@@ -1,9 +1,12 @@
 :root
   --branding '%s' % Branding.RED
   --button-width px_to_rem(44)
+  --copy px_to_em(14)
   --fineprint px_to_rem(12)
   --footer-height px_to_rem(48)
   --grid-gap px_to_rem(16)
+  --h2 px_to_em(18)
+  --h3 px_to_em(16)
   --header-height px_to_rem(48)
   --site-header px_to_rem(16)
   --sticky-shift 0 // set via JS
@@ -11,6 +14,9 @@
   --transition-slow .5s
 
   @media Breakpoint.MEDIUM
+    --copy px_to_rem(16)
+    --h2 px_to_em(21)
+    --h3 px_to_em(18)
     --site-header px_to_rem(20)
     --fineprint px_to_rem(14)
     --footer-height px_to_rem(60)

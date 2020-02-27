@@ -18,3 +18,15 @@
   line-height initial
   position absolute
   width 100%
+
+.result[hidden]
+.result:not([hidden])
+  transition opacity var(--transition)
+
+.result[hidden]
+  opacity 0
+  visibility hidden
+
+.result:not([hidden])
+  opacity 1
+  visibility visible

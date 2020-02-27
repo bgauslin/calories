@@ -73,33 +73,3 @@ svg
 
 svg path
   fill currentColor
-
-// Elements that don't display until all required data is provided.
-[hidden]
-[inactive]
-:not([hidden])
-  transition opacity var(--transition)
-
-[hidden]
-  opacity 0
-  visibility hidden
-
-// TODO: Update selector with better scoping to affected elements.
-:not([hidden])
-  opacity 1
-  visibility visible
-
-// Elements that are inactive/disabled until all required data is provided.
-[inactive]
-  opacity .3
-
-[inactive] *
-  pointer-events none !important
-
-[inactive] *:hover
-  cursor default !important
-
-// TODO: Update selector with better scoping to affected elements.
-:not([inactive])
-  opacity 1
-  // pointer-events auto

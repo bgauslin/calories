@@ -5,6 +5,22 @@
 .values__group
   margin 0 0 1rem
 
+.values__group[inactive]
+  transition opacity var(--transition)
+
+.values__group[inactive]
+  opacity .3
+
+.values__group[inactive] *
+  pointer-events none !important
+
+.values__group[inactive] *:hover
+  cursor default !important
+
+.values__group:not([inactive])
+  opacity 1
+  pointer-events auto
+
 .values__group--sex
   margin-bottom 1.5rem
 

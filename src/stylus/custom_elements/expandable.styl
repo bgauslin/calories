@@ -5,8 +5,17 @@
   transition opacity var(--transition) ease
 
 .expandable[hidden]
+.expandable:not([hidden])
+  transition opacity var(--transition)
+
+.expandable[hidden]
   opacity 0
   pointer-events none
+  visibility hidden
+
+.expandable:not([hidden])
+  opacity 1
+  visibility visible
 
 // [1] Knockout color = theme's body background.
 .expandable__button
@@ -18,10 +27,10 @@
   display flex
   font-size px_to_em(14)
   height BUTTON_HEIGHT
-  justify-content center
   line-height 1
-  padding 0 px_to_rem(24)
+  padding 0 0 0 px_to_rem(20)
   white-space nowrap
+  width px_to_rem(210)
 
 [no-touch] .expandable__button
   transition background var(--transition), color var(--transition)

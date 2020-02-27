@@ -18,8 +18,8 @@
 
 .info__panel
   background var(--background)
+  height calc(var(--viewport-unit, 1vh) * 100)
   left 0
-  max-height 100vh
   opacity 0
   overflow auto
   padding 0 env(safe-area-inset-right) 0 env(safe-area-inset-left)
@@ -29,6 +29,30 @@
   transition opacity var(--transition) ease-out, transform var(--transition) ease-out
   width 100vw
   z-index -1
+
+.info__panel p
+.info__panel li
+.info__panel table
+  font-size var(--copy)
+
+.info__panel tr
+  border-bottom 1px solid var(--border)
+
+.info__panel th
+  text-align left
+
+.info__panel th
+.info__panel td
+  padding .5em 0
+
+.info__panel h2
+  font-size var(--h2)
+
+.info__panel h3
+  font-size var(--h3)
+
+.info__panel img
+  max-width 75%
 
 .info[open] .info__panel
   opacity 1
