@@ -1,0 +1,44 @@
+.info-panel
+  display none
+  opacity 0
+  z-index -1
+
+.info-panel[open]
+  display block
+  opacity 1
+  z-index 2
+
+.info-panel p
+.info-panel li
+.info-panel table
+  font-size var(--copy)
+
+.info-panel tr
+  border-bottom 1px solid var(--border)
+
+.info-panel th
+  text-align left
+
+.info-panel th
+.info-panel td
+  padding .5em 0
+
+.info-panel h2
+  font-size var(--h2)
+
+.info-panel h3
+  font-size var(--h3)
+
+.info-panel img
+  max-width 75%
+
+.info-panel__content
+  margin 0 auto
+  padding 1.5rem
+
+  @media Breakpoint.MEDIUM
+    max-width CONTENT_MAX_WIDTH
+    padding 1.5rem 0
+
+.info__heading
+  margin-top 0

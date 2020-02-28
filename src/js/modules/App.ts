@@ -49,6 +49,7 @@ class App {
     const contentHtml = `\
       <user-values class="values" units="imperial"></user-values>\
       <zig-zag class="zig-zag"></zig-zag>\
+      <info-panel class="info-panel"></info-panel>\
     `;
     contentEl.innerHTML = contentHtml.replace(/\s\s/g, '');
   }
@@ -58,7 +59,7 @@ class App {
    */
   private updateHeader_(): void {
     const headerEl = document.querySelector(`.${CssClass.HEADER}`);
-    headerEl.innerHTML += '<app-info class="info"></app-info>';
+    headerEl.innerHTML += '<info-toggle class="info-toggle"></info-toggle>';
   }
 
   /**
