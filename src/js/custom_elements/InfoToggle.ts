@@ -15,8 +15,7 @@ class InfoToggle extends HTMLElement {
   }
 
   /**
-   * Toggles the panel open/closed if the button was clicked. If the menu is
-   * open, the next click closes it.
+   * Toggles an attribute when the button was clicked.
    */
   private handleClick_(e: Event): void {
     const target = <HTMLInputElement>e.target;
@@ -25,17 +24,12 @@ class InfoToggle extends HTMLElement {
         this.removeAttribute(OPEN_ATTR);
       } else {
         this.setAttribute(OPEN_ATTR, '');
-        window.requestAnimationFrame(() => {
-          document.addEventListener('click', () => {
-            this.removeAttribute(OPEN_ATTR);
-          }, {once: true});
-        });
       }
     }
   }
 
   /**
-   * Renders a button that toggles the panel.
+   * Renders a button for attribute toggling.
    */
   private renderButton_(): void {
     const html = `\
