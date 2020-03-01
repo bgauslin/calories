@@ -15,7 +15,7 @@ class InfoToggle extends HTMLElement {
   }
 
   /**
-   * Toggles an attribute when the button was clicked.
+   * Toggles an attribute when the button is clicked.
    */
   private handleClick_(e: Event): void {
     const target = <HTMLInputElement>e.target;
