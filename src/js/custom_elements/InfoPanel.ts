@@ -13,7 +13,7 @@ class InfoPanel extends HTMLElement {
 
   connectedCallback(): void {
     this.setup_();
-    this.observer_.observe(this.triggerEl_, { attributes: true });
+    this.observer_.observe(this.triggerEl_, {attributes: true});
   }
 
   disconnectedCallback(): void {
