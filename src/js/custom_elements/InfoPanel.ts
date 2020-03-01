@@ -21,14 +21,6 @@ class InfoPanel extends HTMLElement {
   }
 
   /**
-   * Renders all elements into the DOM.
-   */
-  private async setup_(): Promise<any> {
-    this.content_ = await this.fetchData_();
-    this.renderPanel_();
-  }
-
-  /**
    * Toggles an attribute to match the observed element's attribute.
    */
   private update_() {
@@ -42,13 +34,12 @@ class InfoPanel extends HTMLElement {
   /**
    * Fetches data from a GraphQL endpoint.
    */
-  private async fetchData_(): Promise<any> {
+  private async setup_(): Promise<any> {
     const endpoint = (process.env.NODE_ENV === 'production') ? process.env.GRAPHQL_PROD : process.env.GRAPHQL_DEV;
     const query: string = `
       query {
         calories: entries(section: ["calories"], limit: 1) {
           ...on calories_calories_Entry {
-            summary
             copy @markdown
           }
         }
@@ -64,27 +55,13 @@ class InfoPanel extends HTMLElement {
         },
         body: JSON.stringify({query}),
       });
-      return await response.json();
+      const content = await response.json();
+      const copy = content.data.calories[0].copy;
+      this.innerHTML = `<div class="${this.className}__copy">${copy}</div>`;
     } catch (error) {
       console.warn('Currently unable to fetch data. :(');
       return;
     }
-  }
-
-  /**
-   * Renders fetched data into a panel.
-   */
-  private renderPanel_(): void {
-    const {summary, copy} = this.content_.data.calories[0];
-    const html = `\      
-      <div class="${this.className}__content">\
-        <div class="${this.className}__summary">${summary}</div>\
-        <div class="${this.className}__copy">\
-          ${copy}\
-        </div>\
-      </div>\
-    `;
-    this.innerHTML += html.replace(/\s\s/g, '');
   }
 }
 
