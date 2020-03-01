@@ -23,9 +23,13 @@ zig-zag > app-expandable
   background #f8d7da
   color #721c24
 
+.zig-zag__day.warning .zig-zag__label
+  opacity 1
+
 .zig-zag__label
   margin-right .5rem
   opacity TEXT_OPACITY
+  transition opacity var(--transition-slow) ease-out
 
 .zig-zag__value
   margin-left auto
