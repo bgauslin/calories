@@ -6,7 +6,6 @@ import {Expandable} from './custom_elements/Expandable';
 import {FancyMarker} from './custom_elements/FancyMarker';
 import {InfoPanel} from './custom_elements/InfoPanel';
 import {InfoToggle} from './custom_elements/InfoToggle';
-import {ShiftyHeader} from './custom_elements/ShiftyHeader';
 import {UserValues} from './custom_elements/UserValues';
 import {ZigZag} from './custom_elements/ZigZag';
 
@@ -20,7 +19,6 @@ map.set(Expandable, 'app-expandable');
 map.set(FancyMarker, 'fancy-marker');
 map.set(InfoPanel, 'info-panel');
 map.set(InfoToggle, 'info-toggle');
-map.set(ShiftyHeader, 'app-header');
 map.set(UserValues, 'user-values');
 map.set(ZigZag, 'zig-zag');
 map.forEach((key, value) => customElements.define(key, value));

@@ -22,7 +22,14 @@ body
   user-select none
 
 a
+  link(var(--link), var(--link-hover), var(--link-visited), var(--link-active))
   text-decoration none
+
+  &:focus
+    outline none
+
+  [no-touch] &
+    transition color var(--transition) ease
 
 table
   border-collapse collapse

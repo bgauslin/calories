@@ -1,13 +1,12 @@
 .info-panel
   background var(--background)
   height calc(var(--viewport-unit, 1vh) * 100)
-  max-width CONTENT_MAX_WIDTH
-  overflow auto
-  padding var(--header-height) 0 0
+  left 0
   position fixed
   top 0
   transform translateY(100%)
   transition transform var(--transition)
+  width 100vw
   z-index -1
 
 .info-panel[open]
@@ -15,7 +14,14 @@
   z-index 1
 
 .info-panel__content
-  padding 1rem 0
+  height calc(100% - var(--header-height))
+  margin var(--header-height) auto 0
+  overflow auto
+  padding 1rem 
+
+  @media Breakpoint.MEDIUM
+    max-width CONTENT_MAX_WIDTH
+    padding 1rem 0
 
 .info-panel p
 .info-panel li

@@ -23,13 +23,17 @@
     --header-height px_to_rem(60)
 
   // Default light theme.
+  --app-link DARK_GREY
+  --app-link-active rgba(DARK_GREY, .7)
   --background white
   --border #ddd
   --field-background #d7d7d7
   --focus rgba(black, .5)
   --header-background rgba(white, .97)
-  --link DARK_GREY
-  --link-active rgba(DARK_GREY, .7)
+  --link '%s' % LinkColor.LIGHT
+  --link-visited '%s' % mix(LinkColor.LIGHT, white, 75%)
+  --link-hover rgba(black, .8)
+  --link-active rgba(black, .8)
   --marker-background #d7d7d7
   --marker-canvas-background #eee
   --text DARK_GREY
@@ -37,13 +41,18 @@
 
   // Dark theme per user settings.
   @media (prefers-color-scheme dark)
+    --app-link white
+    --app-link-active rgba(white, .7)
     --background #262626
     --border #333
     --field-background #555
     --focus white
     --header-background rgba(DARK_GREY, .95)
-    --link white
-    --link-active rgba(white, .7)
+    --link '%s' % LinkColor.DARK
+    --link-background #333
+    --link-visited '%s' % mix(LinkColor.DARK, black, 75%)
+    --link-hover rgba(white, .8)
+    --link-active rgba(white, .8)
     --marker-background #555
     --marker-canvas-background rgba(white, .05)
     --text white
