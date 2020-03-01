@@ -76,14 +76,12 @@ class InfoPanel extends HTMLElement {
    */
   private renderPanel_(): void {
     const {summary, copy} = this.content_.data.calories[0];
-    const html = `\
-      <div class="${this.className}__panel">\
-        <div class="${this.className}__panel__content">\
-          <div class="${this.className}__summary">${summary}</div>\
-          <div class="${this.className}__copy">\
-            ${copy}\
-          </div>\
-          </div>\
+    const html = `\      
+      <div class="${this.className}__content">\
+        <div class="${this.className}__summary">${summary}</div>\
+        <div class="${this.className}__copy">\
+          ${copy}\
+        </div>\
       </div>\
     `;
     this.innerHTML += html.replace(/\s\s/g, '');

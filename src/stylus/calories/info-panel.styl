@@ -1,12 +1,21 @@
 .info-panel
-  display none
-  opacity 0
+  background var(--background)
+  height calc(var(--viewport-unit, 1vh) * 100)
+  max-width CONTENT_MAX_WIDTH
+  overflow auto
+  padding var(--header-height) 0 0
+  position fixed
+  top 0
+  transform translateY(100%)
+  transition transform var(--transition)
   z-index -1
 
 .info-panel[open]
-  display block
-  opacity 1
-  z-index 2
+  transform translateY(0)
+  z-index 1
+
+.info-panel__content
+  padding 1rem 0
 
 .info-panel p
 .info-panel li
@@ -31,14 +40,6 @@
 
 .info-panel img
   max-width 75%
-
-.info-panel__content
-  margin 0 auto
-  padding 1.5rem
-
-  @media Breakpoint.MEDIUM
-    max-width CONTENT_MAX_WIDTH
-    padding 1.5rem 0
 
 .info__heading
   margin-top 0
