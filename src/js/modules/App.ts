@@ -49,7 +49,6 @@ class App {
     const contentHtml = `\
       <user-values class="values" units="imperial"></user-values>\
       <zig-zag class="zig-zag"></zig-zag>\
-      <info-panel class="info-panel"></info-panel>\
     `;
     contentEl.innerHTML = contentHtml.replace(/\s\s/g, '');
   }
