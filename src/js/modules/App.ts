@@ -58,7 +58,7 @@ class App {
    */
   private updateHeader_(): void {
     const headerEl = document.querySelector(`.${CssClass.HEADER}`);
-    headerEl.innerHTML += '<info-toggle class="info-toggle"></info-toggle>';
+    headerEl.innerHTML += '<app-info class="info"></app-info>';
   }
 
   /**

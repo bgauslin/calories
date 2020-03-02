@@ -4,7 +4,7 @@ import {App} from './modules/App';
 import {Counter} from './custom_elements/Counter';
 import {Expandable} from './custom_elements/Expandable';
 import {FancyMarker} from './custom_elements/FancyMarker';
-import {InfoToggle} from './custom_elements/InfoToggle';
+import {Info} from './custom_elements/Info';
 import {UserValues} from './custom_elements/UserValues';
 import {ZigZag} from './custom_elements/ZigZag';
 
@@ -16,7 +16,7 @@ const map = new Map();
 map.set(Counter, 'result-counter');
 map.set(Expandable, 'app-expandable');
 map.set(FancyMarker, 'fancy-marker');
-map.set(InfoToggle, 'info-toggle');
+map.set(Info, 'app-info');
 map.set(UserValues, 'user-values');
 map.set(ZigZag, 'zig-zag');
 map.forEach((key, value) => customElements.define(key, value));
