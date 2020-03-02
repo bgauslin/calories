@@ -20,13 +20,21 @@
   transform scale(.8)
 
 .info__icon
-  flex 0 0 1.25rem
+  flex 0 0
+
+.info__icon--info
+  flex-basis 1.25rem
+
+.info__icon--close
+  flex-basis 1.5rem
 
 .info__panel
   background var(--background)
-  height calc(100vh - var(--header-height))
+  height calc(var(--viewport-unit, 1vh) * 100)
   left 0
   overflow auto
+  -webkit-overflow-scrolling touch
+  padding 0 0 env(safe-area-inset-bottom)
   position fixed
   top var(--header-height)
   transform translateY(100%)
@@ -39,11 +47,11 @@
 
 .info__copy
   margin 0 auto
-  padding 1rem 
+  padding 1rem 1rem 3rem
 
   @media Breakpoint.MEDIUM
     max-width CONTENT_MAX_WIDTH
-    padding 1rem 0
+    padding 1rem 0 3rem
 
 .info__copy > h3
   webfont_weight(600)
