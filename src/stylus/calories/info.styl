@@ -30,7 +30,7 @@
 
 .info__panel
   background var(--background)
-  height calc(var(--viewport-unit, 1vh) * 100)
+  height calc((var(--viewport-unit, 1vh) * 100) - var(--header-height))
   left 0
   overflow auto
   -webkit-overflow-scrolling touch
@@ -47,11 +47,11 @@
 
 .info__copy
   margin 0 auto
-  padding 1rem 1rem 3rem
+  padding 1rem
 
   @media Breakpoint.MEDIUM
     max-width CONTENT_MAX_WIDTH
-    padding 1rem 0 3rem
+    padding 1rem 0
 
 .info__copy > h3
   webfont_weight(600)
