@@ -1,0 +1,10 @@
+app-info
+  transition opacity var(--transition-slow) ease-out
+
+app-info:not([ready])
+  opacity 0
+  pointer-events none
+
+app-info[ready]
+  opacity 1
+  pointer-events auto
