@@ -47,11 +47,6 @@ class InfoToggle extends HTMLElement {
       // Open the info panel.
       if (!this.isOpen_) {
         this.renderIcon_('close');
-        // document.body.scrollIntoView({
-        //   behavior: 'smooth',
-        //   block: 'start',
-        //   inline: 'nearest',
-        // });
         this.targetEl_.removeAttribute(HIDDEN_ATTR);
         window.requestAnimationFrame(() => {
           this.targetEl_.setAttribute(OPEN_ATTR, '');
@@ -64,6 +59,8 @@ class InfoToggle extends HTMLElement {
           this.targetEl_.setAttribute(HIDDEN_ATTR, '');
         }, {once: true});
       }
+
+      document.body.scrollIntoView({behavior: 'smooth'});
       this.isOpen_ = !this.isOpen_;
     }
   }
