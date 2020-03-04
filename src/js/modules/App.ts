@@ -49,7 +49,7 @@ class App {
     const contentHtml = `\
       <user-values class="values" units="imperial"></user-values>\
       <zig-zag class="zig-zag"></zig-zag>\
-      <info-panel class="info-panel"></info-panel>\
+      <info-panel class="info-panel" id="info-panel" target="info-toggle"></info-panel>\
     `;
     contentEl.innerHTML = contentHtml.replace(/\s\s/g, '');
   }
@@ -59,7 +59,7 @@ class App {
    */
   private updateHeader_(): void {
     const headerEl = document.querySelector(`.${CssClass.HEADER}`);
-    headerEl.innerHTML += '<info-toggle class="info"></info-toggle>';
+    headerEl.innerHTML += '<info-toggle class="info-toggle" id="info-toggle" target="info-panel"></info-toggle>';
   }
 
   /**

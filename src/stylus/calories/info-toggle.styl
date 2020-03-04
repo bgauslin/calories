@@ -1,7 +1,7 @@
-.info
+.info-toggle
   margin 0 -.75rem 0 auto
 
-.info__button
+.info-toggle__button
   align-items center
   color var(--app-link)
   cursor pointer
@@ -11,19 +11,19 @@
   transition color var(--transition), transform var(--transition)
   width var(--button-width)
 
-.info__button:focus
-.info__button:active
-[no-touch] .info__button:hover
+.info-toggle__button:focus
+.info-toggle__button:active
+[no-touch] .info-toggle__button:hover
   color var(--app-link-active)
 
-.info__button:active
+.info-toggle__button:active
   transform scale(.8)
 
-.info__icon
+.info-toggle__icon
   flex 0 0
 
-.info__icon--info
+.info-toggle__icon--info
   flex-basis 1.25rem
 
-.info__icon--close
+.info-toggle__icon--close
   flex-basis 1.5rem

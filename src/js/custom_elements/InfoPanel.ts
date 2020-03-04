@@ -33,11 +33,16 @@ class InfoPanel extends HTMLElement {
         },
         body: JSON.stringify({query}),
       });
+      // Parse data and render it as HTML.
       const data = await response.json();
       const copy = data.data.calories[0].copy;
       const html = `<div class="${this.className}__copy">${copy}</div>`;
       this.innerHTML += html.replace(/\s\s/g, '');
-      this.setAttribute(READY_ATTR, '');
+
+      // Let toggle know that the panel is ready.
+      const targetEl = document.getElementById(this.getAttribute('target'));
+      targetEl.setAttribute(READY_ATTR, '');
+
     } catch (error) {
       console.warn('Currently unable to fetch data. :(');
       return;
