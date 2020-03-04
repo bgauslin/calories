@@ -1,0 +1,35 @@
+.info-panel__copy
+  margin 0 auto
+  padding 1rem
+
+  @media Breakpoint.MEDIUM
+    max-width CONTENT_MAX_WIDTH
+    padding 1rem 0
+
+.info-panel__copy > h3
+  webfont_weight(600)
+  font-size var(--h3)
+  margin 1.5rem 0 .5rem
+
+.info-panel__copy > h3:first-of-type
+  margin-top 0
+
+.info-panel__copy > p
+.info-panel__copy > table
+  font-size var(--copy)
+  margin 0 0 1rem
+
+.info-panel__copy tr
+  border-bottom 1px solid var(--table-border)
+
+.info-panel__copy th
+.info-panel__copy td
+  padding .5em 0
+
+.info-panel__copy th
+  text-align left
+  webfont_weight(600)
+
+.info-panel__copy th:not(:first-child)
+.info-panel__copy td:not(:first-child)
+  text-align right
