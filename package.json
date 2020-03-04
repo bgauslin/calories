@@ -23,7 +23,8 @@
   ],
   "dependencies": {
     "@types/fastclick": "^1.0.28",
-    "fastclick": "^1.0.6" 
+    "fastclick": "^1.0.6",
+    "smoothscroll-polyfill": "^0.4.4"
   },
   "devDependencies": {
     "@babel/core": "^7.5.0",
