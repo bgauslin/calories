@@ -49,18 +49,16 @@ class Templates {
     let allHtml = '';
 
     inputs.forEach((input) => {
-      const {id, label, max, min, name, pattern, type} = input;
+      const {id, inputmode, label, name, pattern} = input;
       const html = `\
         <li class="${CssClass.BASE}__item ${CssClass.BASE}__item--${name}">\
           <label for="${id}" class="${CssClass.BASE}__label ${CssClass.BASE}__label--${name}">${label}</label>\
           <input \
-            class="values__input values__input--${name}" \
-            type="${type}" \
+            class="values__input values__input--text values__input--${name}" \
+            type="text" \
             name="${name}" \
             id="${id}" \
-            inputmode="decimal" \
-            min="${min}" \
-            max="${max}" \
+            inputmode="${inputmode}" \
             pattern="${pattern}" \
             aria-label="${label}" \
             required>\
@@ -85,7 +83,7 @@ class Templates {
         <li class="${CssClass.BASE}__item ${CssClass.BASE}__item--${name}">\
           <label for="${id}" class="${CssClass.BASE}__label ${CssClass.BASE}__label--${name}">\
             <input \
-              class="values__input values__input--${name}" \
+              class="values__input values__input--radio values__input--${name}" \
               type="radio" \
               name="${name}" \
               id="${id}" \

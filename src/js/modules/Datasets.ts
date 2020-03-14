@@ -1,11 +1,9 @@
 interface InputNumber {
   id: string,
+  inputmode: string,
   label: string,
-  max: number,
-  min: number,
   name: string,
   pattern: string,
-  type: string,
 }
 
 interface InputRadio {
@@ -51,39 +49,31 @@ const ActivityLevel: InputRadio[] = [
 const Measurements: InputNumber[] = [
   {
     id: 'feet',
+    inputmode: 'numeric',
     label: 'Ft.',
-    max: 7,
-    min: 3,
     name: 'feet',
     pattern: '[3-7]',
-    type: 'number',
   },
   {
     id: 'inches',
+    inputmode: 'numeric',
     label: 'In.',
-    max: 11,
-    min: 0,
     name: 'inches',
     pattern: '[0-9]|1[01]',
-    type: 'number',
   },
   {
     id: 'age',
+    inputmode: 'numeric',
     label: 'Age',
-    max: 100,
-    min: 1,
     name: 'age',
     pattern: '[1-9][0-9]?',
-    type: 'number',
   },
   {
     id: 'weight',
+    inputmode: 'decimal',
     label: 'Weight',
-    max: 400,
-    min: 10,
     name: 'weight',
     pattern: '[0-9]{0,3}[\\.]?[0-9]?',
-    type: 'text',
   },
 ];
 

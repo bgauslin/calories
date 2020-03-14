@@ -116,7 +116,7 @@ class UserValues extends HTMLElement {
     if (this.storage_) {
       this.populateInputs_();
     } else {
-      const firstInput = <HTMLInputElement>this.querySelectorAll('[type=number]')[0];
+      const firstInput = <HTMLInputElement>this.querySelectorAll('[type=text]')[0];
       firstInput.focus();
     }
 

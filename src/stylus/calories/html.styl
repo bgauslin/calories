@@ -54,7 +54,6 @@ input[type=radio]
   width 0
 
 input[type=text]
-input[type=number]
   webfont()
 
   &:focus
@@ -62,15 +61,6 @@ input[type=number]
 
   &:invalid
     color var(--warning-color)
-
-// Hide the tiny up/down buttons within a number input.
-input[type=number]
-  -moz-appearance textfield
-
-  &::-webkit-inner-spin-button
-  &::-webkit-outer-spin-button
-    appearance none
-    margin 0
 
 svg
   height auto
