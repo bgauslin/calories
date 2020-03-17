@@ -9,7 +9,7 @@ enum Attribute {
 }
 
 enum Expandable {
-  LABEL= 'zig-zag calories',
+  LABEL = 'zig-zag calories',
   TARGET_ID = 'zig-zag',
 }
 
