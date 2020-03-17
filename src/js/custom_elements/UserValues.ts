@@ -112,7 +112,7 @@ class UserValues extends HTMLElement {
       ...Object.values(RadioButtonsGroup),
     ];
 
-    // Render user data on page load if it exists.
+    // If user data exists, render it on page load.
     if (this.storage_) {
       this.populateInputs_();
     }
