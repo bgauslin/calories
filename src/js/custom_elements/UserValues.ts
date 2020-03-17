@@ -115,9 +115,6 @@ class UserValues extends HTMLElement {
     // Render user data on page load if it exists.
     if (this.storage_) {
       this.populateInputs_();
-    } else {
-      const firstInput = <HTMLInputElement>this.querySelectorAll('[type=text]')[0];
-      firstInput.focus();
     }
 
     // Set attribute on each fancy-marker which will trigger it to set its

@@ -48,8 +48,9 @@ class Templates {
   public numberInputs(inputs: InputNumber[]): string {
     let allHtml = '';
 
-    inputs.forEach((input) => {
+    inputs.forEach((input, index) => {
       const {id, inputmode, label, name, pattern} = input;
+      const autofocus = (index === 0) ? 'autofocus' : '';
       const html = `\
         <li class="${CssClass.BASE}__item ${CssClass.BASE}__item--${name}">\
           <label for="${id}" class="${CssClass.BASE}__label ${CssClass.BASE}__label--${name}">${label}</label>\
@@ -61,6 +62,7 @@ class Templates {
             inputmode="${inputmode}" \
             pattern="${pattern}" \
             aria-label="${label}" \
+            ${autofocus} \
             required>\
         </li>\
       `;
