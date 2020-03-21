@@ -181,7 +181,7 @@ class UserValues extends HTMLElement {
 
   /**
    * Updates 'result' element after getting all values and passing them into
-   * the BMR, BMI, and TDC formulas.
+   * the BMR, BMI, and TDEE formulas.
    */
   private update_(e?: Event): void {
     const values = {};
@@ -221,15 +221,15 @@ class UserValues extends HTMLElement {
     const activity = activityLevel.factor;
     const goal = goalLevel.factor;
 
-    // Get Total Daily Calorie (TDC) needs.
-    const tdc = this.formulas_.totalDailyCalories({
+    // Get Total Daily Energy Expenditure (TDEE).
+    const tdee = this.formulas_.totalDailyEnergyExpenditure({
       activity,
       bmr,
       goal,
     });
 
-    // Get maximum TDC for zig-zag chart (maximum activity, no weight loss).
-    const tdcMax = this.formulas_.totalDailyCalories({
+    // Get maximum TDEE for zig-zag chart (maximum activity, no weight loss).
+    const tdeeMax = this.formulas_.totalDailyEnergyExpenditure({
       activity: ActivityLevel[ActivityLevel.length - 1].factor,
       bmr,
       goal: WeightGoal[0].factor,
@@ -246,7 +246,7 @@ class UserValues extends HTMLElement {
         }
       }
       // Show/enable fields.
-      this.resultEl_.setAttribute('value', tdc.toFixed(0));
+      this.resultEl_.setAttribute('value', tdee.toFixed(0));
       this.resultEl_.setAttribute('bmr', bmr.toFixed(0));
       this.resultEl_.removeAttribute(Attribute.HIDDEN);
 
@@ -257,8 +257,8 @@ class UserValues extends HTMLElement {
 
       // Set zig-zag attributes so it can update itself.
       const zigZag = document.querySelector('zig-zag')
-      zigZag.setAttribute('tdc', tdc.toFixed());
-      zigZag.setAttribute('max-tdc', tdcMax.toFixed());
+      zigZag.setAttribute('tdee', tdee.toFixed());
+      zigZag.setAttribute('max-tdee', tdeeMax.toFixed());
 
     } else {
       // Hide/disable fields.

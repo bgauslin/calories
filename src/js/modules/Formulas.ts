@@ -37,10 +37,10 @@ class Formulas {
   }
 
   /**
-   * Returns total daily calorie needs based on BMR, activity level, and
-   * weight loss goal.
+   * Returns Total Daily Energy Expenditure (TDEE) based on BMR, activity
+   * level, and weight loss goal.
    */
-  public totalDailyCalories(userData: CalorieNeeds): number {
+  public totalDailyEnergyExpenditure(userData: CalorieNeeds): number {
     const {activity, bmr, goal} = userData;
     return (activity * bmr * BMR_MULTIPLIER) - goal;
   }

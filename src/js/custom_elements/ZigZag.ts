@@ -1,11 +1,11 @@
 const DAILY_LABELS: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const DAILY_MODIFIERS: number[] = [1, .9, 1.1, 1, .8, 1, 1.2];
-const MINIMUM_TDC: number = 1200;
+const MINIMUM_TDEE: number = 1200;
 const WARNING_CLASS: string = 'warning';
 
 enum Attribute {
-  TDC = 'tdc',
-  TDC_MAX = 'max-tdc',
+  TDEE = 'tdee',
+  TDEE_MAX = 'max-tdee',
 }
 
 enum Expandable {
@@ -23,13 +23,13 @@ class ZigZag extends HTMLElement {
   }
 
   static get observedAttributes(): string[] {
-    return [Attribute.TDC, Attribute.TDC_MAX];
+    return [Attribute.TDEE, Attribute.TDEE_MAX];
   }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
-    const tdc = this.getAttribute(Attribute.TDC);
-    const tdcMax = this.getAttribute(Attribute.TDC_MAX);
-    this.update_(tdc, tdcMax);
+    const tdee = this.getAttribute(Attribute.TDEE);
+    const tdeeMax = this.getAttribute(Attribute.TDEE_MAX);
+    this.update_(tdee, tdeeMax);
   }
 
   /**
@@ -59,14 +59,14 @@ class ZigZag extends HTMLElement {
   /**
    * Updates all counters with each day's zig-zag value.
    */
-  private update_(tdc: string, tdcMax: string) {
-    // Create array of all adjusted TDC values, and get highest value for
+  private update_(tdee: string, tdeeMax: string) {
+    // Create array of all adjusted TDEE values, and get highest value for
     // setting the bar chart's upper bound.
-    const allValues = DAILY_MODIFIERS.map(day => parseInt(tdc, 10) * day);
+    const allValues = DAILY_MODIFIERS.map(day => parseInt(tdee, 10) * day);
     const maxModifier = Math.max(...DAILY_MODIFIERS);
-    const maxValue = Number(tdcMax) * maxModifier;
+    const maxValue = Number(tdeeMax) * maxModifier;
 
-    // Convert adjusted TDC values to a percentage relative to the highest
+    // Convert adjusted TDEE values to a percentage relative to the highest
     // possible value for drawing a bar chart via CSS.
     const barLengths = allValues.map(value => Math.round((value / maxValue) * 100));
 
@@ -88,7 +88,7 @@ class ZigZag extends HTMLElement {
     // Set warning class for extremely low values.
     allValues.forEach((value, i) => {
       const day = <HTMLElement>this.days_[i];
-      if (value < MINIMUM_TDC) {
+      if (value < MINIMUM_TDEE) {
         day.classList.add(WARNING_CLASS);
       } else {
         day.classList.remove(WARNING_CLASS);
