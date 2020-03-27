@@ -85,7 +85,6 @@ class Expandable extends HTMLElement {
       this.targetEl_.style.height = `${elHeight / 16}rem`;
       this.targetEl_.addEventListener('transitionend', () => {
         this.targetEl_.style.height = null;
-        this.targetEl_.removeEventListener('transitionend', null, false);
       }, {once: true});
 
     } else {
