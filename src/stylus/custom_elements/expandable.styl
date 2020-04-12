@@ -25,12 +25,12 @@
   border-radius (BUTTON_HEIGHT / 2)
   color var(--text)
   display flex
-  font-size px_to_em(14)
+  font-size em(14)
   height BUTTON_HEIGHT
   line-height 1
-  padding 0 0 0 px_to_rem(20)
+  padding 0 0 0 rem(20)
   white-space nowrap
-  width px_to_rem(210)
+  width rem(210)
 
 [no-touch] .expandable__button
   transition background var(--transition), color var(--transition)
@@ -45,7 +45,7 @@
   css_triangle(var(--text), 5px, 'down')
   content ''
   display inline-block
-  margin-right px_to_rem(8)
+  margin-right rem(8)
   transition transform var(--transition)
 
 .expandable[expanded] > .expandable__button::before
