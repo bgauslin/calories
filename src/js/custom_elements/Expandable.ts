@@ -12,7 +12,7 @@ class Expandable extends HTMLElement {
     this.hasSetup_ = false;
     this.label_ = this.getAttribute('label');
     this.target_ = this.getAttribute('target');
-    this.addEventListener('click', (e) => this.toggleExpanded_(e));
+    this.addEventListener('click', this.toggleExpanded_);
   }
 
   static get observedAttributes(): string[] {

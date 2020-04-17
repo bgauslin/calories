@@ -15,7 +15,7 @@ class InfoToggle extends HTMLElement {
   constructor() {
     super();
     this.isOpen_ = false;
-    this.addEventListener('click', (e: Event) => this.handleClick_(e));
+    this.addEventListener('click', this.handleClick_);
     smoothscroll.polyfill();
   }
 

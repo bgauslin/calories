@@ -183,7 +183,7 @@ class UserValues extends HTMLElement {
    * Updates 'result' element after getting all values and passing them into
    * the BMR, BMI, and TDEE formulas.
    */
-  private update_(e?: Event): void {
+  private update_(event?: Event): void {
     const values = {};
     const formData = new FormData(this.formEl_);
     this.allFields_.forEach((name) => values[name] = formData.get(name));
@@ -237,8 +237,8 @@ class UserValues extends HTMLElement {
 
     // Display all fields and save result when all required data is provided.
     if (this.querySelectorAll(':invalid').length === 0) {
-      if (e) {
-        const target = <HTMLInputElement>e.target;
+      if (event) {
+        const target = <HTMLInputElement>event.target;
         if (target && target.type === 'radio') {
           this.resultEl_.setAttribute(Attribute.INCREMENT, '');
         } else {
