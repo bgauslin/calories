@@ -81,13 +81,14 @@ class Templates {
       const checked = (index === 0) ? ' checked' : '';
       const html = `\
         <li class="${CssClass.BASE}__item ${CssClass.BASE}__item--${name}">\
-          <label for="${id}" class="${CssClass.BASE}__label ${CssClass.BASE}__label--${name}">\
+          <label for="${id}" class="${CssClass.BASE}__label ${CssClass.BASE}__label--${name}" tabindex="0">\
             <input \
               class="values__input values__input--radio values__input--${name}" \
               type="radio" \
               name="${name}" \
               id="${id}" \
               value="${value}" \
+              tabindex="-1"\
               ${checked}>\
               <span class="values__label__caption">${label}</span>\
           </label>\

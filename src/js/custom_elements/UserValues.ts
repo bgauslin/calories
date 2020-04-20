@@ -32,6 +32,7 @@ class UserValues extends HTMLElement {
   formEl_: HTMLFormElement;
   formulas_: Formulas;
   hasSetup_: boolean;
+  keyListener_: any;
   resultEl_: HTMLElement;
   storage_: string;
   templates_: Templates;
@@ -43,6 +44,7 @@ class UserValues extends HTMLElement {
     this.templates_ = new Templates();
     this.storage_ = localStorage.getItem(LOCAL_STORAGE);
     this.addEventListener('change', this.update_);
+    this.addEventListener('keyup', this.handleKey_);
   }
 
   static get observedAttributes(): string[] {
@@ -61,6 +63,18 @@ class UserValues extends HTMLElement {
 
   disconnectedCallback(): void {
     this.removeEventListener('change', this.update_);
+    this.removeEventListener('keyup', this.handleKey_);
+  }
+
+  /**
+   * Adds [enter] key functionality to radio buttons.
+   */
+  private handleKey_(e: KeyboardEvent): void {
+    const target = <HTMLElement>e.target;
+    const radio = target.querySelector('[type=radio]');
+    if (radio && e.code === 'Enter') {
+      target.click();
+    }
   }
 
   /**

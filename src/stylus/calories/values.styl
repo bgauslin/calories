@@ -85,11 +85,16 @@
   padding 0 1rem
   width 100%
 
+  &:focus
+    outline none
+
   [no-touch] &:hover
     cursor pointer
 
+  &:focus .values__label__caption
   [no-touch] &:hover .values__label__caption
     opacity 1
+    transform scale(1.1)
 
 .values__label--feet
 .values__label--inches
@@ -118,7 +123,7 @@
 
 // Radio button label captions.
 .values__label__caption
-  transition opacity var(--transition)
+  transition opacity var(--transition), transform var(--transition)
 
 // [1] Disable pointer events on elements within radio button labels so that
 // iOS Safari can register a tap on the label.
