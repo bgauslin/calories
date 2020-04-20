@@ -259,14 +259,22 @@ class UserValues extends HTMLElement {
           this.resultEl_.removeAttribute(Attribute.INCREMENT);
         }
       }
-      // Show/enable fields.
       this.resultEl_.setAttribute('value', tdee.toFixed(0));
       this.resultEl_.setAttribute('bmr', bmr.toFixed(0));
+
+      // Show result.
       this.resultEl_.removeAttribute(Attribute.HIDDEN);
 
+      // Enable fields.
       INACTIVE_ELEMENTS.forEach((selector) => {
-        this.querySelector(selector).removeAttribute(Attribute.INACTIVE);
+        const group = this.querySelector(selector);
+        group.removeAttribute(Attribute.INACTIVE);
+        [...group.querySelectorAll('label[tabindex]')].forEach((label) => {
+          label.setAttribute('tabindex', '0');
+        });
       });
+
+      // Store values.
       localStorage.setItem(LOCAL_STORAGE, JSON.stringify(values));
 
       // Set zig-zag attributes so it can update itself.
@@ -275,10 +283,16 @@ class UserValues extends HTMLElement {
       zigZag.setAttribute('max-tdee', tdeeMax.toFixed());
 
     } else {
-      // Hide/disable fields.
+      // Hide result.
       this.resultEl_.setAttribute(Attribute.HIDDEN, '');
+
+      // Disable fields.
       INACTIVE_ELEMENTS.forEach((selector) => {
-        this.querySelector(selector).setAttribute(Attribute.INACTIVE, '');
+        const group = this.querySelector(selector);
+        group.setAttribute(Attribute.INACTIVE, '');
+        [...group.querySelectorAll('label[tabindex]')].forEach((label) => {
+          label.setAttribute('tabindex', '-1');
+        });
       });
     }
   }
