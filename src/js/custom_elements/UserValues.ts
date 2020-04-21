@@ -225,7 +225,6 @@ class UserValues extends HTMLElement {
     const formData = new FormData(this.formEl_);
     this.allFields_.forEach((name) => values[name] = formData.get(name));
 
-    // TODO: Loop through UserMeasurements enum to set all values (?)
     return {
       activity: values['activity'],
       age: Number(values['age']),
@@ -241,26 +240,18 @@ class UserValues extends HTMLElement {
    * Returns user's BMR, TDEE, and max TDEE based on their measurements.
    */
   private getMetrics_(measurements: UserMeasurements): UserMetrics {
+    let {activity, age, feet, goal, inches, sex, weight} = measurements;
+
     // Convert height and weight to metric for the formulas.
-    const height = this.formulas_.cm((measurements['feet'] * 12) + measurements['inches']);
-    const weight = this.formulas_.kg(measurements['weight']);
+    const height = this.formulas_.cm((feet * 12) + inches);
+    weight = this.formulas_.kg(weight);
 
     // Get BMR.
-    const bmr = this.formulas_.basalMetabolicRate({
-      age: measurements['age'],
-      height,
-      sex: measurements['sex'],
-      weight,
-    });
+    const bmr = this.formulas_.basalMetabolicRate({age, height, sex, weight});
 
     // Get factors based on selected values for TDEE.
-    const activityLevel = ActivityLevel.find((level) => {
-      return measurements['activity'] === level.value;
-    });
-
-    const goalLevel = WeightGoal.find((level) => {
-      return measurements['goal'] === level.value;
-    });
+    const activityLevel = ActivityLevel.find(level => activity === level.value);
+    const goalLevel = WeightGoal.find(level => goal === level.value);
 
     // Get Total Daily Energy Expenditure (TDEE).
     const tdee = this.formulas_.totalDailyEnergyExpenditure({
