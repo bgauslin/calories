@@ -5,8 +5,9 @@ import {Templates} from '../modules/Templates';
 interface UserMeasurements {
   activity: string,
   age: number,
+  feet: number,
   goal: string,
-  height: number,
+  inches: number,
   sex: string,
   weight: number,
 }
@@ -17,30 +18,24 @@ interface UserMetrics {
   tdeeMax: number,
 }
 
+const BASE_CLASSNAME: string = 'values';
+const HIDDEN_ATTR: string = 'hidden';
+const INACTIVE_ATTR: string = 'inactive';
+const INCREMENT_ATTR: string = 'increment';
 const LOCAL_STORAGE: string = 'values';
+const RESULT_CLASSNAME: string = 'result';
+const UNITS_ATTR: string = 'units';
 
-enum Attribute {
-  HIDDEN = 'hidden',
-  INACTIVE = 'inactive',
-  INCREMENT = 'increment',
-  UNITS = 'units',
-}
-
-enum CssClass {
-  BASE = 'values',
-  RESULT = 'result',
-}
+const INACTIVE_ELEMENTS: string[] = [
+  '.values__group--activity',
+  '.values__group--goal',
+];
 
 enum RadioButtonsGroup {
   ACTIVITY = 'activity',
   GOAL = 'goal',
   SEX = 'sex',
 }
-
-const INACTIVE_ELEMENTS: string[] = [
-  '.values__group--activity',
-  '.values__group--goal',
-];
 
 class UserValues extends HTMLElement {
   allFields_: string[];
@@ -63,7 +58,7 @@ class UserValues extends HTMLElement {
   }
 
   static get observedAttributes(): string[] {
-    return [Attribute.UNITS];
+    return [UNITS_ATTR];
   }
 
   connectedCallback(): void {
@@ -108,7 +103,7 @@ class UserValues extends HTMLElement {
 
     // Create references to primary elements.
     this.formEl_ = this.querySelector('form');
-    this.resultEl_ = this.querySelector(`.${CssClass.RESULT}`);
+    this.resultEl_ = this.querySelector(`.${RESULT_CLASSNAME}`);
 
     // If user data exists, update HTML on page load.
     if (this.storage_) {
@@ -134,15 +129,15 @@ class UserValues extends HTMLElement {
    */
   private render_(): string {
     const html = `\
-      <form class="${CssClass.BASE}__form">\
+      <form class="${BASE_CLASSNAME}__form">\
         ${this.templates_.radioButtonsGroup({
           buttons: Sex,
           headingLabel: 'Sex',
           modifier:  'sex',
           name: RadioButtonsGroup.SEX,
         })}\
-        <div class="${CssClass.BASE}__group ${CssClass.BASE}__group--measurements">\
-          <ul class="${CssClass.BASE}__list ${CssClass.BASE}__list--measurements">\
+        <div class="${BASE_CLASSNAME}__group ${BASE_CLASSNAME}__group--measurements">\
+          <ul class="${BASE_CLASSNAME}__list ${BASE_CLASSNAME}__list--measurements">\
             ${this.templates_.numberInputs(Measurements)}\
           </ul>\
         </div>\
@@ -163,7 +158,7 @@ class UserValues extends HTMLElement {
           name: RadioButtonsGroup.GOAL,
         })}\
       </form>\
-      <result-counter class="${CssClass.RESULT}"></result-counter>\
+      <result-counter class="${RESULT_CLASSNAME}"></result-counter>\
     `;
     return html.replace(/\s\s/g, '');
   }
@@ -210,14 +205,14 @@ class UserValues extends HTMLElement {
       if (event) {
         const target = <HTMLInputElement>event.target;
         if (target && target.type === 'radio') {
-          this.resultEl_.setAttribute(Attribute.INCREMENT, '');
+          this.resultEl_.setAttribute(INCREMENT_ATTR, '');
         } else {
-          this.resultEl_.removeAttribute(Attribute.INCREMENT);
+          this.resultEl_.removeAttribute(INCREMENT_ATTR);
         }
       }
     } else {
       // Hide result-counter and disable input groups.
-      this.resultEl_.setAttribute(Attribute.HIDDEN, '');
+      this.resultEl_.setAttribute(HIDDEN_ATTR, '');
       this.makeGroupsActive_(false);
     }   
   }
@@ -230,30 +225,15 @@ class UserValues extends HTMLElement {
     const formData = new FormData(this.formEl_);
     this.allFields_.forEach((name) => values[name] = formData.get(name));
 
-    // Convert height and weight to metric regardless of user-selected units.
-    let height: number;
-    let weight: number = values['weight'];
-    const units = this.getAttribute(Attribute.UNITS);
-
-    // TODO(#4): Height and weight fields in metric units.
-    switch (units) {
-      case 'metric':
-        height = Number(values['cm']);
-        weight = Number(values['kg']);
-        break;
-      case 'imperial':
-        height = this.formulas_.cm(Number(values['feet'] * 12) + Number(values['inches']));
-        weight = this.formulas_.kg(weight);
-        break;
-    }
-
+    // TODO: Loop through UserMeasurements enum to set all values (?)
     return {
       activity: values['activity'],
       age: Number(values['age']),
+      feet: Number(values['feet']),
       goal: values['goal'],
-      height,
+      inches: Number(values['inches']),
       sex: values['sex'],
-      weight,
+      weight: values['weight'],
     }
   }
 
@@ -261,12 +241,22 @@ class UserValues extends HTMLElement {
    * Returns user's BMR, TDEE, and max TDEE based on their measurements.
    */
   private getMetrics_(measurements: UserMeasurements): UserMetrics {
-    // Get factors based on selected values.
+    // Convert height and weight to metric for the formulas.
+    const height = this.formulas_.cm((measurements['feet'] * 12) + measurements['inches']);
+    const weight = this.formulas_.kg(measurements['weight']);
+
+    // Get BMR.
+    const bmr = this.formulas_.basalMetabolicRate({
+      age: measurements['age'],
+      height,
+      sex: measurements['sex'],
+      weight,
+    });
+
+    // Get factors based on selected values for TDEE.
     const activityLevel = ActivityLevel.find((level) => {
       return measurements['activity'] === level.value;
     });
-
-    const bmr = this.formulas_.basalMetabolicRate(measurements);
 
     const goalLevel = WeightGoal.find((level) => {
       return measurements['goal'] === level.value;
@@ -294,7 +284,7 @@ class UserValues extends HTMLElement {
    * update themselves.
    */
   showResult_(bmr: number, tdee: number, tdeeMax: number) {
-    this.resultEl_.removeAttribute(Attribute.HIDDEN);
+    this.resultEl_.removeAttribute(HIDDEN_ATTR);
     this.resultEl_.setAttribute('value', tdee.toFixed(0));
     this.resultEl_.setAttribute('bmr', bmr.toFixed(0));
  
@@ -314,9 +304,9 @@ class UserValues extends HTMLElement {
       const group = this.querySelector(selector);
 
       if (show) {
-        group.removeAttribute(Attribute.INACTIVE);
+        group.removeAttribute(INACTIVE_ATTR);
       } else {
-        group.setAttribute(Attribute.INACTIVE, '');
+        group.setAttribute(INACTIVE_ATTR, '');
       }
 
       [...group.querySelectorAll('label[tabindex]')].forEach((label) => {
