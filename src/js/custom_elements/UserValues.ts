@@ -191,16 +191,11 @@ class UserValues extends HTMLElement {
    * into the BMR, BMI, and TDEE formulas.
    */
   private update_(event?: Event): void {
-    if (this.querySelectorAll(':invalid').length === 0) {
-      // Get user measurements and save them for subsequent visits.
-      const measurements = this.getMeasurements_()
-      const {bmr, tdee, tdeeMax} = this.getMetrics_(measurements);
-      localStorage.setItem(LOCAL_STORAGE, JSON.stringify(measurements));
-
-      // Show result-counter and enable input groups.
-      this.showResult_(bmr, tdee, tdeeMax);
-      this.makeGroupsActive_(true);
-
+    if (this.querySelectorAll(':invalid').length) {
+      // Hide result-counter and disable input groups.
+      this.resultEl_.setAttribute(HIDDEN_ATTR, '');
+      this.makeGroupsActive_(false);
+    } else {
       // Make result-counter increment its value if a radio button was clicked.
       if (event) {
         const target = <HTMLInputElement>event.target;
@@ -210,10 +205,15 @@ class UserValues extends HTMLElement {
           this.resultEl_.removeAttribute(INCREMENT_ATTR);
         }
       }
-    } else {
-      // Hide result-counter and disable input groups.
-      this.resultEl_.setAttribute(HIDDEN_ATTR, '');
-      this.makeGroupsActive_(false);
+
+      // Get user measurements and save them for subsequent visits.
+      const measurements = this.getMeasurements_()
+      const {bmr, tdee, tdeeMax} = this.getMetrics_(measurements);
+      localStorage.setItem(LOCAL_STORAGE, JSON.stringify(measurements));
+
+      // Show result-counter and enable input groups.
+      this.showResult_(bmr, tdee, tdeeMax);
+      this.makeGroupsActive_(true);
     }   
   }
 
