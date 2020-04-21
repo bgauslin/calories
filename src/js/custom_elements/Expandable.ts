@@ -10,8 +10,6 @@ class Expandable extends HTMLElement {
   constructor() {
     super();
     this.hasSetup_ = false;
-    this.label_ = this.getAttribute('label');
-    this.target_ = this.getAttribute('target');
     this.addEventListener('click', this.toggleExpanded_);
   }
 
@@ -37,6 +35,8 @@ class Expandable extends HTMLElement {
    * and related elements.
    */
   private setup_(): void {
+    this.label_ = this.getAttribute('label');
+    this.target_ = this.getAttribute('target');
     this.targetEl_ = document.getElementById(this.target_);
 
     if (this.targetEl_) {
