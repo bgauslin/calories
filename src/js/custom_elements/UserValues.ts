@@ -307,28 +307,17 @@ class UserValues extends HTMLElement {
   }
 
   /**
-   * Clears the input on focus and restores the previous value if the user
-   * decides not to change it.
+   * Places the cursor at the end of a text input field when it's focused.
    */
   private handleInputFocus_(): void {
     const names = Measurements.map(field => field.name);
     names.forEach((name) => {
-      let oldValue: string;
       const el = <HTMLInputElement>this.querySelector(`[name=${name}]`);
-
-      // Save the old value on focus and clear the field.
       el.addEventListener('focus', () => {
-        oldValue = el.value;
-        el.value = '';
+        el.selectionStart = el.selectionEnd = el.value.length;
+        console.log(el.selectionStart);
       });
-
-      // Put the old value back if the value doesn't change.
-      el.addEventListener('blur', () => {
-        if (!el.value) {
-          el.value = oldValue;
-        }
-      });
-    })
+    });
   }
 }
 
