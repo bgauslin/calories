@@ -7,19 +7,19 @@
 .values__group
   margin 0 0 1rem
 
-.values__group[inactive]
+.values__group[disabled]
   transition opacity var(--transition)
 
-.values__group[inactive]
+.values__group[disabled]
   opacity .3
 
-.values__group[inactive] *
+.values__group[disabled] *
   pointer-events none !important
 
-.values__group[inactive] *:hover
+.values__group[disabled] *:hover
   cursor default !important
 
-.values__group:not([inactive])
+.values__group:not([disabled])
   opacity 1
   pointer-events auto
 

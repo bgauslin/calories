@@ -19,14 +19,14 @@ interface UserMetrics {
 }
 
 const BASE_CLASSNAME: string = 'values';
+const DISABLED_ATTR: string = 'disabled';
 const HIDDEN_ATTR: string = 'hidden';
-const INACTIVE_ATTR: string = 'inactive';
 const INCREMENT_ATTR: string = 'increment';
 const LOCAL_STORAGE: string = 'values';
 const RESULT_CLASSNAME: string = 'result';
 const UNITS_ATTR: string = 'units';
 
-const INACTIVE_ELEMENTS: string[] = [
+const DISABLED_ELEMENTS: string[] = [
   '.values__group--activity',
   '.values__group--goal',
 ];
@@ -132,17 +132,17 @@ class UserValues extends HTMLElement {
         </div>\
         ${this.templates_.radioButtonsGroup({
           buttons: ActivityLevel,
+          disabled: true,
           headingLabel: 'Exercise',
           headingNote: 'times per week',
-          inactive: true,
           modifier: 'activity',
           name: RadioButtonsGroup.ACTIVITY,
         })}\
         ${this.templates_.radioButtonsGroup({
           buttons: WeightGoal,
+          disabled: true,
           headingLabel: 'Weight loss',
           headingNote: 'lbs. per week',
-          inactive: true,
           modifier: 'goal',
           name: RadioButtonsGroup.GOAL,
         })}\
@@ -183,7 +183,7 @@ class UserValues extends HTMLElement {
     if (this.querySelectorAll(':invalid').length) {
       // Hide result-counter and disable input groups.
       this.resultEl_.setAttribute(HIDDEN_ATTR, '');
-      this.makeGroupsActive_(false);
+      this.enableGroups_(false);
     } else {
       // Make result-counter increment its value if a radio button was clicked.
       if (event) {
@@ -202,7 +202,7 @@ class UserValues extends HTMLElement {
 
       // Show result-counter and enable input groups.
       this.showResult_(bmr, tdee, tdeeMax);
-      this.makeGroupsActive_(true);
+      this.enableGroups_(true);
     }   
   }
 
@@ -274,19 +274,19 @@ class UserValues extends HTMLElement {
   }
 
   /**
-   * Toggles 'inactive' attribute on input groups and sets a 'tabindex' value
+   * Toggles 'disabled' attribute on input groups and sets a 'tabindex' value
    * on their children's labels to enable/disable keyboard tabbing.
    */
-  private makeGroupsActive_(show: boolean): void {
+  private enableGroups_(show: boolean): void {
     const tabindex = show ? '0' : '-1';
 
-    INACTIVE_ELEMENTS.forEach((selector) => {
+    DISABLED_ELEMENTS.forEach((selector) => {
       const group = this.querySelector(selector);
 
       if (show) {
-        group.removeAttribute(INACTIVE_ATTR);
+        group.removeAttribute(DISABLED_ATTR);
       } else {
-        group.setAttribute(INACTIVE_ATTR, '');
+        group.setAttribute(DISABLED_ATTR, '');
       }
 
       [...group.querySelectorAll('label[tabindex]')].forEach((label) => {

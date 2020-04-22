@@ -2,9 +2,9 @@ import {InputNumber, InputRadio} from './Datasets';
 
 interface RadioButtonsGroupData {
   buttons: InputRadio[],
+  disabled?: boolean,
   headingLabel: string,
   headingNote?: string,
-  inactive?: boolean,
   modifier: string,
   name: string,
 }
@@ -20,10 +20,10 @@ class Templates {
    * and radio buttons.
    */
   public radioButtonsGroup(data: RadioButtonsGroupData): string {
-    const {modifier, name, buttons, inactive, headingLabel, headingNote} = data;
-    const isInactive = inactive ? ' inactive' : '';
+    const {modifier, name, buttons, disabled, headingLabel, headingNote} = data;
+    const isDisabled = disabled ? ' disabled' : '';
     return `\
-      <div class="${CssClass.BASE}__group ${CssClass.BASE}__group--${modifier}"${isInactive}>\
+      <div class="${CssClass.BASE}__group ${CssClass.BASE}__group--${modifier}"${isDisabled}>\
         ${this.fieldHeading_(modifier, headingLabel, headingNote)}\
         <fancy-marker>\
           <ul class="${CssClass.BASE}__list ${CssClass.BASE}__list--${modifier}">\
