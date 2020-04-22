@@ -22,7 +22,7 @@ const BASE_CLASSNAME: string = 'values';
 const DISABLED_ATTR: string = 'disabled';
 const HIDDEN_ATTR: string = 'hidden';
 const LOCAL_STORAGE: string = 'values';
-const RESULT_CLASSNAME: string = 'result';
+const RESULT_CLASSNAME: string = 'results';
 const UNITS_ATTR: string = 'units';
 
 const DISABLED_ELEMENTS: string[] = [
@@ -42,7 +42,7 @@ class UserValues extends HTMLElement {
   formulas_: Formulas;
   hasSetup_: boolean;
   keyListener_: any;
-  resultEl_: HTMLElement;
+  resultsEl_: HTMLElement;
   storage_: string;
   templates_: Templates;
 
@@ -66,7 +66,7 @@ class UserValues extends HTMLElement {
 
   attributeChangedCallback(): void {
     if (this.hasSetup_) {
-      this.update_(null);
+      this.update_();
     }
   }
 
@@ -79,23 +79,29 @@ class UserValues extends HTMLElement {
    * Creates DOM elements and populates them if there are stored user values.
    */
   private setup_(): void {
-    // Place all fields in an array to simplify looping.
+    // Create array of all fields to simplify getting/setting things later.
     const measurementFields = Measurements.map(field => field.name);
     this.allFields_ = [
       ...measurementFields,
       ...Object.values(OptionsGroup),
     ];
 
-    // Render HTML for input groups and result-counter.
+    // Render HTML for input groups and results.
     this.innerHTML = this.render_();
 
     // Create references to primary elements.
     this.formEl_ = this.querySelector('form');
-    this.resultEl_ = this.querySelector(`.${RESULT_CLASSNAME}`);
+    this.resultsEl_ = this.querySelector(`.${RESULT_CLASSNAME}`);
 
     // If user data exists, update HTML on page load.
     if (this.storage_) {
       this.populateInputs_();
+    }
+
+    // Focus first text input if it's empty.
+    const first = <HTMLInputElement>this.querySelector('[type=text]');
+    if (!first.value.length) {
+      first.focus();
     }
 
     // Set attribute on each fancy-marker which will trigger it to set its
@@ -109,11 +115,11 @@ class UserValues extends HTMLElement {
 
     // All done.
     this.hasSetup_ = true;
-    this.update_(null);
+    this.update_();
   }
 
   /**
-   * Renders HTML for all input groups and result-counter.
+   * Renders HTML for all input groups and results.
    */
   private render_(): string {
     const html = `\
@@ -146,7 +152,7 @@ class UserValues extends HTMLElement {
           name: OptionsGroup.GOAL,
         })}\
       </form>\
-      <result-counter class="${RESULT_CLASSNAME}"></result-counter>\
+      <results-counter class="${RESULT_CLASSNAME}"></results-counter>\
     `;
     return html.replace(/\s\s/g, '');
   }
@@ -175,13 +181,13 @@ class UserValues extends HTMLElement {
   }
 
   /**
-   * Updates result-counter element after getting all values and passing them
-   * into the BMR, BMI, and TDEE formulas.
+   * Updates results after getting all values and passing them into the BMR,
+   * BMI, and TDEE formulas.
    */
-  private update_(event?: Event): void {
+  private update_(): void {
     if (this.querySelectorAll(':invalid').length) {
-      // Hide result-counter and disable input groups.
-      this.resultEl_.setAttribute(HIDDEN_ATTR, '');
+      // Hide results and disable input groups.
+      this.resultsEl_.setAttribute(HIDDEN_ATTR, '');
       this.enableOptionsGroups_(false);
     } else {
       // Get user measurements and save them for subsequent visits.
@@ -189,7 +195,7 @@ class UserValues extends HTMLElement {
       const {bmr, tdee, tdeeMax} = this.getResults_(measurements);
       localStorage.setItem(LOCAL_STORAGE, JSON.stringify(measurements));
 
-      // Show result-counter and enable input groups.
+      // Show results and enable input groups.
       this.showResults_(bmr, tdee, tdeeMax);
       this.enableOptionsGroups_(true);
     }   
@@ -249,13 +255,13 @@ class UserValues extends HTMLElement {
   }
 
   /**
-   * Sets attributes on result-counter and zig-zag elements so that they can
+   * Sets attributes on results and zig-zag elements so that they can
    * update themselves.
    */
   showResults_(bmr: number, tdee: number, tdeeMax: number) {
-    this.resultEl_.removeAttribute(HIDDEN_ATTR);
-    this.resultEl_.setAttribute('value', tdee.toFixed(0));
-    this.resultEl_.setAttribute('bmr', bmr.toFixed(0));
+    this.resultsEl_.removeAttribute(HIDDEN_ATTR);
+    this.resultsEl_.setAttribute('value', tdee.toFixed(0));
+    this.resultsEl_.setAttribute('bmr', bmr.toFixed(0));
  
     const zigZag = document.querySelector('zig-zag')
     zigZag.setAttribute('tdee', tdee.toFixed());

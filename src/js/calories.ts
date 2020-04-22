@@ -14,7 +14,7 @@ import '../stylus/calories.styl';
 
 // Define all custom elements.
 const map = new Map();
-map.set(Counter, 'result-counter');
+map.set(Counter, 'results-counter');
 map.set(Expandable, 'app-expandable');
 map.set(FancyMarker, 'fancy-marker');
 map.set(InfoPanel, 'info-panel');

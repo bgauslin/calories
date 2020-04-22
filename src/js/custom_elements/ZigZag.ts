@@ -43,7 +43,7 @@ class ZigZag extends HTMLElement {
       html += `\
         <div class="${this.className}__day">\
           <div class="${this.className}__label">${DAILY_LABELS[i]}</div>\
-          <result-counter class="${this.className}__value"></result-counter>\
+          <results-counter class="${this.className}__value"></results-counter>\
         </div>\
       `;
     }
@@ -52,7 +52,7 @@ class ZigZag extends HTMLElement {
 
     this.innerHTML = html.replace(/\s\s/g, '');
 
-    this.counters_ = this.querySelectorAll('result-counter');
+    this.counters_ = this.querySelectorAll('results-counter');
     this.days_ = this.querySelectorAll(`.${this.className}__day`);
   }
 

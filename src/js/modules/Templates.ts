@@ -9,10 +9,7 @@ interface OptionsGroupData {
   name: string,
 }
 
-enum CssClass {
-  BASE = 'values',
-  RESULT = 'result',
-}
+const BASE_CLASSNAME: string = 'values';
 
 class Templates {
   /**
@@ -23,10 +20,10 @@ class Templates {
     const {modifier, name, buttons, disabled, headingLabel, headingNote} = data;
     const isDisabled = disabled ? ' disabled' : '';
     return `\
-      <div class="${CssClass.BASE}__group ${CssClass.BASE}__group--${modifier}"${isDisabled}>\
+      <div class="${BASE_CLASSNAME}__group ${BASE_CLASSNAME}__group--${modifier}"${isDisabled}>\
         ${this.fieldHeading_(modifier, headingLabel, headingNote)}\
         <fancy-marker>\
-          <ul class="${CssClass.BASE}__list ${CssClass.BASE}__list--${modifier}">\
+          <ul class="${BASE_CLASSNAME}__list ${BASE_CLASSNAME}__list--${modifier}">\
             ${this.radioButtons_(name, buttons)}\
           </ul>\
         </fancy-marker>\
@@ -38,8 +35,8 @@ class Templates {
    * Returns rendered heading for a field or group of fields.
    */
   private fieldHeading_(modifier: string, label: string, note?: string): string {
-    const fieldNote = note ? ` <span class="${CssClass.BASE}__heading__note">${note}</span>` : '';
-    return `<h4 class="${CssClass.BASE}__heading ${CssClass.BASE}__heading--${modifier}">${label}${fieldNote}</h4>`;
+    const fieldNote = note ? ` <span class="${BASE_CLASSNAME}__heading__note">${note}</span>` : '';
+    return `<h4 class="${BASE_CLASSNAME}__heading ${BASE_CLASSNAME}__heading--${modifier}">${label}${fieldNote}</h4>`;
   }
 
   /**
@@ -51,8 +48,8 @@ class Templates {
     inputs.forEach((input) => {
       const {id, inputmode, label, name, pattern} = input;
       const html = `\
-        <li class="${CssClass.BASE}__item ${CssClass.BASE}__item--${name}">\
-          <label for="${id}" class="${CssClass.BASE}__label ${CssClass.BASE}__label--${name}">${label}</label>\
+        <li class="${BASE_CLASSNAME}__item ${BASE_CLASSNAME}__item--${name}">\
+          <label for="${id}" class="${BASE_CLASSNAME}__label ${BASE_CLASSNAME}__label--${name}">${label}</label>\
           <input \
             class="values__input values__input--text values__input--${name}" \
             type="text" \
@@ -80,8 +77,8 @@ class Templates {
       const {id, label, value} = button;
       const checked = (index === 0) ? ' checked' : '';
       const html = `\
-        <li class="${CssClass.BASE}__item ${CssClass.BASE}__item--${name}">\
-          <label for="${id}" class="${CssClass.BASE}__label ${CssClass.BASE}__label--${name}" tabindex="0">\
+        <li class="${BASE_CLASSNAME}__item ${BASE_CLASSNAME}__item--${name}">\
+          <label for="${id}" class="${BASE_CLASSNAME}__label ${BASE_CLASSNAME}__label--${name}" tabindex="0">\
             <input \
               class="values__input values__input--radio values__input--${name}" \
               type="radio" \
