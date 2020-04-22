@@ -272,13 +272,13 @@ class UserValues extends HTMLElement {
    * Toggles 'disabled' attribute on input groups and sets a 'tabindex' value
    * on their children's labels to enable/disable keyboard tabbing.
    */
-  private enableOptionsGroups_(show: boolean): void {
-    const tabindex = show ? '0' : '-1';
+  private enableOptionsGroups_(enabled: boolean): void {
+    const tabindex = enabled ? '0' : '-1';
 
     DISABLED_ELEMENTS.forEach((selector) => {
       const group = this.querySelector(selector);
 
-      if (show) {
+      if (enabled) {
         group.removeAttribute(DISABLED_ATTR);
       } else {
         group.setAttribute(DISABLED_ATTR, '');
