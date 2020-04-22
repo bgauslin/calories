@@ -36,6 +36,11 @@ enum OptionsGroup {
   SEX = 'sex',
 }
 
+/**
+ * Custom element that renders input fields for user interaction, calculates
+ * BMR and TDEE via user input, enables/disables a 'results' element based on
+ * valid user input, and saves user-provided info to localStorage.
+ */
 class UserValues extends HTMLElement {
   allFields_: string[];
   formEl_: HTMLFormElement;

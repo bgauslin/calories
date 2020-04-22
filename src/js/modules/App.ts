@@ -13,6 +13,9 @@ enum Visibility {
   TARGETS = '.expandable, .table',
 }
 
+/**
+ * Primary class that renders, sets up, and controls the overall app.
+ */
 class App {
   private observer_: MutationObserver;
   private startYear_: string;

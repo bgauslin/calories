@@ -13,6 +13,11 @@ interface Measurements {
 
 const BMR_MULTIPLIER: number = 1.2;
 
+/**
+ * Formulas for calculating Basal Metabolic Rate (BMR), Body Mass Index (BMI),
+ * Total Daily Energy Expenditure (TDEE), and converting height and weight in
+ * Imperial units to metric.
+ */
 class Formulas {
   /**
    * Mifflin St. Jeor Basal Metabolic Rate (BMR) equation.

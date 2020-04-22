@@ -6,6 +6,10 @@ enum CustomProperty {
   WIDTH = '--marker-width',
 }
 
+/**
+ * Custom element that provides an active element with a visual marker that
+ * animates from its previously active element to the current active element.
+ */
 class FancyMarker extends HTMLElement {
   private resizeListener_: any;
 

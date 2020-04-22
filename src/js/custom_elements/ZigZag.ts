@@ -13,6 +13,10 @@ enum Expandable {
   TARGET_ID = 'zig-zag',
 }
 
+/**
+ * Custom element that renders daily TDEE based on overall TDEE where each
+ * day's TDEE value is adjusted for "zig-zag" calorie counting.
+ */
 class ZigZag extends HTMLElement {
   private counters_: NodeList;
   private days_: NodeList;

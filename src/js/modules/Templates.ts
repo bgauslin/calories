@@ -8,7 +8,9 @@ interface OptionsGroupData {
   modifier: string,
   name: string,
 }
-
+/**
+ * HTML templates for rendering text inputs, radio buttons, grouped inputs.
+ */
 class Templates {
   private baseClassName_: string;
 

@@ -1,5 +1,8 @@
 const EXPANDED_ATTR: string = 'expanded';
 
+/**
+ * Custom element that expands/collapses its target element.
+ */
 class Expandable extends HTMLElement {
   buttonEl_: HTMLElement;
   hasSetup_: boolean;

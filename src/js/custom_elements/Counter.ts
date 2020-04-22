@@ -2,6 +2,9 @@ const DIVISOR: number = 11; // Primes work best
 const INTERVAL_MS: number = 30;
 const VALUE_ATTR: string = 'value';
 
+/**
+ * Custom element that increments one value to another.
+ */
 class Counter extends HTMLElement {
   constructor() {
     super();
@@ -15,9 +18,6 @@ class Counter extends HTMLElement {
     this.update_(oldValue, newValue);
   }
 
-  /**
-   * Increments the value from old to new.
-   */
   update_(oldValue: string, newValue: string) {
     const oldNumber = parseInt(oldValue, 10);
     const newNumber = parseInt(newValue, 10);

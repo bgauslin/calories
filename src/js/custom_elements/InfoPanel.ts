@@ -1,5 +1,9 @@
 const READY_ATTR: string = 'ready';
 
+/**
+ * Custom element that populates itself with data fetched from a
+ * GraphQL endpoint.
+ */
 class InfoPanel extends HTMLElement {
   constructor() {
     super();
