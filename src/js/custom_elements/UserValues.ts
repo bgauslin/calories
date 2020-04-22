@@ -77,17 +77,6 @@ class UserValues extends HTMLElement {
   }
 
   /**
-   * Adds [enter] key functionality to radio buttons.
-   */
-  private handleKey_(e: KeyboardEvent): void {
-    const target = <HTMLElement>e.target;
-    const radio = target.querySelector('[type=radio]');
-    if (radio && e.code === 'Enter') {
-      target.click();
-    }
-  }
-
-  /**
    * Creates DOM elements and populates them if there are stored user values.
    */
   private setup_(): void {
@@ -307,6 +296,17 @@ class UserValues extends HTMLElement {
   }
 
   /**
+   * Adds [enter] key functionality to radio buttons.
+   */
+  private handleKey_(e: KeyboardEvent): void {
+    const target = <HTMLElement>e.target;
+    const radio = target.querySelector('[type=radio]');
+    if (radio && e.code === 'Enter') {
+      target.click();
+    }
+  }
+
+  /**
    * Places the cursor at the end of a text input field when it's focused.
    */
   private handleInputFocus_(): void {
@@ -315,7 +315,6 @@ class UserValues extends HTMLElement {
       const el = <HTMLInputElement>this.querySelector(`[name=${name}]`);
       el.addEventListener('focus', () => {
         el.selectionStart = el.selectionEnd = el.value.length;
-        console.log(el.selectionStart);
       });
     });
   }
