@@ -1,6 +1,6 @@
 import {InputNumber, InputRadio} from './Datasets';
 
-interface RadioButtonsGroupData {
+interface OptionsGroupData {
   buttons: InputRadio[],
   disabled?: boolean,
   headingLabel: string,
@@ -19,7 +19,7 @@ class Templates {
    * Returns all rendered markup for a group of radio buttons: heading, marker,
    * and radio buttons.
    */
-  public radioButtonsGroup(data: RadioButtonsGroupData): string {
+  public optionsGroup(data: OptionsGroupData): string {
     const {modifier, name, buttons, disabled, headingLabel, headingNote} = data;
     const isDisabled = disabled ? ' disabled' : '';
     return `\

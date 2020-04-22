@@ -12,7 +12,7 @@ interface UserMeasurements {
   weight: number,
 }
 
-interface UserMetrics {
+interface UserResults {
   bmr: number,
   tdee: number,
   tdeeMax: number,
@@ -31,7 +31,7 @@ const DISABLED_ELEMENTS: string[] = [
   '.values__group--goal',
 ];
 
-enum RadioButtonsGroup {
+enum OptionsGroup {
   ACTIVITY = 'activity',
   GOAL = 'goal',
   SEX = 'sex',
@@ -84,7 +84,7 @@ class UserValues extends HTMLElement {
     const measurementFields = Measurements.map(field => field.name);
     this.allFields_ = [
       ...measurementFields,
-      ...Object.values(RadioButtonsGroup),
+      ...Object.values(OptionsGroup),
     ];
 
     // Render HTML for input groups and result-counter.
@@ -119,32 +119,32 @@ class UserValues extends HTMLElement {
   private render_(): string {
     const html = `\
       <form class="${BASE_CLASSNAME}__form">\
-        ${this.templates_.radioButtonsGroup({
+        ${this.templates_.optionsGroup({
           buttons: Sex,
           headingLabel: 'Sex',
           modifier:  'sex',
-          name: RadioButtonsGroup.SEX,
+          name: OptionsGroup.SEX,
         })}\
         <div class="${BASE_CLASSNAME}__group ${BASE_CLASSNAME}__group--measurements">\
           <ul class="${BASE_CLASSNAME}__list ${BASE_CLASSNAME}__list--measurements">\
             ${this.templates_.numberInputs(Measurements)}\
           </ul>\
         </div>\
-        ${this.templates_.radioButtonsGroup({
+        ${this.templates_.optionsGroup({
           buttons: ActivityLevel,
           disabled: true,
           headingLabel: 'Exercise',
           headingNote: 'times per week',
           modifier: 'activity',
-          name: RadioButtonsGroup.ACTIVITY,
+          name: OptionsGroup.ACTIVITY,
         })}\
-        ${this.templates_.radioButtonsGroup({
+        ${this.templates_.optionsGroup({
           buttons: WeightGoal,
           disabled: true,
           headingLabel: 'Weight loss',
           headingNote: 'lbs. per week',
           modifier: 'goal',
-          name: RadioButtonsGroup.GOAL,
+          name: OptionsGroup.GOAL,
         })}\
       </form>\
       <result-counter class="${RESULT_CLASSNAME}"></result-counter>\
@@ -183,7 +183,7 @@ class UserValues extends HTMLElement {
     if (this.querySelectorAll(':invalid').length) {
       // Hide result-counter and disable input groups.
       this.resultEl_.setAttribute(HIDDEN_ATTR, '');
-      this.enableGroups_(false);
+      this.enableOptionsGroups_(false);
     } else {
       // Make result-counter increment its value if a radio button was clicked.
       if (event) {
@@ -197,12 +197,12 @@ class UserValues extends HTMLElement {
 
       // Get user measurements and save them for subsequent visits.
       const measurements = this.getMeasurements_()
-      const {bmr, tdee, tdeeMax} = this.getMetrics_(measurements);
+      const {bmr, tdee, tdeeMax} = this.getResults_(measurements);
       localStorage.setItem(LOCAL_STORAGE, JSON.stringify(measurements));
 
       // Show result-counter and enable input groups.
-      this.showResult_(bmr, tdee, tdeeMax);
-      this.enableGroups_(true);
+      this.showResults_(bmr, tdee, tdeeMax);
+      this.enableOptionsGroups_(true);
     }   
   }
 
@@ -228,7 +228,7 @@ class UserValues extends HTMLElement {
   /**
    * Returns user's BMR, TDEE, and max TDEE based on their measurements.
    */
-  private getMetrics_(measurements: UserMeasurements): UserMetrics {
+  private getResults_(measurements: UserMeasurements): UserResults {
     let {activity, age, feet, goal, inches, sex, weight} = measurements;
 
     // Convert height and weight to metric for the formulas.
@@ -263,7 +263,7 @@ class UserValues extends HTMLElement {
    * Sets attributes on result-counter and zig-zag elements so that they can
    * update themselves.
    */
-  showResult_(bmr: number, tdee: number, tdeeMax: number) {
+  showResults_(bmr: number, tdee: number, tdeeMax: number) {
     this.resultEl_.removeAttribute(HIDDEN_ATTR);
     this.resultEl_.setAttribute('value', tdee.toFixed(0));
     this.resultEl_.setAttribute('bmr', bmr.toFixed(0));
@@ -277,7 +277,7 @@ class UserValues extends HTMLElement {
    * Toggles 'disabled' attribute on input groups and sets a 'tabindex' value
    * on their children's labels to enable/disable keyboard tabbing.
    */
-  private enableGroups_(show: boolean): void {
+  private enableOptionsGroups_(show: boolean): void {
     const tabindex = show ? '0' : '-1';
 
     DISABLED_ELEMENTS.forEach((selector) => {
