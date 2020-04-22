@@ -21,7 +21,6 @@ interface UserResults {
 const BASE_CLASSNAME: string = 'values';
 const DISABLED_ATTR: string = 'disabled';
 const HIDDEN_ATTR: string = 'hidden';
-const INCREMENT_ATTR: string = 'increment';
 const LOCAL_STORAGE: string = 'values';
 const RESULT_CLASSNAME: string = 'result';
 const UNITS_ATTR: string = 'units';
@@ -185,16 +184,6 @@ class UserValues extends HTMLElement {
       this.resultEl_.setAttribute(HIDDEN_ATTR, '');
       this.enableOptionsGroups_(false);
     } else {
-      // Make result-counter increment its value if a radio button was clicked.
-      if (event) {
-        const target = <HTMLInputElement>event.target;
-        if (target && target.type === 'radio') {
-          this.resultEl_.setAttribute(INCREMENT_ATTR, '');
-        } else {
-          this.resultEl_.removeAttribute(INCREMENT_ATTR);
-        }
-      }
-
       // Get user measurements and save them for subsequent visits.
       const measurements = this.getMeasurements_()
       const {bmr, tdee, tdeeMax} = this.getResults_(measurements);

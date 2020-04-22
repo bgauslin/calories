@@ -75,7 +75,6 @@ class ZigZag extends HTMLElement {
     allValues.forEach((value, i) => {
       const counter = <HTMLElement>this.counters_[i];
       counter.setAttribute('value', value.toFixed());
-      counter.setAttribute('increment', '');
     });
 
     // Set custom property for each day as a width percentage so that the CSS
