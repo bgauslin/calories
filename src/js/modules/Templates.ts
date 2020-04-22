@@ -9,9 +9,13 @@ interface OptionsGroupData {
   name: string,
 }
 
-const BASE_CLASSNAME: string = 'values';
-
 class Templates {
+  private baseClassName_: string;
+
+  constructor(baseClassName: string) {
+    this.baseClassName_ = baseClassName;
+  }
+
   /**
    * Returns all rendered markup for a group of radio buttons: heading, marker,
    * and radio buttons.
@@ -20,10 +24,10 @@ class Templates {
     const {modifier, name, buttons, disabled, headingLabel, headingNote} = data;
     const isDisabled = disabled ? ' disabled' : '';
     return `\
-      <div class="${BASE_CLASSNAME}__group ${BASE_CLASSNAME}__group--${modifier}"${isDisabled}>\
+      <div class="${this.baseClassName_}__group ${this.baseClassName_}__group--${modifier}"${isDisabled}>\
         ${this.fieldHeading_(modifier, headingLabel, headingNote)}\
         <fancy-marker>\
-          <ul class="${BASE_CLASSNAME}__list ${BASE_CLASSNAME}__list--${modifier}">\
+          <ul class="${this.baseClassName_}__list ${this.baseClassName_}__list--${modifier}">\
             ${this.radioButtons_(name, buttons)}\
           </ul>\
         </fancy-marker>\
@@ -35,8 +39,8 @@ class Templates {
    * Returns rendered heading for a field or group of fields.
    */
   private fieldHeading_(modifier: string, label: string, note?: string): string {
-    const fieldNote = note ? ` <span class="${BASE_CLASSNAME}__heading__note">${note}</span>` : '';
-    return `<h4 class="${BASE_CLASSNAME}__heading ${BASE_CLASSNAME}__heading--${modifier}">${label}${fieldNote}</h4>`;
+    const fieldNote = note ? ` <span class="${this.baseClassName_}__heading__note">${note}</span>` : '';
+    return `<h4 class="${this.baseClassName_}__heading ${this.baseClassName_}__heading--${modifier}">${label}${fieldNote}</h4>`;
   }
 
   /**
@@ -47,11 +51,12 @@ class Templates {
 
     inputs.forEach((input) => {
       const {id, inputmode, label, name, pattern} = input;
+      const modifier = name;
       const html = `\
-        <li class="${BASE_CLASSNAME}__item ${BASE_CLASSNAME}__item--${name}">\
-          <label for="${id}" class="${BASE_CLASSNAME}__label ${BASE_CLASSNAME}__label--${name}">${label}</label>\
+        <li class="${this.baseClassName_}__item ${this.baseClassName_}__item--${modifier}">\
+          <label for="${id}" class="${this.baseClassName_}__label ${this.baseClassName_}__label--${modifier}">${label}</label>\
           <input \
-            class="values__input values__input--text values__input--${name}" \
+            class="${this.baseClassName_}__input ${this.baseClassName_}__input--text ${this.baseClassName_}__input--${modifier}" \
             type="text" \
             name="${name}" \
             id="${id}" \
@@ -71,23 +76,24 @@ class Templates {
    * Returns rendered radio buttons.
    */
   private radioButtons_(name: string, buttons: InputRadio[]): string {
+    const modifier = name;
     let allHtml = '';
 
     buttons.forEach((button, index) => {
       const {id, label, value} = button;
       const checked = (index === 0) ? ' checked' : '';
       const html = `\
-        <li class="${BASE_CLASSNAME}__item ${BASE_CLASSNAME}__item--${name}">\
-          <label for="${id}" class="${BASE_CLASSNAME}__label ${BASE_CLASSNAME}__label--${name}" tabindex="0">\
+        <li class="${this.baseClassName_}__item ${this.baseClassName_}__item--${modifier}">\
+          <label for="${id}" class="${this.baseClassName_}__label ${this.baseClassName_}__label--${modifier}" tabindex="0">\
             <input \
-              class="values__input values__input--radio values__input--${name}" \
+              class="${this.baseClassName_}__input ${this.baseClassName_}__input--radio ${this.baseClassName_}__input--${modifier}" \
               type="radio" \
               name="${name}" \
               id="${id}" \
               value="${value}" \
               tabindex="-1"\
               ${checked}>\
-              <span class="values__label__caption">${label}</span>\
+              <span class="${this.baseClassName_}__label__caption">${label}</span>\
           </label>\
         </li>\
       `;

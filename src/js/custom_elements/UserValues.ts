@@ -50,7 +50,7 @@ class UserValues extends HTMLElement {
     super();
     this.hasSetup_ = false;
     this.formulas_ = new Formulas();
-    this.templates_ = new Templates();
+    this.templates_ = new Templates('values');
     this.storage_ = localStorage.getItem(LOCAL_STORAGE);
     this.addEventListener('change', this.update_);
     this.addEventListener('keyup', this.handleKey_);
