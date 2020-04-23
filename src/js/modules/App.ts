@@ -8,11 +8,6 @@ enum CssClass {
   NO_JS = 'content--no-js',
 }
 
-enum Visibility {
-  SOURCE = '.result',
-  TARGETS = '.expandable, .table',
-}
-
 /**
  * Primary class that renders, sets up, and controls the overall app.
  */
@@ -20,12 +15,11 @@ class App {
   private observer_: MutationObserver;
   private startYear_: string;
   private utils_: Utils;
-  private visibilitySourceEl_: HTMLElement;
 
   constructor(startYear: string) {
-    this.observer_ = new MutationObserver(() => this.setVisibility_());
     this.startYear_ = startYear || '';
     this.utils_ = new Utils();
+    this.observer_ = new MutationObserver(() => this.setVisibility_());
   }
 
   /**
@@ -33,13 +27,9 @@ class App {
    */
   public init(): void {
     this.utils_.init();
-
     this.updateHeader_();
     this.updateContent_();
     this.updateCopyright_();
-    
-    this.visibilitySourceEl_ = document.querySelector(Visibility.SOURCE);
-    this.observer_.observe(this.visibilitySourceEl_, {attributes: true});
     this.setVisibility_();
   }
 
@@ -66,20 +56,6 @@ class App {
   }
 
   /**
-   * Hides elements if an observed element is hidden since there's no target
-   * for the expandable to expand/collapse.
-   */
-  private setVisibility_(): void {
-    const els = document.querySelectorAll(Visibility.TARGETS);
-
-    if (this.visibilitySourceEl_.hasAttribute(HIDDEN_ATTR)) {
-      els.forEach((el) => el.setAttribute(HIDDEN_ATTR, ''));
-    } else {
-      els.forEach((el) => el.removeAttribute(HIDDEN_ATTR));
-    }
-  }
-
-  /**
    * Updates copyright blurb with current year.
    */
   private updateCopyright_(): void {
@@ -87,6 +63,24 @@ class App {
     const startYear = this.startYear_.toString().substr(-2);
     const currentYear = new Date().getFullYear().toString().substr(-2);
     el.textContent = (currentYear !== startYear) ? `© ${this.startYear_}–${currentYear}` : `© ${this.startYear_}`;
+  }
+
+  // TODO: Relocate setVisibility_ to a custom element. 
+  /**
+   * Hides elements if an observed element is hidden since there's no target
+   * for the expandable to expand/collapse.
+   */
+  private setVisibility_(): void {
+    const source = document.querySelector('.results');
+    const targets = document.querySelectorAll('.expandable');
+
+    if (source.hasAttribute(HIDDEN_ATTR)) {
+      targets.forEach((target) => target.setAttribute(HIDDEN_ATTR, ''));
+    } else {
+      targets.forEach((target) => target.removeAttribute(HIDDEN_ATTR));
+    }
+
+    this.observer_.observe(source, {attributes: true});
   }
 }
 
