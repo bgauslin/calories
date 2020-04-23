@@ -1,17 +1,10 @@
 const DAILY_LABELS: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const DAILY_MODIFIERS: number[] = [1, .9, 1.1, 1, .8, 1, 1.2];
+const ID: string = 'zig-zag';
 const MINIMUM_TDEE: number = 1200;
+const TDEE_ATTR: string = 'tdee';
+const TDEE_MAX_ATTR: string = 'max-tdee';
 const WARNING_CLASS: string = 'warning';
-
-enum Attribute {
-  TDEE = 'tdee',
-  TDEE_MAX = 'max-tdee',
-}
-
-enum Expandable {
-  LABEL = 'zig-zag calories',
-  TARGET_ID = 'zig-zag',
-}
 
 /**
  * Custom element that renders daily TDEE based on overall TDEE where each
@@ -27,12 +20,12 @@ class ZigZag extends HTMLElement {
   }
 
   static get observedAttributes(): string[] {
-    return [Attribute.TDEE, Attribute.TDEE_MAX];
+    return [TDEE_ATTR, TDEE_MAX_ATTR];
   }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
-    const tdee = this.getAttribute(Attribute.TDEE);
-    const tdeeMax = this.getAttribute(Attribute.TDEE_MAX);
+    const tdee = this.getAttribute(TDEE_ATTR);
+    const tdeeMax = this.getAttribute(TDEE_MAX_ATTR);
     this.update_(tdee, tdeeMax);
   }
 
@@ -42,7 +35,7 @@ class ZigZag extends HTMLElement {
    * element, it needs a sibling element to target for expanding/collapsing.
    */
   private setup_() {
-    let html = `<div class="${this.className}__data" id="${Expandable.TARGET_ID}">`;
+    let html = `<div class="${this.className}__data" id="${ID}">`;
     for (let i = 0; i < DAILY_MODIFIERS.length; i++) {
       html += `\
         <div class="${this.className}__day">\
@@ -52,7 +45,12 @@ class ZigZag extends HTMLElement {
       `;
     }
     html += '</div>';
-    html += `<app-expandable class="expandable" target="${Expandable.TARGET_ID}" label="${Expandable.LABEL}"></app-expandable>`;
+    html += `\
+      <app-expandable \
+        class="expandable" \
+        label="zig-zag calories" \
+        target="${ID}" \
+        watch="results"></app-expandable>`;
 
     this.innerHTML = html.replace(/\s\s/g, '');
 

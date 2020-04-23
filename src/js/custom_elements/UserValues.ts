@@ -22,7 +22,7 @@ const BASE_CLASSNAME: string = 'values';
 const DISABLED_ATTR: string = 'disabled';
 const HIDDEN_ATTR: string = 'hidden';
 const LOCAL_STORAGE: string = 'values';
-const RESULT_CLASSNAME: string = 'results';
+const RESULTS_CLASSNAME: string = 'results';
 const UNITS_ATTR: string = 'units';
 
 const DISABLED_ELEMENTS: string[] = [
@@ -96,7 +96,7 @@ class UserValues extends HTMLElement {
 
     // Create references to primary elements.
     this.formEl_ = this.querySelector('form');
-    this.resultsEl_ = this.querySelector(`.${RESULT_CLASSNAME}`);
+    this.resultsEl_ = this.querySelector(`.${RESULTS_CLASSNAME}`);
 
     // If user data exists, update HTML on page load.
     if (this.storage_) {
@@ -157,7 +157,7 @@ class UserValues extends HTMLElement {
           name: OptionsGroup.GOAL,
         })}\
       </form>\
-      <results-counter class="${RESULT_CLASSNAME}"></results-counter>\
+      <results-counter class="${RESULTS_CLASSNAME}" id="results"></results-counter>\
     `;
     return html.replace(/\s\s/g, '');
   }

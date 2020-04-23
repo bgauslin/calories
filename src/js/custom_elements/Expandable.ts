@@ -1,19 +1,25 @@
 const EXPANDED_ATTR: string = 'expanded';
+const HIDDEN_ATTR: string = 'hidden';
+const LABEL_ATTR: string = 'label';
+const TARGET_ATTR: string = 'target';
+const WATCH_ATTR: string = 'watch';
 
 /**
  * Custom element that expands/collapses its target element.
  */
 class Expandable extends HTMLElement {
-  buttonEl_: HTMLElement;
-  hasSetup_: boolean;
-  label_: string;
-  target_: string;
-  targetEl_: HTMLElement;
+  private buttonEl_: HTMLElement;
+  private hasSetup_: boolean;
+  private label_: string;
+  private observer_: MutationObserver;
+  private targetEl_: HTMLElement;
+  private watchEl_: HTMLElement;
 
   constructor() {
     super();
     this.hasSetup_ = false;
     this.addEventListener('click', this.toggleExpanded_);
+    this.observer_ = new MutationObserver(() => this.toggleHidden_());
   }
 
   static get observedAttributes(): string[] {
@@ -31,6 +37,7 @@ class Expandable extends HTMLElement {
 
   disconnectedCallback(): void {
     this.removeEventListener('click', this.toggleExpanded_);
+    this.observer_.disconnect();
   }
 
   /**
@@ -38,11 +45,13 @@ class Expandable extends HTMLElement {
    * and related elements.
    */
   private setup_(): void {
-    this.label_ = this.getAttribute('label');
-    this.target_ = this.getAttribute('target');
-    this.targetEl_ = document.getElementById(this.target_);
+    this.label_ = this.getAttribute(LABEL_ATTR);
+    this.targetEl_ = document.getElementById(this.getAttribute(TARGET_ATTR));
+    this.watchEl_ = document.getElementById(this.getAttribute(WATCH_ATTR));
 
-    if (this.targetEl_) {
+    if (this.label_ && this.targetEl_ && this.watchEl_) {
+      this.observer_.observe(this.watchEl_, {attributes: true});
+
       if (localStorage.getItem(EXPANDED_ATTR) === 'true') {
         this.setAttribute(EXPANDED_ATTR, '');
         this.targetEl_.setAttribute(EXPANDED_ATTR, '');
@@ -54,8 +63,26 @@ class Expandable extends HTMLElement {
       this.innerHTML = `<button class="${this.className}__button"></button>`;
       this.buttonEl_ = this.querySelector('button');
 
+      this.toggleHidden_();
       this.updateLabel_();
+
+      [LABEL_ATTR, TARGET_ATTR, WATCH_ATTR].forEach((attr) => {
+        this.removeAttribute(attr);
+      });
+
       this.hasSetup_ = true;
+    }
+  }
+
+  /**
+   * Hides itself if observed element is hidden since there's no target
+   * for the expandable to expand/collapse.
+   */
+  private toggleHidden_(): void {
+    if (this.watchEl_.hasAttribute(HIDDEN_ATTR)) {
+      this.setAttribute(HIDDEN_ATTR, '');
+    } else {
+      this.removeAttribute(HIDDEN_ATTR);
     }
   }
 
