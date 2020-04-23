@@ -13,10 +13,11 @@ const WARNING_CLASS: string = 'warning';
 class ZigZag extends HTMLElement {
   private counters_: NodeList;
   private days_: NodeList;
+  private hasSetup_: boolean;
 
   constructor() {
     super();
-    this.setup_();
+    this.hasSetup_ = false;
   }
 
   static get observedAttributes(): string[] {
@@ -24,9 +25,17 @@ class ZigZag extends HTMLElement {
   }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
-    const tdee = this.getAttribute(TDEE_ATTR);
-    const tdeeMax = this.getAttribute(TDEE_MAX_ATTR);
-    this.update_(tdee, tdeeMax);
+    if (this.hasSetup_) {
+      const tdee = this.getAttribute(TDEE_ATTR);
+      const tdeeMax = this.getAttribute(TDEE_MAX_ATTR);
+      this.update_(tdee, tdeeMax);
+    }
+  }
+
+  connectedCallback(): void {
+    if (!this.hasSetup_) {
+      this.setup_();
+    }
   }
 
   /**
@@ -56,6 +65,8 @@ class ZigZag extends HTMLElement {
 
     this.counters_ = this.querySelectorAll('results-counter');
     this.days_ = this.querySelectorAll(`.${this.className}__day`);
+
+    this.hasSetup_ = true;
   }
 
   /**
