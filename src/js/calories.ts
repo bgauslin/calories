@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-import {App} from './modules/App';
+import {App} from './custom_elements/App';
 import {Counter} from './custom_elements/Counter';
 import {Expandable} from './custom_elements/Expandable';
 import {FancyMarker} from './custom_elements/FancyMarker';
@@ -14,6 +14,7 @@ import '../stylus/calories.styl';
 
 // Define all custom elements.
 const map = new Map();
+map.set(App, 'calories-app');
 map.set(Counter, 'results-counter');
 map.set(Expandable, 'app-expandable');
 map.set(FancyMarker, 'fancy-marker');
@@ -22,9 +23,6 @@ map.set(InfoToggle, 'info-toggle');
 map.set(UserValues, 'user-values');
 map.set(ZigZag, 'zig-zag');
 map.forEach((key, value) => customElements.define(key, value));
-
-// Initialize the app.
-document.addEventListener('DOMContentLoaded', () => new App('2020').init());
 
 // Register the Service Worker on production.
 if (process.env.NODE_ENV === 'production') {

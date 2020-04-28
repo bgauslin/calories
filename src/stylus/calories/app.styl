@@ -1,0 +1,6 @@
+.app
+  display grid
+  grid-template-columns var(--grid-gap) 1fr var(--grid-gap)
+  grid-template-rows var(--header-height) 1fr auto
+  min-height 100vh // fallback
+  min-height calc(var(--vh, 1vh) * 100)
