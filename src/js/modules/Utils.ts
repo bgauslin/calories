@@ -8,7 +8,7 @@ class Utils {
     this.touchEnabled_();
     this.googleAnalytics_();
     this.setViewportHeight_();
-    window.addEventListener('resize', () => this.setViewportHeight_());
+    window.addEventListener('resize', this.setViewportHeight_);
   }
 
   /**
@@ -17,11 +17,11 @@ class Utils {
   private googleAnalytics_(): void {
     if (process.env.NODE_ENV === 'production') {
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*(<any>new Date());a=s.createElement(o),
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*(new Date() as any);a=s.createElement(o),
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-      (<any>window).ga('create', process.env.GA_ID, 'auto');
-      (<any>window).ga('send', 'pageview');
+      (window as any).ga('create', process.env.GA_ID, 'auto');
+      (window as any).ga('send', 'pageview');
     }
   }
 
@@ -29,7 +29,7 @@ class Utils {
    * Removes 'no-touch' attribute and adds fastclick if device is touch-enabled.
    */
   private touchEnabled_(): void {
-    if ('ontouchstart' in window || (<any>window).DocumentTouch) {
+    if ('ontouchstart' in window || (window as any).DocumentTouch) {
       document.body.removeAttribute('no-touch');
       fastclick['attach'](document.body);
     }

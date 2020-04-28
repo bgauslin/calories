@@ -104,7 +104,7 @@ class UserValues extends HTMLElement {
     }
 
     // Focus first text input if it's empty.
-    const first = <HTMLInputElement>this.querySelector('[type=text]');
+    const first = this.querySelector('[type=text]') as HTMLInputElement;
     if (!first.value.length) {
       first.focus();
     }
@@ -299,7 +299,7 @@ class UserValues extends HTMLElement {
    * Adds [enter] key functionality to radio buttons.
    */
   private handleKey_(e: KeyboardEvent): void {
-    const target = <HTMLElement>e.target;
+    const target = e.target as HTMLElement;
     const radio = target.querySelector('[type=radio]');
     if (radio && e.code === 'Enter') {
       target.click();
@@ -312,7 +312,7 @@ class UserValues extends HTMLElement {
   private handleInputFocus_(): void {
     const names = Measurements.map(field => field.name);
     names.forEach((name) => {
-      const el = <HTMLInputElement>this.querySelector(`[name=${name}]`);
+      const el = this.querySelector(`[name=${name}]`) as HTMLInputElement;
       el.addEventListener('focus', () => {
         el.selectionStart = el.selectionEnd = el.value.length;
       });

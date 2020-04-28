@@ -59,7 +59,7 @@ class FancyMarker extends HTMLElement {
     // the target where CSS layout is applied and what we need for determining
     // the marker's position.
     const checked = this.querySelector(':checked');
-    const targetEl = <HTMLElement>checked.parentNode;
+    const targetEl = checked.parentNode as HTMLElement;
 
     // The marker and this element rely on relative/absolute positioning, so
     // subtract this element's position in the viewport from the marker

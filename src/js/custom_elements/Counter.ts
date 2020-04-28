@@ -33,7 +33,7 @@ class Counter extends HTMLElement {
           incrementNumber = newNumber;
           clearInterval(interval);
         }
-        this.textContent = incrementNumber.toString();
+        this.textContent = String(incrementNumber);
       }, INTERVAL_MS);
     } else {
       this.textContent = newValue;

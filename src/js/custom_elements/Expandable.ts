@@ -90,7 +90,7 @@ class Expandable extends HTMLElement {
    * Toggles attribute which triggers the attributeChanged callback.
    */
   private toggleExpanded_(e: Event): void {
-    const target = <Element>e.target;
+    const target = e.target as Element;
     if (target.tagName.toLowerCase() === 'button') {
       if (this.hasAttribute(EXPANDED_ATTR)) {
         this.removeAttribute(EXPANDED_ATTR);

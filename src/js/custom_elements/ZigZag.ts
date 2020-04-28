@@ -86,20 +86,20 @@ class ZigZag extends HTMLElement {
     // Set attribute values on counter elements which will trigger their
     // attributeChangedCallback and make them update themselves.
     allValues.forEach((value, i) => {
-      const counter = <HTMLElement>this.counters_[i];
+      const counter = this.counters_[i] as HTMLElement;
       counter.setAttribute('value', value.toFixed());
     });
 
     // Set custom property for each day as a width percentage so that the CSS
     // displays each as a bar graph value.
     barLengths.forEach((length, i) => {
-      const day = <HTMLElement>this.days_[i];
+      const day = this.days_[i] as HTMLElement;
       day.style.width = `${length}%`;
     });
 
     // Set warning class for extremely low values.
     allValues.forEach((value, i) => {
-      const day = <HTMLElement>this.days_[i];
+      const day = this.days_[i] as HTMLElement;
       if (value < MINIMUM_TDEE) {
         day.classList.add(WARNING_CLASS);
       } else {
