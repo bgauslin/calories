@@ -90,7 +90,7 @@ class ZigZag extends HTMLElement {
       counter.setAttribute('value', value.toFixed());
     });
 
-    // Set custom property for each day as a width percentage so that the CSS
+    // Set inline style for each day as a width percentage so that the CSS
     // displays each as a bar graph value.
     barLengths.forEach((length, i) => {
       const day = this.days_[i] as HTMLElement;
