@@ -24,17 +24,16 @@ class ZigZag extends HTMLElement {
     return [TDEE_ATTR, TDEE_MAX_ATTR];
   }
 
-  attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
+  attributeChangedCallback(): void {
     if (this.hasSetup_) {
-      const tdee = this.getAttribute(TDEE_ATTR);
-      const tdeeMax = this.getAttribute(TDEE_MAX_ATTR);
-      this.update_(tdee, tdeeMax);
+      this.update_();
     }
   }
 
   connectedCallback(): void {
     if (!this.hasSetup_) {
       this.setup_();
+      this.update_();
     }
   }
 
@@ -72,7 +71,10 @@ class ZigZag extends HTMLElement {
   /**
    * Updates all counters with each day's zig-zag value.
    */
-  private update_(tdee: string, tdeeMax: string) {
+  private update_() {
+    const tdee = this.getAttribute(TDEE_ATTR);
+    const tdeeMax = this.getAttribute(TDEE_MAX_ATTR);
+
     // Create array of all adjusted TDEE values, and get highest value for
     // setting the bar chart's upper bound.
     const allValues = DAILY_MODIFIERS.map(day => parseInt(tdee, 10) * day);
