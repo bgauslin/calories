@@ -1,48 +1,68 @@
-import {Utils} from '../modules/Utils';
-
-const CONTENT_SELECTOR: string = '.content';
-const COPYRIGHT_SELECTOR: string = '.copyright__years';
-const NO_JS_CLASS: string = 'content--no-js';
-const YEAR_ATTR: string = 'year';
+import fastclick from 'fastclick';
 
 /**
- * Custom element that initializes site-wide utilities, cleans up content,
- * and updates the copyright years.
+ * Custom element that updates the DOM and initializes site-wide features.
  */
 class App extends HTMLElement {
+  private hasSetup_: boolean;
+
   constructor() {
     super();
-    new Utils().init();
+    window.addEventListener('resize', this.viewportHeight_);
   }
 
   connectedCallback(): void {
-    this.updateContent_();
-    this.updateCopyright_();
+    if (!this.hasSetup_) {
+      this.setupDom_();
+      this.touchEnabled_();
+      this.viewportHeight_();
+      this.googleAnalytics_();
+      this.hasSetup_ = true;
+    }
+  }
+
+  disconnectedCallback(): void {
+    window.removeEventListener('resize', this.viewportHeight_);
   }
 
   /**
-   * Removes no-js class and <noscript> element from content.
+   * Removes 'no JS' stuff from the DOM.
    */
-  private updateContent_(): void {
-    const contentEl = document.querySelector(CONTENT_SELECTOR);
-    contentEl.classList.remove(NO_JS_CLASS);
-    contentEl.querySelector('noscript').remove();
+  private setupDom_(): void {
+    document.body.removeAttribute('no-js');
+    document.querySelector('noscript').remove();
   }
 
   /**
-   * Updates copyright years with the current year.
+   * Removes 'no-touch' attribute and adds fastclick if device is touch-enabled.
    */
-  private updateCopyright_(): void {
-    const startYear = this.getAttribute(YEAR_ATTR);
-    const currentYear = new Date().getFullYear().toString();
+  private touchEnabled_(): void {
+    if ('ontouchstart' in window || (window as any).DocumentTouch) {
+      document.body.removeAttribute('no-touch');
+      fastclick['attach'](document.body);
+    }
+  }
 
-    const startDecade = startYear.substr(-2);
-    const currentDecade = currentYear.substr(-2);
+  /**
+   * Sets custom property for viewport height that updates 'vh' calculation due
+   * to iOS Safari behavior where chrome appears and disappears when scrolling.
+   */
+  private viewportHeight_(): void {
+    document.documentElement.style.setProperty('--vh', `${window.innerHeight / 100}px`);
+  }
 
-    const el = document.querySelector(COPYRIGHT_SELECTOR);
-    el.textContent = (startDecade !== currentDecade) ? `© ${startYear}–${currentDecade}` : `© ${startYear}`;
-
-    this.removeAttribute(YEAR_ATTR);
+  /**
+   * Initializes Google Analytics tracking.
+   */
+  private googleAnalytics_(): void {
+    if (process.env.NODE_ENV === 'production') {
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*(new Date() as any);a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      (window as any).ga('create', process.env.GA_ID, 'auto');
+      (window as any).ga('send', 'pageview');
+    }
   }
 }
 
