@@ -8,7 +8,7 @@
 .zig-zag__data
   margin 0
   overflow hidden
-  transition height var(--transition-slow) ease-out, margin var(--transition-slow) ease-out
+  transition height TRANSITION_SLOW ease-out, margin TRANSITION_SLOW ease-out
   will-change height
 
 .zig-zag__data[expanded]
@@ -20,7 +20,7 @@
   display flex
   margin .375rem 0
   padding .375rem .5rem
-  transition background var(--transition), color var(--transition), width var(--transition-slow) ease-out
+  transition background TRANSITION, color TRANSITION, width TRANSITION_SLOW ease-out
 
 // Bootstrap warning colors.
 .zig-zag__day.warning
@@ -33,7 +33,7 @@
 .zig-zag__label
   margin-right .5rem
   opacity TEXT_OPACITY
-  transition opacity var(--transition-slow) ease-out
+  transition opacity TRANSITION_SLOW ease-out
 
 .zig-zag__value
   margin-left auto

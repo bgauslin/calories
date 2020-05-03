@@ -1,38 +1,56 @@
 @import 'functions'
 
-// @type Hash
-Branding = {
-  RED: #b22222 // firebrick
-  ORANGE: #ff7a00
-}
-
-// @type Hash
-LinkColor = {
-  LIGHT: #0070c9
-  DARK: #008eff
-}
+// -----------------------------------------------------------------------------
+// Colors.
 
 // @const String
-BUTTON_HEIGHT = rem(44)
+BRAND_RED = #b22222 // firebrick
+
+// @const String
+BRAND_ORANGE = #ff7a00
 
 // @const String
 DARK_GREY = #222
 
 // @const String
-CONTENT_MAX_WIDTH = rem(400)
+LINK_COLOR_LIGHT = #0070c9
 
 // @const String
-INPUT_HEIGHT = 2rem
+LINK_COLOR_DARK = #008eff
 
 // @const String
 TEXT_OPACITY = .7
 
 // -----------------------------------------------------------------------------
-// Calculated constants and breakpoints
+// Dimensions.
+
+// @const String
+BUTTON_HEIGHT = rem(44)
+
+// @const String
+BUTTON_WIDTH = rem(44)
+
+// @const String
+CONTENT_MAX_WIDTH = rem(400)
+
+// @const String
+INPUT_HEIGHT = rem(32)
+
+// -----------------------------------------------------------------------------
+// Transitions.
+
+// @const String
+TRANSITION = .3s
+
+// @const String
+TRANSITION_SLOW = .5s
+
+// -----------------------------------------------------------------------------
+// Calculated constants and breakpoints.
 
 // @type Hash
 Breakpoint = {
-  SMALL:  'screen and (min-width: %s)' % rem(420)
+  // SMALL:  'screen and (min-width: %s)' % rem(420)
   MEDIUM: 'screen and (min-width: %s)' % rem(640)
-  LARGE:  'screen and (min-width: %s)' % rem(960)
+  // LARGE:  'screen and (min-width: %s)' % rem(960)
 }

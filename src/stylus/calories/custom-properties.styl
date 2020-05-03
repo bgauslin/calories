@@ -1,6 +1,4 @@
 :root
-  --branding '%s' % Branding.RED
-  --button-width rem(44)
   --copy em(14)
   --fineprint rem(12)
   --footer-height rem(48)
@@ -9,8 +7,6 @@
   --h3 em(16)
   --header-height rem(48)
   --site-header rem(16)
-  --transition .3s
-  --transition-slow .5s
 
   @media Breakpoint.MEDIUM
     --copy rem(16)
@@ -29,15 +25,15 @@
   --field-background #d7d7d7
   --focus rgba(black, .5)
   --header-background rgba(white, .97)
-  --link '%s' % LinkColor.LIGHT
-  --link-visited '%s' % mix(LinkColor.LIGHT, white, 75%)
+  --link LINK_COLOR_LIGHT
+  --link-visited mix(LINK_COLOR_LIGHT, white, 75%)
   --link-hover rgba(black, .8)
   --link-active rgba(black, .8)
   --marker-background #d7d7d7
   --marker-canvas-background #eee
   --table-border #ccc
   --text DARK_GREY
-  --warning-color Branding.RED
+  --warning-color BRAND_RED
 
   // Dark theme per user settings.
   @media (prefers-color-scheme dark)
@@ -48,13 +44,13 @@
     --field-background #555
     --focus white
     --header-background rgba(DARK_GREY, .95)
-    --link '%s' % LinkColor.DARK
+    --link LINK_COLOR_DARK
     --link-background #333
-    --link-visited '%s' % mix(LinkColor.DARK, black, 75%)
+    --link-visited mix(LINK_COLOR_DARK, black, 75%)
     --link-hover rgba(white, .8)
     --link-active rgba(white, .8)
     --marker-background #555
     --marker-canvas-background rgba(white, .05)
     --table-border #666
     --text white
-    --warning-color Branding.ORANGE
+    --warning-color BRAND_ORANGE

@@ -2,11 +2,11 @@
   display flex
   justify-content center
   opacity 1
-  transition opacity var(--transition) ease-out
+  transition opacity TRANSITION ease-out
 
 .expandable[hidden]
 .expandable:not([hidden])
-  transition opacity var(--transition)
+  transition opacity TRANSITION
 
 .expandable[hidden]
   opacity 0
@@ -33,7 +33,7 @@
   width rem(210)
 
 [no-touch] .expandable__button
-  transition background var(--transition), color var(--transition)
+  transition background TRANSITION, color TRANSITION
 
 .expandable__button:focus
 .expandable__button:active
@@ -46,7 +46,7 @@
   content ''
   display inline-block
   margin-right rem(8)
-  transition transform var(--transition)
+  transition transform TRANSITION
 
 .expandable[expanded] > .expandable__button::before
   transform rotate(-180deg)

@@ -8,7 +8,7 @@
   margin 0 0 1rem
 
 .values__group[disabled]
-  transition opacity var(--transition)
+  transition opacity TRANSITION
 
 .values__group[disabled]
   opacity .3
@@ -123,7 +123,7 @@
 
 // Radio button label captions.
 .values__label__caption
-  transition opacity var(--transition), transform var(--transition)
+  transition opacity TRANSITION, transform TRANSITION
 
 // [1] Disable pointer events on elements within radio button labels so that
 // iOS Safari can register a tap on the label.
