@@ -1,6 +1,27 @@
 .footer
+  align-items center
   color var(--text)
+  display flex
+  font-size var(--fineprint)
   grid-column 2
   grid-row 3
+  height var(--footer-height)
+  justify-content center
   opacity TEXT_OPACITY
   padding 0 0 env(safe-area-inset-bottom)
+
+.footer__years
+  margin-right em(8)
+
+.footer__link
+  link(var(--app-link), var(--app-link), var(--app-link-active), var(--app-link-active))
+
+.footer__link:focus
+[no-touch] .footer__link:hover
+  transition color var(--transition)
+
+.footer__blurb--repo::before
+  content '·'
+  display inline-block
+  text-align center
+  width 1rem
