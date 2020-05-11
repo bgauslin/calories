@@ -60,7 +60,13 @@ class Expandable extends HTMLElement {
         this.targetEl_.removeAttribute(EXPANDED_ATTR);
       }
 
-      this.innerHTML = `<button class="${this.className}__button"></button>`;
+      const buttonId = `${this.className}-button`;
+      const html = `\
+        <button class="${this.className}__button" \
+          aria-controls="${this.targetEl_.id}" id="${buttonId}"></button>`;
+      this.innerHTML = html.replace(/\s\s/g, '');
+      this.targetEl_.setAttribute('aria-controlledby', buttonId);
+
       this.buttonEl_ = this.querySelector('button');
 
       this.toggleHidden_();

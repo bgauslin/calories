@@ -81,7 +81,8 @@ class InfoToggle extends HTMLElement {
   private renderIcon_(iconName: string) {
     const button = this.querySelector(`.${this.className}__button`);
     const html = `\
-      <svg class="${this.className}__icon ${this.className}__icon--${iconName}" viewbox="0 0 24 24">\
+      <svg class="${this.className}__icon ${this.className}__icon--${iconName}" \
+        viewbox="0 0 24 24" aria-hidden="true">\
         <path d="${SVG_PATH.get(iconName)}"/>\
       </svg>\
     `;
