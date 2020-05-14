@@ -1,4 +1,5 @@
 const ARIA_EXPANDED_ATTR: string = 'aria-expanded';
+const ARIA_HIDDEN_ATTR: string = 'aria-hidden';
 const EXPANDED_ATTR: string = 'expanded';
 const HIDDEN_ATTR: string = 'hidden';
 const LABEL_ATTR: string = 'label';
@@ -59,6 +60,7 @@ class Expandable extends HTMLElement {
       } else {
         this.targetEl_.style.height = '0';
         this.targetEl_.removeAttribute(EXPANDED_ATTR);
+        this.targetEl_.setAttribute(ARIA_HIDDEN_ATTR, 'true');
       }
 
       const buttonId = `${this.className}-button`;
@@ -123,6 +125,7 @@ class Expandable extends HTMLElement {
 
     if (action === 'expand') {
       this.targetEl_.setAttribute(EXPANDED_ATTR, '');
+      this.targetEl_.removeAttribute(ARIA_HIDDEN_ATTR);
       this.targetEl_.style.height = `${elHeight / 16}rem`;
       this.targetEl_.addEventListener('transitionend', () => {
         this.targetEl_.style.height = null;
@@ -130,6 +133,7 @@ class Expandable extends HTMLElement {
 
     } else {
       this.targetEl_.removeAttribute(EXPANDED_ATTR);
+      this.targetEl_.setAttribute(ARIA_HIDDEN_ATTR, 'true');
       window.requestAnimationFrame(() => {
         this.targetEl_.style.height = `${elHeight / 16}rem`;
         window.requestAnimationFrame(() => {
