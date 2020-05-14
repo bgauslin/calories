@@ -1,4 +1,5 @@
 const READY_ATTR: string = 'ready';
+const TARGET_ATTR: string = 'target';
 
 /**
  * Custom element that populates itself with data fetched from a
@@ -44,8 +45,9 @@ class InfoPanel extends HTMLElement {
       this.innerHTML += html.replace(/\s\s/g, '');
 
       // Let toggle know that the panel is ready.
-      const targetEl = document.getElementById(this.getAttribute('target'));
+      const targetEl = document.getElementById(this.getAttribute(TARGET_ATTR));
       targetEl.setAttribute(READY_ATTR, '');
+      this.removeAttribute(TARGET_ATTR);
 
     } catch (error) {
       console.warn('Currently unable to fetch data. :(');

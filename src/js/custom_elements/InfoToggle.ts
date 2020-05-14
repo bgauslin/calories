@@ -1,5 +1,6 @@
 import smoothscroll from 'smoothscroll-polyfill';
 
+const ARIA_EXPANDED_ATTR: string = 'aria-expanded';
 const HIDDEN_ATTR: string = 'hidden';
 const OPEN_ATTR: string = 'open';
 const READY_ATTR: string = 'ready';
@@ -12,6 +13,7 @@ SVG_PATH.set('info', 'M12 0 C5.373 0 0 5.375 0 12 0 18.629 5.373 24 12 24 18.627
  * Custom element that toggles the visibility of its target element.
  */
 class InfoToggle extends HTMLElement {
+  private button_: HTMLButtonElement;
   private isOpen_: boolean;
   private targetEl_: Element;
 
@@ -65,6 +67,7 @@ class InfoToggle extends HTMLElement {
 
       document.body.scrollIntoView({behavior: 'smooth'});
       this.isOpen_ = !this.isOpen_;
+      this.button_.setAttribute(ARIA_EXPANDED_ATTR, String(this.isOpen_));
     }
   }
 
@@ -72,21 +75,29 @@ class InfoToggle extends HTMLElement {
    * Renders a button for attribute toggling.
    */
   private renderButton_(): void {
-    this.innerHTML += `<button class="${this.className}__button" aria-label="About this app"></button>`;
+    this.innerHTML += `\
+      <button class="${this.className}__button" \
+        id="info-toggle" \
+        aria-haspopup="true" \
+        aria-controls="info-panel" \
+        aria-label="About this app" \
+        ${ARIA_EXPANDED_ATTR}="false">
+      </button>\
+    `;
+    this.button_ = this.querySelector(`.${this.className}__button`);
   }
 
   /**
    * Renders an icon inside the button.
    */
   private renderIcon_(iconName: string) {
-    const button = this.querySelector(`.${this.className}__button`);
     const html = `\
       <svg class="${this.className}__icon ${this.className}__icon--${iconName}" \
         viewbox="0 0 24 24" aria-hidden="true">\
         <path d="${SVG_PATH.get(iconName)}"/>\
       </svg>\
     `;
-    button.innerHTML = html.replace(/\s\s/g, '');
+    this.button_.innerHTML = html.replace(/\s\s/g, '');
   }
 }
 
