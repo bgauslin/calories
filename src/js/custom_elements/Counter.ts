@@ -18,7 +18,7 @@ class Counter extends HTMLElement {
     this.update_(oldValue, newValue);
   }
 
-  update_(oldValue: string, newValue: string) {
+  update_(oldValue: string, newValue: string): void {
     const oldNumber = parseInt(oldValue, 10);
     const newNumber = parseInt(newValue, 10);
 

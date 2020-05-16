@@ -42,7 +42,7 @@ class ZigZag extends HTMLElement {
    * that will udpate on user interaction. Because expandable is within this
    * element, it needs a sibling element to target for expanding/collapsing.
    */
-  private setup_() {
+  private setup_(): void {
     let html = `<div class="${this.className}__data" id="${ID}">`;
     for (let i = 0; i < DAILY_MODIFIERS.length; i++) {
       html += `\
@@ -71,7 +71,7 @@ class ZigZag extends HTMLElement {
   /**
    * Updates all counters with each day's zig-zag value.
    */
-  private update_() {
+  private update_(): void {
     const tdee = this.getAttribute(TDEE_ATTR);
     const tdeeMax = this.getAttribute(TDEE_MAX_ATTR);
 

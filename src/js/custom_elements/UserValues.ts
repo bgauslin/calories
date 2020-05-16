@@ -263,7 +263,7 @@ class UserValues extends HTMLElement {
    * Sets attributes on results and zig-zag elements so that they can
    * update themselves.
    */
-  showResults_(bmr: number, tdee: number, tdeeMax: number) {
+  showResults_(bmr: number, tdee: number, tdeeMax: number): void {
     this.resultsEl_.removeAttribute(HIDDEN_ATTR);
     this.resultsEl_.setAttribute('value', tdee.toFixed(0));
     this.resultsEl_.setAttribute('bmr', bmr.toFixed(0));
