@@ -76,12 +76,13 @@ class InfoToggle extends HTMLElement {
    */
   private renderButton_(): void {
     this.innerHTML += `\
-      <button class="${this.className}__button" \
+      <button \
+        class="${this.className}__button" \
         id="info-toggle" \
         aria-haspopup="true" \
         aria-controls="info-panel" \
         aria-label="About this app" \
-        ${ARIA_EXPANDED_ATTR}="false">
+        ${ARIA_EXPANDED_ATTR}="false">\
       </button>\
     `;
     this.button_ = this.querySelector(`.${this.className}__button`);
@@ -92,7 +93,8 @@ class InfoToggle extends HTMLElement {
    */
   private renderIcon_(iconName: string) {
     const html = `\
-      <svg class="${this.className}__icon ${this.className}__icon--${iconName}" \
+      <svg \
+        class="${this.className}__icon ${this.className}__icon--${iconName}" \
         viewbox="0 0 24 24" aria-hidden="true">\
         <path d="${SVG_PATH.get(iconName)}"/>\
       </svg>\

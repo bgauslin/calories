@@ -18,7 +18,8 @@ class InfoPanel extends HTMLElement {
    * Fetches data from a GraphQL endpoint.
    */
   private async renderPanel_(): Promise<any> {
-    const endpoint = (process.env.NODE_ENV === 'production') ? process.env.GRAPHQL_PROD : process.env.GRAPHQL_DEV;
+    const endpoint = (process.env.NODE_ENV === 'production') ?
+        process.env.GRAPHQL_PROD : process.env.GRAPHQL_DEV;
     const query: string = `
       query {
         calories: entries(section: ["calories"], limit: 1) {

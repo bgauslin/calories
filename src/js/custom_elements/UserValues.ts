@@ -157,7 +157,10 @@ class UserValues extends HTMLElement {
           name: OptionsGroup.GOAL,
         })}\
       </form>\
-      <results-counter class="${RESULTS_CLASSNAME}" id="results"></results-counter>\
+      <results-counter \
+        class="${RESULTS_CLASSNAME}" \
+        id="results">\
+      </results-counter>\
     `;
     return html.replace(/\s\s/g, '');
   }

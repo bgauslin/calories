@@ -29,7 +29,8 @@ class Counter extends HTMLElement {
 
       const interval = setInterval(() => {
         incrementNumber += increment;
-        if (difference >= 0 && incrementNumber >= newNumber || difference < 0 && incrementNumber <= newNumber) {
+        if (difference >= 0 && incrementNumber >= newNumber ||
+            difference < 0 && incrementNumber <= newNumber) {
           incrementNumber = newNumber;
           clearInterval(interval);
         }
