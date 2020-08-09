@@ -1,5 +1,5 @@
 // @mixin
-all_webfonts()
+all-webfonts()
   @font-face
     font-family 'Avenir Variable'
     font-weight 1 999
@@ -9,7 +9,7 @@ all_webfonts()
 // @param Color color
 // @param String size
 // @param String direction
-css_triangle(color, size, direction)
+css-triangle(color, size, direction)
   if direction == 'up'
     border-bottom size solid color
     border-left size solid transparent
@@ -58,5 +58,5 @@ webfont(weight = 500)
 
 // @mixin
 // @param Number weight
-webfont_weight(weight)
+webfont-weight(weight)
   font-variation-settings 'wght' weight

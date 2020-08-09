@@ -2,11 +2,11 @@
   display flex
   justify-content center
   opacity 1
-  transition opacity TRANSITION ease-out
+  transition opacity transition ease-out
 
 .expandable[hidden]
 .expandable:not([hidden])
-  transition opacity TRANSITION
+  transition opacity transition
 
 .expandable[hidden]
   opacity 0
@@ -22,18 +22,18 @@
   webfont(600)
   align-items center
   background var(--marker-canvas-background)
-  border-radius (BUTTON_HEIGHT / 2)
+  border-radius (button-height / 2)
   color var(--text)
   display flex
   font-size em(14)
-  height BUTTON_HEIGHT
+  height button-height
   line-height 1
   padding 0 0 0 rem(20)
   white-space nowrap
   width rem(210)
 
 [no-touch] .expandable__button
-  transition background TRANSITION, color TRANSITION
+  transition background transition, color transition
 
 .expandable__button:focus
 .expandable__button:active
@@ -42,11 +42,11 @@
   cursor pointer
 
 .expandable__button::before
-  css_triangle(var(--text), 5px, 'down')
+  css-triangle(var(--text), 5px, 'down')
   content ''
   display inline-block
   margin-right rem(8)
-  transition transform TRANSITION
+  transition transform transition
 
 .expandable[expanded] > .expandable__button::before
   transform rotate(-180deg)
