@@ -1,9 +1,11 @@
 .content
   display grid
-  grid-column 2
-  grid-row 2
+  grid-area content
+  grid-template-areas 'user-values'\
+                      'zig-zag'
   grid-template-columns 1fr
   grid-template-rows auto 1fr
   justify-self center
   max-width content-max-width
+  padding 0 var(--site-padding-x)
   width 100%
