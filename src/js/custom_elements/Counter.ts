@@ -5,7 +5,7 @@ const VALUE_ATTR: string = 'value';
 /**
  * Custom element that increments one value to another.
  */
-class Counter extends HTMLElement {
+export class Counter extends HTMLElement {
   constructor() {
     super();
   }
@@ -41,5 +41,3 @@ class Counter extends HTMLElement {
     }
   }
 }
-
-export {Counter};

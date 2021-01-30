@@ -10,7 +10,7 @@ const WARNING_CLASS: string = 'warning';
  * Custom element that renders daily TDEE based on overall TDEE where each
  * day's TDEE value is adjusted for "zig-zag" calorie counting.
  */
-class ZigZag extends HTMLElement {
+export class ZigZag extends HTMLElement {
   private counters: NodeList;
   private days: NodeList;
   private hasSetup: boolean;
@@ -110,5 +110,3 @@ class ZigZag extends HTMLElement {
     });
   }
 }
-
-export {ZigZag};

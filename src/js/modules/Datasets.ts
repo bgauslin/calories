@@ -1,4 +1,4 @@
-interface InputNumber {
+export interface InputNumber {
   id: string,
   inputmode: string,
   label: string,
@@ -6,14 +6,14 @@ interface InputNumber {
   pattern: string,
 }
 
-interface InputRadio {
+export interface InputRadio {
   factor?: number,
   id: string,
   label: string,
   value: string,
 }
 
-const ActivityLevel: InputRadio[] = [
+export const ActivityLevel: InputRadio[] = [
   {
     factor: 1,
     id: 'level-0',
@@ -46,7 +46,7 @@ const ActivityLevel: InputRadio[] = [
   },
 ];
 
-const Measurements: InputNumber[] = [
+export const Measurements: InputNumber[] = [
   {
     id: 'feet',
     inputmode: 'numeric',
@@ -77,7 +77,7 @@ const Measurements: InputNumber[] = [
   },
 ];
 
-const Sex: InputRadio[] = [
+export const Sex: InputRadio[] = [
   {
     id: 'male',
     label: 'Male',
@@ -90,7 +90,7 @@ const Sex: InputRadio[] = [
   },
 ];
 
-const WeightGoal: InputRadio[] = [
+export const WeightGoal: InputRadio[] = [
   {
     factor: 0,
     id: 'goal-0',
@@ -122,12 +122,3 @@ const WeightGoal: InputRadio[] = [
     value: '4',
   },
 ];
-
-export {
-  ActivityLevel,
-  InputNumber,
-  InputRadio,
-  Measurements,
-  Sex,
-  WeightGoal,
-};

@@ -18,7 +18,7 @@ const BMR_MULTIPLIER: number = 1.2;
  * Total Daily Energy Expenditure (TDEE), and converting height and weight in
  * Imperial units to metric.
  */
-class Formulas {
+export class Formulas {
   /**
    * Mifflin St. Jeor Basal Metabolic Rate (BMR) equation.
    * All values are converted to metric before being passed in.
@@ -64,5 +64,3 @@ class Formulas {
     return (inches * 2.54);
   }
 }
-
-export {Formulas};

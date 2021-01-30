@@ -11,7 +11,7 @@ interface OptionsGroupData {
 /**
  * HTML templates for rendering text inputs, radio buttons, grouped inputs.
  */
-class Templates {
+export class Templates {
   private baseClassName: string;
 
   constructor(baseClassName: string) {
@@ -105,5 +105,3 @@ class Templates {
     return allHtml;
   }
 }
-
-export {Templates};

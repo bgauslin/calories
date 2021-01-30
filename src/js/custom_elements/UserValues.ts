@@ -41,7 +41,7 @@ enum OptionsGroup {
  * BMR and TDEE via user input, enables/disables a 'results' element based on
  * valid user input, and saves user-provided info to localStorage.
  */
-class UserValues extends HTMLElement {
+export class UserValues extends HTMLElement {
   private allFields: string[];
   private formEl: HTMLFormElement;
   private formulas: Formulas;
@@ -321,5 +321,3 @@ class UserValues extends HTMLElement {
     });
   }
 }
-
-export {UserValues};

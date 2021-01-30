@@ -3,7 +3,7 @@ import fastclick from 'fastclick';
 /**
  * Custom element that updates the DOM and initializes site-wide features.
  */
-class App extends HTMLElement {
+export class App extends HTMLElement {
   private hasSetup: boolean;
 
   constructor() {
@@ -65,5 +65,3 @@ class App extends HTMLElement {
     }
   }
 }
-
-export {App};

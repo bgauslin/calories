@@ -5,7 +5,7 @@ const TARGET_ATTR: string = 'target';
  * Custom element that populates itself with data fetched from a
  * GraphQL endpoint.
  */
-class InfoPanel extends HTMLElement {
+export class InfoPanel extends HTMLElement {
   constructor() {
     super();
   }
@@ -56,5 +56,3 @@ class InfoPanel extends HTMLElement {
     }
   }
 }
-
-export {InfoPanel};
