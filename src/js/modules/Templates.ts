@@ -12,10 +12,10 @@ interface OptionsGroupData {
  * HTML templates for rendering text inputs, radio buttons, grouped inputs.
  */
 class Templates {
-  private baseClassName_: string;
+  private baseClassName: string;
 
   constructor(baseClassName: string) {
-    this.baseClassName_ = baseClassName;
+    this.baseClassName = baseClassName;
   }
 
   /**
@@ -26,11 +26,11 @@ class Templates {
     const {modifier, name, buttons, disabled, headingLabel, headingNote} = data;
     const isDisabled = disabled ? ' disabled' : '';
     return `\
-      <div class="${this.baseClassName_}__group ${this.baseClassName_}__group--${modifier}"${isDisabled}>\
-        ${this.fieldHeading_(modifier, headingLabel, headingNote)}\
+      <div class="${this.baseClassName}__group ${this.baseClassName}__group--${modifier}"${isDisabled}>\
+        ${this.fieldHeading(modifier, headingLabel, headingNote)}\
         <fancy-marker>\
-          <ul class="${this.baseClassName_}__list ${this.baseClassName_}__list--${modifier}">\
-            ${this.radioButtons_(name, buttons)}\
+          <ul class="${this.baseClassName}__list ${this.baseClassName}__list--${modifier}">\
+            ${this.radioButtons(name, buttons)}\
           </ul>\
         </fancy-marker>\
       </div>\
@@ -40,9 +40,9 @@ class Templates {
   /**
    * Returns rendered heading for a field or group of fields.
    */
-  private fieldHeading_(modifier: string, label: string, note?: string): string {
-    const fieldNote = note ? ` <span class="${this.baseClassName_}__heading__note">${note}</span>` : '';
-    return `<h4 class="${this.baseClassName_}__heading ${this.baseClassName_}__heading--${modifier}">${label}${fieldNote}</h4>`;
+  private fieldHeading(modifier: string, label: string, note?: string): string {
+    const fieldNote = note ? ` <span class="${this.baseClassName}__heading__note">${note}</span>` : '';
+    return `<h4 class="${this.baseClassName}__heading ${this.baseClassName}__heading--${modifier}">${label}${fieldNote}</h4>`;
   }
 
   /**
@@ -55,10 +55,10 @@ class Templates {
       const {id, inputmode, label, name, pattern} = input;
       const modifier = name;
       const html = `\
-        <li class="${this.baseClassName_}__item ${this.baseClassName_}__item--${modifier}">\
-          <label for="${id}" class="${this.baseClassName_}__label ${this.baseClassName_}__label--${modifier}">${label}</label>\
+        <li class="${this.baseClassName}__item ${this.baseClassName}__item--${modifier}">\
+          <label for="${id}" class="${this.baseClassName}__label ${this.baseClassName}__label--${modifier}">${label}</label>\
           <input \
-            class="${this.baseClassName_}__input ${this.baseClassName_}__input--text ${this.baseClassName_}__input--${modifier}" \
+            class="${this.baseClassName}__input ${this.baseClassName}__input--text ${this.baseClassName}__input--${modifier}" \
             type="text" \
             name="${name}" \
             id="${id}" \
@@ -77,7 +77,7 @@ class Templates {
   /**
    * Returns rendered radio buttons.
    */
-  private radioButtons_(name: string, buttons: InputRadio[]): string {
+  private radioButtons(name: string, buttons: InputRadio[]): string {
     const modifier = name;
     let allHtml = '';
 
@@ -85,17 +85,17 @@ class Templates {
       const {id, label, value} = button;
       const checked = (index === 0) ? ' checked' : '';
       const html = `\
-        <li class="${this.baseClassName_}__item ${this.baseClassName_}__item--${modifier}">\
-          <label for="${id}" class="${this.baseClassName_}__label ${this.baseClassName_}__label--${modifier}" tabindex="0">\
+        <li class="${this.baseClassName}__item ${this.baseClassName}__item--${modifier}">\
+          <label for="${id}" class="${this.baseClassName}__label ${this.baseClassName}__label--${modifier}" tabindex="0">\
             <input \
-              class="${this.baseClassName_}__input ${this.baseClassName_}__input--radio ${this.baseClassName_}__input--${modifier}" \
+              class="${this.baseClassName}__input ${this.baseClassName}__input--radio ${this.baseClassName}__input--${modifier}" \
               type="radio" \
               name="${name}" \
               id="${id}" \
               value="${value}" \
               tabindex="-1"\
               ${checked}>\
-              <span class="${this.baseClassName_}__label__caption">${label}</span>\
+              <span class="${this.baseClassName}__label__caption">${label}</span>\
           </label>\
         </li>\
       `;

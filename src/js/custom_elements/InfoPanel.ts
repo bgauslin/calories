@@ -11,13 +11,13 @@ class InfoPanel extends HTMLElement {
   }
 
   connectedCallback(): void {
-    this.renderPanel_();
+    this.renderPanel();
   }
 
   /**
    * Fetches data from a GraphQL endpoint.
    */
-  private async renderPanel_(): Promise<any> {
+  private async renderPanel(): Promise<any> {
     const endpoint = (process.env.NODE_ENV === 'production') ?
         process.env.GRAPHQL_PROD : process.env.GRAPHQL_DEV;
     const query: string = `

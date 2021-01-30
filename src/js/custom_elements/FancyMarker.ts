@@ -11,13 +11,13 @@ enum CustomProperty {
  * animates from its previously active element to the current active element.
  */
 class FancyMarker extends HTMLElement {
-  private resizeListener_: any;
+  private resizeListener: any;
 
   constructor() {
     super();
-    this.addEventListener('change', this.update_);
-    this.resizeListener_ = this.update_.bind(this);
-    window.addEventListener('resize', this.resizeListener_);
+    this.addEventListener('change', this.update);
+    this.resizeListener = this.update.bind(this);
+    window.addEventListener('resize', this.resizeListener);
   }
 
   static get observedAttributes(): string[] {
@@ -25,22 +25,22 @@ class FancyMarker extends HTMLElement {
   }
 
   connectedCallback(): void {
-    this.renderMarker_();
+    this.renderMarker();
   }
 
   attributeChangedCallback(): void {
-    this.update_();
+    this.update();
   }
 
   disconnectedCallback(): void {
-    this.removeEventListener('change', this.update_);
-    window.removeEventListener('resize', this.resizeListener_);
+    this.removeEventListener('change', this.update);
+    window.removeEventListener('resize', this.resizeListener);
   }
 
   /**
    * Creates and injects a marker element into the DOM.
    */
-  private renderMarker_(): void {
+  private renderMarker(): void {
     const marker = document.createElement('div');
     marker.classList.add('marker');
     this.appendChild(marker);
@@ -50,7 +50,7 @@ class FancyMarker extends HTMLElement {
    * Sets custom properties to make the marker move to the selected target
    * via CSS transitions.
    */
-  private update_(): void {
+  private update(): void {
     // Remove 'init' attribute since it's only needed on initial page load.
     this.removeAttribute(INIT_ATTR);
 

@@ -13,14 +13,14 @@ SVG_PATH.set('info', 'M12 0 C5.373 0 0 5.375 0 12 0 18.629 5.373 24 12 24 18.627
  * Custom element that toggles the visibility of its target element.
  */
 class InfoToggle extends HTMLElement {
-  private button_: HTMLButtonElement;
-  private isOpen_: boolean;
-  private targetEl_: Element;
+  private button: HTMLButtonElement;
+  private isOpen: boolean;
+  private targetEl: Element;
 
   constructor() {
     super();
-    this.isOpen_ = false;
-    this.addEventListener('click', this.handleClick_);
+    this.isOpen = false;
+    this.addEventListener('click', this.handleClick);
     smoothscroll.polyfill();
   }
 
@@ -29,52 +29,52 @@ class InfoToggle extends HTMLElement {
   }
 
   connectedCallback(): void {
-    this.renderButton_();
+    this.renderButton();
     this.renderIcon_('info');
   }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
     if (name === READY_ATTR) {
-      this.targetEl_ = document.getElementById(this.getAttribute('target'));
+      this.targetEl = document.getElementById(this.getAttribute('target'));
     }
   }
 
   disconnectedCallback(): void {
-    this.removeEventListener('click', this.handleClick_);
+    this.removeEventListener('click', this.handleClick);
   }
 
   /**
    * Toggles an attribute when the button is clicked.
    */
-  private handleClick_(e: Event): void {
+  private handleClick(e: Event): void {
     const eventTarget = e.target as HTMLInputElement;
     if (eventTarget.classList.contains(`${this.className}__button`)) {
       // Open the info panel.
-      if (!this.isOpen_) {
+      if (!this.isOpen) {
         this.renderIcon_('close');
-        this.targetEl_.removeAttribute(HIDDEN_ATTR);
+        this.targetEl.removeAttribute(HIDDEN_ATTR);
         window.requestAnimationFrame(() => {
-          this.targetEl_.setAttribute(OPEN_ATTR, '');
+          this.targetEl.setAttribute(OPEN_ATTR, '');
         });
       // Close the info panel.
       } else {
         this.renderIcon_('info');
-        this.targetEl_.removeAttribute(OPEN_ATTR);
-        this.targetEl_.addEventListener('transitionend', () => {
-          this.targetEl_.setAttribute(HIDDEN_ATTR, '');
+        this.targetEl.removeAttribute(OPEN_ATTR);
+        this.targetEl.addEventListener('transitionend', () => {
+          this.targetEl.setAttribute(HIDDEN_ATTR, '');
         }, {once: true});
       }
 
       document.body.scrollIntoView({behavior: 'smooth'});
-      this.isOpen_ = !this.isOpen_;
-      this.button_.setAttribute(ARIA_EXPANDED_ATTR, String(this.isOpen_));
+      this.isOpen = !this.isOpen;
+      this.button.setAttribute(ARIA_EXPANDED_ATTR, String(this.isOpen));
     }
   }
 
   /**
    * Renders a button for attribute toggling.
    */
-  private renderButton_(): void {
+  private renderButton(): void {
     this.innerHTML += `\
       <button \
         class="${this.className}__button" \
@@ -85,7 +85,7 @@ class InfoToggle extends HTMLElement {
         ${ARIA_EXPANDED_ATTR}="false">\
       </button>\
     `;
-    this.button_ = this.querySelector(`.${this.className}__button`);
+    this.button = this.querySelector(`.${this.className}__button`);
   }
 
   /**
@@ -99,7 +99,7 @@ class InfoToggle extends HTMLElement {
         <path d="${SVG_PATH.get(iconName)}"/>\
       </svg>\
     `;
-    this.button_.innerHTML = html.replace(/\s\s/g, '');
+    this.button.innerHTML = html.replace(/\s\s/g, '');
   }
 }
 

@@ -15,10 +15,10 @@ class Counter extends HTMLElement {
   }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
-    this.update_(oldValue, newValue);
+    this.update(oldValue, newValue);
   }
 
-  update_(oldValue: string, newValue: string): void {
+  update(oldValue: string, newValue: string): void {
     const oldNumber = parseInt(oldValue, 10);
     const newNumber = parseInt(newValue, 10);
 

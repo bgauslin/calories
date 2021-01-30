@@ -11,13 +11,13 @@ const WARNING_CLASS: string = 'warning';
  * day's TDEE value is adjusted for "zig-zag" calorie counting.
  */
 class ZigZag extends HTMLElement {
-  private counters_: NodeList;
-  private days_: NodeList;
-  private hasSetup_: boolean;
+  private counters: NodeList;
+  private days: NodeList;
+  private hasSetup: boolean;
 
   constructor() {
     super();
-    this.hasSetup_ = false;
+    this.hasSetup = false;
   }
 
   static get observedAttributes(): string[] {
@@ -25,15 +25,15 @@ class ZigZag extends HTMLElement {
   }
 
   attributeChangedCallback(): void {
-    if (this.hasSetup_) {
-      this.update_();
+    if (this.hasSetup) {
+      this.update();
     }
   }
 
   connectedCallback(): void {
-    if (!this.hasSetup_) {
-      this.setup_();
-      this.update_();
+    if (!this.hasSetup) {
+      this.setup();
+      this.update();
     }
   }
 
@@ -42,7 +42,7 @@ class ZigZag extends HTMLElement {
    * that will udpate on user interaction. Because expandable is within this
    * element, it needs a sibling element to target for expanding/collapsing.
    */
-  private setup_(): void {
+  private setup(): void {
     let html = `<div class="${this.className}__data" id="${ID}">`;
     for (let i = 0; i < DAILY_MODIFIERS.length; i++) {
       html += `\
@@ -62,16 +62,16 @@ class ZigZag extends HTMLElement {
 
     this.innerHTML = html.replace(/\s\s/g, '');
 
-    this.counters_ = this.querySelectorAll('results-counter');
-    this.days_ = this.querySelectorAll(`.${this.className}__day`);
+    this.counters = this.querySelectorAll('results-counter');
+    this.days = this.querySelectorAll(`.${this.className}__day`);
 
-    this.hasSetup_ = true;
+    this.hasSetup = true;
   }
 
   /**
    * Updates all counters with each day's zig-zag value.
    */
-  private update_(): void {
+  private update(): void {
     const tdee = this.getAttribute(TDEE_ATTR);
     const tdeeMax = this.getAttribute(TDEE_MAX_ATTR);
 
@@ -88,20 +88,20 @@ class ZigZag extends HTMLElement {
     // Set attribute values on counter elements which will trigger their
     // attributeChangedCallback and make them update themselves.
     allValues.forEach((value, i) => {
-      const counter = this.counters_[i] as HTMLElement;
+      const counter = this.counters[i] as HTMLElement;
       counter.setAttribute('value', value.toFixed());
     });
 
     // Set inline style for each day as a width percentage so that the CSS
     // displays each as a bar graph value.
     barLengths.forEach((length, i) => {
-      const day = this.days_[i] as HTMLElement;
+      const day = this.days[i] as HTMLElement;
       day.style.width = `${length}%`;
     });
 
     // Set warning class for extremely low values.
     allValues.forEach((value, i) => {
-      const day = this.days_[i] as HTMLElement;
+      const day = this.days[i] as HTMLElement;
       if (value < MINIMUM_TDEE) {
         day.classList.add(WARNING_CLASS);
       } else {
