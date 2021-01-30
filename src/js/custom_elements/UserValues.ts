@@ -64,17 +64,17 @@ export class UserValues extends HTMLElement {
     return [UNITS_ATTR];
   }
 
-  connectedCallback(): void {
+  connectedCallback() {
     this.setup();
   }
 
-  attributeChangedCallback(): void {
+  attributeChangedCallback() {
     if (this.hasSetup) {
       this.update();
     }
   }
 
-  disconnectedCallback(): void {
+  disconnectedCallback() {
     this.removeEventListener('change', this.update);
     this.removeEventListener('keyup', this.handleKey);
   }
@@ -82,7 +82,7 @@ export class UserValues extends HTMLElement {
   /**
    * Creates DOM elements and populates them if there are stored user values.
    */
-  private setup(): void {
+  private setup() {
     // Create array of all fields to simplify getting/setting things later.
     const measurementFields = Measurements.map(field => field.name);
     this.allFields = [
@@ -168,7 +168,7 @@ export class UserValues extends HTMLElement {
    * Converts stored user-provided values to an array, then populates each input
    * element with its corresponding user value.
    */
-  private populateInputs(): void {
+  private populateInputs() {
     const stored = JSON.parse(this.storage);
     this.allFields.forEach((name) => {
       const inputEls = this.querySelectorAll(`[name=${name}]`);
@@ -191,7 +191,7 @@ export class UserValues extends HTMLElement {
    * Updates results after getting all values and passing them into the BMR,
    * BMI, and TDEE formulas.
    */
-  private update(): void {
+  private update() {
     if (this.querySelectorAll(':invalid').length) {
       // Hide results and disable input groups.
       this.resultsEl.setAttribute(HIDDEN_ATTR, '');
@@ -265,7 +265,7 @@ export class UserValues extends HTMLElement {
    * Sets attributes on results and zig-zag elements so that they can
    * update themselves.
    */
-  private showResults(bmr: number, tdee: number, tdeeMax: number): void {
+  private showResults(bmr: number, tdee: number, tdeeMax: number) {
     this.resultsEl.removeAttribute(HIDDEN_ATTR);
     this.resultsEl.setAttribute('value', tdee.toFixed(0));
     this.resultsEl.setAttribute('bmr', bmr.toFixed(0));
@@ -279,7 +279,7 @@ export class UserValues extends HTMLElement {
    * Toggles 'disabled' attribute on input groups and sets a 'tabindex' value
    * on their children's labels to enable/disable keyboard tabbing.
    */
-  private enableOptionsGroups(enabled: boolean): void {
+  private enableOptionsGroups(enabled: boolean) {
     const tabindex = enabled ? '0' : '-1';
 
     DISABLED_ELEMENTS.forEach((selector) => {
@@ -300,7 +300,7 @@ export class UserValues extends HTMLElement {
   /**
    * Adds [enter] key functionality to radio buttons.
    */
-  private handleKey(e: KeyboardEvent): void {
+  private handleKey(e: KeyboardEvent) {
     const target = e.target as HTMLElement;
     const radio = target.querySelector('[type=radio]');
     if (radio && e.code === 'Enter') {
@@ -311,7 +311,7 @@ export class UserValues extends HTMLElement {
   /**
    * Places the cursor at the end of a text input field when it's focused.
    */
-  private handleInputFocus(): void {
+  private handleInputFocus() {
     const names = Measurements.map(field => field.name);
     names.forEach((name) => {
       const el = this.querySelector(`[name=${name}]`) as HTMLInputElement;

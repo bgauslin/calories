@@ -14,11 +14,11 @@ export class Counter extends HTMLElement {
     return [VALUE_ATTR];
   }
 
-  attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
+  attributeChangedCallback(name: string, oldValue: string, newValue: string) {
     this.update(oldValue, newValue);
   }
 
-  update(oldValue: string, newValue: string): void {
+  update(oldValue: string, newValue: string) {
     const oldNumber = parseInt(oldValue, 10);
     const newNumber = parseInt(newValue, 10);
 

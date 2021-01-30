@@ -24,15 +24,15 @@ export class FancyMarker extends HTMLElement {
     return [INIT_ATTR];
   }
 
-  connectedCallback(): void {
+  connectedCallback() {
     this.renderMarker();
   }
 
-  attributeChangedCallback(): void {
+  attributeChangedCallback() {
     this.update();
   }
 
-  disconnectedCallback(): void {
+  disconnectedCallback() {
     this.removeEventListener('change', this.update);
     window.removeEventListener('resize', this.resizeListener);
   }
@@ -40,7 +40,7 @@ export class FancyMarker extends HTMLElement {
   /**
    * Creates and injects a marker element into the DOM.
    */
-  private renderMarker(): void {
+  private renderMarker() {
     const marker = document.createElement('div');
     marker.classList.add('marker');
     this.appendChild(marker);
@@ -50,7 +50,7 @@ export class FancyMarker extends HTMLElement {
    * Sets custom properties to make the marker move to the selected target
    * via CSS transitions.
    */
-  private update(): void {
+  private update() {
     // Remove 'init' attribute since it's only needed on initial page load.
     this.removeAttribute(INIT_ATTR);
 

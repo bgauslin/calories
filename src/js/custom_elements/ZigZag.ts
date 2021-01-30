@@ -24,13 +24,13 @@ export class ZigZag extends HTMLElement {
     return [TDEE_ATTR, TDEE_MAX_ATTR];
   }
 
-  attributeChangedCallback(): void {
+  attributeChangedCallback() {
     if (this.hasSetup) {
       this.update();
     }
   }
 
-  connectedCallback(): void {
+  connectedCallback() {
     if (!this.hasSetup) {
       this.setup();
       this.update();
@@ -42,7 +42,7 @@ export class ZigZag extends HTMLElement {
    * that will udpate on user interaction. Because expandable is within this
    * element, it needs a sibling element to target for expanding/collapsing.
    */
-  private setup(): void {
+  private setup() {
     let html = `<div class="${this.className}__data" id="${ID}">`;
     for (let i = 0; i < DAILY_MODIFIERS.length; i++) {
       html += `\
@@ -71,7 +71,7 @@ export class ZigZag extends HTMLElement {
   /**
    * Updates all counters with each day's zig-zag value.
    */
-  private update(): void {
+  private update() {
     const tdee = this.getAttribute(TDEE_ATTR);
     const tdeeMax = this.getAttribute(TDEE_MAX_ATTR);
 

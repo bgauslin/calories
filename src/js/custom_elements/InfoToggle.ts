@@ -28,25 +28,25 @@ export class InfoToggle extends HTMLElement {
     return [READY_ATTR];
   }
 
-  connectedCallback(): void {
+  connectedCallback() {
     this.renderButton();
     this.renderIcon_('info');
   }
 
-  attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
+  attributeChangedCallback(name: string, oldValue: string, newValue: string) {
     if (name === READY_ATTR) {
       this.targetEl = document.getElementById(this.getAttribute('target'));
     }
   }
 
-  disconnectedCallback(): void {
+  disconnectedCallback() {
     this.removeEventListener('click', this.handleClick);
   }
 
   /**
    * Toggles an attribute when the button is clicked.
    */
-  private handleClick(e: Event): void {
+  private handleClick(e: Event) {
     const eventTarget = e.target as HTMLInputElement;
     if (eventTarget.classList.contains(`${this.className}__button`)) {
       // Open the info panel.
@@ -74,7 +74,7 @@ export class InfoToggle extends HTMLElement {
   /**
    * Renders a button for attribute toggling.
    */
-  private renderButton(): void {
+  private renderButton() {
     this.innerHTML += `\
       <button \
         class="${this.className}__button" \

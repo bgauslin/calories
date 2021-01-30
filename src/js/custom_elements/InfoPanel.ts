@@ -10,7 +10,7 @@ export class InfoPanel extends HTMLElement {
     super();
   }
 
-  connectedCallback(): void {
+  connectedCallback() {
     this.renderPanel();
   }
 

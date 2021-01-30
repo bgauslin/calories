@@ -11,7 +11,7 @@ export class App extends HTMLElement {
     window.addEventListener('resize', this.viewportHeight);
   }
 
-  connectedCallback(): void {
+  connectedCallback() {
     if (!this.hasSetup) {
       this.setupDom();
       this.touchEnabled();
@@ -21,14 +21,14 @@ export class App extends HTMLElement {
     }
   }
 
-  disconnectedCallback(): void {
+  disconnectedCallback() {
     window.removeEventListener('resize', this.viewportHeight);
   }
 
   /**
    * Removes 'no JS' stuff from the DOM.
    */
-  private setupDom(): void {
+  private setupDom() {
     document.body.removeAttribute('no-js');
     document.querySelector('noscript').remove();
   }
@@ -36,7 +36,7 @@ export class App extends HTMLElement {
   /**
    * Removes 'no-touch' attribute and adds fastclick if device is touch-enabled.
    */
-  private touchEnabled(): void {
+  private touchEnabled() {
     if ('ontouchstart' in window || (window as any).DocumentTouch) {
       document.body.removeAttribute('no-touch');
       fastclick['attach'](document.body);
@@ -47,14 +47,14 @@ export class App extends HTMLElement {
    * Sets custom property for viewport height that updates 'vh' calculation due
    * to iOS Safari behavior where chrome appears and disappears when scrolling.
    */
-  private viewportHeight(): void {
+  private viewportHeight() {
     document.documentElement.style.setProperty('--vh', `${window.innerHeight / 100}px`);
   }
 
   /**
    * Initializes Google Analytics tracking.
    */
-  private googleAnalytics(): void {
+  private googleAnalytics() {
     if (process.env.NODE_ENV === 'production') {
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*(new Date() as any);a=s.createElement(o),
