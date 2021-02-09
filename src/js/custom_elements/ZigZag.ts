@@ -1,6 +1,4 @@
-const DAILY_LABELS: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const DAILY_MODIFIERS: number[] = [1, .9, 1.1, 1, .8, 1, 1.2];
-const ID: string = 'zig-zag';
 const MINIMUM_TDEE: number = 1200;
 const TDEE_ATTR: string = 'tdee';
 const TDEE_MAX_ATTR: string = 'max-tdee';
@@ -43,27 +41,11 @@ export class ZigZag extends HTMLElement {
    * element, it needs a sibling element to target for expanding/collapsing.
    */
   private setup() {
-    let html = `<div class="${this.className}__data" id="${ID}">`;
-    for (let i = 0; i < DAILY_MODIFIERS.length; i++) {
-      html += `\
-        <div class="${this.className}__day">\
-          <div class="${this.className}__label">${DAILY_LABELS[i]}</div>\
-          <results-counter class="${this.className}__value"></results-counter>\
-        </div>\
-      `;
-    }
-    html += '</div>';
-    html += `\
-      <app-expandable \
-        class="expandable" \
-        label="zig-zag calories" \
-        target="${ID}" \
-        watch="results"></app-expandable>`;
-
-    this.innerHTML = html.replace(/\s\s/g, '');
+    const zigZagTemplate = require('../templates/zigZag.pug');
+    this.innerHTML = zigZagTemplate();
 
     this.counters = this.querySelectorAll('results-counter');
-    this.days = this.querySelectorAll(`.${this.className}__day`);
+    this.days = this.querySelectorAll('.zig-zag__day');
 
     this.hasSetup = true;
   }
