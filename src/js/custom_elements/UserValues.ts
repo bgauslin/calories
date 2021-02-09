@@ -1,6 +1,5 @@
 import {ActivityLevel, Measurements, Sex, WeightGoal} from '../modules/Datasets';
 import {Formulas} from '../modules/Formulas';
-import {Templates} from '../modules/Templates';
 
 interface UserMeasurements {
   activity: string,
@@ -18,12 +17,9 @@ interface UserResults {
   tdeeMax: number,
 }
 
-const BASE_CLASSNAME: string = 'values';
 const DISABLED_ATTR: string = 'disabled';
 const HIDDEN_ATTR: string = 'hidden';
 const LOCAL_STORAGE: string = 'values';
-const RESULTS_CLASSNAME: string = 'results';
-const UNITS_ATTR: string = 'units';
 
 const DISABLED_ELEMENTS: string[] = [
   '.values__group--activity',
@@ -48,20 +44,18 @@ export class UserValues extends HTMLElement {
   private hasSetup: boolean;
   private resultsEl: HTMLElement;
   private storage: string;
-  private templates: Templates;
 
   constructor() {
     super();
     this.hasSetup = false;
     this.formulas = new Formulas();
-    this.templates = new Templates('values');
     this.storage = localStorage.getItem(LOCAL_STORAGE);
     this.addEventListener('change', this.update);
     this.addEventListener('keyup', this.handleKey);
   }
 
   static get observedAttributes(): string[] {
-    return [UNITS_ATTR];
+    return ['units'];
   }
 
   connectedCallback() {
@@ -91,11 +85,11 @@ export class UserValues extends HTMLElement {
     ];
 
     // Render HTML for input groups and results.
-    this.innerHTML = this.render();
+    this.render();
 
     // Create references to primary elements.
     this.formEl = this.querySelector('form');
-    this.resultsEl = this.querySelector(`.${RESULTS_CLASSNAME}`);
+    this.resultsEl = this.querySelector('.results');
 
     // If user data exists, update HTML on page load.
     if (this.storage) {
@@ -125,43 +119,35 @@ export class UserValues extends HTMLElement {
   /**
    * Renders HTML for all input groups and results.
    */
-  private render(): string {
-    const html = `\
-      <form class="${BASE_CLASSNAME}__form">\
-        ${this.templates.optionsGroup({
-          buttons: Sex,
-          headingLabel: 'Sex',
-          modifier:  'sex',
-          name: OptionsGroup.SEX,
-        })}\
-        <div class="${BASE_CLASSNAME}__group ${BASE_CLASSNAME}__group--measurements">\
-          <ul class="${BASE_CLASSNAME}__list ${BASE_CLASSNAME}__list--measurements">\
-            ${this.templates.numberInputs(Measurements)}\
-          </ul>\
-        </div>\
-        ${this.templates.optionsGroup({
-          buttons: ActivityLevel,
-          disabled: true,
-          headingLabel: 'Exercise',
-          headingNote: 'times per week',
-          modifier: 'activity',
-          name: OptionsGroup.ACTIVITY,
-        })}\
-        ${this.templates.optionsGroup({
-          buttons: WeightGoal,
-          disabled: true,
-          headingLabel: 'Weight loss',
-          headingNote: 'lbs. per week',
-          modifier: 'goal',
-          name: OptionsGroup.GOAL,
-        })}\
-      </form>\
-      <results-counter \
-        class="${RESULTS_CLASSNAME}" \
-        id="results">\
-      </results-counter>\
-    `;
-    return html.replace(/\s\s/g, '');
+  private render() {
+    const fields = {
+      activityLevel: {
+        buttons: ActivityLevel,
+        disabled: true,
+        headingLabel: 'Exercise',
+        headingNote: 'times per week',
+        modifier: 'activity',
+        name: OptionsGroup.ACTIVITY,
+      },
+      measurements: Measurements,
+      sex: {
+        buttons: Sex,
+        headingLabel: 'Sex',
+        modifier:  'sex',
+        name: OptionsGroup.SEX,
+      },
+      weightGoal: {
+        buttons: WeightGoal,
+        disabled: true,
+        headingLabel: 'Weight loss',
+        headingNote: 'lbs. per week',
+        modifier: 'goal',
+        name: OptionsGroup.GOAL,
+      },
+    };
+
+    const userValuesTemplate = require('../templates/userValues.pug');
+    this.innerHTML = userValuesTemplate({fields: fields});
   }
 
   /**

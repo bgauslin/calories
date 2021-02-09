@@ -1,0 +1,54 @@
+mixin optionsGroup(field, modifier)
+  div(
+    class=['values__group', `values__group--${modifier}`]
+    disabled=field.disabled
+  )
+    h4(class=['values__heading', `values__heading--${modifier}`]) #{field.headingLabel}
+      if field.headingNote
+        span.values__heading__note #{field.headingNote}
+    fancy-marker
+      ul(class=['values__list', `values__list--${modifier}`])
+        each button, index in field.buttons
+          li(class=['values__item', `values__item--${modifier}`])
+            label(
+              class=['values__label', `values__label--${modifier}`]
+              for=button.id
+              tabindex="0"
+            )
+              input(
+                class=['values__input', 'values__input--radio', `values__input--${modifier}`]
+                type="radio"
+                name=button.name
+                id=button.id
+                value=button.value
+                tabindex="-1"
+                checked=(index === 0)
+              )
+              span.values__label__caption #{button.label}
+
+mixin numberInputs(list, modifier)
+  div(class=['values__group', `values__group--${modifier}`])
+    ul(class=['values__list', `values__list--${modifier}`])
+      each item in list
+        li(class=['values__item', `values__item--${item.id}`])
+          label(
+            class=['values__label', `values__label--${item.id}`]
+            for=item.id
+          ) #{item.label}
+          input(
+            class=['values__input', 'values__input--text', `values__input--${item.id}`]
+            type="text"
+            name=item.name
+            id=item.id
+            inputmode=item.inputmode
+            pattern=item.pattern
+            aria-label=item.label
+            required
+          )
+
+form.values__form
+  +optionsGroup(fields.sex, 'sex')
+  +numberInputs(fields.measurements, 'measurements')
+  +optionsGroup(fields.activityLevel, 'activity')
+  +optionsGroup(fields.weightGoal, 'goal')
+results-counter.results(id="results")
