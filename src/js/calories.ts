@@ -1,13 +1,13 @@
 require('dotenv').config();
 
-import {App} from './custom_elements/App';
-import {Counter} from './custom_elements/Counter';
-import {Expandable} from './custom_elements/Expandable';
-import {FancyMarker} from './custom_elements/FancyMarker';
-import {InfoPanel} from './custom_elements/InfoPanel';
-import {InfoToggle} from './custom_elements/InfoToggle';
-import {UserValues} from './custom_elements/UserValues';
-import {ZigZag} from './custom_elements/ZigZag';
+import {App} from './custom_elements/app/app';
+import {Counter} from './custom_elements/counter/counter';
+import {Expandable} from './custom_elements/expandable/expandable';
+import {FancyMarker} from './custom_elements/fancy_marker/fancy_marker';
+import {InfoPanel} from './custom_elements/info_panel/info_panel';
+import {InfoToggle} from './custom_elements/info_toggle/info_toggle';
+import {UserValues} from './custom_elements/user_values/user_values';
+import {ZigZag} from './custom_elements/zigzag/zigzag';
 
 // Import styles for injecting into the DOM.
 import '../stylus/calories.styl';

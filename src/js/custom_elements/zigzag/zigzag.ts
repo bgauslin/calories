@@ -41,7 +41,7 @@ export class ZigZag extends HTMLElement {
    * element, it needs a sibling element to target for expanding/collapsing.
    */
   private setup() {
-    const zigZagTemplate = require('../templates/zigZag.pug');
+    const zigZagTemplate = require('./zigzag.pug');
     this.innerHTML = zigZagTemplate();
 
     this.counters = this.querySelectorAll('results-counter');

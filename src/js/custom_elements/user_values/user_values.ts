@@ -1,5 +1,5 @@
-import {ActivityLevel, Measurements, Sex, WeightGoal} from '../modules/Datasets';
-import {Formulas} from '../modules/Formulas';
+import {ActivityLevel, Measurements, Sex, WeightGoal} from '../../modules/Datasets';
+import {Formulas} from '../../modules/Formulas';
 
 interface UserMeasurements {
   activity: string,
@@ -146,7 +146,7 @@ export class UserValues extends HTMLElement {
       },
     };
 
-    const userValuesTemplate = require('../templates/userValues.pug');
+    const userValuesTemplate = require('./user_values.pug');
     this.innerHTML = userValuesTemplate({fields: fields});
   }
 
