@@ -1,3 +1,14 @@
+info-toggle
+  transition opacity transition-slow ease-out
+
+info-toggle:not([ready])
+  opacity 0
+  pointer-events none
+
+info-toggle[ready]
+  opacity 1
+  pointer-events auto
+
 .info-toggle
   margin 0 -.75rem 0 auto
 
