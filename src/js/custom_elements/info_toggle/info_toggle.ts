@@ -12,7 +12,7 @@ SVG_PATH.set('info', 'M12 0 C5.373 0 0 5.375 0 12 0 18.629 5.373 24 12 24 18.627
 /**
  * Custom element that toggles the visibility of its target element.
  */
-export class InfoToggle extends HTMLElement {
+class InfoToggle extends HTMLElement {
   private button: HTMLButtonElement;
   private isOpen: boolean;
   private targetEl: Element;
@@ -102,3 +102,5 @@ export class InfoToggle extends HTMLElement {
     this.button.innerHTML = html.replace(/\s\s/g, '');
   }
 }
+
+customElements.define('info-toggle', InfoToggle);

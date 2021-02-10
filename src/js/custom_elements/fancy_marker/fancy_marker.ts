@@ -10,7 +10,7 @@ enum CustomProperty {
  * Custom element that provides an active element with a visual marker that
  * animates from its previously active element to the current active element.
  */
-export class FancyMarker extends HTMLElement {
+class FancyMarker extends HTMLElement {
   private resizeListener: any;
 
   constructor() {
@@ -74,3 +74,5 @@ export class FancyMarker extends HTMLElement {
     this.style.setProperty(CustomProperty.WIDTH, `${targetEl.clientWidth / 16}rem`);
   }
 }
+
+customElements.define('fancy-marker', FancyMarker);

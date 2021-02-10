@@ -9,7 +9,7 @@ const WATCH_ATTR: string = 'watch';
 /**
  * Custom element that expands/collapses its target element.
  */
-export class Expandable extends HTMLElement {
+class Expandable extends HTMLElement {
   private buttonEl: HTMLElement;
   private hasSetup: boolean;
   private label: string;
@@ -155,3 +155,5 @@ export class Expandable extends HTMLElement {
     localStorage.setItem(EXPANDED_ATTR, String(expanded));
   }
 }
+
+customElements.define('app-expandable', Expandable);
