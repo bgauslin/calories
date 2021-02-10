@@ -1,18 +1,15 @@
 info-toggle
+  margin 0 -.75rem 0 auto
   transition opacity transition-slow ease-out
 
-info-toggle:not([ready])
-  opacity 0
-  pointer-events none
+  &[ready]
+    opacity 1
 
-info-toggle[ready]
-  opacity 1
-  pointer-events auto
+  &:not([ready])
+    opacity 0
+    pointer-events none
 
-.info-toggle
-  margin 0 -.75rem 0 auto
-
-.info-toggle__button
+info-toggle > button
   align-items center
   color var(--app-link)
   cursor pointer
@@ -22,19 +19,19 @@ info-toggle[ready]
   transition color transition, transform transition
   width button-width
 
-.info-toggle__button:focus
-.info-toggle__button:active
-[no-touch] .info-toggle__button:hover
-  color var(--app-link-active)
+  &:focus
+  &:active
+  [no-touch] &:hover
+    color var(--app-link-active)
 
-.info-toggle__button:active
-  transform scale(.8)
+  &:active
+    transform scale(.8)
 
-.info-toggle__icon
+info-toggle .icon
   flex 0 0
 
-.info-toggle__icon--info
-  flex-basis 1.25rem
+  &--info
+    flex-basis 1.25rem
 
-.info-toggle__icon--close
-  flex-basis 1.5rem
+  &--close
+    flex-basis 1.5rem

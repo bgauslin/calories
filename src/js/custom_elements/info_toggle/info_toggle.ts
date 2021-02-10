@@ -29,7 +29,7 @@ class InfoToggle extends HTMLElement {
 
   connectedCallback() {
     this.innerHTML += this.buttonTemplate();
-    this.button = this.querySelector('.info-toggle__button');    
+    this.button = this.querySelector('button');    
     this.button.innerHTML = this.iconTemplate({name: 'info'});
   }
 
@@ -48,7 +48,7 @@ class InfoToggle extends HTMLElement {
    */
   private handleClick(e: Event) {
     const eventTarget = e.target as HTMLInputElement;
-    if (eventTarget.classList.contains('info-toggle__button')) {
+    if (eventTarget === this.button) {
       // Open the info panel.
       if (!this.isOpen) {
         this.button.innerHTML = this.iconTemplate({name: 'close'});
