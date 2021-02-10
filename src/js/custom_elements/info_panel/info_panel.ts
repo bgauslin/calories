@@ -42,8 +42,7 @@ class InfoPanel extends HTMLElement {
       // Parse data and render it as HTML.
       const data = await response.json();
       const copy = data.data.calories[0].copy;
-      const html = `<div class="${this.className}__copy">${copy}</div>`;
-      this.innerHTML += html.replace(/\s\s/g, '');
+      this.innerHTML += `<div class="info-panel__copy">${copy}</div>`;
 
       // Let toggle know that the panel is ready.
       const targetEl = document.getElementById(this.getAttribute(TARGET_ATTR));

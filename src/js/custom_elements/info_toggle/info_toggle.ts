@@ -48,7 +48,7 @@ class InfoToggle extends HTMLElement {
    */
   private handleClick(e: Event) {
     const eventTarget = e.target as HTMLInputElement;
-    if (eventTarget.classList.contains(`${this.className}__button`)) {
+    if (eventTarget.classList.contains('info-toggle__button')) {
       // Open the info panel.
       if (!this.isOpen) {
         this.renderIcon_('close');
@@ -77,7 +77,7 @@ class InfoToggle extends HTMLElement {
   private renderButton() {
     this.innerHTML += `\
       <button \
-        class="${this.className}__button" \
+        class="info-toggle__button" \
         id="info-toggle" \
         aria-haspopup="true" \
         aria-controls="info-panel" \
@@ -85,7 +85,7 @@ class InfoToggle extends HTMLElement {
         ${ARIA_EXPANDED_ATTR}="false">\
       </button>\
     `;
-    this.button = this.querySelector(`.${this.className}__button`);
+    this.button = this.querySelector('.info-toggle__button');
   }
 
   /**
@@ -94,7 +94,7 @@ class InfoToggle extends HTMLElement {
   private renderIcon_(iconName: string) {
     const html = `\
       <svg \
-        class="${this.className}__icon ${this.className}__icon--${iconName}" \
+        class="info-toggle__icon info-toggle__icon--${iconName}" \
         viewbox="0 0 24 24" aria-hidden="true">\
         <path d="${SVG_PATH.get(iconName)}"/>\
       </svg>\

@@ -63,10 +63,14 @@ class Expandable extends HTMLElement {
         this.targetEl.setAttribute(ARIA_HIDDEN_ATTR, 'true');
       }
 
+      // TODO(expandable): Hard-code this.className values to coordinate with CSS.
       const buttonId = `${this.className}-button`;
       const html = `\
-        <button class="${this.className}__button" \
-          aria-controls="${this.targetEl.id}" id="${buttonId}"></button>`;
+        <button \
+          class="${this.className}__button" \
+          id="${buttonId}" \
+          aria-controls="${this.targetEl.id}">\
+        </button>`;
       this.innerHTML = html.replace(/\s\s/g, '');
       this.buttonEl = this.querySelector('button');
 
