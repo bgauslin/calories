@@ -1,5 +1,6 @@
 const ARIA_EXPANDED_ATTR: string = 'aria-expanded';
 const ARIA_HIDDEN_ATTR: string = 'aria-hidden';
+const BUTTON_ID: string = 'expandable-button';
 const EXPANDED_ATTR: string = 'expanded';
 const HIDDEN_ATTR: string = 'hidden';
 const LABEL_ATTR: string = 'label';
@@ -63,12 +64,10 @@ class Expandable extends HTMLElement {
         this.targetEl.setAttribute(ARIA_HIDDEN_ATTR, 'true');
       }
 
-      // TODO(expandable): Hard-code this.className values to coordinate with CSS.
-      const buttonId = `${this.className}-button`;
       const html = `\
         <button \
-          class="${this.className}__button" \
-          id="${buttonId}" \
+          class="expandable__button" \
+          id="${BUTTON_ID}" \
           aria-controls="${this.targetEl.id}">\
         </button>`;
       this.innerHTML = html.replace(/\s\s/g, '');
@@ -76,7 +75,7 @@ class Expandable extends HTMLElement {
 
       this.buttonEl.setAttribute(ARIA_EXPANDED_ATTR,
           String(this.hasAttribute(EXPANDED_ATTR)));
-      this.targetEl.setAttribute('aria-controlledby', buttonId);
+      this.targetEl.setAttribute('aria-controlledby', BUTTON_ID);
 
       this.toggleHidden();
       this.updateLabel();
