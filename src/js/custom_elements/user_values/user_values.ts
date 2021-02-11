@@ -89,7 +89,7 @@ class UserValues extends HTMLElement {
 
     // Create references to primary elements.
     this.formEl = this.querySelector('form');
-    this.resultsEl = this.querySelector('.results');
+    this.resultsEl = this.querySelector('results-counter');
 
     // If user data exists, update HTML on page load.
     if (this.storage) {
@@ -97,7 +97,7 @@ class UserValues extends HTMLElement {
     }
 
     // Focus first text input if it's empty.
-    const first = this.querySelector('[type=text]') as HTMLInputElement;
+    const first = this.querySelector('input[type=text]') as HTMLInputElement;
     if (!first.value.length) {
       first.focus();
     }
@@ -157,7 +157,7 @@ class UserValues extends HTMLElement {
   private populateInputs() {
     const stored = JSON.parse(this.storage);
     this.allFields.forEach((name) => {
-      const inputEls = this.querySelectorAll(`[name=${name}]`);
+      const inputEls = this.querySelectorAll(`input[name=${name}]`);
       inputEls.forEach((el: Element) => {
         const input = el as HTMLInputElement
         switch (input.type) {
@@ -288,7 +288,7 @@ class UserValues extends HTMLElement {
    */
   private handleKey(e: KeyboardEvent) {
     const target = e.target as HTMLElement;
-    const radio = target.querySelector('[type=radio]');
+    const radio = target.querySelector('input[type=radio]');
     if (radio && e.code === 'Enter') {
       target.click();
     }

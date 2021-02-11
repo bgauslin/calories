@@ -1,19 +1,20 @@
-.zig-zag
+zig-zag
   grid-area zig-zag
 
-.zig-zag > .expandable
+zig-zag > app-expandable
   margin 0 0 2rem
 
-.zig-zag__data
+zig-zag ul
   margin 0
   overflow hidden
+  padding 0
   transition height transition-slow ease-out, margin transition-slow ease-out
   will-change height
 
-.zig-zag__data[expanded]
-  margin 0 0 2rem
+  &[expanded]
+    margin-bottom 2rem
 
-.zig-zag__day
+zig-zag li
   background var(--marker-background)
   border-radius 0 4px 4px 0
   display flex
@@ -21,18 +22,15 @@
   padding .375rem .5rem
   transition background transition, color transition, width transition-slow ease-out
 
-// Bootstrap warning colors.
-.zig-zag__day.warning
+zig-zag .warning
   background #f8d7da
   color #721c24
 
-.zig-zag__day.warning .zig-zag__label
+zig-zag .warning > label
   opacity 1
 
-.zig-zag__label
+zig-zag label
+  flex 1
   margin-right .5rem
   opacity text-opacity
   transition opacity transition-slow ease-out
-
-.zig-zag__value
-  margin-left auto

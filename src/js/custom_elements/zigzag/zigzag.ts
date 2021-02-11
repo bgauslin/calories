@@ -45,7 +45,7 @@ class ZigZag extends HTMLElement {
     this.innerHTML = zigZagTemplate();
 
     this.counters = this.querySelectorAll('results-counter');
-    this.days = this.querySelectorAll('.zig-zag__day');
+    this.days = this.querySelectorAll('zig-zag li');
 
     this.hasSetup = true;
   }

@@ -1,2 +1,33 @@
 results-counter
   display block
+  opacity 1
+  visibility visible
+
+  &
+  &[hidden]
+    transition opacity transition
+
+  &[hidden]
+    opacity 0
+    visibility hidden
+
+results-counter[type=primary]
+  background -webkit-linear-gradient(brand-orange, brand-red)
+  -webkit-background-clip text
+  -webkit-text-fill-color transparent
+  font-size 300%
+  line-height 1
+  margin 2rem 0 0
+  padding 0 0 1.25rem
+  position relative
+  text-align center
+
+  &::after
+    background inherit
+    bottom 0
+    content 'average daily calories'
+    display block
+    font-size 1rem
+    line-height initial
+    position absolute
+    width 100%

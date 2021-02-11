@@ -1,10 +1,10 @@
 - const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
-.zig-zag__data(id="zig-zag")
+ul(id="zig-zag")
   each day, index in days
-    .zig-zag__day
-      .zig-zag__label #{days[index]}
-      results-counter(class="zig-zag__value")
+    li
+      label #{days[index]}
+      results-counter
 app-expandable.expandable(
   label="zig-zag calories"
   target="zig-zag"
