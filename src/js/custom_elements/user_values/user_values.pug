@@ -1,0 +1,50 @@
+mixin optionsGroup(field, modifier)
+  div(
+    class=modifier
+    disabled=field.disabled
+  )
+    h2(class=modifier) #{field.headingLabel}
+      if field.headingNote
+        span #{field.headingNote}
+    fancy-marker
+      ul(class=modifier)
+        each button, index in field.buttons
+          li(class=modifier)
+            label(
+              class=modifier
+              for=button.id
+              tabindex="0"
+            )
+              input(
+                type="radio"
+                name=field.name
+                id=button.id
+                value=button.value
+                tabindex="-1"
+                checked=(index === 0)
+              )
+              span #{button.label}
+
+mixin numberInputs(list, modifier)
+  ul(class=modifier)
+    each item in list
+      li(class=item.id)
+        label(
+          class=item.id
+          for=item.id
+        ) #{item.label}
+        input(
+          type="text"
+          name=item.name
+          id=item.id
+          inputmode=item.inputmode
+          pattern=item.pattern
+          required
+        )
+
+form
+  +optionsGroup(fields.sex, 'sex')
+  +numberInputs(fields.measurements, 'measurements')
+  +optionsGroup(fields.activityLevel, 'activity')
+  +optionsGroup(fields.weightGoal, 'goal')
+results-counter(id="results" type="primary")

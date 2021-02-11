@@ -5,7 +5,7 @@ const TARGET_ATTR: string = 'target';
  * Custom element that populates itself with data fetched from a
  * GraphQL endpoint.
  */
-export class InfoPanel extends HTMLElement {
+class InfoPanel extends HTMLElement {
   constructor() {
     super();
   }
@@ -41,9 +41,7 @@ export class InfoPanel extends HTMLElement {
       });
       // Parse data and render it as HTML.
       const data = await response.json();
-      const copy = data.data.calories[0].copy;
-      const html = `<div class="${this.className}__copy">${copy}</div>`;
-      this.innerHTML += html.replace(/\s\s/g, '');
+      this.innerHTML += data.data.calories[0].copy;
 
       // Let toggle know that the panel is ready.
       const targetEl = document.getElementById(this.getAttribute(TARGET_ATTR));
@@ -56,3 +54,5 @@ export class InfoPanel extends HTMLElement {
     }
   }
 }
+
+customElements.define('info-panel', InfoPanel);

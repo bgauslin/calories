@@ -1,4 +1,14 @@
-.results
+results-counter
+  display block
+  opacity 1
+  transition opacity transition
+  visibility visible
+
+results-counter[hidden]
+  opacity 0
+  visibility hidden
+
+results-counter[type=primary]
   background -webkit-linear-gradient(brand-orange, brand-red)
   -webkit-background-clip text
   -webkit-text-fill-color transparent
@@ -9,7 +19,7 @@
   position relative
   text-align center
 
-.results::after
+results-counter[type=primary]::after
   background inherit
   bottom 0
   content 'average daily calories'
@@ -18,15 +28,3 @@
   line-height initial
   position absolute
   width 100%
-
-.results[hidden]
-.results:not([hidden])
-  transition opacity transition
-
-.results[hidden]
-  opacity 0
-  visibility hidden
-
-.results:not([hidden])
-  opacity 1
-  visibility visible

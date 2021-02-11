@@ -1,4 +1,4 @@
-.footer
+footer
   align-items center
   color var(--text)
   display flex
@@ -9,17 +9,17 @@
   opacity text-opacity
   padding 0 0 env(safe-area-inset-bottom)
 
-.footer__years
+footer > span
   margin-right em(8)
 
-.footer__link
+footer > a
   link(var(--app-link), var(--app-link), var(--app-link-active), var(--app-link-active))
 
-.footer__link:focus
-[no-touch] .footer__link:hover
-  transition color transition
+  &:focus
+  [no-touch] &:hover
+    transition color transition
 
-.footer__blurb--repo::before
+footer > a:not(:first-of-type)::before
   content '·'
   display inline-block
   text-align center

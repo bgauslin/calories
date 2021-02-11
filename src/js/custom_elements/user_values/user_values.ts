@@ -1,6 +1,5 @@
-import {ActivityLevel, Measurements, Sex, WeightGoal} from '../modules/Datasets';
-import {Formulas} from '../modules/Formulas';
-import {Templates} from '../modules/Templates';
+import {ActivityLevel, Measurements, Sex, WeightGoal} from '../../modules/Datasets';
+import {Formulas} from '../../modules/Formulas';
 
 interface UserMeasurements {
   activity: string,
@@ -18,16 +17,13 @@ interface UserResults {
   tdeeMax: number,
 }
 
-const BASE_CLASSNAME: string = 'values';
 const DISABLED_ATTR: string = 'disabled';
 const HIDDEN_ATTR: string = 'hidden';
 const LOCAL_STORAGE: string = 'values';
-const RESULTS_CLASSNAME: string = 'results';
-const UNITS_ATTR: string = 'units';
 
 const DISABLED_ELEMENTS: string[] = [
-  '.values__group--activity',
-  '.values__group--goal',
+  'div.activity',
+  'div.goal',
 ];
 
 enum OptionsGroup {
@@ -41,27 +37,25 @@ enum OptionsGroup {
  * BMR and TDEE via user input, enables/disables a 'results' element based on
  * valid user input, and saves user-provided info to localStorage.
  */
-export class UserValues extends HTMLElement {
+class UserValues extends HTMLElement {
   private allFields: string[];
   private formEl: HTMLFormElement;
   private formulas: Formulas;
   private hasSetup: boolean;
   private resultsEl: HTMLElement;
   private storage: string;
-  private templates: Templates;
 
   constructor() {
     super();
     this.hasSetup = false;
     this.formulas = new Formulas();
-    this.templates = new Templates('values');
     this.storage = localStorage.getItem(LOCAL_STORAGE);
     this.addEventListener('change', this.update);
     this.addEventListener('keyup', this.handleKey);
   }
 
   static get observedAttributes(): string[] {
-    return [UNITS_ATTR];
+    return ['units'];
   }
 
   connectedCallback() {
@@ -91,11 +85,11 @@ export class UserValues extends HTMLElement {
     ];
 
     // Render HTML for input groups and results.
-    this.innerHTML = this.render();
+    this.render();
 
     // Create references to primary elements.
     this.formEl = this.querySelector('form');
-    this.resultsEl = this.querySelector(`.${RESULTS_CLASSNAME}`);
+    this.resultsEl = this.querySelector('results-counter');
 
     // If user data exists, update HTML on page load.
     if (this.storage) {
@@ -103,7 +97,7 @@ export class UserValues extends HTMLElement {
     }
 
     // Focus first text input if it's empty.
-    const first = this.querySelector('[type=text]') as HTMLInputElement;
+    const first = this.querySelector('input[type=text]') as HTMLInputElement;
     if (!first.value.length) {
       first.focus();
     }
@@ -125,43 +119,35 @@ export class UserValues extends HTMLElement {
   /**
    * Renders HTML for all input groups and results.
    */
-  private render(): string {
-    const html = `\
-      <form class="${BASE_CLASSNAME}__form">\
-        ${this.templates.optionsGroup({
-          buttons: Sex,
-          headingLabel: 'Sex',
-          modifier:  'sex',
-          name: OptionsGroup.SEX,
-        })}\
-        <div class="${BASE_CLASSNAME}__group ${BASE_CLASSNAME}__group--measurements">\
-          <ul class="${BASE_CLASSNAME}__list ${BASE_CLASSNAME}__list--measurements">\
-            ${this.templates.numberInputs(Measurements)}\
-          </ul>\
-        </div>\
-        ${this.templates.optionsGroup({
-          buttons: ActivityLevel,
-          disabled: true,
-          headingLabel: 'Exercise',
-          headingNote: 'times per week',
-          modifier: 'activity',
-          name: OptionsGroup.ACTIVITY,
-        })}\
-        ${this.templates.optionsGroup({
-          buttons: WeightGoal,
-          disabled: true,
-          headingLabel: 'Weight loss',
-          headingNote: 'lbs. per week',
-          modifier: 'goal',
-          name: OptionsGroup.GOAL,
-        })}\
-      </form>\
-      <results-counter \
-        class="${RESULTS_CLASSNAME}" \
-        id="results">\
-      </results-counter>\
-    `;
-    return html.replace(/\s\s/g, '');
+  private render() {
+    const fields = {
+      activityLevel: {
+        buttons: ActivityLevel,
+        disabled: true,
+        headingLabel: 'Exercise',
+        headingNote: 'times per week',
+        modifier: 'activity',
+        name: OptionsGroup.ACTIVITY,
+      },
+      measurements: Measurements,
+      sex: {
+        buttons: Sex,
+        headingLabel: 'Sex',
+        modifier:  'sex',
+        name: OptionsGroup.SEX,
+      },
+      weightGoal: {
+        buttons: WeightGoal,
+        disabled: true,
+        headingLabel: 'Weight loss',
+        headingNote: 'lbs. per week',
+        modifier: 'goal',
+        name: OptionsGroup.GOAL,
+      },
+    };
+
+    const userValuesTemplate = require('./user_values.pug');
+    this.innerHTML = userValuesTemplate({fields: fields});
   }
 
   /**
@@ -171,7 +157,7 @@ export class UserValues extends HTMLElement {
   private populateInputs() {
     const stored = JSON.parse(this.storage);
     this.allFields.forEach((name) => {
-      const inputEls = this.querySelectorAll(`[name=${name}]`);
+      const inputEls = this.querySelectorAll(`input[name=${name}]`);
       inputEls.forEach((el: Element) => {
         const input = el as HTMLInputElement
         switch (input.type) {
@@ -302,7 +288,7 @@ export class UserValues extends HTMLElement {
    */
   private handleKey(e: KeyboardEvent) {
     const target = e.target as HTMLElement;
-    const radio = target.querySelector('[type=radio]');
+    const radio = target.querySelector('input[type=radio]');
     if (radio && e.code === 'Enter') {
       target.click();
     }
@@ -321,3 +307,5 @@ export class UserValues extends HTMLElement {
     });
   }
 }
+
+customElements.define('user-values', UserValues);

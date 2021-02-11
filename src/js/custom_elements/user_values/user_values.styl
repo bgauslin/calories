@@ -1,0 +1,137 @@
+user-values
+  display block
+  grid-area user-values
+  margin 2rem 0
+
+user-values > form > div
+  margin 0 0 1rem
+  opacity 1
+  transition opacity transition
+
+  &[disabled]
+    opacity .3
+
+  &[disabled] *
+    pointer-events none !important
+
+  &[disabled] *:hover
+    cursor default !important
+
+  &.sex
+    margin-bottom 1.5rem
+
+user-values h2
+  display flex
+  font-size 1rem
+  margin 0 0 .5rem
+
+  // Pull 'Sex' heading out of the viewport since its options make this obvious.
+  &.sex
+    left -100vw
+    position absolute
+
+  & > span
+    margin-left auto
+    opacity text-opacity
+
+user-values ul
+user-values li
+  align-items center
+  display flex
+  padding 0
+
+user-values ul
+  margin 0
+
+  &.measurements
+    flex-wrap wrap
+    margin-bottom .5rem
+
+user-values li
+  margin 0 0 .75rem
+
+  &.weight
+  &.age
+    flex 0 0 100%
+
+  &.activity
+  &.goal
+  &.sex
+    flex 1
+    height input-height
+    margin 0
+
+  &.feet::before
+    content 'Height'
+    width 4.5rem // TODO: Update with a constant.
+
+  &.weight::after
+  &.age::after
+    margin-left .5em
+    opacity text-opacity
+    pointer-events none
+
+  &.weight::after
+    content 'lbs.'
+
+  &.age::after
+    content 'yrs.'
+
+user-values label
+  display flex
+
+  &:focus
+    outline none
+
+  [no-touch] &:hover
+    cursor pointer
+
+  &:focus > span
+  [no-touch] &:hover > span
+    opacity 1
+    transform scale(1.1)
+
+  &.activity
+  &.goal
+  &.sex
+    height 100%
+    padding 0 1rem
+    width 100%
+
+  &.feet
+  &.inches
+    margin 0 1rem 0 .5rem
+    opacity text-opacity
+    order 2
+    text-transform lowercase
+
+  &.age
+  &.weight
+    width 4.5rem // TODO: Update with a constant.
+
+user-values label > span
+  transition opacity transition, transform transition
+
+user-values input[type=text]
+  background var(--field-background)
+  border 2px solid var(--background)
+  border-radius 6px
+  box-sizing content-box
+  color var(--text)
+  font-size 1em
+  height input-height
+  padding 0 .5rem
+  text-align right
+  width 3rem
+
+user-values input[type=radio] + span
+  align-items center
+  border-radius 2px
+  display flex
+  justify-content center
+  opacity text-opacity
+  pointer-events none
+  width 100%
+
+  &:checked + span
+    opacity 1

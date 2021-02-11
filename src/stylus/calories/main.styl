@@ -1,6 +1,6 @@
-.content
+main
   display grid
-  grid-area content
+  grid-area main
   grid-template-areas 'user-values'\
                       'zig-zag'
   grid-template-columns 1fr
@@ -9,3 +9,13 @@
   max-width content-max-width
   padding 0 var(--site-padding-x)
   width 100%
+
+[no-js] main
+  align-items center
+  grid-template-rows 1fr
+  text-align center
+
+[no-js] info-panel
+[no-js] user-values
+[no-js] zig-zag
+  display none
