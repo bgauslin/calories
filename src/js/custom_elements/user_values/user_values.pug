@@ -7,9 +7,9 @@ mixin optionsGroup(field, modifier)
       if field.headingNote
         span #{field.headingNote}
     fancy-marker
-      ul(class=modifier)
+      ul
         each button, index in field.buttons
-          li(class=modifier)
+          li
             label(
               class=modifier
               for=button.id
@@ -27,7 +27,7 @@ mixin optionsGroup(field, modifier)
 
 mixin numberInputs(list, modifier)
   fieldset(id=modifier)
-    ul(class=modifier)
+    ul
       each item in list
         li(class=item.id)
           label(

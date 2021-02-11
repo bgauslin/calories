@@ -44,8 +44,8 @@ user-values li
 user-values ul
   margin 0
 
-  &.measurements
-    flex-wrap wrap
+user-values #measurements ul
+  flex-wrap wrap
 
 user-values li
   margin 0 0 .75rem
@@ -53,13 +53,6 @@ user-values li
   &.weight
   &.age
     flex 0 0 100%
-
-  &.activity
-  &.goal
-  &.sex
-    flex 1
-    height input-height
-    margin 0
 
   &.feet::before
     content 'Height'
@@ -76,6 +69,14 @@ user-values li
 
   &.age::after
     content 'yrs.'
+
+user-values
+  #activity li
+  #goal li
+  #sex li
+    flex 1
+    height input-height
+    margin 0
 
 user-values label
   display flex
