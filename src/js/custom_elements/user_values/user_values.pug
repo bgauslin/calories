@@ -3,7 +3,7 @@ mixin optionsGroup(field, modifier)
     id=modifier
     disabled=field.disabled
   )
-    h2(class=modifier) #{field.headingLabel}
+    h2= field.headingLabel
       if field.headingNote
         span #{field.headingNote}
     fancy-marker
