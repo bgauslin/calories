@@ -3,11 +3,10 @@ user-values
   grid-area user-values
   margin 2rem 0
 
-user-values .group
+user-values > form > div
   margin 0 0 1rem
-
-  &[disabled]
-    transition opacity transition
+  opacity 1
+  transition opacity transition
 
   &[disabled]
     opacity .3
@@ -18,14 +17,10 @@ user-values .group
   &[disabled] *:hover
     cursor default !important
 
-  &:not([disabled])
-    opacity 1
-    pointer-events auto
-
-  &--sex
+  &.sex
     margin-bottom 1.5rem
 
-  &--measurements
+  &.measurements
     margin-bottom .5rem
 
 user-values h2
