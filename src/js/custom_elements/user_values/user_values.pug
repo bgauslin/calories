@@ -1,6 +1,6 @@
 mixin optionsGroup(field, modifier)
-  div(
-    class=modifier
+  fieldset(
+    id=modifier
     disabled=field.disabled
   )
     h2(class=modifier) #{field.headingLabel}
@@ -26,21 +26,22 @@ mixin optionsGroup(field, modifier)
               span #{button.label}
 
 mixin numberInputs(list, modifier)
-  ul(class=modifier)
-    each item in list
-      li(class=item.id)
-        label(
-          class=item.id
-          for=item.id
-        ) #{item.label}
-        input(
-          type="text"
-          name=item.name
-          id=item.id
-          inputmode=item.inputmode
-          pattern=item.pattern
-          required
-        )
+  fieldset(id=modifier)
+    ul(class=modifier)
+      each item in list
+        li(class=item.id)
+          label(
+            class=item.id
+            for=item.id
+          ) #{item.label}
+          input(
+            type="text"
+            name=item.name
+            id=item.id
+            inputmode=item.inputmode
+            pattern=item.pattern
+            required
+          )
 
 form
   +optionsGroup(fields.sex, 'sex')

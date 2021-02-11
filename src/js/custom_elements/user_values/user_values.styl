@@ -3,22 +3,23 @@ user-values
   grid-area user-values
   margin 2rem 0
 
-user-values > form > div
+user-values fieldset
+  border 0
   margin 0 0 1rem
   opacity 1
+  padding 0
   transition opacity transition
 
   &[disabled]
     opacity .3
+    pointer-events none
 
-  &[disabled] *
-    pointer-events none !important
+// Tweak a few <fieldset> layouts based on their content.
+user-values #sex
+  margin-bottom 1.5rem
 
-  &[disabled] *:hover
-    cursor default !important
-
-  &.sex
-    margin-bottom 1.5rem
+user-values #measurements
+  margin-bottom .5rem
 
 user-values h2
   display flex
@@ -45,7 +46,6 @@ user-values ul
 
   &.measurements
     flex-wrap wrap
-    margin-bottom .5rem
 
 user-values li
   margin 0 0 .75rem
@@ -124,14 +124,15 @@ user-values input[type=text]
   text-align right
   width 3rem
 
-user-values input[type=radio] + span
-  align-items center
-  border-radius 2px
-  display flex
-  justify-content center
-  opacity text-opacity
-  pointer-events none
-  width 100%
+user-values input[type=radio]
+  & + span
+    align-items center
+    border-radius 2px
+    display flex
+    justify-content center
+    opacity text-opacity
+    pointer-events none
+    width 100%
 
   &:checked + span
     opacity 1

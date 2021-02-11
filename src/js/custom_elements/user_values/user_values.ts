@@ -22,8 +22,8 @@ const HIDDEN_ATTR: string = 'hidden';
 const LOCAL_STORAGE: string = 'values';
 
 const DISABLED_ELEMENTS: string[] = [
-  'div.activity',
-  'div.goal',
+  '#activity',
+  '#goal',
 ];
 
 enum OptionsGroup {
@@ -203,10 +203,10 @@ class UserValues extends HTMLElement {
     this.allFields.forEach((name) => values[name] = formData.get(name));
 
     return {
-      activity: values['activity'],
+      activity: values['activity'] || '0',
       age: Number(values['age']),
       feet: Number(values['feet']),
-      goal: values['goal'],
+      goal: values['goal'] || '0',
       inches: Number(values['inches']),
       sex: values['sex'],
       weight: values['weight'],
