@@ -1,11 +1,5 @@
 const INIT_ATTR: string = 'init';
 
-enum CustomProperty {
-  HEIGHT = '--marker-height',
-  LEFT = '--marker-left',
-  WIDTH = '--marker-width',
-}
-
 /**
  * Custom element that provides an active element with a visual marker that
  * animates from its previously active element to the current active element.
@@ -41,7 +35,7 @@ class FancyMarker extends HTMLElement {
    * Creates and injects a marker element into the DOM.
    */
   private renderMarker() {
-    const marker = document.createElement('div');
+    const marker = document.createElement('span');
     marker.classList.add('marker');
     this.appendChild(marker);
   }
@@ -69,9 +63,9 @@ class FancyMarker extends HTMLElement {
     const height = targetEl.clientHeight;
 
     // Update custom properties and let the CSS take over.
-    this.style.setProperty(CustomProperty.HEIGHT, `${height / 16}rem`);
-    this.style.setProperty(CustomProperty.LEFT, `${leftPos / 16}rem`);
-    this.style.setProperty(CustomProperty.WIDTH, `${targetEl.clientWidth / 16}rem`);
+    this.style.setProperty('--height', `${height / 16}rem`);
+    this.style.setProperty('--left', `${leftPos / 16}rem`);
+    this.style.setProperty('--width', `${targetEl.clientWidth / 16}rem`);
   }
 }
 
