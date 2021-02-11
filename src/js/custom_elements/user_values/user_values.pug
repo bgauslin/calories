@@ -16,7 +16,6 @@ mixin optionsGroup(field, modifier)
               tabindex="0"
             )
               input(
-                class=['values__input', 'values__input--radio', `values__input--${modifier}`]
                 type="radio"
                 name=field.name
                 id=button.id
@@ -36,13 +35,11 @@ mixin numberInputs(list, modifier)
             for=item.id
           ) #{item.label}
           input(
-            class=['values__input', 'values__input--text', `values__input--${item.id}`]
             type="text"
             name=item.name
             id=item.id
             inputmode=item.inputmode
             pattern=item.pattern
-            aria-label=item.label
             required
           )
 

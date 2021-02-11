@@ -111,6 +111,29 @@ user-values label
   &.weight
     width 4.5rem // TODO: Update with a constant.
 
-// Radio button label captions.
 user-values label > span
   transition opacity transition, transform transition
+
+user-values input[type=text]
+  background var(--field-background)
+  border 2px solid var(--background)
+  border-radius 6px
+  box-sizing content-box
+  color var(--text)
+  font-size 1em
+  height input-height
+  padding 0 .5rem
+  text-align right
+  width 3rem
+
+user-values input[type=radio] + span
+  align-items center
+  border-radius 2px
+  display flex
+  justify-content center
+  opacity text-opacity
+  pointer-events none
+  width 100%
+
+  &:checked + span
+    opacity 1
