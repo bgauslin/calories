@@ -3,9 +3,9 @@ mixin optionsGroup(field, modifier)
     class=['group', `group--${modifier}`]
     disabled=field.disabled
   )
-    h4(class=['values__heading', `values__heading--${modifier}`]) #{field.headingLabel}
+    h2(class=modifier) #{field.headingLabel}
       if field.headingNote
-        span.values__heading__note #{field.headingNote}
+        span #{field.headingNote}
     fancy-marker
       ul(class=modifier)
         each button, index in field.buttons

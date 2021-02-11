@@ -1,17 +1,3 @@
-// Headings.
-.values__heading
-  display flex
-  margin 0 0 .5rem
-
-// Pull 'Sex' heading out of the viewport since its options make this obvious.
-.values__heading--sex
-  left -100vw
-  position absolute
-
-.values__heading__note
-  margin-left auto
-  opacity text-opacity
-
 // Labels.
 .values__label
   display flex
@@ -41,10 +27,9 @@
   order 2
   text-transform lowercase
 
-user-values .item--feet::before
 .values__label--age
 .values__label--weight
-  width 4.5rem
+  width 4.5rem // TODO: Update with a constant.
 
 // Text inputs.
 .values__input--text

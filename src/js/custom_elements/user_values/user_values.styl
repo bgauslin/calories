@@ -28,8 +28,19 @@ user-values .group
   &--measurements
     margin-bottom .5rem
 
-// -----------------------------------------------------------------------------
-// Lists.
+user-values h2
+  display flex
+  font-size 1rem
+  margin 0 0 .5rem
+
+  // Pull 'Sex' heading out of the viewport since its options make this obvious.
+  &.sex
+    left -100vw
+    position absolute
+
+  & > span
+    margin-left auto
+    opacity text-opacity
 
 user-values ul
 user-values li
@@ -52,6 +63,7 @@ user-values li
 
   &.feet::before
     content 'Height'
+    width 4.5rem // TODO: Update with a constant.
 
   &.activity
   &.goal
