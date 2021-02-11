@@ -7,9 +7,9 @@ mixin optionsGroup(field, modifier)
       if field.headingNote
         span.values__heading__note #{field.headingNote}
     fancy-marker
-      ul(class=['list', `list--${modifier}`])
+      ul(class=modifier)
         each button, index in field.buttons
-          li(class=['item', `item--${modifier}`])
+          li(class=modifier)
             label(
               class=['values__label', `values__label--${modifier}`]
               for=button.id
@@ -28,9 +28,9 @@ mixin optionsGroup(field, modifier)
 
 mixin numberInputs(list, modifier)
   div(class=['group', `group--${modifier}`])
-    ul(class=['list', `list--${modifier}`])
+    ul(class=modifier)
       each item in list
-        li(class=['item', `item--${item.id}`])
+        li(class=item.id)
           label(
             class=['values__label', `values__label--${item.id}`]
             for=item.id
@@ -46,7 +46,7 @@ mixin numberInputs(list, modifier)
             required
           )
 
-form.values__form
+form
   +optionsGroup(fields.sex, 'sex')
   +numberInputs(fields.measurements, 'measurements')
   +optionsGroup(fields.activityLevel, 'activity')

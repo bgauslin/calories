@@ -31,32 +31,31 @@ user-values .group
 // -----------------------------------------------------------------------------
 // Lists.
 
-user-values .list
-user-values .item
+user-values ul
+user-values li
   align-items center
   display flex
   padding 0
 
-user-values .list
+user-values ul
   margin 0
 
-user-values .list--measurements
-  flex-wrap wrap
+  &.measurements
+    flex-wrap wrap
 
-// Items.
-user-values .item
+user-values li
   margin 0 0 .75rem
 
-user-values .item--weight
-user-values .item--age
-  flex 0 0 100%
+  &.weight
+  &.age
+    flex 0 0 100%
 
-user-values .item--feet::before
-  content 'Height'
+  &.feet::before
+    content 'Height'
 
-user-values .item--activity
-user-values .item--goal
-user-values .item--sex
-  flex 1
-  height input-height
-  margin 0
+  &.activity
+  &.goal
+  &.sex
+    flex 1
+    height input-height
+    margin 0
