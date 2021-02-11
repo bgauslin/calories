@@ -11,7 +11,6 @@ const WATCH_ATTR: string = 'watch';
  * Custom element that expands/collapses its target element.
  */
 class Expandable extends HTMLElement {
-  private buttonEl: HTMLElement;
   private hasSetup: boolean;
   private label: string;
   private observer: MutationObserver;
@@ -64,16 +63,10 @@ class Expandable extends HTMLElement {
         this.targetEl.setAttribute(ARIA_HIDDEN_ATTR, 'true');
       }
 
-      const html = `\
-        <button \
-          class="expandable__button" \
-          id="${BUTTON_ID}" \
-          aria-controls="${this.targetEl.id}">\
-        </button>`;
-      this.innerHTML = html.replace(/\s\s/g, '');
-      this.buttonEl = this.querySelector('button');
-
-      this.buttonEl.setAttribute(ARIA_EXPANDED_ATTR,
+      this.id = BUTTON_ID;
+      this.setAttribute('role', 'button');
+      this.setAttribute('aria-controls', this.targetEl.id);
+      this.setAttribute(ARIA_EXPANDED_ATTR,
           String(this.hasAttribute(EXPANDED_ATTR)));
       this.targetEl.setAttribute('aria-controlledby', BUTTON_ID);
 
@@ -103,17 +96,14 @@ class Expandable extends HTMLElement {
   /**
    * Toggles attribute which triggers the attributeChanged callback.
    */
-  private toggleExpanded(e: Event) {
-    const target = e.target as Element;
-    if (target.tagName.toLowerCase() === 'button') {
-      if (this.hasAttribute(EXPANDED_ATTR)) {
-        this.removeAttribute(EXPANDED_ATTR);
-      } else {
-        this.setAttribute(EXPANDED_ATTR, '');
-      }
-      target.setAttribute(ARIA_EXPANDED_ATTR,
-          String(this.hasAttribute(EXPANDED_ATTR)));
+  private toggleExpanded() {
+    if (this.hasAttribute(EXPANDED_ATTR)) {
+      this.removeAttribute(EXPANDED_ATTR);
+    } else {
+      this.setAttribute(EXPANDED_ATTR, '');
     }
+    this.setAttribute(ARIA_EXPANDED_ATTR,
+      String(this.hasAttribute(EXPANDED_ATTR)));
   }
 
   /**
@@ -154,7 +144,7 @@ class Expandable extends HTMLElement {
   private updateLabel() {
     const expanded = this.hasAttribute(EXPANDED_ATTR);
     const prefix = expanded ? 'Hide' : 'Show';
-    this.buttonEl.textContent = `${prefix} ${this.label}`;
+    this.textContent = `${prefix} ${this.label}`;
     localStorage.setItem(EXPANDED_ATTR, String(expanded));
   }
 }

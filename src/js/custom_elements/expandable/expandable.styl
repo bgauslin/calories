@@ -1,52 +1,41 @@
-.expandable
-  display flex
-  justify-content center
-  opacity 1
-  transition opacity transition ease-out
-
-.expandable[hidden]
-.expandable:not([hidden])
-  transition opacity transition
-
-.expandable[hidden]
-  opacity 0
-  pointer-events none
-  visibility hidden
-
-.expandable:not([hidden])
-  opacity 1
-  visibility visible
-
-// [1] Knockout color = theme's body background.
-.expandable__button
+app-expandable
   webfont(600)
   align-items center
   background var(--marker-canvas-background)
   border-radius (button-height / 2)
   color var(--text)
+  cursor pointer
   display flex
   font-size em(14)
   height button-height
   line-height 1
+  margin auto
+  opacity 1
   padding 0 0 0 rem(20)
+  transition opacity transition ease-out
+  visibility visible
   white-space nowrap
   width rem(210)
 
-[no-touch] .expandable__button
-  transition background transition, color transition
+  &[hidden]
+    opacity 0
+    pointer-events none
+    visibility hidden
 
-.expandable__button:focus
-.expandable__button:active
-[no-touch] .expandable__button:hover
-  background var(--marker-background)
-  cursor pointer
+  &:focus
+  &:active
+  [no-touch] &:hover
+    background var(--marker-background)
 
-.expandable__button::before
-  css-triangle(var(--text), 5px, 'down')
-  content ''
-  display inline-block
-  margin-right rem(8)
-  transition transform transition
+  &::before
+    css-triangle(var(--text), 5px, 'down')
+    content ''
+    display inline-block
+    margin-right rem(8)
+    transition transform transition
 
-.expandable[expanded] > .expandable__button::before
-  transform rotate(-180deg)
+  &[expanded]::before
+    transform rotate(-180deg)
+
+  [no-touch] &
+    transition background transition, color transition
