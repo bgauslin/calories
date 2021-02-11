@@ -70,6 +70,7 @@ user-values li
   &.age::after
     content 'yrs.'
 
+// List item layout overrides per fieldset.
 user-values
   #activity li
   #goal li
@@ -92,23 +93,25 @@ user-values label
     opacity 1
     transform scale(1.1)
 
-  &.activity
-  &.goal
-  &.sex
-    height 100%
-    padding 0 1rem
-    width 100%
-
-  &.feet
-  &.inches
+  &[for=feet]
+  &[for=inches]
     margin 0 1rem 0 .5rem
     opacity text-opacity
     order 2
     text-transform lowercase
 
-  &.age
-  &.weight
+  &[for=age]
+  &[for=weight]
     width 4.5rem // TODO: Update with a constant.
+
+// Label layout overrides per fieldset.
+user-values
+  #activity label
+  #goal label
+  #sex label
+    height 100%
+    padding 0 1rem
+    width 100%
 
 user-values label > span
   transition opacity transition, transform transition

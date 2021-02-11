@@ -11,7 +11,6 @@ mixin optionsGroup(field, modifier)
         each button, index in field.buttons
           li
             label(
-              class=modifier
               for=button.id
               tabindex="0"
             )
@@ -30,10 +29,7 @@ mixin numberInputs(list, modifier)
     ul
       each item in list
         li(class=item.id)
-          label(
-            class=item.id
-            for=item.id
-          ) #{item.label}
+          label(for=item.id)= item.label
           input(
             type="text"
             name=item.name
