@@ -1,9 +1,9 @@
 const ARIA_EXPANDED_ATTR: string = 'aria-expanded';
 const ARIA_HIDDEN_ATTR: string = 'aria-hidden';
 const BUTTON_ID: string = 'expandable-button';
-const EXPANDED_ATTR: string = 'expanded';
 const HIDDEN_ATTR: string = 'hidden';
 const LABEL_ATTR: string = 'label';
+const STORAGE_ITEM: string = 'expanded';
 const TARGET_ATTR: string = 'target';
 const WATCH_ATTR: string = 'watch';
 
@@ -25,11 +25,11 @@ class Expandable extends HTMLElement {
   }
 
   static get observedAttributes(): string[] {
-    return [EXPANDED_ATTR];
+    return [ARIA_EXPANDED_ATTR];
   }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
-    const direction = (newValue === '') ? 'expand' : 'collapse';
+    const direction = (newValue === 'true') ? 'expand' : 'collapse';
     this.expandCollapse(direction);
   }
 
@@ -54,20 +54,19 @@ class Expandable extends HTMLElement {
     if (this.label && this.targetEl && this.watchEl) {
       this.observer.observe(this.watchEl, {attributes: true});
 
-      if (localStorage.getItem(EXPANDED_ATTR) === 'true') {
-        this.setAttribute(EXPANDED_ATTR, '');
-        this.targetEl.setAttribute(EXPANDED_ATTR, '');
+      if (localStorage.getItem(STORAGE_ITEM) === 'true') {
+        [this, this.targetEl].forEach((element) => {
+          element.setAttribute(ARIA_EXPANDED_ATTR, 'true');
+        });
       } else {
         this.targetEl.style.height = '0';
-        this.targetEl.removeAttribute(EXPANDED_ATTR);
+        this.targetEl.setAttribute(ARIA_EXPANDED_ATTR, 'false');
         this.targetEl.setAttribute(ARIA_HIDDEN_ATTR, 'true');
       }
 
       this.id = BUTTON_ID;
       this.setAttribute('role', 'button');
       this.setAttribute('aria-controls', this.targetEl.id);
-      this.setAttribute(ARIA_EXPANDED_ATTR,
-          String(this.hasAttribute(EXPANDED_ATTR)));
       this.targetEl.setAttribute('aria-controlledby', BUTTON_ID);
 
       this.toggleHidden();
@@ -97,13 +96,8 @@ class Expandable extends HTMLElement {
    * Toggles attribute which triggers the attributeChanged callback.
    */
   private toggleExpanded() {
-    if (this.hasAttribute(EXPANDED_ATTR)) {
-      this.removeAttribute(EXPANDED_ATTR);
-    } else {
-      this.setAttribute(EXPANDED_ATTR, '');
-    }
-    this.setAttribute(ARIA_EXPANDED_ATTR,
-      String(this.hasAttribute(EXPANDED_ATTR)));
+    const expanded = this.getAttribute(ARIA_EXPANDED_ATTR) === 'true';
+    this.setAttribute(ARIA_EXPANDED_ATTR, String(!expanded));
   }
 
   /**
@@ -117,15 +111,15 @@ class Expandable extends HTMLElement {
     const elHeight = this.targetEl.scrollHeight;
 
     if (action === 'expand') {
-      this.targetEl.setAttribute(EXPANDED_ATTR, '');
       this.targetEl.removeAttribute(ARIA_HIDDEN_ATTR);
+      this.targetEl.setAttribute(ARIA_EXPANDED_ATTR, 'true');
       this.targetEl.style.height = `${elHeight / 16}rem`;
       this.targetEl.addEventListener('transitionend', () => {
         this.targetEl.style.height = null;
       }, {once: true});
 
     } else {
-      this.targetEl.removeAttribute(EXPANDED_ATTR);
+      this.targetEl.setAttribute(ARIA_EXPANDED_ATTR, 'false');
       this.targetEl.setAttribute(ARIA_HIDDEN_ATTR, 'true');
       window.requestAnimationFrame(() => {
         this.targetEl.style.height = `${elHeight / 16}rem`;
@@ -142,10 +136,10 @@ class Expandable extends HTMLElement {
    * Updates label text based on whether the element is expanded or collapsed.
    */
   private updateLabel() {
-    const expanded = this.hasAttribute(EXPANDED_ATTR);
+    const expanded = this.getAttribute(ARIA_EXPANDED_ATTR) === 'true';
     const prefix = expanded ? 'Hide' : 'Show';
     this.textContent = `${prefix} ${this.label}`;
-    localStorage.setItem(EXPANDED_ATTR, String(expanded));
+    localStorage.setItem(STORAGE_ITEM, String(expanded));
   }
 }
 
