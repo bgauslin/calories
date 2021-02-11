@@ -2,3 +2,61 @@ user-values
   display block
   grid-area user-values
   margin 2rem 0
+
+user-values .group
+  margin 0 0 1rem
+
+  &[disabled]
+    transition opacity transition
+
+  &[disabled]
+    opacity .3
+
+  &[disabled] *
+    pointer-events none !important
+
+  &[disabled] *:hover
+    cursor default !important
+
+  &:not([disabled])
+    opacity 1
+    pointer-events auto
+
+  &--sex
+    margin-bottom 1.5rem
+
+  &--measurements
+    margin-bottom .5rem
+
+// -----------------------------------------------------------------------------
+// Lists.
+
+user-values .list
+user-values .item
+  align-items center
+  display flex
+  padding 0
+
+user-values .list
+  margin 0
+
+user-values .list--measurements
+  flex-wrap wrap
+
+// Items.
+user-values .item
+  margin 0 0 .75rem
+
+user-values .item--weight
+user-values .item--age
+  flex 0 0 100%
+
+user-values .item--feet::before
+  content 'Height'
+
+user-values .item--activity
+user-values .item--goal
+user-values .item--sex
+  flex 1
+  height input-height
+  margin 0

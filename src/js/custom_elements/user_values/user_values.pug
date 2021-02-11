@@ -1,15 +1,15 @@
 mixin optionsGroup(field, modifier)
   div(
-    class=['values__group', `values__group--${modifier}`]
+    class=['group', `group--${modifier}`]
     disabled=field.disabled
   )
     h4(class=['values__heading', `values__heading--${modifier}`]) #{field.headingLabel}
       if field.headingNote
         span.values__heading__note #{field.headingNote}
     fancy-marker
-      ul(class=['values__list', `values__list--${modifier}`])
+      ul(class=['list', `list--${modifier}`])
         each button, index in field.buttons
-          li(class=['values__item', `values__item--${modifier}`])
+          li(class=['item', `item--${modifier}`])
             label(
               class=['values__label', `values__label--${modifier}`]
               for=button.id
@@ -27,10 +27,10 @@ mixin optionsGroup(field, modifier)
               span.values__label__caption #{button.label}
 
 mixin numberInputs(list, modifier)
-  div(class=['values__group', `values__group--${modifier}`])
-    ul(class=['values__list', `values__list--${modifier}`])
+  div(class=['group', `group--${modifier}`])
+    ul(class=['list', `list--${modifier}`])
       each item in list
-        li(class=['values__item', `values__item--${item.id}`])
+        li(class=['item', `item--${item.id}`])
           label(
             class=['values__label', `values__label--${item.id}`]
             for=item.id

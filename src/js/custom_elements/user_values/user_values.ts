@@ -22,8 +22,8 @@ const HIDDEN_ATTR: string = 'hidden';
 const LOCAL_STORAGE: string = 'values';
 
 const DISABLED_ELEMENTS: string[] = [
-  '.values__group--activity',
-  '.values__group--goal',
+  '.group--activity',
+  '.group--goal',
 ];
 
 enum OptionsGroup {
