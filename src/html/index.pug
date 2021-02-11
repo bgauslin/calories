@@ -1,5 +1,4 @@
 - const title = "Calorie Calculator"
-- const description = "Progressive web app for calculating daily calorie needs"
 
 doctype html
 html(lang="en")
@@ -7,7 +6,7 @@ html(lang="en")
     title= title
     meta(charset="utf-8")
     meta(name="apple-mobile-web-app-capable" content="yes")
-    meta(name="description" content=description)    
+    meta(name="description" content="Progressive web app for calculating daily calorie needs")    
     meta(name="theme-color" content="#b22222")
     meta(name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover")
     link(rel="apple-touch-icon" href="/apple-touch-icon.png")
@@ -16,30 +15,28 @@ html(lang="en")
     link(rel="preload" href="https://assets.gauslin.com/fonts/AvenirNext-Variable.woff2" as="font" type="font/woff2" crossorigin="crossorigin")
   body(no-touch no-js)
     calories-app.app
-      header.header
-        div.header__frame
-          h1.header__title= title
+      header
+        div
+          h1= title
           info-toggle#info-toggle(target="info-panel")
-      main.content
+      main
         noscript Please <a href="https://www.enable-javascript.com/" title="How to enable JavaScript in your browser">enable JavaScript</a> to view this app.
         user-values.values(units="imperial")
         zig-zag
         info-panel#info-panel(target="info-toggle" aria-labelledby="info-toggle" hidden)
-      footer.footer
-        p.footer__blurb.footer__blurb--copyright
-          span.footer__years © 2020
-          a.footer__link(
-            href="https://gauslin.com",
-            title="Visit Ben Gauslin’s Website",
-            target="_blank",
-            rel="noopener",
-          ) Ben Gauslin
-        p.footer__blurb.footer__blurb--repo
-          a.footer__link(
-            href="https://github.com/bgauslin/calories",
-            title="View source code on GitHub",
-            target="_blank",
-            rel="noopener",
-          ) GitHub
+      footer
+        span © 2020
+        a(
+          href="https://gauslin.com",
+          title="Visit Ben Gauslin’s Website",
+          target="_blank",
+          rel="noopener",
+        ) Ben Gauslin
+        a(
+          href="https://github.com/bgauslin/calories",
+          title="View source code on GitHub",
+          target="_blank",
+          rel="noopener",
+        ) GitHub
     if (process.env.NODE_ENV === 'development')
       script(src="https://css.gauslin.com/debugger.js" data-src="/breakpoints.json")
