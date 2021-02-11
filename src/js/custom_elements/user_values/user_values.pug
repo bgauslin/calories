@@ -7,22 +7,20 @@ mixin optionsGroup(field, modifier)
       if field.headingNote
         span #{field.headingNote}
     fancy-marker
-      ul
-        each button, index in field.buttons
-          li
-            label(
-              for=button.id
-              tabindex="0"
-            )
-              input(
-                type="radio"
-                name=field.name
-                id=button.id
-                value=button.value
-                tabindex="-1"
-                checked=(index === 0)
-              )
-              span #{button.label}
+      each button, index in field.buttons
+        label(
+          for=button.id
+          tabindex="0"
+        )
+          input(
+            type="radio"
+            name=field.name
+            id=button.id
+            value=button.value
+            tabindex="-1"
+            checked=(index === 0)
+          )
+          span #{button.label}
 
 mixin numberInputs(list, modifier)
   fieldset(id=modifier)
