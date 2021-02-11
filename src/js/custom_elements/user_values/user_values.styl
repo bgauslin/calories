@@ -56,13 +56,61 @@ user-values li
   &.age
     flex 0 0 100%
 
-  &.feet::before
-    content 'Height'
-    width 4.5rem // TODO: Update with a constant.
-
   &.activity
   &.goal
   &.sex
     flex 1
     height input-height
     margin 0
+
+  &.feet::before
+    content 'Height'
+    width 4.5rem // TODO: Update with a constant.
+
+  &.weight::after
+  &.age::after
+    margin-left .5em
+    opacity text-opacity
+    pointer-events none
+
+  &.weight::after
+    content 'lbs.'
+
+  &.age::after
+    content 'yrs.'
+
+user-values label
+  display flex
+
+  &:focus
+    outline none
+
+  [no-touch] &:hover
+    cursor pointer
+
+  &:focus > span
+  [no-touch] &:hover > span
+    opacity 1
+    transform scale(1.1)
+
+  &.activity
+  &.goal
+  &.sex
+    height 100%
+    padding 0 1rem
+    width 100%
+
+  &.feet
+  &.inches
+    margin 0 1rem 0 .5rem
+    opacity text-opacity
+    order 2
+    text-transform lowercase
+
+  &.age
+  &.weight
+    width 4.5rem // TODO: Update with a constant.
+
+// Radio button label captions.
+user-values label > span
+  transition opacity transition, transform transition

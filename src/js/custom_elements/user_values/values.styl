@@ -1,37 +1,3 @@
-// Labels.
-.values__label
-  display flex
-  
-.values__label--activity
-.values__label--goal
-.values__label--sex
-  height 100%
-  padding 0 1rem
-  width 100%
-
-  &:focus
-    outline none
-
-  [no-touch] &:hover
-    cursor pointer
-
-  &:focus .values__label__caption
-  [no-touch] &:hover .values__label__caption
-    opacity 1
-    transform scale(1.1)
-
-.values__label--feet
-.values__label--inches
-  margin 0 1rem 0 .5rem
-  opacity text-opacity
-  order 2
-  text-transform lowercase
-
-.values__label--age
-.values__label--weight
-  width 4.5rem // TODO: Update with a constant.
-
-// Text inputs.
 .values__input--text
   background var(--field-background)
   border 2px solid var(--background)
@@ -44,13 +10,9 @@
   text-align right
   width 3rem
 
-// Radio button label captions.
-.values__label__caption
-  transition opacity transition, transform transition
-
 // [1] Disable pointer events on elements within radio button labels so that
 // iOS Safari can register a tap on the label.
-.values__input--radio ~ .values__label__caption
+.values__input--radio + span
   align-items center
   border-radius 2px
   display flex
@@ -59,18 +21,5 @@
   pointer-events none // [1]
   width 100%
 
-.values__input--radio:checked ~ .values__label__caption
+.values__input--radio:checked + span
   opacity 1
-
-// Pseudo-elements.
-user-values .item--weight::after
-user-values .item--age::after
-  margin-left .5em
-  opacity text-opacity
-  pointer-events none
-
-user-values .item--weight::after
-  content 'lbs.'
-
-user-values .item--age::after
-  content 'yrs.'

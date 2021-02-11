@@ -11,7 +11,7 @@ mixin optionsGroup(field, modifier)
         each button, index in field.buttons
           li(class=modifier)
             label(
-              class=['values__label', `values__label--${modifier}`]
+              class=modifier
               for=button.id
               tabindex="0"
             )
@@ -24,7 +24,7 @@ mixin optionsGroup(field, modifier)
                 tabindex="-1"
                 checked=(index === 0)
               )
-              span.values__label__caption #{button.label}
+              span #{button.label}
 
 mixin numberInputs(list, modifier)
   div(class=modifier)
@@ -32,7 +32,7 @@ mixin numberInputs(list, modifier)
       each item in list
         li(class=item.id)
           label(
-            class=['values__label', `values__label--${item.id}`]
+            class=item.id
             for=item.id
           ) #{item.label}
           input(
