@@ -3,122 +3,122 @@ user-values
   grid-area user-values
   margin 2rem 0
 
-user-values fieldset
-  border 0
-  margin 0 0 1rem
-  opacity 1
-  padding 0
-  transition opacity transition
+  fieldset
+    border 0
+    margin 0 0 1rem
+    opacity 1
+    padding 0
+    transition opacity transition
 
-  &[disabled]
+  fieldset[disabled]
     opacity .3
     pointer-events none
 
-// Tweak a few <fieldset> layouts based on their content.
-user-values #sex
-  margin-bottom 1.5rem
+  // Tweak a few <fieldset> layouts based on their content.
+  #sex
+    margin-bottom 1.5rem
 
-user-values #measurements
-  margin-bottom .5rem
+  #measurements
+    margin-bottom .5rem
 
-user-values h2
-  display flex
-  font-size 1rem
-  margin 0 0 .5rem
+  h2
+    display flex
+    font-size 1rem
+    margin 0 0 .5rem
 
-  & > span
+  h2 > span
     margin-left auto
     opacity text-opacity
 
-// Pull 'Sex' heading out of the viewport since its options make this obvious.
-user-values #sex h2
-  left -100vw
-  position absolute
+  // Pull 'Sex' heading out of the viewport since its options make this obvious.
+  #sex h2
+    left -100vw
+    position absolute
 
-user-values ul
-user-values li
-  align-items center
-  display flex
-  padding 0
-
-user-values ul
-  margin 0
-
-user-values #measurements ul
-  flex-wrap wrap
-
-user-values li
-  margin 0 0 .75rem
-
-  &.weight
-  &.age
-    flex 0 0 100%
-
-  &.feet::before
-    content 'Height'
-    width 4.5rem // TODO: Update with a constant.
-
-  &.weight::after
-  &.age::after
-    margin-left .5em
-    opacity text-opacity
-    pointer-events none
-
-  &.weight::after
-    content 'lbs.'
-
-  &.age::after
-    content 'yrs.'
-
-user-values label
-  display flex
-
-  &:focus
-    outline none
-
-  [no-touch] &:hover
-    cursor pointer
-
-  &:focus > span
-  [no-touch] &:hover > span
-    opacity 1
-    transform scale(1.1)
-
-  &[for=feet]
-  &[for=inches]
-    margin 0 1rem 0 .5rem
-    opacity text-opacity
-    order 2
-    text-transform lowercase
-
-  &[for=age]
-  &[for=weight]
-    width 4.5rem // TODO: Update with a constant.
-
-user-values label > span
-  transition opacity transition, transform transition
-
-user-values input[type=text]
-  background var(--field-background)
-  border 2px solid var(--background)
-  border-radius 6px
-  box-sizing content-box
-  color var(--text)
-  font-size 1em
-  height input-height
-  padding 0 .5rem
-  text-align right
-  width 3rem
-
-user-values input[type=radio]
-  & + span
+  ul
+  li
     align-items center
-    border-radius 2px
     display flex
-    justify-content center
-    opacity text-opacity
-    pointer-events none
-    width 100%
+    padding 0
 
-  &:checked + span
-    opacity 1
+  ul
+    margin 0
+
+  #measurements ul
+    flex-wrap wrap
+
+  li
+    margin 0 0 .75rem
+
+    &.weight
+    &.age
+      flex 0 0 100%
+
+    &.feet::before
+      content 'Height'
+      width label-width
+
+    &.weight::after
+    &.age::after
+      margin-left .5em
+      opacity text-opacity
+      pointer-events none
+
+    &.weight::after
+      content 'lbs.'
+
+    &.age::after
+      content 'yrs.'
+
+  label
+    display flex
+
+    &:focus
+      outline none
+
+    [no-touch] &:hover
+      cursor pointer
+
+    &:focus > span
+    [no-touch] &:hover > span
+      opacity 1
+      transform scale(1.1)
+
+    &[for=feet]
+    &[for=inches]
+      margin 0 1rem 0 .5rem
+      opacity text-opacity
+      order 2
+      text-transform lowercase
+
+    &[for=age]
+    &[for=weight]
+      width label-width
+
+  label > span
+    transition opacity transition, transform transition
+
+  input[type=text]
+    background var(--field-background)
+    border 2px solid var(--background)
+    border-radius 6px
+    box-sizing content-box
+    color var(--text)
+    font-size 1em
+    height input-height
+    padding 0 .5rem
+    text-align right
+    width 3rem
+
+  input[type=radio]
+    & + span
+      align-items center
+      border-radius 2px
+      display flex
+      justify-content center
+      opacity text-opacity
+      pointer-events none
+      width 100%
+
+    &:checked + span
+      opacity 1
