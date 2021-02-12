@@ -3,6 +3,7 @@ import smoothscroll from 'smoothscroll-polyfill';
 const HIDDEN_ATTR: string = 'hidden';
 const OPEN_ATTR: string = 'open';
 const PENDING_ATTR: string = 'pending';
+const TARGET_ATTR: string = 'target';
 
 const BASE_ATTRIBUTES = [
   ['role', 'button'],
@@ -29,18 +30,8 @@ class InfoToggle extends HTMLElement {
     smoothscroll.polyfill();
   }
 
-  static get observedAttributes(): string[] {
-    return [PENDING_ATTR];
-  }
-
   connectedCallback() {
     this.setup();
-  }
-
-  attributeChangedCallback(name: string, oldValue: string, newValue: string) {
-    if (name === PENDING_ATTR) {
-      this.targetEl = document.getElementById(this.getAttribute('target'));
-    }
   }
 
   disconnectedCallback() {
@@ -51,6 +42,9 @@ class InfoToggle extends HTMLElement {
    * Adds a bunch of ARIA attributes to itself and renders its icon.
    */
   private setup() {
+    this.targetEl = document.getElementById(this.getAttribute(TARGET_ATTR));
+    this.removeAttribute(TARGET_ATTR);
+
     BASE_ATTRIBUTES.forEach((attribute) => {
       const [name, value] = attribute;
       this.setAttribute(name, value);

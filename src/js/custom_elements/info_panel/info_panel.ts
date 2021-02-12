@@ -6,12 +6,26 @@ const TARGET_ATTR: string = 'target';
  * GraphQL endpoint.
  */
 class InfoPanel extends HTMLElement {
+  private targetEl: Element;
+
   constructor() {
     super();
   }
 
   connectedCallback() {
+    this.setup();
     this.renderPanel();
+  }
+
+  /**
+   * Adds and removes attributes...
+   */
+  private setup() {
+    const target = this.getAttribute(TARGET_ATTR)
+    this.targetEl = document.getElementById(target);
+    this.removeAttribute(TARGET_ATTR);
+    this.setAttribute('aria-labelledby', target);
+    this.setAttribute('hidden', '');
   }
 
   /**
@@ -39,14 +53,12 @@ class InfoPanel extends HTMLElement {
         },
         body: JSON.stringify({query}),
       });
-      // Parse data and render it as HTML.
+
+      // Parse data and render it as HTML, then let the target know this
+      // is ready.
       const data = await response.json();
       this.innerHTML += data.data.calories[0].copy;
-
-      // Let the toggle know the panel is ready.
-      const targetEl = document.getElementById(this.getAttribute(TARGET_ATTR));
-      targetEl.removeAttribute(PENDING_ATTR);
-      this.removeAttribute(TARGET_ATTR);
+      this.targetEl.removeAttribute(PENDING_ATTR);
 
     } catch (error) {
       console.warn('Currently unable to fetch data. :(');

@@ -1,4 +1,5 @@
 - const title = "Calorie Calculator"
+- const currentYear = new Date().getFullYear().toString().substr(-2)
 
 doctype html
 html(lang="en")
@@ -21,21 +22,17 @@ html(lang="en")
     main
       user-values
       zig-zag
-      info-panel#info-panel(target="info-toggle" aria-labelledby="info-toggle" hidden)
+      info-panel#info-panel(target="info-toggle")
       noscript Please <a href="https://www.enable-javascript.com/" title="How to enable JavaScript in your browser">enable JavaScript</a> to view this app.
     footer
-      span © 2020
+      span © 2020–#{currentYear}
       a(
-        href="https://gauslin.com",
-        title="Visit Ben Gauslin’s Website",
-        target="_blank",
-        rel="noopener",
+        href="https://gauslin.com"
+        title="Visit Ben Gauslin’s Website"
       ) Ben Gauslin
       a(
-        href="https://github.com/bgauslin/calories",
-        title="View source code on GitHub",
-        target="_blank",
-        rel="noopener",
+        href="https://github.com/bgauslin/calories"
+        title="View source code on GitHub"
       ) GitHub
     x-tools
     if (process.env.NODE_ENV === 'development')
