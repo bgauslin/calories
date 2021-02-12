@@ -54,9 +54,8 @@ class Expandable extends HTMLElement {
       this.observer.observe(this.watchEl, {attributes: true});
 
       if (localStorage.getItem(STORAGE_ITEM) === 'true') {
-        [this, this.targetEl].forEach((element) => {
-          element.setAttribute(ARIA_EXPANDED_ATTR, 'true');
-        });
+        this.setAttribute(ARIA_EXPANDED_ATTR, 'true');
+        this.targetEl.removeAttribute(ARIA_HIDDEN_ATTR);
       } else {
         this.targetEl.style.height = '0';
         this.targetEl.setAttribute(ARIA_HIDDEN_ATTR, 'true');
@@ -64,7 +63,6 @@ class Expandable extends HTMLElement {
 
       this.setAttribute('role', 'button');
       this.setAttribute('aria-controls', this.targetEl.id);
-      this.targetEl.setAttribute('aria-controlledby', this.id);
 
       this.toggleHidden();
       this.updateLabel();
