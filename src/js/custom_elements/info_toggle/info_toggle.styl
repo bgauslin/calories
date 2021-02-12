@@ -1,23 +1,18 @@
 info-toggle
-  margin 0 -.75rem 0 auto
-  transition opacity transition-slow ease-out
-
-  &[ready]
-    opacity 1
-
-  &:not([ready])
-    opacity 0
-    pointer-events none
-
-info-toggle > button
   align-items center
   color var(--app-link)
   cursor pointer
   display flex
   height var(--header-height)
   justify-content center
-  transition color transition, transform transition
+  margin 0 rem(-12) 0 auto
+  opacity 1
+  transition color transition, opacity transition-slow ease-out, transform transition
   width button-width
+
+  &[pending]
+    opacity 0
+    visibility hidden
 
   &:focus
   &:active
@@ -27,11 +22,11 @@ info-toggle > button
   &:active
     transform scale(.8)
 
-info-toggle .icon
-  flex 0 0
+  .icon
+    flex 0 0
 
-  &--info
-    flex-basis 1.25rem
+  .icon--info
+    flex-basis rem(20)
 
-  &--close
-    flex-basis 1.5rem
+  .icon--close
+    flex-basis rem(24)

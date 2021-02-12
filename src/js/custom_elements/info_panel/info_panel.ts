@@ -1,4 +1,4 @@
-const READY_ATTR: string = 'ready';
+const PENDING_ATTR: string = 'pending';
 const TARGET_ATTR: string = 'target';
 
 /**
@@ -43,9 +43,9 @@ class InfoPanel extends HTMLElement {
       const data = await response.json();
       this.innerHTML += data.data.calories[0].copy;
 
-      // Let toggle know that the panel is ready.
+      // Let the toggle know the panel is ready.
       const targetEl = document.getElementById(this.getAttribute(TARGET_ATTR));
-      targetEl.setAttribute(READY_ATTR, '');
+      targetEl.removeAttribute(PENDING_ATTR);
       this.removeAttribute(TARGET_ATTR);
 
     } catch (error) {
