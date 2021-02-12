@@ -3,7 +3,7 @@ import fastclick from 'fastclick';
 /**
  * Custom element that updates the DOM and initializes site-wide features.
  */
-class App extends HTMLElement {
+class Tools extends HTMLElement {
   private hasSetup: boolean;
 
   constructor() {
@@ -66,4 +66,4 @@ class App extends HTMLElement {
   }
 }
 
-customElements.define('calories-app', App);
+customElements.define('x-tools', Tools);
