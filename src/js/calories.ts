@@ -4,7 +4,7 @@ require('dotenv').config();
 import './custom_elements/app/app';
 import './custom_elements/counter/counter';
 import './custom_elements/expandable/expandable';
-import './custom_elements/fancy_marker/fancy_marker';
+import './custom_elements/radio_buttons/radio_buttons';
 import './custom_elements/info_panel/info_panel';
 import './custom_elements/info_toggle/info_toggle';
 import './custom_elements/user_values/user_values';

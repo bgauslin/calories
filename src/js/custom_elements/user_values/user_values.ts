@@ -102,10 +102,10 @@ class UserValues extends HTMLElement {
       first.focus();
     }
 
-    // Set attribute on each fancy-marker which will trigger it to set its
-    // marker position and the result element's visibility.
-    [...this.querySelectorAll('fancy-marker')].forEach((marker) => {
-      marker.setAttribute('init', '');
+    // Make each <radio-buttons> element set its marker position by triggering
+    // the element's attributeChangedCallback.
+    [...this.querySelectorAll('radio-buttons')].forEach((element) => {
+      element.removeAttribute('pending');
     });
     
     // Add focus/blur listeners to text inputs.

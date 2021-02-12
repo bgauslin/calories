@@ -1,10 +1,9 @@
-const INIT_ATTR: string = 'init';
-
 /**
- * Custom element that provides an active element with a visual marker that
- * animates from its previously active element to the current active element.
+ * Custom element that provides a group of radio buttons with an animated 
+ * visual marker that slides from the previously checked button to the
+ * currently checked button.
  */
-class FancyMarker extends HTMLElement {
+class RadioButtons extends HTMLElement {
   private resizeListener: any;
 
   constructor() {
@@ -15,11 +14,7 @@ class FancyMarker extends HTMLElement {
   }
 
   static get observedAttributes(): string[] {
-    return [INIT_ATTR];
-  }
-
-  connectedCallback() {
-    this.renderMarker();
+    return ['pending'];
   }
 
   attributeChangedCallback() {
@@ -32,21 +27,12 @@ class FancyMarker extends HTMLElement {
   }
 
   /**
-   * Creates and injects a marker element into the DOM.
-   */
-  private renderMarker() {
-    const marker = document.createElement('span');
-    marker.classList.add('marker');
-    this.appendChild(marker);
-  }
-
-  /**
    * Sets custom properties to make the marker move to the selected target
    * via CSS transitions.
    */
   private update() {
-    // Remove 'init' attribute since it's only needed on initial page load.
-    this.removeAttribute(INIT_ATTR);
+    // Remove 'pending' attribute since it's only needed on initial page load.
+    this.removeAttribute('pending');
 
     // Get the checked element, then its parent since the checkbox itself has
     // no dimensions, relies on its sibling to trigger it, and their parent is
@@ -69,4 +55,4 @@ class FancyMarker extends HTMLElement {
   }
 }
 
-customElements.define('fancy-marker', FancyMarker);
+customElements.define('radio-buttons', RadioButtons);
