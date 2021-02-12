@@ -1,8 +1,15 @@
 zig-zag
+  display flex
+  flex-direction column
   grid-area zig-zag
+
+  expand-able
+    margin-bottom 2rem
+    order 2
 
   ol
     margin 0
+    order 1
     overflow hidden
     padding 0
     transition height transition-slow ease-out, margin transition-slow ease-out
@@ -31,6 +38,3 @@ zig-zag
     margin-right .5rem
     opacity text-opacity
     transition opacity transition-slow ease-out
-
-  & > app-expandable
-    margin-bottom 2rem

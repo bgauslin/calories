@@ -1,12 +1,15 @@
-- const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+- const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
-ol(id="zig-zag")
-  each day, index in days
-    li
-      label #{days[index]}
-      number-ticker
-app-expandable(
+expand-able(
+  id="expandable"
   label="zig-zag calories"
   target="zig-zag"
   watch="results"
 )
+ol(id="zig-zag")
+  each day in days
+    li
+      label(
+        aria-label=day
+      )= day.substr(0, 3)
+      number-ticker
