@@ -59,7 +59,6 @@ class Expandable extends HTMLElement {
         });
       } else {
         this.targetEl.style.height = '0';
-        this.targetEl.setAttribute(ARIA_EXPANDED_ATTR, 'false');
         this.targetEl.setAttribute(ARIA_HIDDEN_ATTR, 'true');
       }
 
@@ -110,14 +109,12 @@ class Expandable extends HTMLElement {
 
     if (action === 'expand') {
       this.targetEl.removeAttribute(ARIA_HIDDEN_ATTR);
-      this.targetEl.setAttribute(ARIA_EXPANDED_ATTR, 'true');
       this.targetEl.style.height = `${elHeight / 16}rem`;
       this.targetEl.addEventListener('transitionend', () => {
         this.targetEl.style.height = null;
       }, {once: true});
 
     } else {
-      this.targetEl.setAttribute(ARIA_EXPANDED_ATTR, 'false');
       this.targetEl.setAttribute(ARIA_HIDDEN_ATTR, 'true');
       window.requestAnimationFrame(() => {
         this.targetEl.style.height = `${elHeight / 16}rem`;
