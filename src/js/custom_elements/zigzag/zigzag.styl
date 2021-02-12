@@ -1,36 +1,36 @@
 zig-zag
   grid-area zig-zag
 
-zig-zag ol
-  margin 0
-  overflow hidden
-  padding 0
-  transition height transition-slow ease-out, margin transition-slow ease-out
-  will-change height
+  ol
+    margin 0
+    overflow hidden
+    padding 0
+    transition height transition-slow ease-out, margin transition-slow ease-out
+    will-change height
 
-zig-zag ol[aria-expanded=true]
-  margin-bottom 2rem
+  ol[aria-expanded=true]
+    margin-bottom 2rem
 
-zig-zag li
-  background var(--marker-background)
-  border-radius 0 4px 4px 0
-  display flex
-  margin .375rem 0
-  padding .375rem .5rem
-  transition background transition, color transition, width transition-slow ease-out
+  li
+    background var(--marker-background)
+    border-radius 0 4px 4px 0
+    display flex
+    margin .375rem 0
+    padding .375rem .5rem
+    transition background transition, color transition, width transition-slow ease-out
 
-zig-zag .warning
-  background #f8d7da
-  color #721c24
+  .warning
+    background #f8d7da
+    color #721c24
 
-zig-zag .warning > label
-  opacity 1
+  .warning > label
+    opacity 1
 
-zig-zag label
-  flex 1
-  margin-right .5rem
-  opacity text-opacity
-  transition opacity transition-slow ease-out
+  label
+    flex 1
+    margin-right .5rem
+    opacity text-opacity
+    transition opacity transition-slow ease-out
 
-zig-zag > app-expandable
-  margin-bottom 2rem
+  & > app-expandable
+    margin-bottom 2rem
