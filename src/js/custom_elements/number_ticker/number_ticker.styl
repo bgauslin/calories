@@ -1,14 +1,13 @@
-results-counter
+number-ticker
   display block
   opacity 1
   transition opacity transition
-  visibility visible
 
-results-counter[hidden]
+number-ticker[hidden]
   opacity 0
   visibility hidden
 
-results-counter[type=primary]
+number-ticker[type=primary]
   background -webkit-linear-gradient(brand-orange, brand-red)
   -webkit-background-clip text
   -webkit-text-fill-color transparent
@@ -19,12 +18,13 @@ results-counter[type=primary]
   position relative
   text-align center
 
-results-counter[type=primary]::after
+number-ticker[type=primary]::after
   background inherit
   bottom 0
-  content 'average daily calories'
+  content attr(label)
   display block
   font-size 1rem
   line-height initial
   position absolute
+  text-transform lowercase
   width 100%

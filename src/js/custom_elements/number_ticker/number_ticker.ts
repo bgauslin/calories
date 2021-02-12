@@ -3,9 +3,10 @@ const INTERVAL_MS: number = 30;
 const VALUE_ATTR: string = 'value';
 
 /**
- * Custom element that increments one value to another.
+ * Custom element that incrementally (yet quickly) changes one numeric value
+ * to another.
  */
-class Counter extends HTMLElement {
+class NumberTicker extends HTMLElement {
   constructor() {
     super();
   }
@@ -42,4 +43,4 @@ class Counter extends HTMLElement {
   }
 }
 
-customElements.define('results-counter', Counter);
+customElements.define('number-ticker', NumberTicker);

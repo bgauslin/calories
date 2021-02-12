@@ -9,9 +9,9 @@ const WARNING_CLASS: string = 'warning';
  * day's TDEE value is adjusted for "zig-zag" calorie counting.
  */
 class ZigZag extends HTMLElement {
-  private counters: NodeList;
   private days: NodeList;
   private hasSetup: boolean;
+  private tickers: NodeList;
 
   constructor() {
     super();
@@ -44,14 +44,14 @@ class ZigZag extends HTMLElement {
     const zigZagTemplate = require('./zigzag.pug');
     this.innerHTML = zigZagTemplate();
 
-    this.counters = this.querySelectorAll('results-counter');
     this.days = this.querySelectorAll('zig-zag li');
+    this.tickers = this.querySelectorAll('number-ticker');
 
     this.hasSetup = true;
   }
 
   /**
-   * Updates all counters with each day's zig-zag value.
+   * Updates all tickers with each day's zig-zag value.
    */
   private update() {
     const tdee = this.getAttribute(TDEE_ATTR);
@@ -67,11 +67,11 @@ class ZigZag extends HTMLElement {
     // possible value for drawing a bar chart via CSS.
     const barLengths = allValues.map(value => Math.round((value / maxValue) * 100));
 
-    // Set attribute values on counter elements which will trigger their
-    // attributeChangedCallback and make them update themselves.
+    // Set attribute values on <number-ticker> elements which will trigger 
+    // their attributeChangedCallback and update themselves.
     allValues.forEach((value, i) => {
-      const counter = this.counters[i] as HTMLElement;
-      counter.setAttribute('value', value.toFixed());
+      const ticker = this.tickers[i] as HTMLElement;
+      ticker.setAttribute('value', value.toFixed());
     });
 
     // Set inline style for each day as a width percentage so that the CSS

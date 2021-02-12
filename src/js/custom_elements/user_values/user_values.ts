@@ -89,7 +89,7 @@ class UserValues extends HTMLElement {
 
     // Create references to primary elements.
     this.formEl = this.querySelector('form');
-    this.resultsEl = this.querySelector('results-counter');
+    this.resultsEl = this.querySelector('#results');
 
     // If user data exists, update HTML on page load.
     if (this.storage) {
