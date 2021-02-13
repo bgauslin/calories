@@ -11,7 +11,7 @@ import './custom_elements/user_values/user_values';
 import './custom_elements/zigzag/zigzag';
 
 // Import styles for injecting into the DOM.
-import '../stylus/calories.styl';
+import '../stylus/index.styl';
 
 // Register the Service Worker on production.
 if (process.env.NODE_ENV === 'production') {
