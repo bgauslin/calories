@@ -3,28 +3,28 @@ number-ticker
   opacity 1
   transition opacity transition
 
-number-ticker[hidden]
-  opacity 0
-  visibility hidden
+  &[hidden]
+    opacity 0
+    visibility hidden
 
-number-ticker[type=primary]
-  background -webkit-linear-gradient(brand-orange, brand-red)
-  -webkit-background-clip text
-  -webkit-text-fill-color transparent
-  font-size 300%
-  line-height 1
-  margin 2rem 0 0
-  padding 0 0 1.25rem
-  position relative
-  text-align center
+  &[type=primary]
+    background -webkit-linear-gradient(brand-orange, brand-red)
+    -webkit-background-clip text
+    -webkit-text-fill-color transparent
+    font-size 300%
+    line-height 1
+    margin 2rem 0 0
+    padding 0 0 1.25rem
+    position relative
+    text-align center
 
-number-ticker[type=primary]::after
-  background inherit
-  bottom 0
-  content attr(label)
-  display block
-  font-size 1rem
-  line-height initial
-  position absolute
-  text-transform lowercase
-  width 100%
+  &[type=primary]::after
+    background inherit
+    bottom 0
+    content attr(label)
+    display block
+    font-size 1rem
+    line-height initial
+    position absolute
+    text-transform lowercase
+    width 100%
