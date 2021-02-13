@@ -62,6 +62,7 @@ class Expandable extends HTMLElement {
       }
 
       this.setAttribute('role', 'button');
+      this.setAttribute('tabindex', '0');
       this.setAttribute('aria-controls', this.targetEl.id);
 
       this.toggleHidden();
