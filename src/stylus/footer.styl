@@ -9,18 +9,18 @@ footer
   opacity text-opacity
   padding 0 0 env(safe-area-inset-bottom)
 
-footer > span
-  margin-right em(8)
+  span
+    margin-right em(8)
 
-footer > a
-  link(var(--app-link), var(--app-link), var(--app-link-active), var(--app-link-active))
+  a
+    link(var(--app-link), var(--app-link), var(--app-link-active), var(--app-link-active))
 
-  &:focus
-  [no-touch] &:hover
-    transition color transition
+    &:focus
+    [no-touch] &:hover
+      transition color transition
 
-footer > a:not(:first-of-type)::before
-  content '·'
-  display inline-block
-  text-align center
-  width 1rem
+    &:not(:first-of-type)::before
+      content '·'
+      display inline-block
+      text-align center
+      width 1rem
