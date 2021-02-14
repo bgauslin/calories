@@ -79,9 +79,10 @@ class UserValues extends HTMLElement {
     // <radio-buttons> element set its marker's position.
     this.populateInputs();
     const changeEvent = new Event('change');
-    [...this.querySelectorAll('radio-buttons')].forEach((element) => {
+    const radioButtons = this.querySelectorAll('radio-buttons');
+    for (const element of radioButtons) {
       element.dispatchEvent(changeEvent);
-    });
+    }
 
     // Nearly done setting up...
     this.handleInputFocus();
@@ -138,9 +139,9 @@ class UserValues extends HTMLElement {
     }
 
     const stored = JSON.parse(storageItem);
-    this.fields.forEach((name) => {
+    for (const name of this.fields) {
       const inputEls = this.querySelectorAll(`input[name=${name}]`);
-      inputEls.forEach((el: Element) => {
+      for (const el of inputEls) {
         const input = el as HTMLInputElement
         switch (input.type) {
           case 'number':
@@ -151,8 +152,8 @@ class UserValues extends HTMLElement {
             input.checked = input.value === stored[name];
             break;
         }
-      });
-    });
+      }
+    }
   }
 
   /**
@@ -178,7 +179,9 @@ class UserValues extends HTMLElement {
   private getMeasurements(): UserMeasurements {
     const values = {};
     const formData = new FormData(this.form);
-    this.fields.forEach((field) => values[field] = formData.get(field));
+    for (const field of this.fields) {
+      values[field] = formData.get(field);
+    }
 
     return {
       activity: values['activity'] || '0',
@@ -241,7 +244,7 @@ class UserValues extends HTMLElement {
   private enableOptionsGroups(enabled: boolean) {
     const tabindex = enabled ? '0' : '-1';
 
-    DISABLED_ELEMENTS.forEach((selector) => {
+    for (const selector of DISABLED_ELEMENTS) {
       const group = this.querySelector(selector);
 
       if (enabled) {
@@ -250,10 +253,11 @@ class UserValues extends HTMLElement {
         group.setAttribute(DISABLED_ATTR, '');
       }
 
-      [...group.querySelectorAll('label[tabindex]')].forEach((label) => {
+      const labels = group.querySelectorAll('label[tabindex]');
+      for (const label of labels) {
         label.setAttribute('tabindex', tabindex);
-      });
-    });
+      }
+    }
   }
 
   /**
@@ -272,12 +276,12 @@ class UserValues extends HTMLElement {
    */
   private handleInputFocus() {
     const names = Measurements.map(field => field.name);
-    names.forEach((name) => {
+    for (const name of names) {
       const element = this.querySelector(`[name=${name}]`) as HTMLInputElement;
       element.addEventListener('focus', () => {
         element.selectionStart = element.selectionEnd = element.value.length;
       });
-    });
+    }
   }
 }
 

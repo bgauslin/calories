@@ -45,10 +45,10 @@ class InfoToggle extends HTMLElement {
     this.targetEl = document.getElementById(this.getAttribute(TARGET_ATTR));
     this.removeAttribute(TARGET_ATTR);
 
-    BASE_ATTRIBUTES.forEach((attribute) => {
+    for (const attribute of BASE_ATTRIBUTES) {
       const [name, value] = attribute;
       this.setAttribute(name, value);
-    });
+    }
     this.innerHTML = this.iconTemplate({name: 'info'});
   }
 
