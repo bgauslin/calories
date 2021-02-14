@@ -229,8 +229,8 @@ class UserValues extends HTMLElement {
    */
   private showResults(bmr: number, tdee: number, tdeeMax: number) {
     this.results.removeAttribute(HIDDEN_ATTR);
-    this.results.setAttribute('value', tdee.toFixed(0));
-    this.results.setAttribute('bmr', bmr.toFixed(0));
+    this.results.setAttribute('value', tdee.toFixed());
+    this.results.setAttribute('bmr', bmr.toFixed());
  
     const zigZag = document.querySelector('zig-zag')
     zigZag.setAttribute('tdee', tdee.toFixed());
