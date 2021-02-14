@@ -19,7 +19,7 @@ interface UserResults {
 
 const DISABLED_ATTR: string = 'disabled';
 const HIDDEN_ATTR: string = 'hidden';
-const LOCAL_STORAGE: string = 'values';
+const STORAGE_ITEM: string = 'values';
 
 const DISABLED_ELEMENTS: string[] = [
   '#activity',
@@ -38,34 +38,20 @@ enum OptionsGroup {
  * valid user input, and saves user-provided info to localStorage.
  */
 class UserValues extends HTMLElement {
-  private allFields: string[];
-  private formEl: HTMLFormElement;
+  private fields: string[];
+  private form: HTMLFormElement;
   private formulas: Formulas;
-  private hasSetup: boolean;
-  private resultsEl: HTMLElement;
-  private storage: string;
+  private results: HTMLElement;
 
   constructor() {
     super();
-    this.hasSetup = false;
     this.formulas = new Formulas();
-    this.storage = localStorage.getItem(LOCAL_STORAGE);
-    this.addEventListener('change', this.update);
+    this.addEventListener('change', this.update, true);
     this.addEventListener('keyup', this.handleKey);
-  }
-
-  static get observedAttributes(): string[] {
-    return ['units'];
   }
 
   connectedCallback() {
     this.setup();
-  }
-
-  attributeChangedCallback() {
-    if (this.hasSetup) {
-      this.update();
-    }
   }
 
   disconnectedCallback() {
@@ -74,52 +60,45 @@ class UserValues extends HTMLElement {
   }
 
   /**
-   * Creates DOM elements and populates them if there are stored user values.
+   * Render DOM elements and populates them if there are stored user values.
    */
   private setup() {
     // Create array of all fields to simplify getting/setting things later.
     const measurementFields = Measurements.map(field => field.name);
-    this.allFields = [
+    this.fields = [
       ...measurementFields,
       ...Object.values(OptionsGroup),
     ];
 
-    // Render HTML for input groups and results.
+    // Render HTML and create element references.
     this.render();
+    this.form = this.querySelector('form');
+    this.results = document.getElementById('results');
 
-    // Create references to primary elements.
-    this.formEl = this.querySelector('form');
-    this.resultsEl = this.querySelector('#results');
-
-    // If user data exists, update HTML on page load.
-    if (this.storage) {
-      this.populateInputs();
-    }
-
-    // Focus first text input if it's empty.
-    const first = this.querySelector('input[type=text]') as HTMLInputElement;
-    if (!first.value.length) {
-      first.focus();
-    }
-
-    // Make each <radio-buttons> element set its marker position by triggering
-    // the element's attributeChangedCallback.
+    // If user data exists, update elements with that data, then make each
+    // <radio-buttons> element set its marker's position.
+    this.populateInputs();
+    const changeEvent = new Event('change');
     [...this.querySelectorAll('radio-buttons')].forEach((element) => {
-      element.removeAttribute('pending');
+      element.dispatchEvent(changeEvent);
     });
-    
-    // Add focus/blur listeners to text inputs.
-    this.handleInputFocus();
 
-    // All done.
-    this.hasSetup = true;
+    // Nearly done setting up...
+    this.handleInputFocus();
     this.update();
+
+    // Focus the first text input if it's still empty.
+    const firstInput = this.querySelectorAll('[type=text]')[0] as HTMLInputElement;
+    if (!firstInput.value.length) {
+      firstInput.focus();
+    }
   }
 
   /**
-   * Renders HTML for all input groups and results.
+   * Renders HTML for input groups.
    */
   private render() {
+    const userValuesTemplate = require('./user_values.pug');
     const fields = {
       activityLevel: {
         buttons: ActivityLevel,
@@ -145,8 +124,6 @@ class UserValues extends HTMLElement {
         name: OptionsGroup.GOAL,
       },
     };
-
-    const userValuesTemplate = require('./user_values.pug');
     this.innerHTML = userValuesTemplate({fields: fields});
   }
 
@@ -155,8 +132,13 @@ class UserValues extends HTMLElement {
    * element with its corresponding user value.
    */
   private populateInputs() {
-    const stored = JSON.parse(this.storage);
-    this.allFields.forEach((name) => {
+    const storageItem = localStorage.getItem(STORAGE_ITEM);
+    if (!storageItem) {
+      return;
+    }
+
+    const stored = JSON.parse(storageItem);
+    this.fields.forEach((name) => {
       const inputEls = this.querySelectorAll(`input[name=${name}]`);
       inputEls.forEach((el: Element) => {
         const input = el as HTMLInputElement
@@ -166,7 +148,7 @@ class UserValues extends HTMLElement {
             input.value = stored[name];
             break;
           case 'radio':
-            input.checked = (input.value === stored[name]);
+            input.checked = input.value === stored[name];
             break;
         }
       });
@@ -179,16 +161,12 @@ class UserValues extends HTMLElement {
    */
   private update() {
     if (this.querySelectorAll(':invalid').length) {
-      // Hide results and disable input groups.
-      this.resultsEl.setAttribute(HIDDEN_ATTR, '');
+      this.results.setAttribute(HIDDEN_ATTR, '');
       this.enableOptionsGroups(false);
     } else {
-      // Get user measurements and save them for subsequent visits.
       const measurements = this.getMeasurements()
       const {bmr, tdee, tdeeMax} = this.getResults(measurements);
-      localStorage.setItem(LOCAL_STORAGE, JSON.stringify(measurements));
-
-      // Show results and enable input groups.
+      localStorage.setItem(STORAGE_ITEM, JSON.stringify(measurements));
       this.showResults(bmr, tdee, tdeeMax);
       this.enableOptionsGroups(true);
     }   
@@ -199,8 +177,8 @@ class UserValues extends HTMLElement {
    */
   private getMeasurements(): UserMeasurements {
     const values = {};
-    const formData = new FormData(this.formEl);
-    this.allFields.forEach((name) => values[name] = formData.get(name));
+    const formData = new FormData(this.form);
+    this.fields.forEach((field) => values[field] = formData.get(field));
 
     return {
       activity: values['activity'] || '0',
@@ -223,21 +201,17 @@ class UserValues extends HTMLElement {
     const height = this.formulas.cm((feet * 12) + inches);
     weight = this.formulas.kg(weight);
 
-    // Get BMR.
+    // Get BMR and factors based on selected values, then TDEE and maximum TDEE
+    // for zig-zag chart.
     const bmr = this.formulas.basalMetabolicRate({age, height, sex, weight});
-
-    // Get factors based on selected values for TDEE.
     const activityLevel = ActivityLevel.find(level => activity === level.value);
     const goalLevel = WeightGoal.find(level => goal === level.value);
 
-    // Get Total Daily Energy Expenditure (TDEE).
     const tdee = this.formulas.totalDailyEnergyExpenditure({
       activity: activityLevel.factor,
       bmr,
       goal: goalLevel.factor,
     });
-
-    // Get maximum TDEE for zig-zag chart (maximum activity, no weight loss).
     const tdeeMax = this.formulas.totalDailyEnergyExpenditure({
       activity: ActivityLevel[ActivityLevel.length - 1].factor,
       bmr,
@@ -248,13 +222,12 @@ class UserValues extends HTMLElement {
   }
 
   /**
-   * Sets attributes on results and zig-zag elements so that they can
-   * update themselves.
+   * Sets attributes on elements to make them update themselves.
    */
   private showResults(bmr: number, tdee: number, tdeeMax: number) {
-    this.resultsEl.removeAttribute(HIDDEN_ATTR);
-    this.resultsEl.setAttribute('value', tdee.toFixed(0));
-    this.resultsEl.setAttribute('bmr', bmr.toFixed(0));
+    this.results.removeAttribute(HIDDEN_ATTR);
+    this.results.setAttribute('value', tdee.toFixed(0));
+    this.results.setAttribute('bmr', bmr.toFixed(0));
  
     const zigZag = document.querySelector('zig-zag')
     zigZag.setAttribute('tdee', tdee.toFixed());
@@ -300,9 +273,9 @@ class UserValues extends HTMLElement {
   private handleInputFocus() {
     const names = Measurements.map(field => field.name);
     names.forEach((name) => {
-      const el = this.querySelector(`[name=${name}]`) as HTMLInputElement;
-      el.addEventListener('focus', () => {
-        el.selectionStart = el.selectionEnd = el.value.length;
+      const element = this.querySelector(`[name=${name}]`) as HTMLInputElement;
+      element.addEventListener('focus', () => {
+        element.selectionStart = element.selectionEnd = element.value.length;
       });
     });
   }
