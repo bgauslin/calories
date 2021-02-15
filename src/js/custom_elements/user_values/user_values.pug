@@ -1,3 +1,4 @@
+//- Mixins.
 mixin optionsGroup(field, modifier)
   fieldset(
     id=modifier
@@ -5,7 +6,7 @@ mixin optionsGroup(field, modifier)
   )
     h2= field.headingLabel
       if field.headingNote
-        span #{field.headingNote}
+        span= field.headingNote
     radio-buttons
       each button, index in field.buttons
         label(
@@ -20,7 +21,7 @@ mixin optionsGroup(field, modifier)
             tabindex="-1"
             checked=(index === 0)
           )
-          span #{button.label}
+          span= button.label
 
 mixin numberInputs(list, modifier)
   fieldset(id=modifier)
@@ -37,6 +38,7 @@ mixin numberInputs(list, modifier)
             required
           )
 
+//- Rendered template.
 form
   +optionsGroup(fields.sex, 'sex')
   +numberInputs(fields.measurements, 'measurements')
