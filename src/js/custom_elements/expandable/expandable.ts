@@ -1,9 +1,9 @@
 const ARIA_EXPANDED_ATTR: string = 'aria-expanded';
 const ARIA_HIDDEN_ATTR: string = 'aria-hidden';
+const FOR_ATTR: string = 'for';
 const HIDDEN_ATTR: string = 'hidden';
 const LABEL_ATTR: string = 'label';
 const STORAGE_ITEM: string = 'expanded';
-const TARGET_ATTR: string = 'target';
 const WATCH_ATTR: string = 'watch';
 
 /**
@@ -13,8 +13,8 @@ class Expandable extends HTMLElement {
   private hasSetup: boolean;
   private label: string;
   private observer: MutationObserver;
-  private targetEl: HTMLElement;
-  private watchEl: HTMLElement;
+  private target: HTMLElement;
+  private watched: HTMLElement;
 
   constructor() {
     super();
@@ -47,28 +47,28 @@ class Expandable extends HTMLElement {
    */
   private setup() {
     this.label = this.getAttribute(LABEL_ATTR);
-    this.targetEl = document.getElementById(this.getAttribute(TARGET_ATTR));
-    this.watchEl = document.getElementById(this.getAttribute(WATCH_ATTR));
+    this.target = document.getElementById(this.getAttribute(FOR_ATTR));
+    this.watched = document.getElementById(this.getAttribute(WATCH_ATTR));
 
-    if (this.label && this.targetEl && this.watchEl) {
-      this.observer.observe(this.watchEl, {attributes: true});
+    if (this.label && this.target && this.watched) {
+      this.observer.observe(this.watched, {attributes: true});
 
       if (localStorage.getItem(STORAGE_ITEM) === 'true') {
         this.setAttribute(ARIA_EXPANDED_ATTR, 'true');
-        this.targetEl.removeAttribute(ARIA_HIDDEN_ATTR);
+        this.target.removeAttribute(ARIA_HIDDEN_ATTR);
       } else {
-        this.targetEl.style.height = '0';
-        this.targetEl.setAttribute(ARIA_HIDDEN_ATTR, 'true');
+        this.target.style.height = '0';
+        this.target.setAttribute(ARIA_HIDDEN_ATTR, 'true');
       }
 
       this.setAttribute('role', 'button');
       this.setAttribute('tabindex', '0');
-      this.setAttribute('aria-controls', this.targetEl.id);
+      this.setAttribute('aria-controls', this.target.id);
 
       this.toggleHidden();
       this.updateLabel();
 
-      [LABEL_ATTR, TARGET_ATTR, WATCH_ATTR].forEach((attr) => {
+      [FOR_ATTR, LABEL_ATTR, WATCH_ATTR].forEach((attr) => {
         this.removeAttribute(attr);
       });
 
@@ -81,7 +81,7 @@ class Expandable extends HTMLElement {
    * for the expandable to expand/collapse.
    */
   private toggleHidden() {
-    if (this.watchEl.hasAttribute(HIDDEN_ATTR)) {
+    if (this.watched.hasAttribute(HIDDEN_ATTR)) {
       this.setAttribute(HIDDEN_ATTR, '');
     } else {
       this.removeAttribute(HIDDEN_ATTR);
@@ -104,21 +104,21 @@ class Expandable extends HTMLElement {
       return;
     }
 
-    const elHeight = this.targetEl.scrollHeight;
+    const elHeight = this.target.scrollHeight;
 
     if (action === 'expand') {
-      this.targetEl.removeAttribute(ARIA_HIDDEN_ATTR);
-      this.targetEl.style.height = `${elHeight / 16}rem`;
-      this.targetEl.addEventListener('transitionend', () => {
-        this.targetEl.style.height = null;
+      this.target.removeAttribute(ARIA_HIDDEN_ATTR);
+      this.target.style.height = `${elHeight / 16}rem`;
+      this.target.addEventListener('transitionend', () => {
+        this.target.style.height = null;
       }, {once: true});
 
     } else {
-      this.targetEl.setAttribute(ARIA_HIDDEN_ATTR, 'true');
+      this.target.setAttribute(ARIA_HIDDEN_ATTR, 'true');
       window.requestAnimationFrame(() => {
-        this.targetEl.style.height = `${elHeight / 16}rem`;
+        this.target.style.height = `${elHeight / 16}rem`;
         window.requestAnimationFrame(() => {
-          this.targetEl.style.height = '0';
+          this.target.style.height = '0';
         });
       });
     }

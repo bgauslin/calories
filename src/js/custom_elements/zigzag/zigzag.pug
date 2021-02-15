@@ -2,14 +2,12 @@
 
 expand-able(
   id="expandable"
+  for="zig-zag"
   label="zig-zag calories"
-  target="zig-zag"
   watch="results"
 )
 ol(id="zig-zag")
   each day in days
     li
-      label(
-        aria-label=day
-      )= day.substr(0, 3)
+      label(aria-label=day)= day.substr(0, 3)
       number-ticker

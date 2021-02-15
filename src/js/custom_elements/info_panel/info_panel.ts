@@ -1,12 +1,12 @@
+const FOR_ATTR: string = 'for';
 const PENDING_ATTR: string = 'pending';
-const TARGET_ATTR: string = 'target';
 
 /**
  * Custom element that populates itself with data fetched from a
  * GraphQL endpoint.
  */
 class InfoPanel extends HTMLElement {
-  private targetEl: Element;
+  private target: Element;
 
   constructor() {
     super();
@@ -21,9 +21,9 @@ class InfoPanel extends HTMLElement {
    * Adds and removes attributes...
    */
   private setup() {
-    const target = this.getAttribute(TARGET_ATTR)
-    this.targetEl = document.getElementById(target);
-    this.removeAttribute(TARGET_ATTR);
+    const target = this.getAttribute(FOR_ATTR)
+    this.target = document.getElementById(target);
+    this.removeAttribute(FOR_ATTR);
     this.setAttribute('aria-labelledby', target);
     this.setAttribute('hidden', '');
   }
@@ -58,7 +58,7 @@ class InfoPanel extends HTMLElement {
       // is ready.
       const data = await response.json();
       this.innerHTML += data.data.calories[0].copy;
-      this.targetEl.removeAttribute(PENDING_ATTR);
+      this.target.removeAttribute(PENDING_ATTR);
 
     } catch (error) {
       console.warn('Currently unable to fetch data. :(');

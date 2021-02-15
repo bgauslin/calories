@@ -46,7 +46,7 @@ class ZigZag extends HTMLElement {
 
     this.days = this.querySelectorAll('zig-zag li');
     this.tickers = this.querySelectorAll('number-ticker');
-
+    
     this.hasSetup = true;
   }
 
