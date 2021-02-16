@@ -140,9 +140,9 @@ class UserValues extends HTMLElement {
 
     const stored = JSON.parse(storageItem);
     for (const name of this.fields) {
-      const inputEls = this.querySelectorAll(`input[name=${name}]`);
-      for (const el of inputEls) {
-        const input = el as HTMLInputElement
+      const inputElements = this.querySelectorAll(`input[name=${name}]`);
+      for (const element of inputElements) {
+        const input = element as HTMLInputElement
         switch (input.type) {
           case 'number':
           case 'text':

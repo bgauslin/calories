@@ -20,7 +20,7 @@ const BASE_ATTRIBUTES = [
 class InfoToggle extends HTMLElement {
   private iconTemplate: any;
   private isOpen: boolean;
-  private targetEl: Element;
+  private target: Element;
 
   constructor() {
     super();
@@ -42,7 +42,7 @@ class InfoToggle extends HTMLElement {
    * Adds a bunch of ARIA attributes to itself and renders its icon.
    */
   private setup() {
-    this.targetEl = document.getElementById(this.getAttribute(FOR_ATTR));
+    this.target = document.getElementById(this.getAttribute(FOR_ATTR));
     this.removeAttribute(FOR_ATTR);
 
     for (const attribute of BASE_ATTRIBUTES) {
@@ -59,16 +59,16 @@ class InfoToggle extends HTMLElement {
     // Open the info panel.
     if (!this.isOpen) {
       this.innerHTML = this.iconTemplate({name: 'close'});
-      this.targetEl.removeAttribute(HIDDEN_ATTR);
+      this.target.removeAttribute(HIDDEN_ATTR);
       window.requestAnimationFrame(() => {
-        this.targetEl.setAttribute(OPEN_ATTR, '');
+        this.target.setAttribute(OPEN_ATTR, '');
       });
     // Close the info panel.
     } else {
       this.innerHTML = this.iconTemplate({name: 'info'});
-      this.targetEl.removeAttribute(OPEN_ATTR);
-      this.targetEl.addEventListener('transitionend', () => {
-        this.targetEl.setAttribute(HIDDEN_ATTR, '');
+      this.target.removeAttribute(OPEN_ATTR);
+      this.target.addEventListener('transitionend', () => {
+        this.target.setAttribute(HIDDEN_ATTR, '');
       }, {once: true});
     }
 

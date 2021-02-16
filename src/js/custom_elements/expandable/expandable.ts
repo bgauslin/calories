@@ -68,8 +68,8 @@ class Expandable extends HTMLElement {
       this.toggleHidden();
       this.updateLabel();
 
-      [FOR_ATTR, LABEL_ATTR, WATCH_ATTR].forEach((attr) => {
-        this.removeAttribute(attr);
+      [FOR_ATTR, LABEL_ATTR, WATCH_ATTR].forEach((attribute) => {
+        this.removeAttribute(attribute);
       });
 
       this.hasSetup = true;
@@ -104,11 +104,11 @@ class Expandable extends HTMLElement {
       return;
     }
 
-    const elHeight = this.target.scrollHeight;
+    const elementHeight = this.target.scrollHeight;
 
     if (action === 'expand') {
       this.target.removeAttribute(ARIA_HIDDEN_ATTR);
-      this.target.style.height = `${elHeight / 16}rem`;
+      this.target.style.height = `${elementHeight / 16}rem`;
       this.target.addEventListener('transitionend', () => {
         this.target.style.height = null;
       }, {once: true});
@@ -116,7 +116,7 @@ class Expandable extends HTMLElement {
     } else {
       this.target.setAttribute(ARIA_HIDDEN_ATTR, 'true');
       window.requestAnimationFrame(() => {
-        this.target.style.height = `${elHeight / 16}rem`;
+        this.target.style.height = `${elementHeight / 16}rem`;
         window.requestAnimationFrame(() => {
           this.target.style.height = '0';
         });
