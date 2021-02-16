@@ -1,6 +1,5 @@
 require('dotenv').config();
 
-// All custom elements.
 import './custom_elements/expandable/expandable';
 import './custom_elements/info_panel/info_panel';
 import './custom_elements/info_toggle/info_toggle';
@@ -10,10 +9,8 @@ import './custom_elements/tools/tools';
 import './custom_elements/user_values/user_values';
 import './custom_elements/zigzag/zigzag';
 
-// Import styles for injecting into the DOM.
 import '../stylus/index.styl';
 
-// Register the Service Worker on production.
 if (process.env.NODE_ENV === 'production') {
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {

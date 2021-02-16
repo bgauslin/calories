@@ -25,19 +25,19 @@ class RadioButtons extends HTMLElement {
   private update() {
     const checked = this.querySelector(':checked');
     if (checked) {
-      const targetEl = checked.parentNode as HTMLElement;
+      const target = checked.parentNode as HTMLElement;
 
       // The marker and this element rely on relative/absolute positioning, so
       // subtract this element's position in the viewport from the marker
       // target's position in order to make the starting edge of this element
       // equal to zero.
-      const leftPos = targetEl.getBoundingClientRect().left - this.getBoundingClientRect().left;
-      const height = targetEl.clientHeight;
+      const leftPos = target.getBoundingClientRect().left - this.getBoundingClientRect().left;
+      const height = target.clientHeight;
 
       // Update custom properties and let the CSS take over.
       this.style.setProperty('--height', `${height / 16}rem`);
       this.style.setProperty('--left', `${leftPos / 16}rem`);
-      this.style.setProperty('--width', `${targetEl.clientWidth / 16}rem`);
+      this.style.setProperty('--width', `${target.clientWidth / 16}rem`);
     }
   }
 }
