@@ -1,6 +1,5 @@
 const common = require('./webpack.common.js');
 const merge = require('webpack-merge');
-const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = merge(common, {
@@ -12,9 +11,6 @@ module.exports = merge(common, {
     contentBase: './dist'
   },
   plugins: [
-    new CopyPlugin([
-      { from: 'src/json' },
-    ]),
     new MiniCssExtractPlugin({
       filename: '[name].css',
     }),

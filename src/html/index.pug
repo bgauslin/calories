@@ -1,5 +1,4 @@
 - const title = "Calorie Calculator"
-- const currentYear = new Date().getFullYear()
 
 doctype html
 html(lang="en")
@@ -31,5 +30,3 @@ html(lang="en")
       info-panel(id="info-panel" for="info-toggle")
       noscript Please <a href="https://www.enable-javascript.com/" title="How to enable JavaScript in your browser">enable JavaScript</a> to view this app.
     x-tools
-    if (process.env.NODE_ENV === 'development')
-      script(src="https://css.gauslin.com/debugger.js" data-src="/breakpoints.json")
