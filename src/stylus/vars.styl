@@ -1,3 +1,5 @@
+dark-background = #262626
+
 :root
   --app-title rem(16)
   --copy em(14)
@@ -18,10 +20,9 @@
   --app-link grey-dark
   --app-link-active rgba(grey-dark, .7)
   --background white
-  --border #ddd
   --field-background #d7d7d7
   --focus rgba(black, .5)
-  --header-background rgba(white, .97)
+  --header-background rgba(white, .33)
   --link link-color-light
   --link-visited mix(link-color-light, white, 75%)
   --link-hover rgba(black, .8)
@@ -36,11 +37,10 @@
   @media (prefers-color-scheme dark)
     --app-link white
     --app-link-active rgba(white, .7)
-    --background #262626
-    --border #333
+    --background background-dark
     --field-background #555
     --focus white
-    --header-background rgba(grey-dark, .95)
+    --header-background rgba(background-dark, .33)
     --link link-color-dark
     --link-background #333
     --link-visited mix(link-color-dark, black, 75%)
