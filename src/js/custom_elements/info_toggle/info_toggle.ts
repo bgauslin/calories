@@ -26,7 +26,8 @@ class InfoToggle extends HTMLElement {
     super();
     this.isOpen = false;
     this.iconTemplate = require('./info_toggle_icon.pug');
-    this.addEventListener('click', this.handleClick);
+    this.addEventListener('click', this.togglePanel);
+    this.addEventListener('keyup', this.handleKey);
     smoothscroll.polyfill();
   }
 
@@ -35,7 +36,8 @@ class InfoToggle extends HTMLElement {
   }
 
   disconnectedCallback() {
-    this.removeEventListener('click', this.handleClick);
+    this.removeEventListener('click', this.togglePanel);
+    this.removeEventListener('keyup', this.handleKey);
   }
 
   /**
@@ -44,6 +46,7 @@ class InfoToggle extends HTMLElement {
   private setup() {
     this.target = document.getElementById(this.getAttribute(FOR_ATTR));
     this.removeAttribute(FOR_ATTR);
+    this.setAttribute('tabindex', '0');
 
     for (const attribute of BASE_ATTRIBUTES) {
       const [name, value] = attribute;
@@ -53,28 +56,50 @@ class InfoToggle extends HTMLElement {
   }
 
   /**
-   * Toggles an attribute when this is clicked.
+   * Opens/closes the info panel when the element is clicked.
    */
-  private handleClick() {
-    // Open the info panel.
+  private togglePanel() {
     if (!this.isOpen) {
-      this.innerHTML = this.iconTemplate({name: 'close'});
-      this.target.removeAttribute(HIDDEN_ATTR);
-      window.requestAnimationFrame(() => {
-        this.target.setAttribute(OPEN_ATTR, '');
-      });
-    // Close the info panel.
+      this.openPanel();
     } else {
-      this.innerHTML = this.iconTemplate({name: 'info'});
-      this.target.removeAttribute(OPEN_ATTR);
-      this.target.addEventListener('transitionend', () => {
-        this.target.setAttribute(HIDDEN_ATTR, '');
-      }, {once: true});
+      this.closePanel();
     }
-
     document.body.scrollIntoView({behavior: 'smooth'});
     this.isOpen = !this.isOpen;
     this.setAttribute('aria-expanded', String(this.isOpen));
+  }
+
+  /** Opens the info panel. */
+  private openPanel() {
+    this.innerHTML = this.iconTemplate({name: 'close'});
+    this.target.removeAttribute(HIDDEN_ATTR);
+    window.requestAnimationFrame(() => {
+      this.target.setAttribute(OPEN_ATTR, '');
+    });
+  }
+
+  /** Closed the info panel. */
+  private closePanel() {
+    this.innerHTML = this.iconTemplate({name: 'info'});
+    this.target.removeAttribute(OPEN_ATTR);
+    this.target.addEventListener('transitionend', () => {
+      this.target.setAttribute(HIDDEN_ATTR, '');
+    }, {once: true});
+  }
+
+  /**
+   * Adds keyboard navigation to the info toggle.
+   */
+  private handleKey(event: KeyboardEvent) {
+    switch (event.code) {
+      case 'Enter':
+        this.togglePanel();
+        break;
+      case 'Escape':
+        this.isOpen = false;
+        this.closePanel();
+        break;
+    }
   }
 }
 
