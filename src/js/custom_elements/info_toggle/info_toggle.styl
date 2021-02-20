@@ -1,13 +1,12 @@
 info-toggle
   align-items center
-  color var(--app-link)
   cursor pointer
   display flex
   height var(--header-height)
   justify-content center
   margin 0 rem(-12) 0 auto
   opacity 1
-  transition color transition, opacity transition-slow ease-out, transform transition
+  transition opacity transition-slow ease-out, transform transition
   width button-width
 
   &[pending]
@@ -15,15 +14,17 @@ info-toggle
     visibility hidden
 
   &:focus
-  &:active
-  [no-touch] &:hover
-    color var(--app-link-active)
+    transform scale(1.25)
 
   &:active
-    transform scale(.8)
+    transform scale(.85)
+
+  [no-touch] &:hover
+    opacity .75
 
   svg
     flex 0 0
+    pointer-events none
 
   .info
     flex-basis rem(20)

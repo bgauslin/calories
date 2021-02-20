@@ -1,9 +1,9 @@
 expand-able
   webfont(600)
   align-items center
-  background var(--marker-canvas-background)
+  background var(--background-1)
   border-radius (button-height / 2)
-  color var(--text)
+  color var(--text-1-color)
   cursor pointer
   display flex
   font-size em(14)
@@ -20,10 +20,10 @@ expand-able
   &:focus
   &:active
   [no-touch] &:hover
-    background var(--marker-background)
+    background var(--background-1)
 
   &::before
-    css-triangle(var(--text), 5px, 'down')
+    css-triangle(var(--text-1-color), 5px, 'down')
     content ''
     display inline-block
     margin-right rem(8)

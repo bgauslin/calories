@@ -27,8 +27,8 @@ user-values
     margin 0 0 .5rem
 
   h2 > span
+    color var(--text-2-color)
     margin-left auto
-    opacity text-opacity
 
   // Pull 'Sex' heading out of the viewport since its options make this obvious.
   #sex h2
@@ -60,8 +60,8 @@ user-values
 
     &.weight::after
     &.age::after
+      color var(--text-2-color)
       margin-left .5em
-      opacity text-opacity
       pointer-events none
 
     &.weight::after
@@ -79,15 +79,15 @@ user-values
     [no-touch] &:hover
       cursor pointer
 
-    &:focus > span
-    [no-touch] &:hover > span
-      opacity 1
+    &:focus > input[type] + span
+    [no-touch] &:hover > input[type] + span
+      color var(--text-1-color)
       transform scale(1.1)
 
     &[for=feet]
     &[for=inches]
+      color var(--text-2-color)
       margin 0 1rem 0 .5rem
-      opacity text-opacity
       order 2
       text-transform lowercase
 
@@ -96,14 +96,14 @@ user-values
       width label-width
 
   label > span
-    transition opacity transition, transform transition
+    transition color transition, transform transition
 
   input[type=text]
-    background var(--field-background)
-    border 2px solid var(--background)
+    background var(--background-2)
+    border 2px solid var(--background-0)
     border-radius 6px
     box-sizing content-box
-    color var(--text)
+    color var(--text-1-color)
     font-size 1em
     height input-height
     padding 0 .5rem
@@ -114,14 +114,14 @@ user-values
     & + span
       align-items center
       border-radius 2px
+      color var(--text-2-color)
       display flex
       justify-content center
-      opacity text-opacity
       pointer-events none
       width 100%
 
     &:checked + span
-      opacity 1
+      color var(--text-1-color)
 
   [no-js] &
     display none

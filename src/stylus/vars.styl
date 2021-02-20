@@ -1,47 +1,34 @@
 :root
-  --app-title rem(16)
-  --copy em(14)
+  --copy-font-size em(14)
+  --header-font-size rem(16)
   --header-height rem(48)
   --site-padding rem(16)
 
   @media screen and (min-width rem(640))
-    --app-title rem(20)
-    --copy rem(16)
+    --copy-font-size rem(16)
+    --header-font-size rem(20)
     --header-height rem(60)
     --site-padding 0
 
   // Default light theme.
-  --app-link grey-dark
-  --app-link-active rgba(grey-dark, .7)
-  --background white
-  --field-background #d7d7d7
-  --focus rgba(black, .5)
-  --header-background rgba(white, .33)
-  --link link-color-light
-  --link-visited mix(link-color-light, white, 75%)
-  --link-hover rgba(black, .8)
-  --link-active rgba(black, .8)
-  --marker-background #d7d7d7
-  --marker-canvas-background #eee
-  --table-border #ccc
-  --text grey-dark
-  --warning-color brand-red
+  --background-0 background-0
+  --background-1 background-1
+  --background-2 background-2
+
+  --header-background rgba(background-0, .33)
+  --invalid-color brand-red
+  --link-color link-color
+  --text-1-color text-1-color
+  --text-2-color text-2-color
 
   // Dark theme per user settings.
   @media (prefers-color-scheme dark)
-    --app-link white
-    --app-link-active rgba(white, .7)
-    --background background-dark
-    --field-background #555
-    --focus white
-    --header-background rgba(background-dark, .33)
-    --link link-color-dark
-    --link-background #333
-    --link-visited mix(link-color-dark, black, 75%)
-    --link-hover rgba(white, .8)
-    --link-active rgba(white, .8)
-    --marker-background #555
-    --marker-canvas-background rgba(white, .05)
-    --table-border #666
-    --text white
-    --warning-color brand-orange
+    --background-0 background-0-dark
+    --background-1 background-1-dark
+    --background-2 background-2-dark
+
+    --header-background rgba(background-0-dark, .33)
+    --invalid-color brand-orange
+    --link-color link-color-dark
+    --text-1-color text-1-color-dark
+    --text-2-color text-2-color-dark
