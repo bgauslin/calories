@@ -20,6 +20,7 @@ class Expandable extends HTMLElement {
     super();
     this.hasSetup = false;
     this.addEventListener('click', this.toggleExpanded);
+    this.addEventListener('keyup', this.handleKey);
     this.observer = new MutationObserver(() => this.toggleHidden());
   }
 
@@ -38,6 +39,7 @@ class Expandable extends HTMLElement {
 
   disconnectedCallback() {
     this.removeEventListener('click', this.toggleExpanded);
+    this.removeEventListener('keyup', this.handleKey);
     this.observer.disconnect();
   }
 
@@ -94,6 +96,15 @@ class Expandable extends HTMLElement {
   private toggleExpanded() {
     const expanded = this.getAttribute(ARIA_EXPANDED_ATTR) === 'true';
     this.setAttribute(ARIA_EXPANDED_ATTR, String(!expanded));
+  }
+
+  /**
+   * Adds keyboard navigation to the expandable.
+   */
+  private handleKey(event: KeyboardEvent) {
+    if (event.code ==='Enter') {
+      this.toggleExpanded();
+    }
   }
 
   /**
