@@ -64,7 +64,6 @@ class InfoToggle extends HTMLElement {
     } else {
       this.closePanel();
     }
-    document.body.scrollIntoView({behavior: 'smooth'});
     this.isOpen = !this.isOpen;
     this.setAttribute('aria-expanded', String(this.isOpen));
   }

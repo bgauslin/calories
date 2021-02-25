@@ -18,7 +18,7 @@ class InfoPanel extends HTMLElement {
   }
 
   /**
-   * Adds and removes attributes...
+   * Adds and removes attributes.
    */
   private setup() {
     const target = this.getAttribute(FOR_ATTR)
@@ -54,12 +54,12 @@ class InfoPanel extends HTMLElement {
         body: JSON.stringify({query}),
       });
 
-      // Parse data and render it as HTML, then let the target know this
-      // is ready.
+      // Parse data and render it, then let the target know this is ready.
       const data = await response.json();
-      this.innerHTML += data.data.calories[0].copy;
+      const div = document.createElement('div');
+      div.innerHTML = data.data.calories[0].copy;
+      this.appendChild(div);
       this.target.removeAttribute(PENDING_ATTR);
-
     } catch (error) {
       console.warn('Currently unable to fetch data. :(');
       return;
