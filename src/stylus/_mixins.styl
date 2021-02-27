@@ -1,12 +1,4 @@
 // @mixin
-all-webfonts()
-  @font-face
-    font-display swap
-    font-family 'Avenir Variable'
-    font-weight 1 999
-    src url('https://assets.gauslin.com/fonts/AvenirNext-Variable.woff2') format('woff2')
-
-// @mixin
 // @param Color color
 // @param String size
 // @param String direction
@@ -29,24 +21,3 @@ css-triangle(color, size, direction)
     border-top size solid transparent
   height 0
   width 0
-
-// @mixin
-// @param Color link
-// @param Color visited
-// @param Color hover
-// @param Color active
-link(link, visited, hover, active)
-  &
-    &:link
-      color link
-
-    &:visited
-      color visited
-
-    &:active
-    &:focus
-      color active
-
-  [no-touch] &
-    &:hover
-      color hover
