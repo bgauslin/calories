@@ -14,18 +14,19 @@ info-toggle
     visibility hidden
 
   &:focus
+  [no-touch] &:hover
     transform scale(1.25)
-
-  &:active
-    transform scale(.85)
 
   [no-touch] &:hover
     opacity .75
 
-  svg
+  &:active
+    transform scale(.85)
+
+  > svg
     flex 0 0
-    pointer-events none
     margin auto
+    pointer-events none
 
   .info
     flex-basis rem(20)
