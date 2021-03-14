@@ -23,13 +23,24 @@ info-toggle
   &:active
     transform scale(.85)
 
-  > svg
-    flex 0 0
+  .icon
+    flex 0 0 rem(20)
     margin auto
     pointer-events none
 
-  .info
-    flex-basis rem(20)
+  .icon--close > line
+    stroke var(--text-1-color)
+    stroke-width 2.5
 
-  .close
-    flex-basis rem(24)
+  .icon--info > circle
+    fill var(--background-0)
+
+  .icon--info > circle:first-of-type
+    fill var(--text-1-color)
+
+  .icon--info > polyline
+  .icon--info > line
+    fill none
+    stroke var(--background-0)
+    stroke-linecap round
+    stroke-width 2.5
