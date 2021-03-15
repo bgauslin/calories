@@ -6,29 +6,27 @@ info-toggle
   margin-right rem(-12)
   opacity 1
   outline 0
-  transition opacity transition-slow ease-out, transform transition
+  transition background transition, opacity transition-slow ease-out, transform transition
   width button-width
 
   &[pending]
     opacity 0
     visibility hidden
 
+  &:active
   &:focus
   [no-touch] &:hover
-    transform scale(1.25)
-
-  [no-touch] &:hover
-    opacity .75
+    background var(--background-1)
 
   &:active
-    transform scale(.85)
+    transform scale(.9)
 
   .icon
     flex 0 0 rem(20)
     margin auto
     pointer-events none
 
-  .icon--close > line
+  .icon--close > path
     stroke var(--text-1-color)
     stroke-width 2.5
 
@@ -38,8 +36,7 @@ info-toggle
   .icon--info > circle:first-of-type
     fill var(--text-1-color)
 
-  .icon--info > polyline
-  .icon--info > line
+  .icon--info > path
     fill none
     stroke var(--background-0)
     stroke-linecap round

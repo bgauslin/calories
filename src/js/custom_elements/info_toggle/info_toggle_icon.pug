@@ -4,10 +4,8 @@ svg(
   aria-hidden="true"
 )
   if name === 'close'
-    line(x1="5" y1="5" x2="19" y2="19")
-    line(x1="5" y1="19" x2="19" y2="5")
+    path(d="M5,5 L19,19 M5,19 L19,5")
   if name === 'info'
     circle(cx="12" cy="12" r="12")
     circle(cx="12" cy="5" r="2")
-    polyline(points="9,10 12,10 12,18")
-    line(x1="9" y1="18" x2="15" y2="18")
+    path(d="M9,10 L12,10 L12,18 M9,18 L15,18")
