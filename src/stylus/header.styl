@@ -1,5 +1,5 @@
 header
-  backdrop-filter blur(10px)
+  background var(--header-background)
   height var(--header-height)
   left 0
   padding 0 env(safe-area-inset-right) 0 env(safe-area-inset-left)
@@ -7,6 +7,10 @@ header
   right 0
   top 0
   z-index 2
+
+  @supports (backdrop-filter backdrop-effect)
+    backdrop-filter backdrop-effect
+    background var(--header-backdrop-background)
 
   & > div
     align-items center
