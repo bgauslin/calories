@@ -12,6 +12,8 @@ interface Measurements {
 }
 
 const BMR_MULTIPLIER: number = 1.2;
+const INCHES_TO_MM = 2.54;
+const LBS_TO_KG = 2.2;
 
 /**
  * Formulas for calculating Basal Metabolic Rate (BMR), Body Mass Index (BMI),
@@ -54,13 +56,13 @@ export class Formulas {
    * Returns weight in Imperial units converted to metric.
    */
   public kg(pounds: number): number {
-    return (pounds / 2.2);
+    return pounds / LBS_TO_KG;
   }
 
   /**
    * Returns height in Imperial units converted to metric.
    */
   public cm(inches: number): number {
-    return (inches * 2.54);
+    return inches * INCHES_TO_MM;
   }
 }
