@@ -3,8 +3,7 @@ const INTERVAL_MS: number = 30;
 const VALUE_ATTR: string = 'value';
 
 /**
- * Custom element that incrementally (yet quickly) changes one numeric value
- * to another.
+ * Custom element that incrementally changes one numeric value to another.
  */
 class NumberTicker extends HTMLElement {
   constructor() {

@@ -15,7 +15,7 @@ const BASE_ATTRIBUTES = [
 ];
 
 /**
- * Custom element that toggles the visibility of its target element.
+ * Custom element that toggles the visibility of a target element.
  */
 class InfoToggle extends HTMLElement {
   private iconTemplate: any;
@@ -41,7 +41,7 @@ class InfoToggle extends HTMLElement {
   }
 
   /**
-   * Adds a bunch of ARIA attributes to itself and renders its icon.
+   * Adds ARIA attributes to itself and renders its icon.
    */
   private setup() {
     this.target = document.getElementById(this.getAttribute(FOR_ATTR));
@@ -56,7 +56,7 @@ class InfoToggle extends HTMLElement {
   }
 
   /**
-   * Opens/closes the info panel when the element is clicked.
+   * Opens/closes the info panel when element is clicked.
    */
   private togglePanel() {
     if (!this.isOpen) {
@@ -77,7 +77,7 @@ class InfoToggle extends HTMLElement {
     });
   }
 
-  /** Closed the info panel. */
+  /** Closes the info panel. */
   private closePanel() {
     this.innerHTML = this.iconTemplate({name: 'info'});
     this.target.removeAttribute(OPEN_ATTR);
