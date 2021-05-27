@@ -69,27 +69,33 @@ class ZigZag extends HTMLElement {
 
     // Set attribute values on <number-ticker> elements which will trigger 
     // their attributeChangedCallback and update themselves.
-    allValues.forEach((value, i) => {
-      const ticker = this.tickers[i] as HTMLElement;
-      ticker.setAttribute('value', value.toFixed());
-    });
+    for (const [value, index] of allValues.entries()) {
+      const ticker = this.tickers[index] as HTMLElement;
+      if (ticker) {
+        ticker.setAttribute('value', value.toFixed());
+      }
+    }
 
     // Set inline style for each day as a width percentage so that the CSS
     // displays each as a bar graph value.
-    barLengths.forEach((length, i) => {
-      const day = this.days[i] as HTMLElement;
-      day.style.width = `${length}%`;
-    });
+    for (const [length, index] of barLengths.entries()) {
+      const day = this.days[index] as HTMLElement;
+      if (day) {
+        day.style.width = `${length}%`;
+      }
+    }
 
     // Set warning class for extremely low values.
-    allValues.forEach((value, i) => {
-      const day = this.days[i] as HTMLElement;
-      if (value < MINIMUM_TDEE) {
-        day.classList.add(WARNING_CLASS);
-      } else {
-        day.classList.remove(WARNING_CLASS);
+    for (const [value, index] of allValues.entries()) {
+      const day = this.days[index] as HTMLElement;
+      if (day) {
+        if (value < MINIMUM_TDEE) {
+          day.classList.add(WARNING_CLASS);
+        } else {
+          day.classList.remove(WARNING_CLASS);
+        }
       }
-    });
+    }
   }
 }
 

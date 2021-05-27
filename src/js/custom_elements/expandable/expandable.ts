@@ -70,9 +70,9 @@ class Expandable extends HTMLElement {
       this.toggleHidden();
       this.updateLabel();
 
-      [FOR_ATTR, LABEL_ATTR, WATCH_ATTR].forEach((attribute) => {
+      for (const attribute of [FOR_ATTR, LABEL_ATTR, WATCH_ATTR]) {
         this.removeAttribute(attribute);
-      });
+      }
 
       this.hasSetup = true;
     }
