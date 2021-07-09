@@ -4,7 +4,7 @@
  * currently checked button.
  */
 class RadioButtons extends HTMLElement {
-  private resizeListener: any;
+  private resizeListener: EventListenerObject;
 
   constructor() {
     super();

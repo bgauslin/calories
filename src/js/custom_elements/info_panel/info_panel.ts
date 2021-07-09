@@ -1,5 +1,5 @@
-const FOR_ATTR: string = 'for';
-const PENDING_ATTR: string = 'pending';
+const FOR_ATTR = 'for';
+const PENDING_ATTR = 'pending';
 
 /**
  * Custom element that populates itself with data fetched from a
@@ -34,7 +34,7 @@ class InfoPanel extends HTMLElement {
   private async renderPanel(): Promise<any> {
     const endpoint = (process.env.NODE_ENV === 'production') ?
         process.env.GRAPHQL_PROD : process.env.GRAPHQL_DEV;
-    const query: string = `
+    const query = `
       query {
         calories: entries(section: ["calories"], limit: 1) {
           ...on calories_calories_Entry {

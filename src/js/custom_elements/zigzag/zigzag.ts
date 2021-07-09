@@ -1,8 +1,8 @@
 const DAILY_MODIFIERS: number[] = [1, .9, 1.1, 1, .8, 1, 1.2];
 const MINIMUM_TDEE: number = 1200;
-const TDEE_ATTR: string = 'tdee';
-const TDEE_MAX_ATTR: string = 'max-tdee';
-const WARNING_CLASS: string = 'warning';
+const TDEE_ATTR = 'tdee';
+const TDEE_MAX_ATTR = 'max-tdee';
+const WARNING_CLASS = 'warning';
 
 /**
  * Custom element that renders daily TDEE based on overall TDEE where each

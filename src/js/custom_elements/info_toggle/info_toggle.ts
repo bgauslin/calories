@@ -1,9 +1,9 @@
 import smoothscroll from 'smoothscroll-polyfill';
 
-const FOR_ATTR: string = 'for';
-const HIDDEN_ATTR: string = 'hidden';
-const OPEN_ATTR: string = 'open';
-const PENDING_ATTR: string = 'pending';
+const FOR_ATTR = 'for';
+const HIDDEN_ATTR = 'hidden';
+const OPEN_ATTR = 'open';
+const PENDING_ATTR = 'pending';
 
 const BASE_ATTRIBUTES = [
   ['role', 'button'],

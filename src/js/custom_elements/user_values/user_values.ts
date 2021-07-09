@@ -17,9 +17,9 @@ interface UserResults {
   tdeeMax: number,
 }
 
-const DISABLED_ATTR: string = 'disabled';
-const HIDDEN_ATTR: string = 'hidden';
-const STORAGE_ITEM: string = 'values';
+const DISABLED_ATTR = 'disabled';
+const HIDDEN_ATTR = 'hidden';
+const STORAGE_ITEM = 'values';
 
 const DISABLED_ELEMENTS: string[] = [
   '#activity',
