@@ -1,11 +1,9 @@
 main
   display grid
   grid-area main
-  grid-template-areas:
-    'user-values'\
-    'zig-zag'
-  grid-template-columns 1fr
-  grid-template-rows auto 1fr
+  grid-template:
+    'user-values' auto \
+    'zig-zag' 1fr / 1fr
   justify-self center
   max-width content-max-width
   padding 0 var(--site-padding) env(safe-area-inset-bottom)
