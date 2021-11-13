@@ -66,10 +66,9 @@ class ZigZag extends HTMLElement {
     // Convert adjusted TDEE values to a percentage relative to the highest
     // possible value for drawing a bar chart via CSS.
     const barLengths = allValues.map(value => Math.round((value / maxValue) * 100));
-
     // Set attribute values on <number-ticker> elements which will trigger 
     // their attributeChangedCallback and update themselves.
-    for (const [value, index] of allValues.entries()) {
+    for (const [index, value] of allValues.entries()) {
       const ticker = this.tickers[index] as HTMLElement;
       if (ticker) {
         ticker.setAttribute('value', value.toFixed());
@@ -78,7 +77,7 @@ class ZigZag extends HTMLElement {
 
     // Set inline style for each day as a width percentage so that the CSS
     // displays each as a bar graph value.
-    for (const [length, index] of barLengths.entries()) {
+    for (const [index, length] of barLengths.entries()) {
       const day = this.days[index] as HTMLElement;
       if (day) {
         day.style.width = `${length}%`;
@@ -86,7 +85,7 @@ class ZigZag extends HTMLElement {
     }
 
     // Set warning class for extremely low values.
-    for (const [value, index] of allValues.entries()) {
+    for (const [index, value] of allValues.entries()) {
       const day = this.days[index] as HTMLElement;
       if (day) {
         if (value < MINIMUM_TDEE) {

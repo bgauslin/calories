@@ -1,9 +1,10 @@
+// [1] Formatting hack to render vanilla CSS function instead of calling
+// built-in Stylus function.
 body
   background var(--background-0)
   color var(--text-1-color)
   display grid
-  grid-template:
+  grid:
     'header' var(--header-height) \
-    'main' 1fr / 1fr  
-  min-height 100vh // fallback
-  min-height calc(var(--vh, 1vh) * 100)
+    'main' 
+  min-height 'max(var(--vh, 100vh), 100vh)' % null // [1]

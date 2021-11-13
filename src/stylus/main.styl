@@ -1,15 +1,13 @@
 main
   display grid
+  grid:
+    'user-values' \
+    'zig-zag' 1fr
   grid-area main
-  grid-template:
-    'user-values' auto \
-    'zig-zag' 1fr / 1fr
   justify-self center
   max-width content-max-width
   padding 0 var(--site-padding) env(safe-area-inset-bottom)
-  width 100%
 
   [no-js] &
     align-items center
-    grid-template-rows 1fr
-    text-align center
+    grid unset
