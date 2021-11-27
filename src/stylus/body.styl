@@ -4,7 +4,12 @@ body
   background var(--background-0)
   color var(--text-1-color)
   display grid
+  font-family 'Avenir Variable', sans-serif
+  font-variation-settings 'wght' 500
   grid:
     'header' var(--header-height) \
     'main' 
-  min-height 'max(var(--vh, 100vh), 100vh)' % null // [1]
+  margin 0
+  min-height 100vh
+  min-height -webkit-fill-available
+  padding 0 0 env(safe-area-inset-bottom)
