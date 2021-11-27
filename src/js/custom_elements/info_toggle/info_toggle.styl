@@ -9,35 +9,35 @@ info-toggle
   transition background transition, opacity transition-slow ease-out, transform transition
   width button-width
 
-  &[pending]
-    opacity 0
-    visibility hidden
+info-toggle[pending]
+  opacity 0
+  visibility hidden
 
-  &:active
-  &:focus
-  [no-touch] &:hover
-    background var(--background-1)
+info-toggle:active
+info-toggle:focus
+[no-touch] info-toggle:hover
+  background var(--background-1)
 
-  &:active
-    transform scale(.9)
+info-toggle:active
+  transform scale(.9)
 
-  .icon
-    flex 0 0 rem(20)
-    margin auto
-    pointer-events none
+.icon
+  flex 0 0 rem(20)
+  margin auto
+  pointer-events none
 
-  .icon--close > path
-    stroke var(--text-1-color)
-    stroke-width 2.5
+.icon--close > path
+  stroke var(--text-1-color)
+  stroke-width 2.5
 
-  .icon--info > circle
-    fill var(--background-0)
+.icon--info > circle
+  fill var(--background-0)
 
-  .icon--info > circle:first-of-type
-    fill var(--text-1-color)
+.icon--info > circle:first-of-type
+  fill var(--text-1-color)
 
-  .icon--info > path
-    fill none
-    stroke var(--background-0)
-    stroke-linecap round
-    stroke-width 2.5
+.icon--info > path
+  fill none
+  stroke var(--background-0)
+  stroke-linecap round
+  stroke-width 2.5

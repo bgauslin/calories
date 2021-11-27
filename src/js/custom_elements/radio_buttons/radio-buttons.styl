@@ -8,24 +8,24 @@ radio-buttons
   position relative
   z-index 1
 
-  // Marker underneath the radio buttons that slides over to the checked one.
-  &::after
-    background var(--background-2)
-    border-radius 4px
-    content ''
-    display block
-    height var(--height)
-    left var(--left)
-    position absolute
-    top 4px
-    transition left transition ease-out, width transition ease-out
-    width var(--width)
-    z-index -1
+// Marker underneath the radio buttons that slides over to the checked one.
+radio-buttons::after
+  background var(--background-2)
+  border-radius 4px
+  content ''
+  display block
+  height var(--height)
+  left var(--left)
+  position absolute
+  top 4px
+  transition left transition ease-out, width transition ease-out
+  width var(--width)
+  z-index -1
 
-  // Each radio button is within a <label> for easier clicking, and the text
-  // of each <label> is within a <span> for sibling element styling.
-  & > label
-    flex 1
+// Each radio button is within a <label> for easier clicking, and the text
+// of each <label> is within a <span> for sibling element styling.
+radio-buttons > label
+  flex 1
 
-  & > label > span
-    height input-height
+radio-buttons > label > span
+  height input-height

@@ -3,125 +3,124 @@ user-values
   grid-area user-values
   margin 1rem 0 0
 
-  fieldset
-    border 0
-    margin 0 0 1rem
-    opacity 1
-    padding 0
-    transition opacity transition
+user-values fieldset
+  border 0
+  margin 0 0 1rem
+  opacity 1
+  padding 0
+  transition opacity transition
 
-  fieldset[disabled]
-    opacity .3
-    pointer-events none
+user-values [disabled]
+  opacity .3
+  pointer-events none
 
-  // Tweak a few <fieldset> layouts based on their content.
-  #sex
-    margin-bottom 1.5rem
+// Tweak a few <fieldset> layouts based on their content.
+user-values [id=sex]
+  margin-bottom 1.5rem
 
-  #measurements
-    margin-bottom .5rem
+user-values [id=measurements]
+  margin-bottom .5rem
 
-  h2
-    display flex
-    font-size 1rem
-    margin 0 0 .5rem
+user-values h2
+  display flex
+  font-size 1rem
+  margin 0 0 .5rem
 
-  h2 > span
-    color var(--text-2-color)
-    margin-left auto
+user-values h2 > span
+  color var(--text-2-color)
+  margin-left auto
 
-  // Pull 'Sex' heading out of the viewport since its options make this obvious.
-  #sex h2
-    left -100vw
-    position absolute
+// Pull 'Sex' heading out of the viewport since its options make this obvious.
+user-values [id=sex] h2
+  left -100vw
+  position absolute
 
-  ul
-  li
-    align-items center
-    display flex
-    padding 0
+user-values ul
+user-values li
+  align-items center
+  display flex
+  padding 0
 
-  ul
-    margin 0
+user-values ul
+  margin 0
 
-  #measurements ul
-    flex-wrap wrap
+user-values [id=measurements] ul
+  flex-wrap wrap
 
-  li
-    margin 0 0 .75rem
+user-values li
+  margin 0 0 .75rem
 
-    &.weight
-    &.age
-      flex 0 0 100%
+user-values .weight
+user-values .age
+  flex 0 0 100%
 
-    &.feet::before
-      content 'Height'
-      width label-width
+user-values .feet::before
+  content 'Height'
+  width label-width
 
-    &.weight::after
-    &.age::after
-      color var(--text-2-color)
-      margin-left .5em
-      pointer-events none
+user-values .weight::after
+user-values .age::after
+  color var(--text-2-color)
+  margin-left .5em
+  pointer-events none
 
-    &.weight::after
-      content 'lbs.'
+user-values .weight::after
+  content 'lbs.'
 
-    &.age::after
-      content 'yrs.'
+user-values .age::after
+  content 'yrs.'
 
-  label
-    display flex
+user-values label
+  display flex
 
-    &:focus
-      outline none
+user-values label:focus
+  outline none
 
-    [no-touch] &:hover
-      cursor pointer
+[no-touch] user-values label:hover
+  cursor pointer
 
-    &:focus > input[type] + span
-    [no-touch] &:hover > input[type] + span
-      color var(--text-1-color)
-      transform scale(1.1)
+user-values label:focus > [type] + span
+[no-touch] user-values label:hover > [type] + span
+  color var(--text-1-color)
+  transform scale(1.1)
 
-    &[for=feet]
-    &[for=inches]
-      color var(--text-2-color)
-      margin 0 1rem 0 .5rem
-      order 2
-      text-transform lowercase
+user-values [for=feet]
+user-values [for=inches]
+  color var(--text-2-color)
+  margin 0 1rem 0 .5rem
+  order 2
+  text-transform lowercase
 
-    &[for=age]
-    &[for=weight]
-      width label-width
+user-values [for=age]
+user-values [for=weight]
+  width label-width
 
-  label > span
-    transition color transition, transform transition
+user-values label > span
+  transition color transition, transform transition
 
-  input[type=text]
-    background var(--background-2)
-    border 2px solid var(--background-0)
-    border-radius 6px
-    box-sizing content-box
-    color var(--text-1-color)
-    font-size 1em
-    height input-height
-    padding 0 .5rem
-    text-align right
-    width 3rem
+user-values [type=text]
+  background var(--background-2)
+  border 2px solid var(--background-0)
+  border-radius 6px
+  box-sizing content-box
+  color var(--text-1-color)
+  font-size 1em
+  height input-height
+  padding 0 .5rem
+  text-align right
+  width 3rem
 
-  input[type=radio]
-    & + span
-      align-items center
-      border-radius 2px
-      color var(--text-2-color)
-      display flex
-      justify-content center
-      pointer-events none
-      width 100%
+user-values [type=radio] + span
+  align-items center
+  border-radius 2px
+  color var(--text-2-color)
+  display flex
+  justify-content center
+  pointer-events none
+  width 100%
 
-    &:checked + span
-      color var(--text-1-color)
+user-values [type=radio]:checked + span
+  color var(--text-1-color)
 
-  [no-js] &
-    display none
+[no-js] user-values
+  display none

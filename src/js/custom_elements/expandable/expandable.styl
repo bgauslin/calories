@@ -18,25 +18,25 @@ expand-able
   white-space nowrap
   width rem(210)
 
-  &:focus
-  &:active
-  [no-touch] &:hover
-    background var(--background-2)
+expand-able:focus
+expand-able:active
+[no-touch] expand-able:hover
+  background var(--background-2)
 
-  &::before
-    css-triangle(var(--text-1-color), 5px, 'down')
-    content ''
-    display inline-block
-    margin-right rem(8)
-    transition transform transition
+expand-able::before
+  css-triangle(var(--text-1-color), 5px, 'down')
+  content ''
+  display inline-block
+  margin-right rem(8)
+  transition transform transition
 
-  &[aria-expanded=true]::before
-    transform rotate(-180deg)
+expand-able[aria-expanded=true]::before
+  transform rotate(-180deg)
 
-  &[hidden]
-    opacity 0
-    pointer-events none
-    visibility hidden
+expand-able[hidden]
+  opacity 0
+  pointer-events none
+  visibility hidden
 
-  [no-touch] &
-    transition background transition, color transition
+[no-touch] expand-able
+  transition background transition, color transition
