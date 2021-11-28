@@ -2,24 +2,24 @@ info-toggle
   border-radius 50%
   cursor pointer
   display flex
-  height button-height
+  height BUTTON_HEIGHT
   margin-right rem(-12)
   opacity 1
   outline 0
-  transition background transition, opacity transition-slow ease-out, transform transition
-  width button-width
+  transition background TRANSITION, opacity TRANSITION_SLOW ease-out, transform TRANSITION
+  width BUTTON_WIDTH
+
+  &:active
+    transform scale(.9)
+
+  &:active
+  &:focus
+  [no-touch] &:hover
+    background var(--background-1)
 
 info-toggle[pending]
   opacity 0
   visibility hidden
-
-info-toggle:active
-info-toggle:focus
-[no-touch] info-toggle:hover
-  background var(--background-1)
-
-info-toggle:active
-  transform scale(.9)
 
 .icon
   flex 0 0 rem(20)

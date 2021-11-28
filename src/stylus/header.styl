@@ -8,8 +8,8 @@ header
   top 0
   z-index 2
 
-  @supports (backdrop-filter backdrop-effect)
-    backdrop-filter backdrop-effect
+  @supports (backdrop-filter BACKDROP_EFFECT)
+    backdrop-filter BACKDROP_EFFECT
     background var(--header-backdrop-background)
 
   & > div
@@ -18,7 +18,7 @@ header
     height var(--header-height)
     justify-content space-between
     margin 0 auto
-    max-width content-max-width
+    max-width CONTENT_MAX_WIDTH
     padding 0 var(--site-padding)
 
   h1

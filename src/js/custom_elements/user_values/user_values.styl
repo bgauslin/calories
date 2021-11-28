@@ -8,17 +8,17 @@ user-values fieldset
   margin 0 0 1rem
   opacity 1
   padding 0
-  transition opacity transition
+  transition opacity TRANSITION
 
 user-values [disabled]
   opacity .3
   pointer-events none
 
 // Tweak a few <fieldset> layouts based on their content.
-user-values [id=sex]
+user-values [id='sex']
   margin-bottom 1.5rem
 
-user-values [id=measurements]
+user-values [id='measurements']
   margin-bottom .5rem
 
 user-values h2
@@ -31,7 +31,7 @@ user-values h2 > span
   margin-left auto
 
 // Pull 'Sex' heading out of the viewport since its options make this obvious.
-user-values [id=sex] h2
+user-values [id='sex'] h2
   left -100vw
   position absolute
 
@@ -44,7 +44,7 @@ user-values li
 user-values ul
   margin 0
 
-user-values [id=measurements] ul
+user-values [id='measurements'] ul
   flex-wrap wrap
 
 user-values li
@@ -56,7 +56,7 @@ user-values .age
 
 user-values .feet::before
   content 'Height'
-  width label-width
+  width LABEL_WIDTH
 
 user-values .weight::after
 user-values .age::after
@@ -84,33 +84,33 @@ user-values label:focus > [type] + span
   color var(--text-1-color)
   transform scale(1.1)
 
-user-values [for=feet]
-user-values [for=inches]
+user-values [for='feet']
+user-values [for='inches']
   color var(--text-2-color)
   margin 0 1rem 0 .5rem
   order 2
   text-transform lowercase
 
-user-values [for=age]
-user-values [for=weight]
-  width label-width
+user-values [for='age']
+user-values [for='weight']
+  width LABEL_WIDTH
 
 user-values label > span
-  transition color transition, transform transition
+  transition color TRANSITION, transform TRANSITION
 
-user-values [type=text]
+user-values [type='text']
   background var(--background-2)
   border 2px solid var(--background-0)
   border-radius 6px
   box-sizing content-box
   color var(--text-1-color)
   font-size 1em
-  height input-height
+  height INPUT_HEIGHT
   padding 0 .5rem
-  text-align right
+  text-align end
   width 3rem
 
-user-values [type=radio] + span
+user-values [type='radio'] + span
   align-items center
   border-radius 2px
   color var(--text-2-color)
@@ -119,7 +119,7 @@ user-values [type=radio] + span
   pointer-events none
   width 100%
 
-user-values [type=radio]:checked + span
+user-values [type='radio']:checked + span
   color var(--text-1-color)
 
 [no-js] user-values

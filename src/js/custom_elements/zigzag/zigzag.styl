@@ -3,41 +3,41 @@ zig-zag
   flex-direction column
   grid-area zig-zag
 
-  expand-able
-    margin 2rem auto
-    order 2
+zig-zag expand-able
+  margin 2rem auto
+  order 2
 
-  ol
-    margin 0
-    order 1
-    overflow hidden
-    padding 0
-    transition height transition-slow ease-out, margin transition-slow ease-out
-    will-change height
+zig-zag ol
+  margin 0
+  order 1
+  overflow hidden
+  padding 0
+  transition height TRANSITION_SLOW ease-out, margin TRANSITION_SLOW ease-out
+  will-change height
 
-  ol[aria-hidden=true]
-    margin 0
+zig-zag ol[aria-hidden='true']
+  margin 0
 
-  li
-    background var(--background-2)
-    border-radius 0 4px 4px 0
-    display flex
-    margin .375rem 0
-    padding .375rem .5rem
-    transition background transition, color transition, width transition-slow ease-out
+zig-zag li
+  background var(--background-2)
+  border-radius 0 4px 4px 0
+  display flex
+  margin .375rem 0
+  padding .375rem .5rem
+  transition background TRANSITION, color TRANSITION, width TRANSITION_SLOW ease-out
 
-  label
-    color var(--text-2-color)
-    flex 1
-    margin-right .5rem
-    transition opacity transition-slow ease-out
+zig-zag label
+  color var(--text-2-color)
+  flex 1
+  margin-right .5rem
+  transition opacity TRANSITION_SLOW ease-out
 
-  .warning
-    background #f8d7da
+zig-zag .warning
+  background WARNING_BACKGROUND
 
-  .warning
-  .warning > label
-    color #721c24
+zig-zag .warning
+zig-zag .warning > label
+  color WARNING_COLOR
 
-  [no-js] &
-    display none
+[no-js] zig-zag
+  display none

@@ -5,9 +5,9 @@ main
     'zig-zag' 1fr
   grid-area main
   justify-self center
-  max-width content-max-width
+  max-width CONTENT_MAX_WIDTH
   padding 0 var(--site-padding) env(safe-area-inset-bottom)
 
-  [no-js] &
-    align-items center
-    grid unset
+[no-js] main
+  align-items center
+  grid unset

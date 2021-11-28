@@ -8,7 +8,7 @@ info-panel
   right 0
   top 0
   transform translateY(100vh)
-  transition transform transition ease-out
+  transition transform TRANSITION ease-out
   z-index 1
 
 info-panel[open]
@@ -16,7 +16,7 @@ info-panel[open]
 
 info-panel > div
   margin 0 auto
-  max-width content-max-width
+  max-width CONTENT_MAX_WIDTH
   padding 1rem var(--site-padding)
 
 info-panel h1

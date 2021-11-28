@@ -1,14 +1,14 @@
 number-ticker
   display block
   opacity 1
-  transition opacity transition
+  transition opacity TRANSITION
 
 number-ticker[hidden]
   opacity 0
   visibility hidden
 
-number-ticker[type=primary]
-  background -webkit-linear-gradient(brand-orange, brand-red)
+number-ticker[type='primary']
+  background -webkit-linear-gradient(BRAND_ORANGE, BRAND_RED)
   -webkit-background-clip text
   font-size 300%
   line-height 1
@@ -18,7 +18,7 @@ number-ticker[type=primary]
   text-align center
   -webkit-text-fill-color transparent
 
-number-ticker[type=primary]::after
+number-ticker[type='primary']::after
   background inherit
   bottom 0
   content attr(label)
