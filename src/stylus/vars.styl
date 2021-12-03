@@ -1,33 +1,24 @@
-:root
-  --copy-font-size em(14)
-  --h1-font-size em(16)
-  --h2-font-size em(15)
-  --h3-font-size em(14)
-  --header-font-size rem(16)
-  --header-height rem(48)
-  --site-padding rem(16)
-
-  @media screen and (min-width rem(640))
-    --copy-font-size rem(16)
-    --h1-font-size em(20)
-    --h2-font-size em(18)
-    --h3-font-size em(16)
-    --header-font-size rem(20)
-    --header-height rem(60)
-    --site-padding 0
-
+body
   --background-0 BACKGROUND_0
   --background-1 BACKGROUND_1
   --background-2 BACKGROUND_2
   --border-color BORDER_COLOR
+  --copy-font-size em(14)
+  --h1-font-size em(16)
+  --h2-font-size em(15)
+  --h3-font-size em(14)
   --header-backdrop-background HEADER_BACKDROP_BACKGROUND
   --header-background HEADER_BACKGROUND
+  --header-font-size rem(16)
+  --header-height rem(48)
   --invalid-color BRAND_RED
   --link-color LINK_COLOR
-  --text-1-color TEXT_1_COLOR
-  --text-2-color TEXT_2_COLOR
+  --primary-text-color TEXT_PRIMARY_COLOR
+  --secondary-text-color TEXT_SECONDARY_COLOR
+  --site-padding rem(16)
 
-  @media (prefers-color-scheme dark)
+@media (prefers-color-scheme dark)
+  body
     --background-0 BACKGROUND_0_DARK
     --background-1 BACKGROUND_1_DARK
     --background-2 BACKGROUND_2_DARK
@@ -36,5 +27,15 @@
     --header-background HEADER_BACKGROUND_DARK
     --invalid-color BRAND_ORANGE
     --link-color LINK_COLOR_DARK
-    --text-1-color TEXT_1_COLOR_DARK
-    --text-2-color TEXT_2_COLOR_DARK
+    --primary-text-color TEXT_PRIMARY_COLOR_DARK
+    --secondary-text-color TEXT_SECONDARY_COLOR_DARK
+
+@media screen and (min-width rem(640))
+  body
+    --copy-font-size rem(16)
+    --h1-font-size em(20)
+    --h2-font-size em(18)
+    --h3-font-size em(16)
+    --header-font-size rem(20)
+    --header-height rem(60)
+    --site-padding 0

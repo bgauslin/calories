@@ -27,7 +27,7 @@ user-values h2
   margin 0 0 .5rem
 
 user-values h2 > span
-  color var(--text-2-color)
+  color var(--secondary-text-color)
   margin-left auto
 
 // Pull 'Sex' heading out of the viewport since its options make this obvious.
@@ -60,7 +60,7 @@ user-values .feet::before
 
 user-values .weight::after
 user-values .age::after
-  color var(--text-2-color)
+  color var(--secondary-text-color)
   margin-left .5em
   pointer-events none
 
@@ -81,12 +81,12 @@ user-values label:focus
 
 user-values label:focus > [type] + span
 [no-touch] user-values label:hover > [type] + span
-  color var(--text-1-color)
+  color var(--primary-text-color)
   transform scale(1.1)
 
 user-values [for='feet']
 user-values [for='inches']
-  color var(--text-2-color)
+  color var(--secondary-text-color)
   margin 0 1rem 0 .5rem
   order 2
   text-transform lowercase
@@ -103,7 +103,7 @@ user-values [type='text']
   border 2px solid var(--background-0)
   border-radius 6px
   box-sizing content-box
-  color var(--text-1-color)
+  color var(--primary-text-color)
   font-size 1em
   height INPUT_HEIGHT
   padding 0 .5rem
@@ -113,14 +113,14 @@ user-values [type='text']
 user-values [type='radio'] + span
   align-items center
   border-radius 2px
-  color var(--text-2-color)
+  color var(--secondary-text-color)
   display flex
   justify-content center
   pointer-events none
   width 100%
 
 user-values [type='radio']:checked + span
-  color var(--text-1-color)
+  color var(--primary-text-color)
 
 [no-js] user-values
   display none
