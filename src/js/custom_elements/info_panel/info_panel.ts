@@ -36,9 +36,9 @@ class InfoPanel extends HTMLElement {
         process.env.GRAPHQL_PROD : process.env.GRAPHQL_DEV;
     const query = `
       query {
-        calories: entries(section: ["calories"], limit: 1) {
-          ...on calories_calories_Entry {
-            copy @markdown
+        entry(collection: "pages", slug: "calories") {
+          ... on Entry_Pages_Pages {
+            content
           }
         }
       }
@@ -55,9 +55,9 @@ class InfoPanel extends HTMLElement {
       });
 
       // Parse data and render it, then let the target know this is ready.
-      const data = await response.json();
+      const json = await response.json();
       const div = document.createElement('div');
-      div.innerHTML = data.data.calories[0].copy;
+      div.innerHTML = json.data.entry.content;
       this.appendChild(div);
       this.target.removeAttribute(PENDING_ATTR);
     } catch (error) {
