@@ -1,6 +1,5 @@
 require('dotenv').config();
 
-import './custom_elements/expandable/expandable';
 import './custom_elements/info_panel/info_panel';
 import './custom_elements/info_toggle/info_toggle';
 import './custom_elements/number_ticker/number_ticker';

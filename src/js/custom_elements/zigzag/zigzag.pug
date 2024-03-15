@@ -1,12 +1,6 @@
 - const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
-expand-able(
-  id="expandable"
-  for="zig-zag"
-  label="zig-zag calories"
-  watch="results"
-)
-ol(id="zig-zag")
+ol
   each day in days
     li
       label(aria-label=day)= day.substr(0, 3)

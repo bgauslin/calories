@@ -232,9 +232,12 @@ class UserValues extends HTMLElement {
     this.results.setAttribute('value', tdee.toFixed());
     this.results.setAttribute('bmr', bmr.toFixed());
  
-    const zigZag = document.querySelector('zig-zag')
-    zigZag.setAttribute('tdee', tdee.toFixed());
-    zigZag.setAttribute('max-tdee', tdeeMax.toFixed());
+    const zigZag = document.querySelector('zig-zag');
+    if (zigZag) {
+      zigZag.setAttribute('tdee', tdee.toFixed());
+      zigZag.setAttribute('max-tdee', tdeeMax.toFixed());
+      zigZag.removeAttribute('hidden');
+    }
   }
 
   /**
