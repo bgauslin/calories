@@ -1,12 +1,11 @@
 main
   display grid
-  grid:
-    'user-values' \
-    'zig-zag' 1fr
+  gap var(--main-gap)
+  grid var(--main-grid)
   grid-area main
   justify-self center
-  max-width CONTENT_MAX_WIDTH
-  padding 0 var(--site-padding) env(safe-area-inset-bottom)
+  max-width var(--main-max-width)
+  padding 0 0 env(safe-area-inset-bottom)
 
 [no-js] main
   align-items center

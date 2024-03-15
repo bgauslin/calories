@@ -1,14 +1,17 @@
 zig-zag
   display flex
   flex-direction column
-  grid-area zig-zag
-  margin 0 0 2rem
+  grid-area graph
+  padding var(--site-padding)
   transition opacity TRANSITION ease-out
 
 zig-zag[hidden]
   opacity 0
 
 zig-zag ol
+  display grid
+  gap .5rem
+  grid auto-flow / 1fr
   margin 0
   padding 0
 
@@ -16,14 +19,13 @@ zig-zag li
   background var(--background-2)
   border-radius 0 4px 4px 0
   display flex
-  margin .375rem 0
+  gap 0 .5rem
   padding .375rem .5rem
   transition background TRANSITION, color TRANSITION, width TRANSITION_SLOW ease-out
 
 zig-zag label
   color var(--secondary-text-color)
   flex 1
-  margin-right .5rem
   transition opacity TRANSITION_SLOW ease-out
 
 zig-zag .warning

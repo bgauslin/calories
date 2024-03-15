@@ -13,6 +13,10 @@ body
   --header-height rem(48)
   --invalid-color BRAND_RED
   --link-color LINK_COLOR
+  --main-grid 'values' 'results' 'graph' 1fr / 1fr
+  --main-gap 1rem
+  --main-max-width rem(400)
+  --number-ticker-place-self center
   --primary-text-color TEXT_PRIMARY_COLOR
   --secondary-text-color TEXT_SECONDARY_COLOR
   --site-padding rem(16)
@@ -30,7 +34,7 @@ body
     --primary-text-color TEXT_PRIMARY_COLOR_DARK
     --secondary-text-color TEXT_SECONDARY_COLOR_DARK
 
-@media screen and (min-width rem(640))
+@media (min-width rem(640))
   body
     --copy-font-size rem(16)
     --h1-font-size em(20)
@@ -38,4 +42,10 @@ body
     --h3-font-size em(16)
     --header-font-size rem(20)
     --header-height rem(60)
-    --site-padding 0
+
+@media (orientation: landscape)
+  body
+    --main-grid 'values results' 'values graph' auto / 1fr 1fr
+    --main-max-width rem(800)
+    // --number-ticker-place-self end center
+    // --values-place-self center

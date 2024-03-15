@@ -1,11 +1,11 @@
 user-values
   display block
-  grid-area user-values
-  margin 1rem 0 0
+  grid-area values
+  padding var(--site-padding)
+  place-self var(--values-place-self)
 
 user-values fieldset
   border 0
-  margin 0 0 1rem
   opacity 1
   padding 0
   transition opacity TRANSITION
@@ -14,17 +14,16 @@ user-values [disabled]
   opacity .3
   pointer-events none
 
+user-values form
+  display grid
+  gap .75rem
+  grid auto-flow / 1fr
+
 // Tweak a few <fieldset> layouts based on their content.
-user-values [id='sex']
-  margin-bottom 1.5rem
-
-user-values [id='measurements']
-  margin-bottom .5rem
-
 user-values h2
   display flex
   font-size 1rem
-  margin 0 0 .5rem
+  margin .5rem 0
 
 user-values h2 > span
   color var(--secondary-text-color)
@@ -46,9 +45,7 @@ user-values ul
 
 user-values [id='measurements'] ul
   flex-wrap wrap
-
-user-values li
-  margin 0 0 .75rem
+  gap .75rem
 
 user-values .weight
 user-values .age

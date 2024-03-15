@@ -1,6 +1,8 @@
 number-ticker
   display block
+  grid-area results
   opacity 1
+  place-self var(--number-ticker-place-self)
   transition opacity TRANSITION
 
 number-ticker[hidden]
@@ -12,8 +14,7 @@ number-ticker[type='primary']
   -webkit-background-clip text
   font-size 300%
   line-height 1
-  margin 2rem 0
-  padding 0 0 1.25rem
+  padding 0 0 2.5rem
   position relative
   text-align center
   -webkit-text-fill-color transparent
