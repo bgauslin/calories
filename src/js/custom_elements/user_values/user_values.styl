@@ -97,24 +97,24 @@ user-values label > span
 
 user-values [type='text']
   background var(--background-2)
+  block-size var(--input-height)
   border 2px solid var(--background-0)
   border-radius 6px
   box-sizing content-box
   color var(--primary-text-color)
   font-size 1em
-  height INPUT_HEIGHT
-  padding 0 .5rem
+  inline-size 3rem
+  padding-inline .5rem
   text-align end
-  width 3rem
 
 user-values [type='radio'] + span
   align-items center
   border-radius 2px
   color var(--secondary-text-color)
   display flex
+  inline-size 100%
   justify-content center
   pointer-events none
-  width 100%
 
 user-values [type='radio']:checked + span
   color var(--primary-text-color)

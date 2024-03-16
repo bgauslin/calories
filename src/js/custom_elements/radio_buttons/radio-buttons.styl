@@ -11,15 +11,15 @@ radio-buttons
 // Marker underneath the radio buttons that slides over to the checked one.
 radio-buttons::after
   background var(--background-2)
+  block-size var(--height)
   border-radius 4px
   content ''
   display block
-  height var(--height)
+  inline-size var(--width)
   left var(--left)
   position absolute
   top 4px
   transition left TRANSITION ease-out, width TRANSITION ease-out
-  width var(--width)
   z-index -1
 
 // Each radio button is within a <label> for easier clicking, and the text
@@ -28,4 +28,4 @@ radio-buttons > label
   flex 1
 
 radio-buttons > label > span
-  height INPUT_HEIGHT
+  block-size var(--input-height)
