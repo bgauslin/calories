@@ -16,33 +16,42 @@ body
   --h3-font-size .875em
   --header-font-size 1rem
 
-  // Theming.
-  // Gray colors are taken from Apple HIG.
-  // @see https://developer.apple.com/design/human-interface-guidelines/ios/visual-design/color
-  --background-0 rgb(255, 255, 255)
-  --background-1 rgb(242, 242, 247)  // Gray 6
-  --background-2 rgb(199, 199, 204)  // Gray 3
-  --body-background: var(--background-0)
-  --main-background: var(--background-0)
-  --border-color rgb(199, 199, 204)  // Gray 3
-  --brand-red rgb(178, 34, 34)// Firebrick
+  // Branding colors.
+  --brand-red rgb(178, 34, 34)
   --brand-orange rgb(255, 122, 0)
+
+  // Grays via Apple HIG.
+  // @see https://developer.apple.com/design/human-interface-guidelines/ios/visual-design/color
+  --gray1 rgb(142, 142, 147)
+  --gray2 rgb(174, 174, 178)
+  --gray3 rgb(199, 199, 204)
+  --gray4 rgb(209, 209, 214)
+  --gray5 rgb(229, 229, 234)
+  --gray6 rgb(242, 242, 247)
+
+  // Theming.
+  --background-1 var(--gray5)
+  --background-2 var(--gray3)
+  --body-background var(--gray6)
+  --border-color var(--gray3)
   --header-backdrop-background rgba(255, 255, 255, .65)
   --header-background rgba(255, 255, 255, .95)
   --invalid-color var(--brand-red)
   --link-color rgb(0, 121, 253)
+  --main-background white
   --primary-text-color rgb(0, 0, 0)
-  --secondary-text-color rgb(72, 72, 74)  // Gray 3 Dark
   --warning-background rgb(248, 215, 218)
   --warning-color rgb(114, 28, 36)
 
-  // Animations and transition.
+  // TODO: Refactor/remove:
+  --secondary-text-color rgb(72, 72, 74)  // Gray 3 Dark
+
+  // Animations and transitions.
   --transition .3s
   --transition-slow .5s
 
 @media (orientation: landscape)
   body
-    --body-background: var(--background-1)
     --main-gap 0
     --main-grid 'values results' 'values graph' auto / 1fr 1fr
     --main-max-width 50rem
@@ -60,14 +69,25 @@ body
 
 @media (prefers-color-scheme dark)
   body
+    // Dark mode grays.
+    --gray1 rgb(142, 142, 147)
+    --gray2 rgb(99, 99, 102)
+    --gray3 rgb(72, 72, 74)
+    --gray4 rgb(58, 58, 60)
+    --gray5 rgb(44, 44, 46)
+    --gray6 rgb(28, 28, 30)
+
     // Dark mode theming.
-    --background-0 rgb(0, 0, 0)
-    --background-1 rgb(28, 28, 30)  // Gray 6 Dark
-    --background-2 rgb(58, 58, 60)  // Gray 4 Dark
-    --border-color rgb(58, 58, 60)  // Gray 4 Dark
-    --header-backdrop-background rgba(28, 28, 30, .65)  // Gray 6 Dark
+    --background-1 var(--gray5)
+    --background-2 var(--gray3)
+    --body-background: black
+    --border-color var(--gray4)
+    --header-backdrop-background rgba(28, 28, 30, .65)
     --header-background rgba(0, 0, 0, .95)
     --invalid-color var(--brand-orange)
     --link-color rgb(10, 132, 254)
-    --primary-text-color rgb(229, 229, 234)  // Gray 5
-    --secondary-text-color rgb(174, 174, 178)  // Gray 2
+    --main-background: var(--gray6);
+    --primary-text-color white
+
+    // TODO: Refactor/remove:
+    --secondary-text-color rgb(174, 174, 178)  // Gray2 light
