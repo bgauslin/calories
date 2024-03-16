@@ -1,22 +1,22 @@
 body
   // Layout.
-  --button-size rem(44)
-  --header-height rem(48)
-  --input-height rem(32)
-  --label-width rem(72)
-  --main-grid 'values' 'results' 'graph' 1fr / 1fr
-  --main-gap 1rem
-  --main-max-width rem(400)
-  --site-padding rem(16)
+  --button-size 2.75rem
+  --header-height 3rem
+  --input-height 2rem
+  --label-width 4rem
+  --main-grid 'values' 'results' 'graph' 1fr '.' 0 / 1fr
+  --main-gap 2rem
+  --main-max-width 24rem
+  --site-padding 1rem
   --transition .3s
   --transition-slow .5s
 
   // Typography.
-  --copy-font-size em(14)
-  --h1-font-size em(16)
-  --h2-font-size em(15)
-  --h3-font-size em(14)
-  --header-font-size rem(16)
+  --copy-font-size .875em
+  --h1-font-size 1em
+  --h2-font-size .9375em
+  --h3-font-size .875em
+  --header-font-size 1rem
 
   // Theming.
   // Gray colors are taken from Apple HIG.
@@ -39,7 +39,16 @@ body
 @media (orientation: landscape)
   body
     --main-grid 'results values' 'graph values' auto / 1fr 1fr
-    --main-max-width rem(800)
+    --main-max-width 50rem
+
+@media (min-width 50rem)
+  body
+    --copy-font-size 1rem
+    --h1-font-size 1.25em
+    --h2-font-size 1.125em
+    --h3-font-size 1em
+    --header-font-size 1.25rem
+    --header-height 5rem
 
 @media (prefers-color-scheme dark)
   body
@@ -54,13 +63,3 @@ body
     --link-color #0a84fe
     --primary-text-color rgb(229, 229, 234)  // Gray 5
     --secondary-text-color rgb(174, 174, 178)  // Gray 2
-
-@media (min-width rem(640))
-  body
-    --copy-font-size rem(16)
-    --h1-font-size em(20)
-    --h2-font-size em(18)
-    --h3-font-size em(16)
-    --header-font-size rem(20)
-    --header-height rem(60)
-
