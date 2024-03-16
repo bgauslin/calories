@@ -26,7 +26,7 @@ user-values h2
   margin-block .5rem
 
 user-values h2 > span
-  color var(--secondary-text-color)
+  opacity var(--text-opacity)
   margin-inline auto 0
 
 // Pull 'Sex' heading out of the viewport since its options make this obvious.
@@ -54,8 +54,8 @@ user-values .feet::before
   inline-size var(--label-width)
 
 user-values :is(.weight, .age)::after
-  color var(--secondary-text-color)
   margin-inline .5em 0
+  opacity var(--text-opacity)
   pointer-events none
 
 user-values .weight::after
@@ -80,9 +80,9 @@ user-values label:focus > [type] + span
 
 user-values [for='feet']
 user-values [for='inches']
-  color var(--secondary-text-color)
   margin-block 0
   margin-inline 1rem .5rem
+  opacity var(--text-opacity)
   order 2
   text-transform lowercase
 
@@ -107,10 +107,10 @@ user-values [type='text']
 user-values [type='radio'] + span
   align-items center
   border-radius 2px
-  color var(--secondary-text-color)
   display flex
   inline-size 100%
   justify-content center
+  opacity var(--text-opacity)
   pointer-events none
 
 user-values [type='radio']:checked + span
