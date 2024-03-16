@@ -23,19 +23,18 @@ user-values form
 user-values h2
   display flex
   font-size 1rem
-  margin .5rem 0
+  margin-block .5rem
 
 user-values h2 > span
   color var(--secondary-text-color)
-  margin-left auto
+  margin-inline auto 0
 
 // Pull 'Sex' heading out of the viewport since its options make this obvious.
 user-values [id='sex'] h2
-  left -100vw
+  inset-inline -100vw auto
   position absolute
 
-user-values ul
-user-values li
+user-values :is(ul, li)
   align-items center
   display flex
   padding 0
@@ -47,18 +46,16 @@ user-values [id='measurements'] ul
   flex-wrap wrap
   gap .75rem
 
-user-values .weight
-user-values .age
+user-values :is(.weight, .age)
   flex 0 0 100%
 
 user-values .feet::before
   content 'Height'
-  width LABEL_WIDTH
+  inline-size var(--label-width)
 
-user-values .weight::after
-user-values .age::after
+user-values :is(.weight, .age)::after
   color var(--secondary-text-color)
-  margin-left .5em
+  margin-inline .5em 0
   pointer-events none
 
 user-values .weight::after
@@ -84,13 +81,13 @@ user-values label:focus > [type] + span
 user-values [for='feet']
 user-values [for='inches']
   color var(--secondary-text-color)
-  margin 0 1rem 0 .5rem
+  margin-block 0
+  margin-inline 1rem .5rem
   order 2
   text-transform lowercase
 
-user-values [for='age']
-user-values [for='weight']
-  width LABEL_WIDTH
+user-values :is([for='age'], [for='weight'])
+  inline-size var(--label-width)
 
 user-values label > span
   transition color TRANSITION, transform TRANSITION
