@@ -9,9 +9,7 @@
   user-select none
 
 html
-  height -webkit-fill-available
-  margin 0
-  padding 0
+  block-size -webkit-fill-available
   -webkit-tap-highlight-color transparent
   text-size-adjust none
 
@@ -41,11 +39,11 @@ button
 a:focus
 input:focus
 button:focus
-  outline 0
+  outline none
 
 input[type='radio']
-  height 0
-  width 0
+  block-size 0
+  inline-size 0
 
 input[type='text']
   font-family 'Avenir Variable', sans-serif
@@ -58,10 +56,10 @@ input[type='text']
     color var(--invalid-color)
 
 svg
-  height auto
+  block-size auto
+  inline-size 100%
   pointer-events none
   vertical-align middle
-  width 100%
 
 svg path
   fill currentColor
