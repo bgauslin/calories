@@ -1,35 +1,42 @@
 body
-  --background-0 BACKGROUND_0
-  --background-1 BACKGROUND_1
-  --background-2 BACKGROUND_2
-  --border-color BORDER_COLOR
+  // Layout.
+  --button-size rem(44)
+  --header-height rem(48)
+  --input-height rem(32)
+  --label-width rem(72)
+  --main-grid 'values' 'results' 'graph' 1fr / 1fr
+  --main-gap 1rem
+  --main-max-width rem(400)
+  
+  // Typography.
   --copy-font-size em(14)
   --h1-font-size em(16)
   --h2-font-size em(15)
   --h3-font-size em(14)
-  --header-backdrop-background HEADER_BACKDROP_BACKGROUND
-  --header-background HEADER_BACKGROUND
   --header-font-size rem(16)
-  --header-height rem(48)
-  --input-height rem(32)
+
+  // Theming.
+  --background-0 BACKGROUND_0
+  --background-1 BACKGROUND_1
+  --background-2 BACKGROUND_2
+  --border-color BORDER_COLOR
+  --header-backdrop-background rgba(white, .65)
+  --header-background rgba(white, .95)
   --invalid-color BRAND_RED
-  --label-width rem(72)
   --link-color LINK_COLOR
-  --main-grid 'values' 'results' 'graph' 1fr / 1fr
-  --main-gap 1rem
-  --main-max-width rem(400)
   --primary-text-color TEXT_PRIMARY_COLOR
   --secondary-text-color TEXT_SECONDARY_COLOR
   --site-padding rem(16)
 
 @media (prefers-color-scheme dark)
   body
+    // Dark mode theming.
     --background-0 BACKGROUND_0_DARK
     --background-1 BACKGROUND_1_DARK
     --background-2 BACKGROUND_2_DARK
     --border-color BORDER_COLOR_DARK
-    --header-backdrop-background HEADER_BACKDROP_BACKGROUND_DARK
-    --header-background HEADER_BACKGROUND_DARK
+    --header-backdrop-background rgba(GRAY_6_DARK, .65)
+    --header-background rgba(black, .95)
     --invalid-color BRAND_ORANGE
     --link-color LINK_COLOR_DARK
     --primary-text-color TEXT_PRIMARY_COLOR_DARK
