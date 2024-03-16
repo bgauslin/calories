@@ -1,13 +1,13 @@
 body
   // Layout.
   --button-size 2.75rem
+  --gap clamp(1rem, .5rem \+ 2vw, 2rem)
   --header-height 3rem
   --input-height 2rem
   --label-width 4rem
   --main-grid 'values' 'results' 'graph' 1fr '.' 0 / 1fr
   --main-gap 2rem
   --main-max-width 24rem
-  --site-padding 1rem
   --transition .3s
   --transition-slow .5s
 
@@ -24,6 +24,8 @@ body
   --background-0 white
   --background-1 rgb(242, 242, 247)  // Gray 6
   --background-2 rgb(199, 199, 204)  // Gray 3
+  --body-background: var(--background-0)
+  --main-background: var(--background-0)
   --border-color rgb(199, 199, 204)  // Gray 3
   --brand-red #b22222  // Firebrick
   --brand-orange #ff7a00
@@ -36,10 +38,17 @@ body
   --warning-background #f8d7da
   --warning-color #721c24
 
+  // Elements.
+
+
 @media (orientation: landscape)
   body
-    --main-grid 'results values' 'graph values' auto / 1fr 1fr
+    --body-background: var(--background-1)
+    --main-gap 0
+    --main-grid 'values results' 'values graph' auto / 1fr 1fr
     --main-max-width 50rem
+    --results-margin-block 2rem 0
+    --values-place-self center
 
 @media (min-width 50rem)
   body
