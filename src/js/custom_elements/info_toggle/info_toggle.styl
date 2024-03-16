@@ -15,7 +15,7 @@ info-toggle
   &:active
   &:focus
   [no-touch] &:hover
-    background var(--background-1)
+    background var(--fill-2)
 
 info-toggle[pending]
   opacity 0
@@ -31,7 +31,7 @@ info-toggle[pending]
   stroke-width 2.5
 
 .icon--info > circle
-  fill var(--body-background) // TODO: Refactor/rename.
+  fill var(--fill-0)
 
 .icon--info > circle:first-of-type
   fill var(--primary-text-color)
@@ -39,6 +39,6 @@ info-toggle[pending]
 .icon--info > path
   fill none
   stroke green
-  stroke var(--body-background) // TODO: Refactor/rename.
+  stroke var(--fill-0)
   stroke-linecap round
   stroke-width 2.5
