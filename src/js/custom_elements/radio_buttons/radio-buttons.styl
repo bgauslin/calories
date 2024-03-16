@@ -19,7 +19,7 @@ radio-buttons::after
   left var(--left)
   position absolute
   top 4px
-  transition left TRANSITION ease-out, width TRANSITION ease-out
+  transition left var(--transition) ease-out, inline-size var(--transition) ease-out
   z-index -1
 
 // Each radio button is within a <label> for easier clicking, and the text

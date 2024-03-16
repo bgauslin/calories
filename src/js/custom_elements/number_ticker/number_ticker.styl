@@ -1,12 +1,12 @@
 number-ticker
   display block
-  transition opacity TRANSITION
+  transition opacity var(--transition)
 
 number-ticker[hidden]
   opacity 0
 
 [id='results']
-  background -webkit-linear-gradient(BRAND_ORANGE, BRAND_RED)
+  background -webkit-linear-gradient(var(--brand-orange), var(--brand-red))
   -webkit-background-clip text
   font-size 300%
   grid-area results

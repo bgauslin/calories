@@ -1,7 +1,7 @@
 zig-zag
   grid-area graph
   padding var(--site-padding)
-  transition opacity TRANSITION ease-out
+  transition opacity var(--transition) ease-out
 
 zig-zag[hidden]
   opacity 0
@@ -19,19 +19,19 @@ zig-zag li
   display flex
   gap 0 .5rem
   padding .375rem .5rem
-  transition background TRANSITION, color TRANSITION, width TRANSITION_SLOW ease-out
+  transition background var(--transition), color var(--transition), inline-size var(--transition-slow) ease-out
 
 zig-zag label
   color var(--secondary-text-color)
   flex 1
-  transition opacity TRANSITION_SLOW ease-out
+  transition opacity var(--transition-slow) ease-out
 
 zig-zag .warning
-  background WARNING_BACKGROUND
+  background var(--warning-background)
 
 zig-zag .warning
 zig-zag .warning > label
-  color WARNING_COLOR
+  color var(--warning-color)
 
 [no-js] zig-zag
   display none

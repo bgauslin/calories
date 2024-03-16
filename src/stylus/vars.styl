@@ -1,3 +1,19 @@
+// Grays palette.
+// https://developer.apple.com/design/human-interface-guidelines/ios/visual-design/color
+GRAY_1 = rgb(142, 142, 147)
+GRAY_2 = rgb(174, 174, 178)
+GRAY_3 = rgb(199, 199, 204)
+GRAY_4 = rgb(209, 209, 214)
+GRAY_5 = rgb(229, 229, 234)
+GRAY_6 = rgb(242, 242, 247)
+
+GRAY_1_DARK = rgb(142, 142, 147)
+GRAY_2_DARK = rgb(99, 99, 102)
+GRAY_3_DARK = rgb(72, 72, 74)
+GRAY_4_DARK = rgb(58, 58, 60)
+GRAY_5_DARK = rgb(44, 44, 46)
+GRAY_6_DARK = rgb(28, 28, 30)
+
 body
   // Layout.
   --button-size rem(44)
@@ -7,7 +23,10 @@ body
   --main-grid 'values' 'results' 'graph' 1fr / 1fr
   --main-gap 1rem
   --main-max-width rem(400)
-  
+  --site-padding rem(16)
+  --transition .3s
+  --transition-slow .5s
+
   // Typography.
   --copy-font-size em(14)
   --h1-font-size em(16)
@@ -16,31 +35,34 @@ body
   --header-font-size rem(16)
 
   // Theming.
-  --background-0 BACKGROUND_0
-  --background-1 BACKGROUND_1
-  --background-2 BACKGROUND_2
-  --border-color BORDER_COLOR
+  --background-0 white
+  --background-1 GRAY_6
+  --background-2 GRAY_3
+  --border-color GRAY_3
+  --brand-red #b22222 // firebrick
+  --brand-orange #ff7a00
   --header-backdrop-background rgba(white, .65)
   --header-background rgba(white, .95)
-  --invalid-color BRAND_RED
-  --link-color LINK_COLOR
-  --primary-text-color TEXT_PRIMARY_COLOR
-  --secondary-text-color TEXT_SECONDARY_COLOR
-  --site-padding rem(16)
+  --invalid-color var(--brand-red)
+  --link-color #0079fd
+  --primary-text-color black
+  --secondary-text-color GRAY_3_DARK
+  --warning-background #f8d7da
+  --warning-color #721c24
 
 @media (prefers-color-scheme dark)
   body
     // Dark mode theming.
-    --background-0 BACKGROUND_0_DARK
-    --background-1 BACKGROUND_1_DARK
-    --background-2 BACKGROUND_2_DARK
-    --border-color BORDER_COLOR_DARK
+    --background-0 black
+    --background-1 GRAY_6_DARK
+    --background-2 GRAY_4_DARK
+    --border-color GRAY_4_DARK
     --header-backdrop-background rgba(GRAY_6_DARK, .65)
     --header-background rgba(black, .95)
     --invalid-color BRAND_ORANGE
-    --link-color LINK_COLOR_DARK
-    --primary-text-color TEXT_PRIMARY_COLOR_DARK
-    --secondary-text-color TEXT_SECONDARY_COLOR_DARK
+    --link-color #0a84fe
+    --primary-text-color GRAY_5
+    --secondary-text-color GRAY_2
 
 @media (min-width rem(640))
   body
