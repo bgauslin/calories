@@ -1,31 +1,30 @@
 number-ticker
   display block
-  grid-area results
-  opacity 1
-  place-self var(--number-ticker-place-self)
   transition opacity TRANSITION
 
 number-ticker[hidden]
   opacity 0
-  visibility hidden
 
-number-ticker[type='primary']
+[id='results']
   background -webkit-linear-gradient(BRAND_ORANGE, BRAND_RED)
   -webkit-background-clip text
   font-size 300%
+  grid-area results
   line-height 1
-  padding 0 0 2.5rem
+  padding-block 0 1em
+  padding-inline 0
+  place-self center
   position relative
   text-align center
   -webkit-text-fill-color transparent
 
-number-ticker[type='primary']::after
+[id='results']::after
   background inherit
-  bottom 0
   content attr(label)
   display block
   font-size 1rem
+  inline-size 100%
+  inset-block auto 0
   line-height initial
   position absolute
   text-transform lowercase
-  width 100%
