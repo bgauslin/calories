@@ -1,13 +1,13 @@
 info-toggle
-  border-radius 50%
+  block-size BUTTON_HEIGHT
+  border-radius BUTTON_HEIGHT
   cursor pointer
   display flex
-  height BUTTON_HEIGHT
-  margin-right rem(-12)
+  inline-size BUTTON_WIDTH
+  margin-inline-end rem(-12)
   opacity 1
-  outline 0
+  outline none
   transition background TRANSITION, opacity TRANSITION_SLOW ease-out, transform TRANSITION
-  width BUTTON_WIDTH
 
   &:active
     transform scale(.9)
