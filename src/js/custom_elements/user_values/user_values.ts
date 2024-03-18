@@ -89,10 +89,9 @@ class UserValues extends HTMLElement {
   }
 
   /**
-   * Renders HTML for input groups.
+   * Renders HTML for all input groups.
    */
   private render() {
-    const userValuesTemplate = require('./user_values.pug');
     const fields = {
       activityLevel: {
         buttons: ActivityLevel,
@@ -118,7 +117,72 @@ class UserValues extends HTMLElement {
         name: OptionsGroup.GOAL,
       },
     };
-    this.innerHTML = userValuesTemplate({fields: fields});
+
+    const {activityLevel, measurements, sex, weightGoal} = fields;
+    this.innerHTML = `
+      <form>
+        ${this.renderRadioButtons(sex, 'sex')}
+        ${this.renderTextInputs(measurements, 'measurements')}
+        ${this.renderRadioButtons(activityLevel, 'activity')}
+        ${this.renderRadioButtons(weightGoal, 'goal')}
+      <form>
+    `;
+  }
+
+  /**
+   * Renders HTML for a group of radio buttons.
+   */
+  private renderRadioButtons(field: any, modifier: string) {
+    console.log('field', field);
+
+    const {buttons, disabled, headingLabel, headingNote, name} = field;
+    
+    let options = ''
+    for (const [index, button] of buttons.entries()) {
+      const checkedAttr = (index === 0) ? 'checked' : '';
+      const {id, label, value} = button;
+      options += `
+        <label for="${id}" tabindex="0">
+          <input type="radio" name="${name}" id="${id}" value="${value}" tabindex="-1" ${checkedAttr}>
+          <span>${label}</span>
+        </label>
+      `;
+    }
+
+    const note = headingNote ? `<span>${headingNote}</span>` : '';
+    const disabledAttr = disabled ? 'disabled' : '';
+    const html = `
+      <fieldset id="${modifier}" ${disabledAttr}>
+        <h2>${headingLabel}${note}</h2>
+        <radio-marker>${options}</radio-marker>
+      </fieldset>
+    `;
+
+    return html;
+  }
+
+  /**
+   * Renders HTML for a group of text inputs.
+   */
+  private renderTextInputs(list: any, modifier: string): string {
+    let items = '';
+    for (const item of list) {
+      const {id, inputmode, label, name, pattern} = item;
+      items += `
+        <li class="${id}">
+          <label for="${id}">${label}</label>
+          <input type="text" name="${name}" id="${id} inputmode="${inputmode}" pattern="${pattern}" required>
+        </li>
+      `;
+    }
+
+    const html = `
+      <fieldset id="${modifier}">
+        <ul>${items}</ul>
+      </fieldset>
+    `;
+
+    return html;
   }
 
   /**
