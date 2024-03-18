@@ -76,11 +76,11 @@ class UserValues extends HTMLElement {
     this.results = document.getElementById('results')!;
 
     // If user data exists, update elements with that data, then make each
-    // <radio-buttons> element set its marker's position.
+    // <radio-marker> set its marker's position.
     this.populateInputs();
     const changeEvent = new Event('change');
-    const radioButtons = this.querySelectorAll('radio-buttons');
-    for (const element of radioButtons) {
+    const radioMarkers = this.querySelectorAll('radio-marker');
+    for (const element of radioMarkers) {
       element.dispatchEvent(changeEvent);
     }
 

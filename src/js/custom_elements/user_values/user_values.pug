@@ -7,7 +7,7 @@ mixin optionsGroup(field, modifier)
     h2= field.headingLabel
       if field.headingNote
         span= field.headingNote
-    radio-buttons
+    radio-marker
       each button, index in field.buttons
         label(
           for=button.id

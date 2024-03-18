@@ -3,7 +3,7 @@
  * visual marker that slides from the previously checked button to the
  * currently checked button.
  */
-class RadioButtons extends HTMLElement {
+class RadioMarker extends HTMLElement {
   private resizeListener: EventListenerObject;
 
   constructor() {
@@ -42,4 +42,4 @@ class RadioButtons extends HTMLElement {
   }
 }
 
-customElements.define('radio-buttons', RadioButtons);
+customElements.define('radio-marker', RadioMarker);
