@@ -213,7 +213,7 @@ class UserValues extends HTMLElement {
     const tdee = this.formulas.totalDailyEnergyExpenditure({
       activity: activityLevel!.factor!,
       bmr,
-      goal: goalLevel?.factor!,
+      goal: goalLevel!.factor!,
     });
     const tdeeMax = this.formulas.totalDailyEnergyExpenditure({
       activity: ActivityLevel[ActivityLevel.length - 1]!.factor!,
