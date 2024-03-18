@@ -107,14 +107,14 @@ user-values [type='text']
 user-values [type='radio'] + span
   align-items center
   border-radius 2px
+  // color var(--text-color)
   display flex
   inline-size 100%
   justify-content center
-  opacity var(--text-opacity)
   pointer-events none
 
-user-values [type='radio']:checked + span
-  color var(--text-color)
+user-values [type='radio']:not(:checked) + span
+  opacity var(--text-opacity)
 
 [no-js] user-values
   display none
