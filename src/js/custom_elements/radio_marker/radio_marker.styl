@@ -1,32 +1,36 @@
 // The custom element displays as a tray containing radio buttons with a marker
 // that slides to the selected radio button.
-radio-marker
-  align-items center
-  background var(--fill-2)
-  border-radius 8px
-  display flex
-  padding 4px
-  position relative
-  z-index 1
+radio-marker {
+  align-items: center;
+  background: var(--fill-2);
+  border-radius: 8px;
+  display: flex;
+  padding: 4px;
+  position: relative;
+  z-index: 1;
 
   // Each radio button is within a <label> for easier clicking, and the text
   // of each <label> is within a <span> for sibling element styling.
-  label
-    flex 1
+  label {
+    flex: 1;
+  }
 
-  span
-    block-size var(--input-height)
+  span {
+    block-size: var(--input-height);
+  }
 
   // Marker underneath the radio buttons that slides over to the checked one.
-  &::after
-    background var(--fill-3)
-    block-size var(--height)
-    border-radius 4px
-    content ''
-    display block
-    inline-size var(--width)
-    left var(--left)
-    position absolute
-    top 4px
-    transition left var(--transition) ease-out, inline-size var(--transition) ease-out
-    z-index -1
+  &::after {
+    background: var(--fill-3);
+    block-size: var(--height);
+    border-radius: 4px;
+    content: '';
+    display: block;
+    inline-size: var(--width);
+    left: var(--left);
+    position: absolute;
+    top: 4px;
+    transition: left var(--transition) ease-out, inline-size var(--transition) ease-out;
+    z-index: -1;
+  }
+}
