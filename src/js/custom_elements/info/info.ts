@@ -17,8 +17,7 @@ class AppInfo extends HTMLElement {
   }
 
   connectedCallback() {
-    this.renderButton();
-    this.renderPanel();
+    this.setup();
   }
 
   disconnectedCallback() {
@@ -26,18 +25,31 @@ class AppInfo extends HTMLElement {
     this.removeEventListener('keyup', this.handleKey);
   }
 
-  private renderButton() {
-    this.button = document.createElement('button');
-    this.button.ariaExpanded = 'false';
-    this.button.ariaLabel = 'About this app';
-    this.button.id = 'info-toggle';
-    this.button.innerHTML = this.iconTemplate();
-    this.button.tabIndex = 0;
-    this.button.setAttribute('aria-haspopup', 'true');
-    this.button.setAttribute('aria-controls', 'info-panel');
-    this.button.setAttribute('pending', '');
+  private async setup(): Promise<any> {
+    try {
+      const response = await fetch(ENDPOINT);
+      const json = await response.json();
 
-    this.appendChild(this.button);
+      this.innerHTML += `
+        <button
+          type="button"
+          id="info-toggle"
+          aria-controls="info-panel"
+          aria-expanded="false"
+          aria-haspopup="true"
+          aria-label="About this app">${this.iconTemplate()}
+        </button>
+        <div aria-labelledby="info-toggle" id="info-panel" hidden>
+          ${json.info}
+        </div>
+      `;
+
+      this.panel = document.getElementById('info-panel')!;
+      this.button = this.querySelector('button')!;
+    } catch (error) {
+      console.warn('Currently unable to fetch data. :(');
+      return;
+    }
   }
 
   private iconTemplate(name: string = 'info'): string {
@@ -58,25 +70,6 @@ class AppInfo extends HTMLElement {
     `;
 
     return html;
-  }
-
-  private async renderPanel(): Promise<any> {
-    try {
-      const response = await fetch(ENDPOINT);
-      const json = await response.json();
-
-      this.panel = document.createElement('div');
-      this.panel.id = 'info-panel';
-      this.panel.innerHTML = json.info;
-      this.panel.setAttribute('aria-labelledby', 'info-toggle');
-      this.panel.setAttribute('hidden', '');
-
-      this.appendChild(this.panel);
-      this.button.removeAttribute('pending');
-    } catch (error) {
-      console.warn('Currently unable to fetch data. :(');
-      return;
-    }
   }
 
   private togglePanel() {
