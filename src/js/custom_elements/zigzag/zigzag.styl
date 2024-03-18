@@ -3,35 +3,35 @@ zig-zag
   padding var(--gap)
   transition opacity var(--transition) ease-out
 
-zig-zag[hidden]
-  opacity 0
+  &[hidden]
+    opacity 0
 
-zig-zag ol
-  display grid
-  gap .5rem
-  grid auto-flow / 1fr
-  margin 0
-  padding 0
+  ol
+    display grid
+    gap .5rem
+    grid auto-flow / 1fr
+    margin 0
+    padding 0
 
-zig-zag li
-  background var(--fill-2)
-  border-radius 0 4px 4px 0
-  display flex
-  gap 0 .5rem
-  padding .375rem .5rem
-  transition background var(--transition), color var(--transition), inline-size var(--transition-slow) ease-out
+  li
+    background var(--fill-2)
+    border-radius 0 4px 4px 0
+    display flex
+    gap 0 .5rem
+    padding .375rem .5rem
+    transition background var(--transition), color var(--transition), inline-size var(--transition-slow) ease-out
 
-zig-zag label
-  flex 1
-  opacity var(--text-opacity)
-  transition opacity var(--transition-slow) ease-out
+  label
+    flex 1
+    opacity var(--text-opacity)
+    transition opacity var(--transition-slow) ease-out
 
-zig-zag .warning
-  background var(--warning-background)
+  .warning
+    background var(--warning-background)
+    color var(--warning-color)
 
-zig-zag .warning
-zig-zag .warning > label
-  color var(--warning-color)
+  // .warning label
+  //   opacity 1
 
-[no-js] zig-zag
-  display none
+  [no-js] &
+    display none
