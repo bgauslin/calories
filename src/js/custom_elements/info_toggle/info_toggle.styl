@@ -1,15 +1,15 @@
 info-toggle
-  block-size var(--button-size)
+  grid-area info
+  place-self center end
+  z-index 2
+
+[id='info-toggle']
+  aspect-ratio 1
   border-radius var(--button-size)
   cursor pointer
-  display flex
-  grid-area info
   inline-size var(--button-size)
   opacity 1
-  outline none
-  place-self center end
   transition background var(--transition), opacity var(--transition-slow) ease-out, transform var(--transition)
-  z-index 2
 
   &[pending]
     opacity 0
@@ -24,8 +24,7 @@ info-toggle
     background var(--fill-2)
 
 .icon
-  flex 0 0 1.25rem
-  margin auto
+  inline-size 1.25rem
   pointer-events none
 
 .icon--close
@@ -46,3 +45,56 @@ info-toggle
     stroke var(--fill-0)
     stroke-linecap round
     stroke-width 2.5
+
+[id='info-panel']
+  background var(--fill-1)
+  inset 0
+  overflow auto
+  padding 0 env(safe-area-inset-bottom)
+  position absolute
+  transform translateY(100dvh)
+  transition transform var(--transition) ease-out
+  z-index -1
+
+  &[open]
+    transform translateY(0)
+
+  // Content wrapper.
+  & > div
+    margin-inline auto
+    max-inline-size 32rem
+    padding-block 1rem
+    padding-inline var(--gap)
+
+  // Headings.
+  h1
+    font-size var(--h1-font-size)
+    margin-block 0 1rem
+
+  h2
+    font-size var(--h2-font-size)
+    margin-block 2rem .5rem
+
+  h3
+    font-size var(--h3-font-size)
+    margin-block 1rem .5rem
+
+  :is(p, table)
+    font-size var(--copy-font-size)
+
+  // Tables.
+  tr
+    border-bottom 1px solid var(--border-color)
+
+  :is(th, td)
+    padding-block .5em
+
+  th
+    text-align start
+
+  :is(th, td):not(:first-child)
+    text-align end
+
+  // JavaScript disabled.
+  [no-js] &
+    display none
