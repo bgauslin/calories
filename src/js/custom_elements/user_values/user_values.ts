@@ -172,7 +172,7 @@ class UserValues extends HTMLElement {
       items += `
         <li class="${id}">
           <label for="${id}">${label}</label>
-          <input type="text" name="${name}" id="${id} inputmode="${inputmode}" pattern="${pattern}" required>
+          <input type="text" name="${name}" id="${id}" inputmode="${inputmode}" pattern="${pattern}" required>
         </li>
       `;
     }

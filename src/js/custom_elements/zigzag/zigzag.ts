@@ -46,7 +46,7 @@ class ZigZag extends HTMLElement {
     for (const day of DAYS) {
       html += `
         <li>
-          <label aria-label="${day}">${day.substring(0, 3)}</label>
+          <span aria-label="${day}">${day.substring(0, 3)}</span>
           <number-ticker></number-ticker>
         </li>
       `;
