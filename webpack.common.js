@@ -24,7 +24,7 @@ module.exports = {
     new Dotenv(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: 'src/html/index.pug',
+      template: 'src/html/index.html',
     }),
     new WorkboxPlugin.InjectManifest({
       swSrc: 'src/js/sw.js',
