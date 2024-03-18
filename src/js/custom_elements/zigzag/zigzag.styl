@@ -1,34 +1,42 @@
-zig-zag
-  grid-area graph
-  padding var(--gap)
-  transition opacity var(--transition) ease-out
+zig-zag {
+  grid-area: graph;
+  padding: var(--gap);
+  transition: opacity var(--transition) ease-out;
 
-  &[hidden]
-    opacity 0
+  [no-js] & {
+    display: none;
+  }
 
-  ol
-    display grid
-    gap .5rem
-    grid auto-flow / 1fr
-    margin 0
-    padding 0
+  &[hidden] {
+    opacity: 0;
+  }
 
-  li
-    background var(--fill-2)
-    border-radius 0 4px 4px 0
-    display flex
-    gap 0 .5rem
-    padding .375rem .5rem
-    transition background var(--transition), color var(--transition), inline-size var(--transition-slow) ease-out
+  ol {
+    display: grid;
+    gap: .5rem;
+    grid: auto-flow / 1fr;
+    margin: 0;
+    padding: 0;
+  }
 
-  label
-    flex 1
-    opacity var(--text-opacity)
-    transition opacity var(--transition-slow) ease-out
+  li {
+    background: var(--fill-2);
+    border-radius: 0 4px 4px 0;
+    display: flex;
+    gap: 0 .5rem;
+    padding: .375rem .5rem;
+    transition: background var(--transition), color var(--transition), inline-size var(--transition-slow) ease-out;
+  }
 
-  .warning
-    background var(--warning-background)
-    color var(--warning-color)
+  label {
+    flex: 1;
+    opacity: var(--text-opacity);
+    transition: opacity var(--transition-slow) ease-out;
+  }
 
-  [no-js] &
-    display none
+  .warning {
+    background: var(--warning-background);
+    color: var(--warning-color);
+  }
+}
+
