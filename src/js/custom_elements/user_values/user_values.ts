@@ -78,11 +78,14 @@ class UserValues extends HTMLElement {
     // If user data exists, update elements with that data.
     this.populateInputs();
 
-    // Fire a change on each <radio-marker> to set its marker position.
-    const radioMarkers = this.querySelectorAll('radio-marker');
-    for (const element of radioMarkers) {
-      element.dispatchEvent(new Event('change'));
-    }
+    // Wait a tick, then fire a change on each <radio-marker> to set its
+    // marker position.
+    window.requestAnimationFrame(() => {
+      const radioMarkers = this.querySelectorAll('radio-marker');
+      for (const element of radioMarkers) {
+        element.dispatchEvent(new Event('change'));
+      }
+    });
 
     // Show results and graph if there are valid values.
     this.update();
@@ -133,8 +136,6 @@ class UserValues extends HTMLElement {
    * Renders HTML for a group of radio buttons.
    */
   private renderRadioButtons(field: any, modifier: string) {
-    console.log('field', field);
-
     const {buttons, disabled, headingLabel, headingNote, name} = field;
     
     let options = ''
