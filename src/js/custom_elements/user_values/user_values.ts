@@ -72,8 +72,8 @@ class UserValues extends HTMLElement {
 
     // Render HTML and create element references.
     this.render();
-    this.form = this.querySelector('form');
-    this.results = document.getElementById('results');
+    this.form = this.querySelector('form')!;
+    this.results = document.getElementById('results')!;
 
     // If user data exists, update elements with that data, then make each
     // <radio-buttons> element set its marker's position.
@@ -89,7 +89,7 @@ class UserValues extends HTMLElement {
     this.update();
 
     // Focus the first text input if it's still empty.
-    const firstInput = this.querySelectorAll('[type=text]')[0] as HTMLInputElement;
+    const firstInput = <HTMLInputElement>this.querySelectorAll('[type=text]')[0];
     if (!firstInput.value.length) {
       firstInput.focus();
     }
@@ -142,7 +142,7 @@ class UserValues extends HTMLElement {
     for (const name of this.fields) {
       const inputElements = this.querySelectorAll(`input[name=${name}]`);
       for (const element of inputElements) {
-        const input = element as HTMLInputElement
+        const input = <HTMLInputElement>element;
         switch (input.type) {
           case 'number':
           case 'text':
@@ -211,14 +211,14 @@ class UserValues extends HTMLElement {
     const goalLevel = WeightGoal.find(level => goal === level.value);
 
     const tdee = this.formulas.totalDailyEnergyExpenditure({
-      activity: activityLevel.factor,
+      activity: activityLevel!.factor!,
       bmr,
-      goal: goalLevel.factor,
+      goal: goalLevel?.factor!,
     });
     const tdeeMax = this.formulas.totalDailyEnergyExpenditure({
-      activity: ActivityLevel[ActivityLevel.length - 1].factor,
+      activity: ActivityLevel[ActivityLevel.length - 1]!.factor!,
       bmr,
-      goal: WeightGoal[0].factor,
+      goal: WeightGoal[0]!.factor!,
     });
 
     return {bmr, tdee, tdeeMax};
@@ -251,12 +251,12 @@ class UserValues extends HTMLElement {
       const group = this.querySelector(selector);
 
       if (enabled) {
-        group.removeAttribute(DISABLED_ATTR);
+        group!.removeAttribute(DISABLED_ATTR);
       } else {
-        group.setAttribute(DISABLED_ATTR, '');
+        group!.setAttribute(DISABLED_ATTR, '');
       }
 
-      const labels = group.querySelectorAll('label[tabindex]');
+      const labels = group!.querySelectorAll('label[tabindex]');
       for (const label of labels) {
         label.setAttribute('tabindex', tabindex);
       }
@@ -267,7 +267,7 @@ class UserValues extends HTMLElement {
    * Adds [enter] key functionality to radio buttons.
    */
   private handleKey(e: KeyboardEvent) {
-    const target = e.target as HTMLElement;
+    const target = <HTMLElement>e.target;
     const radio = target.querySelector('input[type=radio]');
     if (radio && e.code === 'Enter') {
       target.click();
@@ -280,7 +280,7 @@ class UserValues extends HTMLElement {
   private handleInputFocus() {
     const names = Measurements.map(field => field.name);
     for (const name of names) {
-      const element = this.querySelector(`[name=${name}]`) as HTMLInputElement;
+      const element = <HTMLInputElement>this.querySelector(`[name=${name}]`);
       element.addEventListener('focus', () => {
         element.selectionStart = element.selectionEnd = element.value.length;
       });

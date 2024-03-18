@@ -3,8 +3,7 @@ const FOR_ATTR = 'for';
 const PENDING_ATTR = 'pending';
 
 /**
- * Custom element that populates itself with data fetched from a
- * GraphQL endpoint.
+ * Custom element that populates itself with data fetched from a JSON endpoint.
  */
 class InfoPanel extends HTMLElement {
   private target: HTMLElement;
@@ -18,9 +17,6 @@ class InfoPanel extends HTMLElement {
     this.renderPanel();
   }
 
-  /**
-   * Adds and removes attributes.
-   */
   private setup() {
     const target = this.getAttribute(FOR_ATTR)!;
     this.target = document.getElementById(target)!;
@@ -29,9 +25,6 @@ class InfoPanel extends HTMLElement {
     this.setAttribute('hidden', '');
   }
 
-  /**
-   * Fetches JSON data from an API endpoint.
-   */
   private async renderPanel(): Promise<any> {
     try {
       const response = await fetch(ENDPOINT);

@@ -20,7 +20,7 @@ const BASE_ATTRIBUTES = [
 class InfoToggle extends HTMLElement {
   private iconTemplate: any;
   private isOpen: boolean;
-  private target: Element;
+  private target: HTMLElement;
 
   constructor() {
     super();
@@ -40,13 +40,10 @@ class InfoToggle extends HTMLElement {
     this.removeEventListener('keyup', this.handleKey);
   }
 
-  /**
-   * Adds ARIA attributes to itself and renders its icon.
-   */
   private setup() {
-    this.target = document.getElementById(this.getAttribute(FOR_ATTR));
+    this.target = document.getElementById(this.getAttribute(FOR_ATTR)!)!;
     this.removeAttribute(FOR_ATTR);
-    this.setAttribute('tabindex', '0');
+    this.tabIndex = 0;
 
     for (const attribute of BASE_ATTRIBUTES) {
       const [name, value] = attribute;
@@ -55,9 +52,6 @@ class InfoToggle extends HTMLElement {
     this.innerHTML = this.iconTemplate({name: 'info'});
   }
 
-  /**
-   * Opens/closes the info panel when element is clicked.
-   */
   private togglePanel() {
     if (!this.isOpen) {
       this.openPanel();
@@ -65,10 +59,9 @@ class InfoToggle extends HTMLElement {
       this.closePanel();
     }
     this.isOpen = !this.isOpen;
-    this.setAttribute('aria-expanded', String(this.isOpen));
+    this.ariaExpanded = `${this.isOpen}`;
   }
 
-  /** Opens the info panel. */
   private openPanel() {
     this.innerHTML = this.iconTemplate({name: 'close'});
     this.target.removeAttribute(HIDDEN_ATTR);
@@ -77,7 +70,6 @@ class InfoToggle extends HTMLElement {
     });
   }
 
-  /** Closes the info panel. */
   private closePanel() {
     this.innerHTML = this.iconTemplate({name: 'info'});
     this.target.removeAttribute(OPEN_ATTR);
@@ -86,9 +78,6 @@ class InfoToggle extends HTMLElement {
     }, {once: true});
   }
 
-  /**
-   * Adds keyboard navigation to the info toggle.
-   */
   private handleKey(event: KeyboardEvent) {
     switch (event.code) {
       case 'Enter':

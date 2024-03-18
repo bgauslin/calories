@@ -25,7 +25,7 @@ class RadioButtons extends HTMLElement {
   private update() {
     const checked = this.querySelector(':checked');
     if (checked) {
-      const target = checked.parentNode as HTMLElement;
+      const target = <HTMLElement>checked.parentNode;
 
       // The marker and this element rely on relative/absolute positioning, so
       // subtract this element's position in the viewport from the marker

@@ -4,45 +4,49 @@ info-panel
   overflow auto
   padding var(--header-height) 0 env(safe-area-inset-bottom)
   position fixed
-  transform translateY(100vh)
+  transform translateY(100dvh)
   transition transform var(--transition) ease-out
   z-index 1
 
-info-panel[open]
-  transform translateY(0)
+  &[open]
+    transform translateY(0)
 
-info-panel > div
-  margin-inline auto
-  max-inline-size var(--main-max-width)
-  padding-block 1rem
-  padding-inline var(--gap)
+  // Content wrapper.
+  & > div
+    margin-inline auto
+    max-inline-size var(--main-max-width)
+    padding-block 1rem
+    padding-inline var(--gap)
 
-info-panel h1
-  font-size var(--h1-font-size)
-  margin-block 0 1rem
+  // Headings.
+  h1
+    font-size var(--h1-font-size)
+    margin-block 0 1rem
 
-info-panel h2
-  font-size var(--h2-font-size)
-  margin-block 2rem .5rem
+  h2
+    font-size var(--h2-font-size)
+    margin-block 2rem .5rem
 
-info-panel h3
-  font-size var(--h3-font-size)
-  margin-block 1rem .5rem
+  h3
+    font-size var(--h3-font-size)
+    margin-block 1rem .5rem
 
-info-panel :is(p, table)
-  font-size var(--copy-font-size)
+  :is(p, table)
+    font-size var(--copy-font-size)
 
-info-panel tr
-  border-bottom 1px solid var(--border-color)
+  // Tables.
+  tr
+    border-bottom 1px solid var(--border-color)
 
-info-panel :is(th, td)
-  padding-block .5em
+  :is(th, td)
+    padding-block .5em
 
-info-panel th
-  text-align start
+  th
+    text-align start
 
-info-panel :is(th, td):not(:first-child)
-  text-align end
+  :is(th, td):not(:first-child)
+    text-align end
 
-[no-js] info-panel
-  display none
+  // JavaScript disabled.
+  [no-js] &
+    display none

@@ -4,117 +4,120 @@ user-values
   padding var(--gap)
   place-self var(--values-place-self)
 
-user-values fieldset
-  border 0
-  opacity 1
-  padding 0
-  transition opacity var(--transition)
+  fieldset
+    border 0
+    opacity 1
+    padding 0
+    transition opacity var(--transition)
 
-user-values [disabled]
-  opacity .3
-  pointer-events none
+  [disabled]
+    opacity .3
+    pointer-events none
 
-user-values form
-  display grid
-  gap .75rem
-  grid auto-flow / 1fr
+  form
+    display grid
+    gap .75rem
+    grid auto-flow / 1fr
 
-// Tweak a few <fieldset> layouts based on their content.
-user-values h2
-  display flex
-  font-size 1rem
-  margin-block .5rem
+  h2
+    display flex
+    font-size 1rem
+    margin-block .5rem
 
-user-values h2 > span
-  opacity var(--text-opacity)
-  margin-inline auto 0
+  h2 > span
+    opacity var(--text-opacity)
+    margin-inline auto 0
 
-// Pull 'Sex' heading out of the viewport since its options make this obvious.
-user-values [id='sex'] h2
-  inset-inline -100vw auto
-  position absolute
+  // Lists for radio buttons.
+  :is(ul, li)
+    align-items center
+    display flex
+    padding 0
 
-user-values :is(ul, li)
-  align-items center
-  display flex
-  padding 0
+  ul
+    margin 0
 
-user-values ul
-  margin 0
+  // Adjustments for individual sections and fields.
+  [id='measurements'] ul
+    flex-wrap wrap
+    gap .75rem
 
-user-values [id='measurements'] ul
-  flex-wrap wrap
-  gap .75rem
+  :is(.weight, .age)
+    flex 0 0 100%
 
-user-values :is(.weight, .age)
-  flex 0 0 100%
+  :is(.weight, .age)::after
+    margin-inline .5em 0
+    opacity var(--text-opacity)
+    pointer-events none
 
-user-values .feet::before
-  content 'Height'
-  inline-size var(--label-width)
+  .feet::before
+    content 'Height'
+    inline-size var(--label-width)
 
-user-values :is(.weight, .age)::after
-  margin-inline .5em 0
-  opacity var(--text-opacity)
-  pointer-events none
+  .weight::after
+    content 'lbs.'
 
-user-values .weight::after
-  content 'lbs.'
+  .age::after
+    content 'yrs.'
 
-user-values .age::after
-  content 'yrs.'
+  // Wrapper for <input> and <span> elements.
+  label
+    display flex
 
-user-values label
-  display flex
+  label:focus
+    outline none
 
-user-values label:focus
-  outline none
+  // TODO: Remove/replace [no-touch] with feature queries.
+  [no-touch] & label:hover
+    cursor pointer
 
-[no-touch] user-values label:hover
-  cursor pointer
+  label:focus > [type] + span
+  [no-touch] & label:hover > [type] + span
+    color var(--text-color)
+    transform scale(1.1)
 
-user-values label:focus > [type] + span
-[no-touch] user-values label:hover > [type] + span
-  color var(--text-color)
-  transform scale(1.1)
+  // Individual <label> adjustments.
+  [for='feet']
+  [for='inches']
+    margin-block 0
+    margin-inline 1rem .5rem
+    opacity var(--text-opacity)
+    order 2
+    text-transform lowercase
 
-user-values [for='feet']
-user-values [for='inches']
-  margin-block 0
-  margin-inline 1rem .5rem
-  opacity var(--text-opacity)
-  order 2
-  text-transform lowercase
+  :is([for='age'], [for='weight'])
+    inline-size var(--label-width)
 
-user-values :is([for='age'], [for='weight'])
-  inline-size var(--label-width)
+  // Text inputs.
+  [type='text']
+    background var(--fill-3)
+    block-size var(--input-height)
+    border 2px solid var(--fill-1)
+    border-radius 6px
+    box-sizing content-box
+    color var(--text-color)
+    font-size 1em
+    inline-size 3rem
+    padding-inline .5rem
+    text-align end
 
-user-values label > span
-  transition color var(--transition), transform var(--transition)
+  // Text labels.
+  span
+    transition color var(--transition), transform var(--transition)
 
-user-values [type='text']
-  background var(--fill-3)
-  block-size var(--input-height)
-  border 2px solid var(--fill-1)
-  border-radius 6px
-  box-sizing content-box
-  color var(--text-color)
-  font-size 1em
-  inline-size 3rem
-  padding-inline .5rem
-  text-align end
+  // Text labels for radio buttons.
+  [type='radio'] + span
+    align-items center
+    border-radius 2px
+    // color var(--text-color)
+    display flex
+    inline-size 100%
+    justify-content center
+    pointer-events none
 
-user-values [type='radio'] + span
-  align-items center
-  border-radius 2px
-  display flex
-  inline-size 100%
-  justify-content center
-  opacity var(--text-opacity)
-  pointer-events none
+  [type='radio']:not(:checked) + span
+    opacity var(--text-opacity)
 
-user-values [type='radio']:checked + span
-  color var(--text-color)
-
-[no-js] user-values
-  display none
+  // JavasScript disabled.
+  [no-js] &
+    display none
