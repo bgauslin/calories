@@ -19,10 +19,8 @@ body
   display grid
   font-family 'Avenir Variable', sans-serif
   font-variation-settings 'wght' 500
-  grid 'header' var(--header-height) 'main' / 1fr
   margin 0
   min-height 100dvh
-  min-height -webkit-fill-available
   padding-block 0 env(safe-area-inset-bottom)
   place-content center
 
@@ -30,16 +28,24 @@ main
   background var(--fill-1)
   border-radius 1rem
   display grid
-  gap var(--main-gap)
+  gap var(--gap)
   grid var(--main-grid)
-  grid-area main
-  justify-self center
   max-inline-size var(--main-max-width)
+  overflow hidden
   padding-block 0 env(safe-area-inset-bottom)
+  position relative
 
 [no-js] main
   align-items center
   grid unset
+
+h1
+  font-size var(--h1-font-size)
+  grid-area title
+  line-height 1
+  margin-block 0
+  place-self center start
+  white-space nowrap
 
 a
   color var(--link-color)

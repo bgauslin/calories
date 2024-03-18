@@ -19,12 +19,10 @@ html(lang="en")
       type="font/woff2"
       crossorigin="crossorigin"
     )
-  body(no-js no-touch)    
-    header
-      div
-        h1= title
-        info-toggle(id="info-toggle" for="info-panel")
+  body(no-js no-touch)
     main
+      h1= title
+      info-toggle(id="info-toggle" for="info-panel")
       user-values
       number-ticker(id="results" label="Average Daily Calories")
       zig-zag(hidden)

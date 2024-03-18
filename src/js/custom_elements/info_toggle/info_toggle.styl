@@ -3,11 +3,13 @@ info-toggle
   border-radius var(--button-size)
   cursor pointer
   display flex
+  grid-area info
   inline-size var(--button-size)
-  margin-inline-end -.75rem
   opacity 1
   outline none
+  place-self center end
   transition background var(--transition), opacity var(--transition-slow) ease-out, transform var(--transition)
+  z-index 2
 
   &[pending]
     opacity 0

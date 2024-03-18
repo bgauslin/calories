@@ -1,12 +1,10 @@
 body
   // Layout.
   --button-size 2.75rem
-  --gap clamp(1rem, .5rem \+ 2vw, 2rem)
-  --header-height 3rem
+  --gap 1rem
   --input-height 2rem
   --label-width 4rem
-  --main-grid 'values' 'results' 'graph' 1fr '.' 0 / 1fr
-  --main-gap 2rem
+  --main-grid 'title info' var(--button-size) 'values values' 'results results' 'graph graph' 1fr '. .' 0 / 1fr var(--button-size)
   --main-max-width 24rem
 
   // Typography.
@@ -14,7 +12,6 @@ body
   --h1-font-size 1em
   --h2-font-size .9375em
   --h3-font-size .875em
-  --header-font-size 1rem
 
   // Branding colors.
   --brand-red rgb(178, 34, 34)
@@ -35,8 +32,6 @@ body
   --fill-1 white
   --fill-2 var(--gray5)
   --fill-3 var(--gray3)
-  --header-backdrop-background rgba(255, 255, 255, .65) // fill-1
-  --header-background rgba(255, 255, 255, .95) // fill-0
   --invalid-color var(--brand-red)
   --link-color rgb(0, 121, 253)
   --text-color black
@@ -50,10 +45,8 @@ body
 
 @media (orientation: landscape)
   body
-    --main-gap 0
-    --main-grid 'values results' 'values graph' auto / 1fr 1fr
+    --main-grid 'title info' var(--button-size) 'values results' 'values graph' / 1fr 1fr
     --main-max-width 50rem
-    --results-margin-block 2rem 0
     --values-place-self center
 
 @media (min-width 50rem)
@@ -62,8 +55,6 @@ body
     --h1-font-size 1.25em
     --h2-font-size 1.125em
     --h3-font-size 1em
-    --header-font-size 1.25rem
-    --header-height 5rem
 
 @media (prefers-color-scheme dark)
   body
@@ -81,8 +72,6 @@ body
     --fill-1 var(--gray6)
     --fill-2 var(--gray5)
     --fill-3 var(--gray3)
-    --header-backdrop-background rgba(28, 28, 30, .65) // fill-1
-    --header-background rgba(0, 0, 0, .95) // fill-0
     --invalid-color var(--brand-orange)
     --link-color rgb(10, 132, 254)
     --text-color white

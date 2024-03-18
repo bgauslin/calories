@@ -2,8 +2,8 @@ info-panel
   background var(--fill-1)
   inset 0
   overflow auto
-  padding var(--header-height) 0 env(safe-area-inset-bottom)
-  position fixed
+  padding 0 env(safe-area-inset-bottom)
+  position absolute
   transform translateY(100dvh)
   transition transform var(--transition) ease-out
   z-index 1
@@ -14,7 +14,7 @@ info-panel
   // Content wrapper.
   & > div
     margin-inline auto
-    max-inline-size var(--main-max-width)
+    max-inline-size 32rem
     padding-block 1rem
     padding-inline var(--gap)
 
