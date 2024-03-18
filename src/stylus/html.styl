@@ -38,7 +38,8 @@ main {
   padding: var(--gap);
   position: relative;
 
-  [no-js] & {
+  // JavasScript disabled.
+  .no-js & {
     align-items: center;
     grid: unset;
   }
@@ -57,10 +58,10 @@ a {
   color: var(--link-color);
   outline: none;
   text-decoration: none;
-}
 
-[no-touch] a {
-  transition: color var(--transition) ease-out;
+  @media (any-hover: hover) {
+    transition: color var(--transition) ease-out;
+  }
 }
 
 input,

@@ -22,11 +22,8 @@
     "not dead"
   ],
   "dependencies": {
-    "@types/fastclick": "^1.0.28",
-    "fastclick": "^1.0.6",
     "pug": "^3.0.0",
-    "pug-loader": "^2.4.0",
-    "smoothscroll-polyfill": "^0.4.4"
+    "pug-loader": "^2.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.5.0",

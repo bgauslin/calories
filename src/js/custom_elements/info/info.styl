@@ -4,7 +4,7 @@ app-info {
   z-index: 2;
 
   // JavaScript disabled.
-  [no-js] & {
+  .no-js & {
     display: none;
   }
 
@@ -26,9 +26,14 @@ app-info {
     }
 
     &:active,
-    &:focus,
-    [no-touch] &:hover {
+    &:focus {
       background: var(--fill-2);
+    }
+
+    @media (any-hover: hover) {
+      &:hover {
+        background: var(--fill-2);
+      }
     }
   }
 }

@@ -4,7 +4,7 @@ user-values {
   place-self: var(--values-place-self);
 
   // JavasScript disabled.
-  [no-js] & {
+  .no-js & {
     display: none;
   }
 
@@ -79,19 +79,21 @@ user-values {
 
   // Wrapper for <input> and <span> elements.
   label {
+    cursor: pointer;
     display: flex;
     outline: none;
   }
 
-  // TODO: Remove/replace [no-touch] with feature queries.
-  [no-touch] & label:hover {
-    cursor: pointer;
-  }
-
-  label:focus > [type] + span,
-  [no-touch] & label:hover > [type] + span {
+  label:focus > [type] + span {
     color: var(--text-color);
     transform: scale(1.1);
+  }
+
+  @media (any-hover: hover) {
+    label:hover > [type] + span {
+      color: var(--text-color);
+      transform: scale(1.1);
+    }
   }
 
   // Individual <label> adjustments.
