@@ -1,20 +1,19 @@
 const ENDPOINT = 'https://gauslin.com/api/etc/calories.json';
 
 /**
- * TODO: Update overview...
- * Custom element that toggles the visibility of a target element.
- * Custom element that populates itself with data fetched from a JSON endpoint.
+ * Custom element that renders content fetched from a JSON endpoint
+ * along with a button that toggles the rendered content's visibility.
  */
-class InfoToggle extends HTMLElement {
-  private iconTemplate: any;
-  private isOpen: boolean;
+class AppInfo extends HTMLElement {
   private button: HTMLButtonElement;
+  private iconTemplate: any;
+  private open: boolean;
   private panel: HTMLElement;
 
   constructor() {
     super();
-    this.isOpen = false;
-    this.iconTemplate = require('./info_toggle_icon.pug');
+    this.open = false;
+    this.iconTemplate = require('./info_icon.pug');
     this.addEventListener('click', this.togglePanel);
     this.addEventListener('keyup', this.handleKey);
   }
@@ -62,18 +61,14 @@ class InfoToggle extends HTMLElement {
     }
   }
 
-  private togglePanel(event: Event) {
-    if (event.target !== this.button) {
-      return;
-    }
-
-    if (!this.isOpen) {
+  private togglePanel() {
+    if (!this.open) {
       this.openPanel();
     } else {
       this.closePanel();
     }
-    this.isOpen = !this.isOpen;
-    this.button.ariaExpanded = `${this.isOpen}`;
+    this.open = !this.open;
+    this.button.ariaExpanded = `${this.open}`;
   }
 
   private openPanel() {
@@ -97,14 +92,15 @@ class InfoToggle extends HTMLElement {
   private handleKey(event: KeyboardEvent) {
     switch (event.code) {
       case 'Enter':
+        this.open = !this.open;
         this.togglePanel();
         break;
       case 'Escape':
-        this.isOpen = false;
+        this.open = false;
         this.closePanel();
         break;
     }
   }
 }
 
-customElements.define('info-toggle', InfoToggle);
+customElements.define('app-info', AppInfo);

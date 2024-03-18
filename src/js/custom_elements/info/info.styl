@@ -1,4 +1,4 @@
-info-toggle
+app-info
   grid-area info
   place-self center end
   z-index 2
@@ -46,11 +46,13 @@ info-toggle
     stroke-linecap round
     stroke-width 2.5
 
+// Content wrapper.
 [id='info-panel']
   background var(--fill-1)
   inset 0
   overflow auto
-  padding 0 env(safe-area-inset-bottom)
+  padding-block 1rem env(safe-area-inset-bottom)
+  padding-inline var(--gap)
   position absolute
   transform translateY(100dvh)
   transition transform var(--transition) ease-out
@@ -58,13 +60,6 @@ info-toggle
 
   &[open]
     transform translateY(0)
-
-  // Content wrapper.
-  & > div
-    margin-inline auto
-    max-inline-size 32rem
-    padding-block 1rem
-    padding-inline var(--gap)
 
   // Headings.
   h1

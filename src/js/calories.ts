@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-import './custom_elements/info_toggle/info_toggle';
+import './custom_elements/info/info';
 import './custom_elements/number_ticker/number_ticker';
 import './custom_elements/radio_marker/radio_marker';
 import './custom_elements/tools/tools';
