@@ -9,6 +9,10 @@ info-toggle
   outline none
   transition background var(--transition), opacity var(--transition-slow) ease-out, transform var(--transition)
 
+  &[pending]
+    opacity 0
+    visibility hidden
+
   &:active
     transform scale(.9)
 
@@ -17,28 +21,26 @@ info-toggle
   [no-touch] &:hover
     background var(--fill-2)
 
-info-toggle[pending]
-  opacity 0
-  visibility hidden
-
 .icon
   flex 0 0 1.25rem
   margin auto
   pointer-events none
 
-.icon--close > path
-  stroke var(--text-color)
-  stroke-width 2.5
+.icon--close
+  path
+    stroke var(--text-color)
+    stroke-width 2.5
 
-.icon--info > circle
-  fill var(--fill-0)
+.icon--info
+  circle
+    fill var(--fill-0)
 
-.icon--info > circle:first-of-type
-  fill var(--text-color)
+  circle:first-of-type
+    fill var(--text-color)
 
-.icon--info > path
-  fill none
-  stroke green
-  stroke var(--fill-0)
-  stroke-linecap round
-  stroke-width 2.5
+  path
+    fill none
+    stroke green
+    stroke var(--fill-0)
+    stroke-linecap round
+    stroke-width 2.5
