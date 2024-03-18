@@ -1,15 +1,17 @@
 :root {
   // Layout.
-  --button-size: 2.75rem;
-  --gap: 1rem;
-  --input-height: 2rem;
-  --label-width: 4rem;
+  --button-size: 2.75em;
+  --gap: clamp(1em, .75em \+ 2vw, 2em);
+  --input-height: 2em;
+  --label-width: 4em;
   --main-grid: 'title info' var(--button-size) 'values values' 'results results' 'graph graph' 1fr '. .' 0 / 1fr var(--button-size);
-  --main-max-width: 28rem; //
+  --main-max-width: 28em; //
 
   // Typography.
+  --font: clamp(.875em, .75em \+ .5vw, 1.125em) / 1.4 var(--font-family);
+  --font-family: 'Avenir Variable', sans-serif;
+  --h1-font-size: 1.125em;
   --copy-font-size: .875em;
-  --h1-font-size: 1.1em;
   --h2-font-size: .9375em;
   --h3-font-size: .875em;
 
@@ -46,8 +48,9 @@
 
   @media (orientation: landscape) {
     --body-fill: var(--fill-0);
+    --main-gap: 0 var(--gap);
     --main-grid: 'title info' var(--button-size) 'values results' 'values graph' / 1fr 1fr;
-    --main-max-width: 50rem;
+    --main-max-width: 50em;
     --values-place-self: center;
   }
 

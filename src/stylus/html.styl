@@ -19,19 +19,19 @@ body {
   background: var(--body-fill);
   color: var(--text-color);
   display: grid;
-  font-family: 'Avenir Variable', sans-serif;
+  font: var(--font);
   font-variation-settings: 'wght' 500;
   margin: 0;
-  min-height: 100dvh;
+  min-block-size: 100dvh;
   padding-block: 0 env(safe-area-inset-bottom);
   place-content: center;
 }
 
 main {
   background: var(--fill-1);
-  border-radius: 1rem;
+  border-radius: 1em;
   display: grid;
-  gap: var(--gap);
+  gap: var(--main-gap, var(--gap));
   grid: var(--main-grid);
   max-inline-size: var(--main-max-width);
   overflow: hidden;
@@ -77,7 +77,7 @@ button {
 
 input[type='radio'] {
   block-size: 0;
-  inline-siz:e 0;
+  inline-size: 0;
 }
 
 input[type='text'] {

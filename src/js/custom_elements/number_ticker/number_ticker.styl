@@ -12,9 +12,9 @@ number-ticker {
   -webkit-background-clip: text;
   font-size: 400%;
   grid-area: results;
+  inline-size: 100%;
   line-height: 1;
-  padding-block: 0 .6em;
-  padding-inline: 0;
+  padding-block: 0 1.5rem;
   place-self: center;
   position: relative;
   text-align: center;
@@ -30,5 +30,6 @@ number-ticker {
     line-height: initial;
     position: absolute;
     text-transform: lowercase;
+    white-space: nowrap;
   }
 }
