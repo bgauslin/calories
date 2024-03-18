@@ -1,72 +1,75 @@
-:root
+:root {
   // Layout.
-  --button-size 2.75rem
-  --gap 1rem
-  --input-height 2rem
-  --label-width 4rem
-  --main-grid 'title info' var(--button-size) 'values values' 'results results' 'graph graph' 1fr '. .' 0 / 1fr var(--button-size)
-  --main-max-width 28rem //
+  --button-size: 2.75rem;
+  --gap: 1rem;
+  --input-height: 2rem;
+  --label-width: 4rem;
+  --main-grid: 'title info' var(--button-size) 'values values' 'results results' 'graph graph' 1fr '. .' 0 / 1fr var(--button-size);
+  --main-max-width: 28rem; //
 
   // Typography.
-  --copy-font-size .875em
-  --h1-font-size 1.1em
-  --h2-font-size .9375em
-  --h3-font-size .875em
+  --copy-font-size: .875em;
+  --h1-font-size: 1.1em;
+  --h2-font-size: .9375em;
+  --h3-font-size: .875em;
 
   // Branding colors.
-  --brand-red rgb(178, 34, 34)
-  --brand-orange rgb(255, 122, 0)
+  --brand-red: rgb(178, 34, 34);
+  --brand-orange: rgb(255, 122, 0);
 
   // Grays via Apple HIG.
   // @see https://developer.apple.com/design/human-interface-guidelines/ios/visual-design/color
-  --gray1 rgb(142, 142, 147)
-  --gray2 rgb(174, 174, 178)
-  --gray3 rgb(199, 199, 204)
-  --gray4 rgb(209, 209, 214)
-  --gray5 rgb(229, 229, 234)
-  --gray6 rgb(242, 242, 247)
+  --gray1: rgb(142, 142, 147);
+  --gray2: rgb(174, 174, 178);
+  --gray3: rgb(199, 199, 204);
+  --gray4: rgb(209, 209, 214);
+  --gray5: rgb(229, 229, 234);
+  --gray6: rgb(242, 242, 247);
 
   // Theming.
-  --body-fill var(--fill-1)
-  --border-color var(--gray3)
-  --fill-0 var(--gray6)
-  --fill-1 white
-  --fill-2 var(--gray5)
-  --fill-3 var(--gray3)
-  --invalid-color var(--brand-red)
-  --link-color rgb(0, 121, 253)
-  --text-color black
-  --text-opacity .7
-  --warning-background rgb(246, 234, 236)
-  --warning-color rgb(202, 36, 48)
+  --body-fill: var(--fill-1);
+  --border-color: var(--gray3);
+  --fill-0: var(--gray6);
+  --fill-1: white;
+  --fill-2: var(--gray5);
+  --fill-3: var(--gray3);
+  --invalid-color: var(--brand-red);
+  --link-color: rgb(0, 121, 253);
+  --text-color: black;
+  --text-opacity: .7;
+  --warning-background: rgb(246, 234, 236);
+  --warning-color: rgb(202, 36, 48);
 
   // Animations and transitions.
-  --transition .3s
-  --transition-slow .5s
+  --transition: .3s;
+  --transition-slow: .5s;
 
-  @media (orientation: landscape)
-    --body-fill var(--fill-0)
-    --main-grid 'title info' var(--button-size) 'values results' 'values graph' / 1fr 1fr
-    --main-max-width 50rem
-    --values-place-self center
+  @media (orientation: landscape) {
+    --body-fill: var(--fill-0);
+    --main-grid: 'title info' var(--button-size) 'values results' 'values graph' / 1fr 1fr;
+    --main-max-width: 50rem;
+    --values-place-self: center;
+  }
 
-  @media (prefers-color-scheme dark)
+  @media (prefers-color-scheme: dark) {
     // Dark mode grays.
-    --gray1 rgb(142, 142, 147)
-    --gray2 rgb(99, 99, 102)
-    --gray3 rgb(72, 72, 74)
-    --gray4 rgb(58, 58, 60)
-    --gray5 rgb(44, 44, 46)
-    --gray6 rgb(28, 28, 30)
+    --gray1: rgb(142, 142, 147);
+    --gray2: rgb(99, 99, 102);
+    --gray3: rgb(72, 72, 74);
+    --gray4: rgb(58, 58, 60);
+    --gray5: rgb(44, 44, 46);
+    --gray6: rgb(28, 28, 30);
 
     // Dark mode theming.
-    --border-color var(--gray4)
-    --fill-0 black
-    --fill-1 var(--gray6)
-    --fill-2 var(--gray5)
-    --fill-3 var(--gray3)
-    --invalid-color var(--brand-orange)
-    --link-color rgb(10, 132, 254)
-    --text-color white
-    --warning-background rgb(64, 39, 46)
-    --warning-color rgb(254, 127, 140)
+    --border-color: var(--gray4);
+    --fill-0: black;
+    --fill-1: var(--gray6);
+    --fill-2: var(--gray5);
+    --fill-3: var(--gray3);
+    --invalid-color: var(--brand-orange);
+    --link-color: rgb(10, 132, 254);
+    --text-color: white;
+    --warning-background: rgb(64, 39, 46);
+    --warning-color: rgb(254, 127, 140);
+  }
+}
