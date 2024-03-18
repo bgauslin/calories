@@ -1,4 +1,5 @@
 const DAILY_MODIFIERS: number[] = [1, .9, 1.1, 1, .8, 1, 1.2];
+const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 const MINIMUM_TDEE: number = 1200;
 const TDEE_ATTR = 'tdee';
 const TDEE_MAX_ATTR = 'max-tdee';
@@ -41,8 +42,17 @@ class ZigZag extends HTMLElement {
    * element, it needs a sibling element to target for expanding/collapsing.
    */
   private setup() {
-    const zigZagTemplate = require('./zigzag.pug');
-    this.innerHTML = zigZagTemplate();
+    let html = '<ol>';
+    for (const day of DAYS) {
+      html += `
+        <li>
+          <label aria-label="${day}">${day.substring(0, 3)}</label>
+          <number-ticker></number-ticker>
+        </li>
+      `;
+    }
+    html += '</ol>';
+    this.innerHTML = html;
 
     this.days = this.querySelectorAll('zig-zag li');
     this.tickers = this.querySelectorAll('number-ticker');
