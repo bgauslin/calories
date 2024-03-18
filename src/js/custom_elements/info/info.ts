@@ -6,14 +6,12 @@ const ENDPOINT = 'https://gauslin.com/api/etc/calories.json';
  */
 class AppInfo extends HTMLElement {
   private button: HTMLButtonElement;
-  private iconTemplate: any;
   private open: boolean;
   private panel: HTMLElement;
 
   constructor() {
     super();
     this.open = false;
-    this.iconTemplate = require('./info_icon.pug');
     this.addEventListener('click', this.togglePanel);
     this.addEventListener('keyup', this.handleKey);
   }
@@ -33,13 +31,33 @@ class AppInfo extends HTMLElement {
     this.button.ariaExpanded = 'false';
     this.button.ariaLabel = 'About this app';
     this.button.id = 'info-toggle';
-    this.button.innerHTML = this.iconTemplate({name: 'info'});
+    this.button.innerHTML = this.iconTemplate();
     this.button.tabIndex = 0;
     this.button.setAttribute('aria-haspopup', 'true');
     this.button.setAttribute('aria-controls', 'info-panel');
     this.button.setAttribute('pending', '');
 
     this.appendChild(this.button);
+  }
+
+  private iconTemplate(name: string = 'info'): string {
+    let elements = `
+      <circle cx="12" cy="12" r="12"/>
+      <circle cx="12" cy="5" r="2"/>
+      <path d="M9,10 L12,10 L12,18 M9,18 L15,18"/>
+    `;
+
+    if (name === 'close') {
+      elements = `<path d="M5,5 L19,19 M5,19 L19,5"/>`;
+    }
+
+    const html = `
+      <svg class="icon icon--${name}" viewbox="0 0 24 24" aria-hidden="true">
+        ${elements}
+      </svg>
+    `;
+
+    return html;
   }
 
   private async renderPanel(): Promise<any> {
@@ -72,7 +90,7 @@ class AppInfo extends HTMLElement {
   }
 
   private openPanel() {
-    this.button.innerHTML = this.iconTemplate({name: 'close'});
+    this.button.innerHTML = this.iconTemplate('close');
 
     this.panel.removeAttribute('hidden');
     window.requestAnimationFrame(() => {
@@ -81,7 +99,7 @@ class AppInfo extends HTMLElement {
   }
 
   private closePanel() {
-    this.button.innerHTML = this.iconTemplate({name: 'info'});
+    this.button.innerHTML = this.iconTemplate();
 
     this.panel.removeAttribute('open');
     this.panel.addEventListener('transitionend', () => {
