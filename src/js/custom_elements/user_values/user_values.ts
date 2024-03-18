@@ -35,7 +35,7 @@ enum OptionsGroup {
 /**
  * Custom element that renders input fields for user interaction, calculates
  * BMR and TDEE via user input, enables/disables a 'results' element based on
- * valid user input, and saves user-provided info to localStorage.
+ * valid user input, and saves user-provided data to localStorage.
  */
 class UserValues extends HTMLElement {
   private fields: string[];
@@ -60,7 +60,7 @@ class UserValues extends HTMLElement {
   }
 
   /**
-   * Render DOM elements and populates them if there are stored user values.
+   * Renders DOM elements and populates them if there are stored values.
    */
   private setup() {
     // Create array of all fields to simplify getting/setting things later.
@@ -75,24 +75,17 @@ class UserValues extends HTMLElement {
     this.form = this.querySelector('form')!;
     this.results = document.getElementById('results')!;
 
-    // If user data exists, update elements with that data, then make each
-    // <radio-marker> set its marker's position.
+    // If user data exists, update elements with that data.
     this.populateInputs();
-    const changeEvent = new Event('change');
+
+    // Fire a change on each <radio-marker> to set its marker position.
     const radioMarkers = this.querySelectorAll('radio-marker');
     for (const element of radioMarkers) {
-      element.dispatchEvent(changeEvent);
+      element.dispatchEvent(new Event('change'));
     }
 
-    // Nearly done setting up...
-    this.handleInputFocus();
+    // Show results and graph if there are valid values.
     this.update();
-
-    // Focus the first text input if it's still empty.
-    const firstInput = <HTMLInputElement>this.querySelectorAll('[type=text]')[0];
-    if (!firstInput.value.length) {
-      firstInput.focus();
-    }
   }
 
   /**
