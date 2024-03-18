@@ -70,12 +70,6 @@ module.exports = {
           'stylus-loader',
         ],
       },
-      {
-        test: /\.pug$/,
-        use: [
-          'pug-loader',
-        ]
-      },
     ]
   }
 }
