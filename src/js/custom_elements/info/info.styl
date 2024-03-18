@@ -3,11 +3,6 @@ app-info {
   place-self: center end;
   z-index: 2;
 
-  // JavaScript disabled.
-  .no-js & {
-    display: none;
-  }
-
   button {
     aspect-ratio: 1;
     border-radius: var(--button-size);
@@ -15,11 +10,6 @@ app-info {
     inline-size: var(--button-size);
     opacity: 1;
     transition: background var(--transition), opacity var(--transition-slow) ease-out, transform var(--transition);
-
-    &[pending] {
-      opacity: 0;
-      visibility: hidden;
-    }
 
     &:active {
       transform: scale(.9);
