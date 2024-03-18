@@ -23,7 +23,7 @@ class Tools extends HTMLElement {
    */
   private setupDom() {
     document.body.removeAttribute('no-js');
-    document.querySelector('noscript').remove();
+    document.querySelector('noscript')!.remove();
   }
 
   /**

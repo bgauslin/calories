@@ -34,7 +34,7 @@ class NumberTicker extends HTMLElement {
           incrementNumber = newNumber;
           clearInterval(interval);
         }
-        this.textContent = String(incrementNumber);
+        this.textContent = `${incrementNumber}`;
       }, INTERVAL_MS);
     } else {
       this.textContent = newValue;
