@@ -18,13 +18,13 @@ number-ticker
   text-align center
   -webkit-text-fill-color transparent
 
-[id='results']::after
-  background inherit
-  content attr(label)
-  display block
-  font-size 1rem
-  inline-size 100%
-  inset-block auto 0
-  line-height initial
-  position absolute
-  text-transform lowercase
+  &::after
+    background inherit
+    content attr(label)
+    display block
+    font-size 1rem
+    inline-size 100%
+    inset-block auto 0
+    line-height initial
+    position absolute
+    text-transform lowercase
