@@ -1,4 +1,4 @@
-body
+:root
   // Layout.
   --button-size 2.75rem
   --gap 1rem
@@ -27,6 +27,7 @@ body
   --gray6 rgb(242, 242, 247)
 
   // Theming.
+  --body-fill var(--fill-1)
   --border-color var(--gray3)
   --fill-0 var(--gray6)
   --fill-1 white
@@ -43,21 +44,19 @@ body
   --transition .3s
   --transition-slow .5s
 
-@media (orientation: landscape)
-  body
+  @media (orientation: landscape)
+    --body-fill var(--fill-0)
     --main-grid 'title info' var(--button-size) 'values results' 'values graph' / 1fr 1fr
     --main-max-width 50rem
     --values-place-self center
 
-@media (min-width 50rem)
-  body
+  @media (min-width 50rem)
     --copy-font-size 1rem
     --h1-font-size 1.25em
     --h2-font-size 1.125em
     --h3-font-size 1em
 
-@media (prefers-color-scheme dark)
-  body
+  @media (prefers-color-scheme dark)
     // Dark mode grays.
     --gray1 rgb(142, 142, 147)
     --gray2 rgb(99, 99, 102)
