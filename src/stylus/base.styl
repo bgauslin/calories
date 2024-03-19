@@ -24,7 +24,6 @@ body {
   margin: 0;
   min-block-size: 100dvh;
   padding-block: 0 env(safe-area-inset-bottom);
-  place-content: center;
 }
 
 main {
@@ -35,7 +34,9 @@ main {
   grid: var(--main-grid);
   max-inline-size: var(--main-max-width);
   overflow: hidden;
-  padding: var(--gap);
+  padding-block: var(--main-padding-block, var(--gap));
+  padding-inline: var(--main-padding-inline, var(--gap));
+  place-self: var(--main-place-self, start center);
   position: relative;
 
   // JavasScript disabled.

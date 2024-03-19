@@ -2,10 +2,22 @@
   // Layout.
   --button-size: 2.75em;
   --gap: clamp(1em, .75em \+ 2vw, 2em);
+  --header-size: clamp(4em, 3em + 1vw, 6em);
   --input-height: 2em;
   --label-width: 4em;
-  --main-grid: 'title info' var(--button-size) 'values values' 'results results' 'graph graph' 1fr '. .' 0 / 1fr var(--button-size);
-  --main-max-width: 28em; //
+  --main-gap: 0;
+  --main-grid: 'title info' var(--header-size) 'values values' 'results results' 'graph graph' 1fr '. .' 0 / 1fr var(--button-size);
+  --main-max-width: 28em;
+  --main-padding-block: 0 var(--gap);
+
+  @media (orientation: landscape) {
+    --body-fill: var(--fill-0);
+    --main-gap: 0 var(--gap);
+    --main-grid: 'title info' var(--header-size) 'values results' 'values graph' / 1fr 1fr;
+    --main-max-width: 50em;
+    --main-place-self: center;
+    --results-margin-gap: 0 .5em;
+  }
 
   // Typography.
   --font: clamp(.875em, .75em \+ 1vw, 1.125em) / 1.4 var(--font-family);
@@ -14,6 +26,10 @@
   --copy-font-size: .875em;
   --h2-font-size: 1em;
   --h3-font-size: .875em;
+
+  // Animations and transitions.
+  --transition: .3s;
+  --transition-slow: .5s;
 
   // Branding colors.
   --brand-red: rgb(178, 34, 34);
@@ -41,18 +57,6 @@
   --text-opacity: .7;
   --warning-background: rgb(246, 234, 236);
   --warning-color: rgb(202, 36, 48);
-
-  // Animations and transitions.
-  --transition: .3s;
-  --transition-slow: .5s;
-
-  @media (orientation: landscape) {
-    --body-fill: var(--fill-0);
-    --main-gap: 0 var(--gap);
-    --main-grid: 'title info' var(--button-size) 'values results' 'values graph' / 1fr 1fr;
-    --main-max-width: 50em;
-    --values-place-self: center;
-  }
 
   @media (prefers-color-scheme: dark) {
     // Dark mode grays.
