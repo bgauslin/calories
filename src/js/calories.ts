@@ -8,7 +8,7 @@ import './custom_elements/user_values/user_values';
 import './custom_elements/zigzag/zigzag';
 
 // CSS entry file for Webpack.
-import '../stylus/index.styl';
+import '../styles/index.scss';
 
 // Remove JS guard from HTML.
 document.body.classList.remove('no-js');

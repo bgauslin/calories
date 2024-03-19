@@ -1,7 +1,7 @@
 :root {
   // Layout.
   --button-size: 2.75em;
-  --gap: clamp(1em, .75em \+ 2vw, 2em);
+  --gap: clamp(1em, .75em + 2vw, 2em);
   --header-size: clamp(4em, 3em + 1vw, 6em);
   --input-height: 2em;
   --label-width: 4em;
@@ -20,7 +20,7 @@
   }
 
   // Typography.
-  --font: clamp(.875em, .75em \+ 1vw, 1.125em) / 1.4 var(--font-family);
+  --font: clamp(.875em, .75em + 1vw, 1.125em) / 1.4 var(--font-family);
   --font-family: 'Avenir Variable', sans-serif;
   --h1-font-size: 1.125em;
   --copy-font-size: .875em;
