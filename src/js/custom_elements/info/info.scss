@@ -9,7 +9,9 @@ app-info {
     cursor: pointer;
     inline-size: var(--button-size);
     opacity: 1;
+    position: relative;
     transition: background var(--transition), opacity var(--transition-slow) ease-out, transform var(--transition);
+    z-index: 1;
 
     &:active {
       transform: scale(.9);
@@ -59,19 +61,31 @@ app-info {
 }
 
 // Content wrapper.
-[id='info-panel'] {
+// [1] Required by Safari for open/close transitions.
+dialog {
   background: var(--fill-1);
+  block-size: var(--dialog-block-size, 100vh);
+  border: none;
+  display: block; // [1]
+  color: inherit;
   inset: 0;
+  margin: 0;
+  outline: none;
   overflow: auto;
   padding-block: var(--gap);
   padding-inline: var(--gap);
   position: absolute;
-  transform: translateY(100%);
-  transition: transform var(--transition) ease-out;
-  z-index: -1;
+  scrollbar-width: none;
+  transition: opacity .5s, transform .5s;
 
-  &[open] {
-    transform: translateY(0);
+  &:not([open]) {
+    opacity: 0;
+    pointer-events: none;
+    transform: translate3d(0, 90%, 0);
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
   }
 
   // Headings.

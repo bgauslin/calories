@@ -6,23 +6,27 @@ const ENDPOINT = 'https://gauslin.com/api/etc/calories.json';
  */
 class AppInfo extends HTMLElement {
   private button: HTMLButtonElement;
+  private clickListener: EventListenerObject;
+  private dialog: HTMLDialogElement;
+  private keyListener: EventListenerObject;
   private open: boolean;
-  private panel: HTMLElement;
 
   constructor() {
     super();
     this.open = false;
-    this.addEventListener('click', this.togglePanel);
-    this.addEventListener('keyup', this.handleKey);
+    this.clickListener = this.togglePanel.bind(this);
+    this.keyListener = this.handleKey.bind(this);
   }
 
   connectedCallback() {
     this.setup();
+    document.addEventListener('click', this.clickListener);
+    document.addEventListener('keyup', this.keyListener);
   }
 
   disconnectedCallback() {
-    this.removeEventListener('click', this.togglePanel);
-    this.removeEventListener('keyup', this.handleKey);
+    document.removeEventListener('click', this.clickListener);
+    document.removeEventListener('keyup', this.keyListener);
   }
 
   private async setup(): Promise<any> {
@@ -32,19 +36,19 @@ class AppInfo extends HTMLElement {
 
       this.innerHTML += `
         <button
-          type="button"
-          id="info-toggle"
-          aria-controls="info-panel"
+          aria-controls="info"
           aria-expanded="false"
           aria-haspopup="true"
-          aria-label="About this app">${this.iconTemplate()}
+          aria-label="About this app"
+          id="toggle"
+          type="button">${this.iconTemplate()}
         </button>
-        <div aria-labelledby="info-toggle" id="info-panel" hidden>
+        <dialog aria-labelledby="toggle" id="info">
           ${json.info}
-        </div>
+        </dialog>
       `;
 
-      this.panel = document.getElementById('info-panel')!;
+      this.dialog = this.querySelector('dialog')!;
       this.button = this.querySelector('button')!;
     } catch (error) {
       console.warn('Currently unable to fetch data. :(');
@@ -72,44 +76,34 @@ class AppInfo extends HTMLElement {
     return html;
   }
 
-  private togglePanel() {
+  private togglePanel(event: Event) {
+    if (event.target !== this.button) {
+      return;
+    }
+
     if (!this.open) {
-      this.openPanel();
+      this.openDialog();
     } else {
-      this.closePanel();
+      this.closeDialog();
     }
     this.open = !this.open;
     this.button.ariaExpanded = `${this.open}`;
   }
 
-  private openPanel() {
+  private openDialog() {
     this.button.innerHTML = this.iconTemplate('close');
-
-    this.panel.removeAttribute('hidden');
-    window.requestAnimationFrame(() => {
-      this.panel.setAttribute('open', '');
-    });
+    this.dialog.show();
   }
 
-  private closePanel() {
+  private closeDialog() {
     this.button.innerHTML = this.iconTemplate();
-
-    this.panel.removeAttribute('open');
-    this.panel.addEventListener('transitionend', () => {
-      this.panel.setAttribute('hidden', '');
-    }, {once: true});
+    this.dialog.close();
   }
 
   private handleKey(event: KeyboardEvent) {
-    switch (event.code) {
-      case 'Enter':
-        this.open = !this.open;
-        this.togglePanel();
-        break;
-      case 'Escape':
-        this.open = false;
-        this.closePanel();
-        break;
+    if (event.code === 'Escape' && this.open) {
+      this.open = false;
+      this.closeDialog();
     }
   }
 }
