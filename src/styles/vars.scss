@@ -7,7 +7,7 @@
   --label-width: 4em;
   --main-gap: 0;
   --main-grid: 'title info' var(--header-size) 'values values' 'results results' 'graph graph' 1fr '. .' 0 / 1fr var(--button-size);
-  --main-max-width: 28em;
+  --main-max-width: 24em;
   --main-padding-block: 0 var(--gap);
 
   @media (orientation: landscape) {
@@ -15,7 +15,7 @@
     --dialog-block-size: 100%;
     --main-gap: 0 var(--gap);
     --main-grid: 'title info' var(--header-size) 'values results' 'values graph' / 1fr 1fr;
-    --main-max-width: 50em;
+    --main-max-width: 48em;
     --main-overflow: hidden;
     --main-place-self: center;
     --results-margin-gap: 0 .5em;

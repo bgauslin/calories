@@ -44,7 +44,9 @@ class AppInfo extends HTMLElement {
           type="button">${this.iconTemplate()}
         </button>
         <dialog aria-labelledby="toggle" id="info">
-          ${json.info}
+          <article>
+            ${json.info}
+          </article>
         </dialog>
       `;
 
@@ -77,7 +79,13 @@ class AppInfo extends HTMLElement {
   }
 
   private togglePanel(event: Event) {
-    if (event.target !== this.button) {
+    const target = event.target;
+    if (target === document.body && this.open) {
+      this.open = false;
+      this.closeDialog();
+    }
+
+    if (target !== this.button) {
       return;
     }
 
