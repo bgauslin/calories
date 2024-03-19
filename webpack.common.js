@@ -56,18 +56,12 @@ module.exports = {
         }
       },
       {
-        test: /\.styl$/,
+        test: /\.scss$/,
         use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              hmr: process.env.NODE_ENV === 'development',
-              reloadAll: true,
-            },
-          },
+          'style-loader',
           'css-loader',
           'postcss-loader',
-          'stylus-loader',
+          'sass-loader',
         ],
       },
     ]
