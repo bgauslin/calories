@@ -92,6 +92,7 @@ class AppInfo extends HTMLElement {
 
   private openDialog() {
     this.button.innerHTML = this.iconTemplate('close');
+    this.dialog.scrollTo(0, 0);
     this.dialog.show();
   }
 
