@@ -79,18 +79,6 @@ user-values {
     outline: none;
   }
 
-  label:focus > [type] + span {
-    color: var(--text-color);
-    transform: scale(1.1);
-  }
-
-  @media (any-hover: hover) {
-    label:hover > [type] + span {
-      color: var(--text-color);
-      transform: scale(1.1);
-    }
-  }
-
   // Individual <label> adjustments.
   [for='feet'],
   [for='inches'] {
@@ -120,11 +108,6 @@ user-values {
     text-align: end;
   }
 
-  // Text labels.
-  span {
-    transition: color var(--transition), transform var(--transition);
-  }
-
   // Text labels for radio buttons.
   [type='radio'] + span {
     align-items: center;
@@ -133,10 +116,17 @@ user-values {
     inline-size: 100%;
     justify-content: center;
     pointer-events: none;
+    transition: opacity var(--transition);
   }
 
   [type='radio']:not(:checked) + span {
     opacity: var(--text-opacity);
+  }
+
+  @media (any-hover: hover) {
+    label:hover > [type='radio'] + span {
+      opacity: 1;
+    }
   }
 }
 
