@@ -1,18 +1,18 @@
 app-info {
-  grid-area: info;
-  place-self: center end;
-  z-index: 2;
+  display: contents;
 
   button {
     aspect-ratio: 1;
     background-color: var(--fill-2);
     border-radius: var(--button-size);
+    color: inherit;
     cursor: pointer;
+    grid-area: info;
     inline-size: var(--button-size);
     opacity: 1;
-    position: relative;
+    place-self: center end;
     transition: background-color var(--transition), opacity var(--transition-slow) ease-out, transform var(--transition);
-    z-index: 1;
+    z-index: 3;
 
     &:active {
       transform: scale(.9);
@@ -29,65 +29,34 @@ app-info {
       }
     }
   }
-}
 
-.icon {
-  inline-size: 1.25rem;
-  pointer-events: none;
-}
+  // [1] Required by Safari for open/close transitions.
+  dialog {
+    background-color: var(--dialog-fill);
+    block-size: var(--dialog-block-size, 100dvh);
+    border: none;
+    color: inherit;
+    display: block; // [1]
+    grid-area: 1 / 1 / -1 / -1;
+    inline-size: 100%;
+    margin: 0;
+    max-block-size: var(--dialog-block-size, 100dvh);
+    outline: none;
+    overflow: auto;
+    padding-block: var(--gap);
+    padding-inline: var(--gap);
+    scrollbar-width: none;
+    transition: transform .5s;
+    z-index: 2;
 
-.icon--close {
-  path {
-    stroke: var(--text-color);
-    stroke-width: 2.5;
-  }
-}
+    &:not([open]) {
+      pointer-events: none;
+      transform: translate3d(0, 100%, 0);
+    }
 
-.icon--info {
-  circle {
-    fill: var(--fill-0);
-  }
-
-  circle:first-of-type {
-    fill: var(--text-color);
-  }
-
-  path {
-    fill: none;
-    stroke: green;
-    stroke: var(--fill-0);
-    stroke-linecap: round;
-    stroke-width: 2.5;
-  }
-}
-
-// Content wrapper.
-// [1] Required by Safari for open/close transitions.
-dialog {
-  background: var(--fill-1);
-  block-size: var(--dialog-block-size, 100vh);
-  border: none;
-  color: inherit;
-  display: block; // [1]
-  inline-size: 100%;
-  inset: 0;
-  margin: 0;
-  outline: none;
-  overflow: auto;
-  padding-block: var(--gap);
-  padding-inline: var(--gap);
-  position: absolute;
-  scrollbar-width: none;
-  transition: opacity .5s, transform .5s;
-
-  &:not([open]) {
-    opacity: 0;
-    pointer-events: none;
-    transform: translate3d(0, 90%, 0);
-  }
-
-  &::-webkit-scrollbar {
-    display: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   // Content wrapper.
@@ -100,17 +69,20 @@ dialog {
   h1 {
     font-size: var(--h1-font-size);
     grid-area: 1 / 2;
-    margin-block: 0 1rem;
+    margin-block: 0 1em;
+  }
+
+  :is(h2, h3) {
+    font-variation-settings: 'wght' 600;
+    margin-block: 1em .5em;
   }
 
   h2 {
     font-size: var(--h2-font-size);
-    margin-block: 2rem .5rem;
   }
 
   h3 {
     font-size: var(--h3-font-size);
-    margin-block: 1rem .5rem;
   }
 
   :is(p, table) {
@@ -137,5 +109,37 @@ dialog {
 
   :is(th, td):not(:first-child) {
     text-align: end;
+  }
+}
+
+// Icon buttons.
+.icon {
+  inline-size: 1.25rem;
+  pointer-events: none;
+}
+
+.icon--close {
+  path {
+    stroke: var(--text-color);
+    stroke-width: 2.5;
+  }
+}
+
+.icon--info {
+  circle {
+    fill: currentColor;
+  }
+
+  circle:first-of-type {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+  }
+
+  path {
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-width: 2;
   }
 }

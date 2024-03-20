@@ -60,8 +60,8 @@ class AppInfo extends HTMLElement {
 
   private iconTemplate(name: string = 'info'): string {
     let elements = `
-      <circle cx="12" cy="12" r="12"/>
-      <circle cx="12" cy="5" r="2"/>
+      <circle cx="12" cy="12" r="11"/>
+      <circle cx="12" cy="5" r="1.5"/>
       <path d="M9,10 L12,10 L12,18 M9,18 L15,18"/>
     `;
 
