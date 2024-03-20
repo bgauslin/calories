@@ -43,14 +43,14 @@ class AppInfo extends HTMLElement {
           id="toggle"
           type="button">${this.iconTemplate()}
         </button>
-        <dialog aria-labelledby="toggle" id="info">
+        <div class="dialog" aria-labelledby="toggle" id="info">
           <article>
             ${json.info}
           </article>
-        </dialog>
+        </div>
       `;
 
-      this.dialog = this.querySelector('dialog')!;
+      this.dialog = this.querySelector('.dialog')!;
       this.button = this.querySelector('button')!;
     } catch (error) {
       console.warn('Currently unable to fetch data. :(');
@@ -101,12 +101,12 @@ class AppInfo extends HTMLElement {
   private openDialog() {
     this.button.innerHTML = this.iconTemplate('close');
     this.dialog.scrollTo(0, 0);
-    this.dialog.show();
+    this.dialog.dataset.open = '';
   }
 
   private closeDialog() {
     this.button.innerHTML = this.iconTemplate();
-    this.dialog.close();
+    delete this.dialog.dataset.open;
   }
 
   private handleKey(event: KeyboardEvent) {

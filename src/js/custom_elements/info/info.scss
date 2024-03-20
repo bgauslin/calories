@@ -30,28 +30,23 @@ app-info {
     }
   }
 
-  // [1] Required by Safari for open/close transitions.
-  dialog {
-    background-color: var(--dialog-fill);
+  .dialog {
+    background-color: var(--fill-1);
     block-size: var(--dialog-block-size, 100dvh);
-    border: none;
-    color: inherit;
-    display: block; // [1]
-    grid-area: 1 / 1 / -1 / -1;
     inline-size: 100%;
-    margin: 0;
+    inset: 0;
     max-block-size: var(--dialog-block-size, 100dvh);
-    outline: none;
     overflow: auto;
     padding-block: var(--gap);
     padding-inline: var(--gap);
+    position: absolute;
     scrollbar-width: none;
-    transition: transform .5s;
+    transition: transform var(--transition);
     z-index: 2;
 
-    &:not([open]) {
+    &:not([data-open]) {
+      transform: translateY(100%);
       pointer-events: none;
-      transform: translate3d(0, 100%, 0);
     }
 
     &::-webkit-scrollbar {

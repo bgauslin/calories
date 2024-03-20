@@ -33,7 +33,7 @@ main {
   gap: var(--main-gap, var(--gap));
   grid: var(--main-grid);
   max-inline-size: var(--main-max-width);
-  overflow: var(--main-overflow);
+  overflow: hidden;
   padding-block: var(--main-padding-block, var(--gap));
   padding-inline: var(--main-padding-inline, var(--gap));
   place-self: var(--main-place-self, start center);
