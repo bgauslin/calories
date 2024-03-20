@@ -37,16 +37,15 @@ app-info {
     inset: 0;
     max-block-size: var(--dialog-block-size, 100dvh);
     overflow: auto;
-    padding-block: var(--gap);
-    padding-inline: var(--gap);
     position: absolute;
     scrollbar-width: none;
-    transition: transform var(--transition);
+    transition: opacity var(--transition), transform var(--transition);
     z-index: 2;
 
     &:not([data-open]) {
-      transform: translateY(100%);
+      opacity: 0;
       pointer-events: none;
+      transform: translateY(var(--dialog-offset, 100dvh));
     }
 
     &::-webkit-scrollbar {
@@ -58,6 +57,8 @@ app-info {
   article {
     margin-inline: auto;
     max-inline-size: 48ch;
+    padding-block: var(--gap);
+    padding-inline: var(--gap);
   }
 
   // Headings.

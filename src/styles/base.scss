@@ -33,9 +33,10 @@ main {
   gap: var(--main-gap, var(--gap));
   grid: var(--main-grid);
   max-inline-size: var(--main-max-width);
+  min-block-size: var(--main-min-block-size, 100dvh);
   overflow: hidden;
-  padding-block: var(--main-padding-block, var(--gap));
-  padding-inline: var(--main-padding-inline, var(--gap));
+  padding-block: 0;
+  padding-inline: var(--gap);
   place-self: var(--main-place-self, start center);
   position: relative;
 
@@ -43,6 +44,15 @@ main {
   .no-js & {
     align-items: center;
     grid: unset;
+  }
+}
+
+// Prevent the app from scrolling when the dialog is open. Otherwise, bits of
+// the app can scroll into view behind and under the dialog when scrolling the
+// contents of the dialog.
+@media (orientation: portrait) {
+  main:has(.dialog[data-open]) {
+    block-size: 100dvh;
   }
 }
 
