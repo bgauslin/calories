@@ -5,12 +5,13 @@ app-info {
 
   button {
     aspect-ratio: 1;
+    background-color: var(--fill-2);
     border-radius: var(--button-size);
     cursor: pointer;
     inline-size: var(--button-size);
     opacity: 1;
     position: relative;
-    transition: background var(--transition), opacity var(--transition-slow) ease-out, transform var(--transition);
+    transition: background-color var(--transition), opacity var(--transition-slow) ease-out, transform var(--transition);
     z-index: 1;
 
     &:active {
@@ -19,12 +20,12 @@ app-info {
 
     &:active,
     &:focus {
-      background: var(--fill-2);
+      background-color: var(--fill-3);
     }
 
     @media (any-hover: hover) {
       &:hover {
-        background: var(--fill-2);
+        background-color: var(--fill-3);
       }
     }
   }
