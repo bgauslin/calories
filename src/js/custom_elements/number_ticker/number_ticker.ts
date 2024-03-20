@@ -1,6 +1,5 @@
 const DIVISOR: number = 11; // Primes work best
 const INTERVAL_MS: number = 30;
-const VALUE_ATTR = 'value';
 
 /**
  * Custom element that incrementally changes one numeric value to another.
@@ -11,7 +10,7 @@ class NumberTicker extends HTMLElement {
   }
 
   static get observedAttributes(): string[] {
-    return [VALUE_ATTR];
+    return ['value'];
   }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {

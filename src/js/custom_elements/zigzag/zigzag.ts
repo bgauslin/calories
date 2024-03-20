@@ -1,9 +1,6 @@
 const DAILY_MODIFIERS: number[] = [1, .9, 1.1, 1, .8, 1, 1.2];
 const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 const MINIMUM_TDEE: number = 1200;
-const TDEE_ATTR = 'tdee';
-const TDEE_MAX_ATTR = 'max-tdee';
-const WARNING_CLASS = 'warning';
 
 /**
  * Custom element that renders daily TDEE based on overall TDEE where each
@@ -20,7 +17,7 @@ class ZigZag extends HTMLElement {
   }
 
   static get observedAttributes(): string[] {
-    return [TDEE_ATTR, TDEE_MAX_ATTR];
+    return ['tdee', 'max-tdee'];
   }
 
   attributeChangedCallback() {
@@ -47,7 +44,7 @@ class ZigZag extends HTMLElement {
       html += `
         <li>
           <span aria-label="${day}">${day.substring(0, 3)}</span>
-          <number-ticker></number-ticker>
+          <number-ticker value="0"></number-ticker>
         </li>
       `;
     }
@@ -64,8 +61,8 @@ class ZigZag extends HTMLElement {
    * Updates all tickers with each day's zig-zag value.
    */
   private update() {
-    const tdee = this.getAttribute(TDEE_ATTR);
-    const tdeeMax = this.getAttribute(TDEE_MAX_ATTR);
+    const tdee = this.getAttribute('tdee');
+    const tdeeMax = this.getAttribute('max-tdee');
 
     // Create array of all adjusted TDEE values, and get highest value for
     // setting the bar chart's upper bound.
@@ -100,9 +97,9 @@ class ZigZag extends HTMLElement {
       const day = <HTMLElement>this.days[index];
       if (day) {
         if (value < MINIMUM_TDEE) {
-          day.classList.add(WARNING_CLASS);
+          day.classList.add('warning');
         } else {
-          day.classList.remove(WARNING_CLASS);
+          day.classList.remove('warning');
         }
       }
     }
