@@ -104,7 +104,7 @@ input[type='text'] {
   }
 
   &:invalid {
-    color: var(--invalid-color);
+    color: var(--warning-color);
   }
 }
 

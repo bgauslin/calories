@@ -3,7 +3,8 @@ app-info {
 
   button {
     aspect-ratio: 1;
-    background-color: var(--fill-2);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(6px);
     border-radius: var(--button-size);
     color: inherit;
     cursor: pointer;
@@ -18,14 +19,13 @@ app-info {
       transform: scale(.9);
     }
 
-    &:active,
     &:focus {
-      background-color: var(--fill-3);
+      background-color: var(--fill-2a);
     }
 
     @media (any-hover: hover) {
       &:hover {
-        background-color: var(--fill-3);
+        background-color: var(--fill-2a);
       }
     }
   }
@@ -111,7 +111,18 @@ app-info {
 // Icon buttons.
 .icon {
   inline-size: 1.25rem;
+  opacity: var(--text-opacity);
   pointer-events: none;
+}
+
+:is(:focus, :hover) > .icon {
+  opacity: 1;
+}
+
+@media (any-hover: hover) {
+  :hover > .icon {
+    transition: opacity var(--transition);
+  }
 }
 
 .icon--close {
