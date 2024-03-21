@@ -7,7 +7,7 @@ const ENDPOINT = 'https://gauslin.com/api/etc/calories.json';
 class AppInfo extends HTMLElement {
   private button: HTMLButtonElement;
   private clickListener: EventListenerObject;
-  private dialog: HTMLDialogElement;
+  private dialog: HTMLElement;
   private keyListener: EventListenerObject;
   private open: boolean;
 
