@@ -10,6 +10,7 @@ class AppInfo extends HTMLElement {
   private dialog: HTMLElement;
   private keyListener: EventListenerObject;
   private open: boolean;
+  private target: HTMLElement;
 
   constructor() {
     super();
@@ -22,11 +23,15 @@ class AppInfo extends HTMLElement {
     this.setup();
     document.addEventListener('click', this.clickListener);
     document.addEventListener('keyup', this.keyListener);
+    this.addEventListener('touchstart', this.handleTouchstart);
+    this.addEventListener('touchend', this.handleTouchend);
   }
 
   disconnectedCallback() {
     document.removeEventListener('click', this.clickListener);
     document.removeEventListener('keyup', this.keyListener);
+    this.removeEventListener('touchstart', this.handleTouchstart);
+    this.removeEventListener('touchend', this.handleTouchend);
   }
 
   private async setup(): Promise<any> {
@@ -100,12 +105,14 @@ class AppInfo extends HTMLElement {
 
   private openDialog() {
     this.button.innerHTML = this.iconTemplate('close');
+    this.button.ariaExpanded = 'true';
     this.dialog.scrollTo(0, 0);
     this.dialog.dataset.open = '';
   }
 
   private closeDialog() {
     this.button.innerHTML = this.iconTemplate();
+    this.button.ariaExpanded = 'false';
     delete this.dialog.dataset.open;
   }
 
@@ -114,6 +121,19 @@ class AppInfo extends HTMLElement {
       this.open = false;
       this.closeDialog();
     }
+  }
+
+  private handleTouchstart(event: TouchEvent) {
+    const composed = event.composedPath();
+    this.target = <HTMLElement>composed[0];
+
+    if (this.target === this.button) {
+      this.button.classList.add('touch');
+    }
+  }
+
+  private handleTouchend() {
+    this.button.classList.remove('touch');
   }
 }
 

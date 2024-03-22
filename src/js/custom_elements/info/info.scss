@@ -18,6 +18,14 @@ app-info {
       background-color: var(--fill-2a);
     }
 
+    &.touch {
+      transform: scale(.8);
+    }
+
+    &[aria-expanded='true'] {
+      background-color: var(--fill-2a);
+    }
+
     @media (any-hover: hover) {
       & {
         transition: background-color var(--transition), opacity var(--transition-slow) ease-out, transform var(--transition);
@@ -28,7 +36,7 @@ app-info {
       }
 
       &:active {
-        transform: scale(.9);
+        transform: scale(.8);
       }
     }
   }
