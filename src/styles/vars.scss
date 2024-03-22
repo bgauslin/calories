@@ -58,6 +58,8 @@
   --fill-2a: rgba(229, 229, 234, .75);
   --fill-3: var(--gray3);
   --link-color: DodgerBlue;
+  --link-focus-color: OrangeRed;
+  --link-visited-color: RebeccaPurple;
   --text-color: black;
   --text-opacity: .7;
   --warning-background: rgb(246, 234, 236);
@@ -81,6 +83,8 @@
     --fill-2a: rgba(44, 44, 46, .5);
     --fill-3: var(--gray3);
     --link-color: CornflowerBlue;
+    --link-focus-color: DarkOrange;
+    --link-visited-color: MediumPurple;
     --text-color: white;
     --warning-background: rgb(64, 39, 46);
     --warning-color: rgb(254, 127, 140);
