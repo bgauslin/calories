@@ -10,22 +10,25 @@ app-info {
     cursor: pointer;
     grid-area: info;
     inline-size: var(--button-size);
-    opacity: 1;
     place-self: center end;
-    transition: background-color var(--transition), opacity var(--transition-slow) ease-out, transform var(--transition);
+    transition: transform var(--transition);
     z-index: 3;
 
-    &:active {
-      transform: scale(.9);
-    }
-
-    &:focus {
+    &:focus-visible {
       background-color: var(--fill-2a);
     }
 
     @media (any-hover: hover) {
+      & {
+        transition: background-color var(--transition), opacity var(--transition-slow) ease-out, transform var(--transition);
+      }
+
       &:hover {
         background-color: var(--fill-2a);
+      }
+
+      &:active {
+        transform: scale(.9);
       }
     }
   }
@@ -115,13 +118,17 @@ app-info {
   pointer-events: none;
 }
 
-:is(:focus, :hover) > .icon {
+:focus-visible > .icon {
   opacity: 1;
 }
 
 @media (any-hover: hover) {
-  :hover > .icon {
+  .icon {
     transition: opacity var(--transition);
+  }
+
+  :hover > .icon {
+    opacity: 1;
   }
 }
 
