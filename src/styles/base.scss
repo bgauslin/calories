@@ -24,6 +24,11 @@ body {
   margin: 0;
   min-block-size: 100dvh;
   padding-block: 0 env(safe-area-inset-bottom);
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 main {
@@ -32,6 +37,7 @@ main {
   display: grid;
   gap: var(--main-gap, var(--gap));
   grid: var(--main-grid);
+  margin-inline: var(--main-margin-inline);
   max-inline-size: var(--main-max-width);
   min-block-size: var(--main-min-block-size, 100dvh);
   overflow: hidden;
@@ -99,7 +105,7 @@ input[type='text'] {
   font-family: 'Avenir Variable', sans-serif;
   font-variation-settings: 'wght' 500;
 
-  &:focus {
+  &:focus-visible {
     border-color: var(--text-color);
   }
 

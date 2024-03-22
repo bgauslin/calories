@@ -6,7 +6,7 @@
   --input-height: 2em;
   --label-width: 4em;
   --main-gap: 0;
-  --main-grid: 'title info' var(--header-size) 'values values' 'results results' 'graph graph' 1fr '. .' var(--gap) / 1fr var(--button-size);
+  --main-grid: 'title info' var(--header-size) 'values values' 'results results' 'graph graph' 1fr '. .' var(--header-size) / 1fr var(--button-size);
   --main-max-width: 24em;
 
   @media (orientation: landscape) {
@@ -15,6 +15,7 @@
     --dialog-offset: 100%;
     --main-gap: 0 var(--gap);
     --main-grid: 'title info' var(--header-size) 'values results' 'values graph' '. .' var(--gap) / 1fr 1fr;
+    --main-margin-inline: var(--gap);
     --main-max-width: 48em;
     --main-min-block-size: none;
     --main-place-self: center;
@@ -22,7 +23,7 @@
   }
 
   // Typography.
-  --font: clamp(.875em, .75em + 1vw, 1.125em) / 1.4 var(--font-family);
+  --font: clamp(1em, .75em + 1vw, 1.25em) / 1.4 var(--font-family);
   --font-family: 'Avenir Variable', sans-serif;
   --h1-font-size: 1.125em;
   --copy-font-size: .875em;
