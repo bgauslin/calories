@@ -5,15 +5,12 @@ number-ticker {
   &[hidden] {
     opacity: 0;
   }
-
-  .no-js & {
-    display: none;
-  }
 }
 
 [id='results'] {
   background: -webkit-linear-gradient(var(--brand-orange), var(--brand-red));
   -webkit-background-clip: text;
+  background-clip: text;
   font-size: 400%;
   grid-area: results;
   inline-size: 100%;

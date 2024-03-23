@@ -1,0 +1,34 @@
+calories-app {
+  background: var(--fill-1);
+  border: var(--app-border);
+  border-radius: 1em;
+  display: grid;
+  gap: var(--app-gap, var(--gap));
+  grid: var(--app-grid);
+  margin-inline: var(--app-margin-inline);
+  max-inline-size: var(--app-max-width);
+  min-block-size: var(--app-min-block-size, 100dvh);
+  overflow: hidden;
+  padding-block: 0;
+  padding-inline: var(--gap);
+  place-self: var(--app-place-self, start center);
+  position: relative;
+
+  h1 {
+    font-size: var(--h1-font-size);
+    grid-area: title;
+    line-height: 1;
+    margin-block: 0;
+    place-self: center start;
+    white-space: nowrap;
+  }
+}
+
+// Prevent the app from scrolling when the dialog is open. Otherwise, bits of
+// the app can scroll into view behind and under the dialog when scrolling the
+// contents of the dialog.
+@media (orientation: portrait) {
+  calories-app:has(.dialog[data-open]) {
+    block-size: 100dvh;
+  }
+}

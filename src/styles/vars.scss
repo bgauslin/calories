@@ -1,25 +1,25 @@
 :root {
   // Layout.
+  --app-gap: 0;
+  --app-grid: 'title info' var(--header-size) 'values values' 'results results' 'graph graph' 1fr '. .' var(--header-size) / 1fr var(--button-size);
+  --app-max-width: 24em;
   --button-size: 44px;
   --gap: clamp(1em, .75em + 2vw, 2em);
   --header-size: clamp(4em, 3em + 1vw, 6em);
   --input-height: 2em;
   --label-width: 4em;
-  --main-gap: 0;
-  --main-grid: 'title info' var(--header-size) 'values values' 'results results' 'graph graph' 1fr '. .' var(--header-size) / 1fr var(--button-size);
-  --main-max-width: 24em;
 
   @media (orientation: landscape) {
+    --app-border: var(--border);
+    --app-gap: 0 var(--gap);
+    --app-grid: 'title info' var(--header-size) 'values results' 'values graph' '. .' var(--gap) / 1fr 1fr;
+    --app-margin-inline: var(--gap);
+    --app-max-width: 48em;
+    --app-min-block-size: none;
+    --app-place-self: center;
     --body-fill: var(--fill-0);
     --dialog-block-size: 100%;
     --dialog-offset: 100%;
-    --main-border: var(--border);
-    --main-gap: 0 var(--gap);
-    --main-grid: 'title info' var(--header-size) 'values results' 'values graph' '. .' var(--gap) / 1fr 1fr;
-    --main-margin-inline: var(--gap);
-    --main-max-width: 48em;
-    --main-min-block-size: none;
-    --main-place-self: center;
     --results-margin-gap: 0 .5em;
   }
 
