@@ -13,6 +13,7 @@
     --body-fill: var(--fill-0);
     --dialog-block-size: 100%;
     --dialog-offset: 100%;
+    --main-border: var(--border);
     --main-gap: 0 var(--gap);
     --main-grid: 'title info' var(--header-size) 'values results' 'values graph' '. .' var(--gap) / 1fr 1fr;
     --main-margin-inline: var(--gap);
@@ -50,7 +51,7 @@
   // Theming.
   --backdrop-filter: blur(6px);
   --body-fill: var(--fill-1);
-  --border-color: var(--gray3);
+  --border: 1px solid var(--gray5);
   --fill-0: var(--gray6);
   --fill-1: white;
   --fill-2: var(--gray5);
@@ -75,7 +76,6 @@
     --gray6: rgb(28, 28, 30);
 
     // Dark mode theming.
-    --border-color: var(--gray4);
     --fill-0: black;
     --fill-1: var(--gray6);
     --fill-2: var(--gray5);

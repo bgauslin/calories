@@ -33,6 +33,7 @@ body {
 
 main {
   background: var(--fill-1);
+  border: var(--main-border);
   border-radius: 1em;
   display: grid;
   gap: var(--main-gap, var(--gap));
