@@ -11,20 +11,12 @@
   },
   "postcss": {
     "plugins": {
-      "autoprefixer": {},
       "cssnano": {}
     }
   },
-  "browserslist": [
-    "last 2 version",
-    ">1%",
-    "iOS >= 9",
-    "not dead"
-  ],
   "devDependencies": {
     "@babel/core": "^7.5.0",
     "@babel/preset-typescript": "^7.3.3",
-    "autoprefixer": "^9.6.1",
     "babel-loader": "^8.0.6",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "clean-webpack-plugin": "^3.0.0",
