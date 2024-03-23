@@ -15,7 +15,7 @@ app-info {
     z-index: 3;
 
     &:focus-visible {
-      background-color: var(--fill-2a);
+      background-color: var(--fill-3a);
     }
 
     &.touch {
@@ -32,7 +32,7 @@ app-info {
       }
 
       &:hover {
-        background-color: var(--fill-2a);
+        background-color: var(--fill-3a);
       }
 
       &:active {

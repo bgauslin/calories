@@ -53,10 +53,10 @@
   --border-color: var(--gray3);
   --fill-0: var(--gray6);
   --fill-1: white;
-  --fill-1a: rgba(white, .75);
   --fill-2: var(--gray5);
-  --fill-2a: rgba(229, 229, 234, .75);
-  --fill-3: var(--gray3);
+  --fill-2a: rgba(229, 229, 234, .7);  // --fill-2 with alpha
+  --fill-3: var(--gray4);
+  --fill-3a: rgba(209, 209, 214, .7);  // --fill-3 with alpha
   --link-color: DodgerBlue;
   --link-focus-color: OrangeRed;
   --link-visited-color: RebeccaPurple;
@@ -78,10 +78,10 @@
     --border-color: var(--gray4);
     --fill-0: black;
     --fill-1: var(--gray6);
-    --fill-1a: rgba(28, 28, 30, .5);
     --fill-2: var(--gray5);
-    --fill-2a: rgba(44, 44, 46, .5);
-    --fill-3: var(--gray3);
+    --fill-2a: rgba(44, 44, 46, .7);  // --fill-2 with alpha
+    --fill-3: var(--gray4);
+    --fill-3a: rgba(58, 58, 60, .7);  // --fill-3 with alpha
     --link-color: CornflowerBlue;
     --link-focus-color: DarkOrange;
     --link-visited-color: MediumPurple;
