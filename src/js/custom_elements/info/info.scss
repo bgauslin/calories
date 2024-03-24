@@ -150,7 +150,7 @@ app-info {
 
 // Icon buttons.
 .icon {
-  inline-size: 1.25rem;
+  inline-size: 24px;
   opacity: var(--text-opacity);
   pointer-events: none;
 }
@@ -177,20 +177,10 @@ app-info {
 }
 
 .icon--info {
-  circle {
-    fill: currentColor;
-  }
-
-  circle:first-of-type {
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 2;
-  }
-
   path {
     fill: none;
     stroke: currentColor;
     stroke-linecap: round;
-    stroke-width: 2;
+    stroke-width: 2px;
   }
 }
