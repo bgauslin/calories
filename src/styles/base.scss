@@ -23,7 +23,7 @@ body {
   font-variation-settings: 'wght' 500;
   margin: 0;
   min-block-size: 100dvh;
-  padding-block: 0 env(safe-area-inset-bottom);
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
   scrollbar-width: none;
 
   &::-webkit-scrollbar {
