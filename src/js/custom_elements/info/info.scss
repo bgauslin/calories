@@ -5,6 +5,7 @@ app-info {
     aspect-ratio: 1;
     backdrop-filter: var(--backdrop-filter);
     -webkit-backdrop-filter: var(--backdrop-filter);
+    background-color: var(--fill-3a);
     border-radius: var(--button-size);
     color: inherit;
     cursor: pointer;
@@ -15,7 +16,7 @@ app-info {
     z-index: 3;
 
     &:focus-visible {
-      background-color: var(--fill-3a);
+      background-color: var(--fill-4a);
     }
 
     &.touch {
@@ -23,7 +24,7 @@ app-info {
     }
 
     &[aria-expanded='true'] {
-      background-color: var(--fill-2a);
+      background-color: var(--fill-4a);
     }
 
     @media (any-hover: hover) {
@@ -32,7 +33,7 @@ app-info {
       }
 
       &:hover {
-        background-color: var(--fill-3a);
+        background-color: var(--fill-4a);
       }
 
       &:active {
@@ -181,6 +182,6 @@ app-info {
     fill: none;
     stroke: currentColor;
     stroke-linecap: round;
-    stroke-width: 2px;
+    stroke-width: 2;
   }
 }
