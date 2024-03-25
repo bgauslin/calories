@@ -3,31 +3,59 @@
  * elements into its DOM.
  */
 class App extends HTMLElement {
+  private results: HTMLElement;
   private target: HTMLElement;
+  private valuesListener: EventListenerObject;
+  private zigzag: HTMLElement;
 
   constructor() {
     super();
+    this.valuesListener = this.update.bind(this);
   }
 
   connectedCallback() {
     this.addEventListener('touchstart', this.handleTouchstart);
     this.addEventListener('touchend', this.handleTouchend);
+    this.addEventListener('valuesUpdated', this.valuesListener);
     this.setup();
   }
 
   disconnectedCallback() {
     this.removeEventListener('touchstart', this.handleTouchstart);
     this.removeEventListener('touchend', this.handleTouchend);
+    this.removeEventListener('valuesUpdated', this.valuesListener);
   }
 
-  private async setup() {
+  private setup() {
     this.innerHTML = `
       <h1>Calories</h1>
       <app-info></app-info>
       <user-values></user-values>
-      <number-ticker id="results" label="Average Daily Calories" value="0" hidden></number-ticker>
-      <zig-zag hidden></zig-zag>
+      <number-ticker label="Average Daily Calories"></number-ticker>
+      <zig-zag></zig-zag>
     `;
+
+    this.results = <HTMLElement>this.querySelector('number-ticker');
+    this.zigzag = <HTMLElement>this.querySelector('zig-zag');
+
+    this.results.setAttribute('hidden', '');
+    this.zigzag.setAttribute('hidden', '');
+  }
+
+  private update (event: CustomEvent) {
+    const detail = event.detail;
+    const {bmr, tdee, tdeeMax} = detail;
+    const _bmr = bmr.toFixed();
+    const _tdee = tdee.toFixed();
+    const _tdeeMax = tdeeMax.toFixed();
+
+    this.results.setAttribute('value', _tdee);
+    this.results.setAttribute('bmr', _bmr);
+    this.results.removeAttribute('hidden');
+ 
+    this.zigzag.setAttribute('tdee', _tdee);
+    this.zigzag.setAttribute('max-tdee', _tdeeMax);
+    this.zigzag.removeAttribute('hidden');
   }
 
   private handleTouchstart(event: TouchEvent) {

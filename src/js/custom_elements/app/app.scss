@@ -14,6 +14,15 @@ calories-app {
   place-self: var(--app-place-self, start center);
   position: relative;
 
+  // Prevent the app from scrolling when the dialog is open. Otherwise, bits of
+  // the app can scroll into view behind and under the dialog when scrolling the
+  // contents of the dialog.
+  @media (orientation: portrait) {
+    &:has(.dialog[data-open]) {
+      block-size: 100dvh;
+    }
+  }
+
   h1 {
     font-size: var(--h1-font-size);
     grid-area: title;
@@ -22,13 +31,34 @@ calories-app {
     place-self: center start;
     white-space: nowrap;
   }
-}
 
-// Prevent the app from scrolling when the dialog is open. Otherwise, bits of
-// the app can scroll into view behind and under the dialog when scrolling the
-// contents of the dialog.
-@media (orientation: portrait) {
-  calories-app:has(.dialog[data-open]) {
-    block-size: 100dvh;
+  // Results <number-ticker> element.
+  & > number-ticker {
+    background: -webkit-linear-gradient(var(--brand-orange), var(--brand-red));
+    -webkit-background-clip: text;
+    background-clip: text;
+    font-size: 400%;
+    grid-area: results;
+    inline-size: 100%;
+    line-height: 1;
+    margin-block: var(--results-margin-gap, .75em);
+    padding-block: 0 1.5rem;
+    place-self: center;
+    position: relative;
+    text-align: center;
+    -webkit-text-fill-color: transparent;
+  }
+
+  & > number-ticker::after {
+    background: inherit;
+    content: attr(label);
+    display: block;
+    font-size: 1rem;
+    inline-size: 100%;
+    inset-block: auto 0;
+    line-height: initial;
+    position: absolute;
+    text-transform: lowercase;
+    white-space: nowrap;
   }
 }
