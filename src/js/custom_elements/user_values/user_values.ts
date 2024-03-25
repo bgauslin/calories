@@ -18,7 +18,6 @@ interface UserResults {
 }
 
 const DISABLED_ATTR = 'disabled';
-const HIDDEN_ATTR = 'hidden';
 const STORAGE_ITEM = 'values';
 
 const DISABLED_ELEMENTS: string[] = [
@@ -41,7 +40,6 @@ class UserValues extends HTMLElement {
   private fields: string[];
   private form: HTMLFormElement;
   private formulas: Formulas;
-  private results: HTMLElement;
 
   constructor() {
     super();
@@ -71,11 +69,8 @@ class UserValues extends HTMLElement {
     ];
 
     // Render HTML and create element references.
-    this.render();
-    this.form = this.querySelector('form')!;
-    this.results = document.getElementById('results')!;
-
     // If user data exists, update elements with that data.
+    this.render();
     this.populateInputs();
 
     // Wait a tick, then fire a change on each <radio-marker> to set its
@@ -130,6 +125,8 @@ class UserValues extends HTMLElement {
         ${this.renderRadioButtons(weightGoal, 'goal')}
       <form>
     `;
+
+    this.form = this.querySelector('form')!;
   }
 
   /**
@@ -220,15 +217,24 @@ class UserValues extends HTMLElement {
    */
   private update() {
     if (this.querySelectorAll(':invalid').length) {
-      this.results.setAttribute(HIDDEN_ATTR, '');
       this.enableOptionsGroups(false);
-    } else {
-      const measurements = this.getMeasurements()
-      const {bmr, tdee, tdeeMax} = this.getResults(measurements);
-      localStorage.setItem(STORAGE_ITEM, JSON.stringify(measurements));
-      this.showResults(bmr, tdee, tdeeMax);
-      this.enableOptionsGroups(true);
-    }   
+      return;
+    }
+
+    const measurements = this.getMeasurements()
+    const {bmr, tdee, tdeeMax} = this.getResults(measurements);
+
+    this.dispatchEvent(new CustomEvent('valuesUpdated', {
+      bubbles: true,
+      composed: true,
+      detail: {
+        bmr,
+        tdee,
+        tdeeMax,
+      }
+    }));
+    this.enableOptionsGroups(true);
+    localStorage.setItem(STORAGE_ITEM, JSON.stringify(measurements));
   }
 
   /**
@@ -280,22 +286,6 @@ class UserValues extends HTMLElement {
     });
 
     return {bmr, tdee, tdeeMax};
-  }
-
-  /**
-   * Sets attributes on elements to make them update themselves.
-   */
-  private showResults(bmr: number, tdee: number, tdeeMax: number) {
-    this.results.removeAttribute(HIDDEN_ATTR);
-    this.results.setAttribute('value', tdee.toFixed());
-    this.results.setAttribute('bmr', bmr.toFixed());
- 
-    const zigZag = document.querySelector('zig-zag');
-    if (zigZag) {
-      zigZag.setAttribute('tdee', tdee.toFixed());
-      zigZag.setAttribute('max-tdee', tdeeMax.toFixed());
-      zigZag.removeAttribute('hidden');
-    }
   }
 
   /**

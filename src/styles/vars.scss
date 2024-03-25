@@ -1,24 +1,25 @@
 :root {
   // Layout.
+  --app-gap: 0;
+  --app-grid: 'title info' var(--header-size) 'values values' 'results results' 'graph graph' 1fr '. .' var(--header-size) / 1fr var(--button-size);
+  --app-max-width: 24em;
   --button-size: 44px;
   --gap: clamp(1em, .75em + 2vw, 2em);
   --header-size: clamp(4em, 3em + 1vw, 6em);
   --input-height: 2em;
   --label-width: 4em;
-  --main-gap: 0;
-  --main-grid: 'title info' var(--header-size) 'values values' 'results results' 'graph graph' 1fr '. .' var(--header-size) / 1fr var(--button-size);
-  --main-max-width: 24em;
 
   @media (orientation: landscape) {
+    --app-border: var(--border);
+    --app-gap: 0 var(--gap);
+    --app-grid: 'title info' var(--header-size) 'values results' 'values graph' '. .' var(--gap) / 1fr 1fr;
+    --app-margin: var(--gap);
+    --app-max-width: 48em;
+    --app-min-block-size: none;
+    --app-place-self: center;
     --body-fill: var(--fill-0);
     --dialog-block-size: 100%;
     --dialog-offset: 100%;
-    --main-gap: 0 var(--gap);
-    --main-grid: 'title info' var(--header-size) 'values results' 'values graph' '. .' var(--gap) / 1fr 1fr;
-    --main-margin-inline: var(--gap);
-    --main-max-width: 48em;
-    --main-min-block-size: none;
-    --main-place-self: center;
     --results-margin-gap: 0 .5em;
   }
 
@@ -50,14 +51,18 @@
   // Theming.
   --backdrop-filter: blur(6px);
   --body-fill: var(--fill-1);
-  --border-color: var(--gray3);
+  --border: 1px solid var(--gray5);
   --fill-0: var(--gray6);
   --fill-1: white;
-  --fill-1a: rgba(white, .75);
   --fill-2: var(--gray5);
-  --fill-2a: rgba(229, 229, 234, .75);
-  --fill-3: var(--gray3);
+  --fill-2a: rgba(229, 229, 234, .7);  // --fill-2 with alpha
+  --fill-3: var(--gray4);
+  --fill-3a: rgba(209, 209, 214, .7);  // --fill-3 with alpha
+  --fill-4: var(--gray3);
+  --fill-4a: rgba(199, 199, 204, .7);  // --fill-4 with alpha
   --link-color: DodgerBlue;
+  --link-focus-color: OrangeRed;
+  --link-visited-color: RebeccaPurple;
   --text-color: black;
   --text-opacity: .7;
   --warning-background: rgb(246, 234, 236);
@@ -73,14 +78,17 @@
     --gray6: rgb(28, 28, 30);
 
     // Dark mode theming.
-    --border-color: var(--gray4);
     --fill-0: black;
     --fill-1: var(--gray6);
-    --fill-1a: rgba(28, 28, 30, .5);
     --fill-2: var(--gray5);
-    --fill-2a: rgba(44, 44, 46, .5);
-    --fill-3: var(--gray3);
+    --fill-2a: rgba(44, 44, 46, .7);  // --fill-2 with alpha
+    --fill-3: var(--gray4);
+    --fill-3a: rgba(58, 58, 60, .7);  // --fill-3 with alpha
+    --fill-4: var(--gray3);
+    --fill-4a: rgba(72, 72, 74, .7);  // --fill-4 with alpha
     --link-color: CornflowerBlue;
+    --link-focus-color: DarkOrange;
+    --link-visited-color: MediumPurple;
     --text-color: white;
     --warning-background: rgb(64, 39, 46);
     --warning-color: rgb(254, 127, 140);

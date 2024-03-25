@@ -59,19 +59,15 @@ class AppInfo extends HTMLElement {
   }
 
   private iconTemplate(name: string = 'info'): string {
-    let elements = `
-      <circle cx="12" cy="12" r="11"/>
-      <circle cx="12" cy="5" r="1.5"/>
-      <path d="M9,10 L12,10 L12,18 M9,18 L15,18"/>
-    `;
+    let path = 'M9,11 L12,11 L12,18 M9,18 L15,18 M12,12 m11,0 a11,11 0 1,0 -22,0 a11,11 0 1,0 22,0 M11,6 m1,0 a0.5,0.5 0 1,0 -1,0 a0.5,0.5 0 1,0 1,0';
 
     if (name === 'close') {
-      elements = `<path d="M5,5 L19,19 M5,19 L19,5"/>`;
+      path = 'M5,5 L19,19 M5,19 L19,5';
     }
 
     const html = `
       <svg class="icon icon--${name}" viewbox="0 0 24 24" aria-hidden="true">
-        ${elements}
+        <path d="${path}"/>
       </svg>
     `;
 
@@ -100,12 +96,14 @@ class AppInfo extends HTMLElement {
 
   private openDialog() {
     this.button.innerHTML = this.iconTemplate('close');
+    this.button.ariaExpanded = 'true';
     this.dialog.scrollTo(0, 0);
     this.dialog.dataset.open = '';
   }
 
   private closeDialog() {
     this.button.innerHTML = this.iconTemplate();
+    this.button.ariaExpanded = 'false';
     delete this.dialog.dataset.open;
   }
 

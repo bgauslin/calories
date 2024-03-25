@@ -5,6 +5,7 @@ app-info {
     aspect-ratio: 1;
     backdrop-filter: var(--backdrop-filter);
     -webkit-backdrop-filter: var(--backdrop-filter);
+    background-color: var(--fill-3a);
     border-radius: var(--button-size);
     color: inherit;
     cursor: pointer;
@@ -15,7 +16,15 @@ app-info {
     z-index: 3;
 
     &:focus-visible {
-      background-color: var(--fill-2a);
+      background-color: var(--fill-4a);
+    }
+
+    &.touch {
+      transform: scale(.8);
+    }
+
+    &[aria-expanded='true'] {
+      background-color: var(--fill-4a);
     }
 
     @media (any-hover: hover) {
@@ -24,11 +33,11 @@ app-info {
       }
 
       &:hover {
-        background-color: var(--fill-2a);
+        background-color: var(--fill-4a);
       }
 
       &:active {
-        transform: scale(.9);
+        transform: scale(.8);
       }
     }
   }
@@ -95,7 +104,7 @@ app-info {
   }
 
   tr {
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: var(--border);
   }
 
   th {
@@ -109,11 +118,40 @@ app-info {
   :is(th, td):not(:first-child) {
     text-align: end;
   }
+
+  // Links.
+  a {
+    color: var(--link-color);
+    outline: none;
+    text-decoration: none;
+  }
+  
+  a:visited {
+    color: var(--link-visited-color);
+  }
+  
+  a:focus-visible {
+    color: var(--link-focus-color);
+  }
+  
+  a:active {
+    color: var(--link-active-color, var(--link-focus-color));
+  }
+  
+  @media (any-hover: hover) {
+    a {
+      transition: color var(--transition);
+    }
+  
+    a:hover {
+      color: var(--link-focus-color);
+    }
+  }
 }
 
 // Icon buttons.
 .icon {
-  inline-size: 1.25rem;
+  inline-size: 24px;
   opacity: var(--text-opacity);
   pointer-events: none;
 }
@@ -140,16 +178,6 @@ app-info {
 }
 
 .icon--info {
-  circle {
-    fill: currentColor;
-  }
-
-  circle:first-of-type {
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 2;
-  }
-
   path {
     fill: none;
     stroke: currentColor;
