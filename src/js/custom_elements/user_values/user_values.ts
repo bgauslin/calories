@@ -17,13 +17,7 @@ interface UserResults {
   tdeeMax: number,
 }
 
-const DISABLED_ATTR = 'disabled';
 const STORAGE_ITEM = 'values';
-
-const DISABLED_ELEMENTS: string[] = [
-  '#activity',
-  '#goal',
-];
 
 enum OptionsGroup {
   ACTIVITY = 'activity',
@@ -295,13 +289,13 @@ class UserValues extends HTMLElement {
   private enableOptionsGroups(enabled: boolean) {
     const tabindex = enabled ? '0' : '-1';
 
-    for (const selector of DISABLED_ELEMENTS) {
+    for (const selector of ['#activity', '#goal']) {
       const group = this.querySelector(selector);
 
       if (enabled) {
-        group!.removeAttribute(DISABLED_ATTR);
+        group!.removeAttribute('disabled');
       } else {
-        group!.setAttribute(DISABLED_ATTR, '');
+        group!.setAttribute('disabled', '');
       }
 
       const labels = group!.querySelectorAll('label[tabindex]');
