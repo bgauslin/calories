@@ -1,6 +1,10 @@
 app-info {
   display: contents;
 
+  &[hidden] > button {
+    opacity: 0;
+  }
+
   button {
     aspect-ratio: 1;
     backdrop-filter: var(--backdrop-filter);
@@ -12,7 +16,7 @@ app-info {
     grid-area: info;
     inline-size: var(--button-size);
     place-self: center end;
-    transition: transform var(--transition);
+    transition: opacity var(--transition), transform var(--transition);
     z-index: 3;
 
     &:focus-visible {

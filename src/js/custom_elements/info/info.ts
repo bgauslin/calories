@@ -14,6 +14,7 @@ class AppInfo extends HTMLElement {
   constructor() {
     super();
     this.open = false;
+    this.setAttribute('hidden', '');
     this.clickListener = this.togglePanel.bind(this);
     this.keyListener = this.handleKey.bind(this);
   }
@@ -36,12 +37,12 @@ class AppInfo extends HTMLElement {
 
       this.innerHTML += `
         <button
+          type="button"
           aria-controls="info"
           aria-expanded="false"
           aria-haspopup="true"
           aria-label="About this app"
-          id="toggle"
-          type="button">${this.iconTemplate()}
+          id="toggle">${this.iconTemplate()}
         </button>
         <div class="dialog" aria-labelledby="toggle" id="info">
           <article>
@@ -52,6 +53,7 @@ class AppInfo extends HTMLElement {
 
       this.dialog = this.querySelector('.dialog')!;
       this.button = this.querySelector('button')!;
+      window.requestAnimationFrame(() => this.removeAttribute('hidden'));
     } catch (error) {
       console.warn('Currently unable to fetch data. :(');
       return;

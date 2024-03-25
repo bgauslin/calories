@@ -14,8 +14,8 @@ class App extends HTMLElement {
   }
 
   connectedCallback() {
-    this.addEventListener('touchstart', this.handleTouchstart);
-    this.addEventListener('touchend', this.handleTouchend);
+    this.addEventListener('touchstart', this.handleTouchstart, {passive: true});
+    this.addEventListener('touchend', this.handleTouchend, {passive: true});
     this.addEventListener('valuesUpdated', this.valuesListener);
     this.setup();
   }
