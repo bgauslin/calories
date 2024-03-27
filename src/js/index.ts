@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 // JS for all custom elements.
 import './custom_elements/app/app';
 import './custom_elements/info/info';
@@ -14,12 +12,3 @@ import '../styles/index.scss';
 // Remove JS guard from HTML.
 document.body.classList.remove('no-js');
 document.querySelector('noscript')!.remove();
-
-// Register the Service Worker.
-if (process.env.NODE_ENV === 'production') {
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js');
-    });
-  }
-}

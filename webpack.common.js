@@ -1,13 +1,12 @@
 const path = require('path');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
-const Dotenv = require('dotenv-webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const WorkboxPlugin = require('workbox-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: {
-    calories: './src/js/calories.ts',
+    app: './src/js/index.ts',
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -15,54 +14,39 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new CopyPlugin([
-      { from: 'src/icons' },
-      { from: 'src/pwa', to: 'pwa' },
-      { from: 'src/root' },
-    ]),
-    new Dotenv(),
+    new CopyPlugin({
+      patterns: [
+        { from: 'src/icons' },
+        { from: 'src/root' },
+      ],
+    }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'src/html/index.html',
     }),
-    new WorkboxPlugin.InjectManifest({
-      swSrc: 'src/js/sw.js',
-      swDest: 'sw.js',
-      exclude: [/\.htaccess$/, /robots\.txt$/, /\.DS_Store$/],
-    }),
   ],
-  node: {
-    fs: 'empty',
-  },
-  resolve: {
-    extensions: ['.js', '.ts']
-  },
   module: {
     rules: [
       {
-        test: /\.(ts|js)$/,
+        test: /\.ts?$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: [
-              '@babel/typescript',
-            ],
-            plugins: [
-              'babel-plugin-transform-es2015-modules-commonjs',
-            ],
-          }
-        }
+        use: 'ts-loader',
       },
       {
         test: /\.scss$/,
+        include: [
+          path.resolve(__dirname, 'src/styles')
+        ],
         use: [
-          'style-loader',
+          MiniCssExtractPlugin.loader,
           'css-loader',
           'postcss-loader',
           'sass-loader',
         ],
       },
-    ]
-  }
+    ],
+  },
+  resolve: {
+    extensions: ['.ts', '.js', '.scss'],
+  },
 }

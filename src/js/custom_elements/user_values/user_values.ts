@@ -215,7 +215,7 @@ class UserValues extends HTMLElement {
       return;
     }
 
-    const measurements = this.getMeasurements()
+    const measurements = this.getMeasurements();
     const {bmr, tdee, tdeeMax} = this.getResults(measurements);
 
     this.dispatchEvent(new CustomEvent('valuesUpdated', {
@@ -235,20 +235,33 @@ class UserValues extends HTMLElement {
    * Returns user's age, height, sex, and weight from form inputs.
    */
   private getMeasurements(): UserMeasurements {
-    const values = {};
     const formData = new FormData(this.form);
-    for (const field of this.fields) {
-      values[field] = formData.get(field);
+
+    // TODO: Refactor activity and goal defaults.
+    let activity_ = formData.get('activity');
+    if (!activity_) {
+      activity_ = '0';
     }
 
+    let goal_ = formData.get('goal');
+    if (!goal_) {
+      goal_ = '0';
+    }
+
+    const age = Number(formData.get('age'));
+    const feet = Number(formData.get('feet'));
+    const inches = Number(formData.get('inches'));
+    const sex = `${formData.get('sex')}`;
+    const weight = Number(formData.get('weight'));
+
     return {
-      activity: values['activity'] || '0',
-      age: Number(values['age']),
-      feet: Number(values['feet']),
-      goal: values['goal'] || '0',
-      inches: Number(values['inches']),
-      sex: values['sex'],
-      weight: values['weight'],
+      activity: `${activity_}`,
+      age,
+      feet,
+      goal: `${goal_}`,
+      inches,
+      sex,
+      weight,
     }
   }
 
@@ -269,14 +282,14 @@ class UserValues extends HTMLElement {
     const goalLevel = WeightGoal.find(level => goal === level.value);
 
     const tdee = this.formulas.totalDailyEnergyExpenditure({
-      activity: activityLevel!.factor!,
+      activity: activityLevel.factor,
       bmr,
-      goal: goalLevel!.factor!,
+      goal: goalLevel.factor,
     });
     const tdeeMax = this.formulas.totalDailyEnergyExpenditure({
-      activity: ActivityLevel[ActivityLevel.length - 1]!.factor!,
+      activity: ActivityLevel[ActivityLevel.length - 1].factor,
       bmr,
-      goal: WeightGoal[0]!.factor!,
+      goal: WeightGoal[0].factor,
     });
 
     return {bmr, tdee, tdeeMax};
