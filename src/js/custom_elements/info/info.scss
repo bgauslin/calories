@@ -1,34 +1,35 @@
 app-info {
   display: contents;
 
-  &[hidden] > button {
-    opacity: 0;
-  }
-
   button {
     aspect-ratio: 1;
     backdrop-filter: var(--backdrop-filter);
     -webkit-backdrop-filter: var(--backdrop-filter);
-    background-color: var(--fill-3a);
     border-radius: var(--button-size);
     color: inherit;
     cursor: pointer;
     grid-area: info;
     inline-size: var(--button-size);
+    inset-inline: auto -.75em;
     place-self: center end;
+    position: relative;
     transition: opacity var(--transition), transform var(--transition);
     z-index: 3;
 
+    [hidden] > & {
+      opacity: 0;
+    }
+
     &:focus-visible {
+      background-color: var(--fill-3a);
+    }
+
+    &[aria-expanded='true'] {
       background-color: var(--fill-4a);
     }
 
     &.touch {
       transform: scale(.8);
-    }
-
-    &[aria-expanded='true'] {
-      background-color: var(--fill-4a);
     }
 
     @media (any-hover: hover) {
@@ -37,6 +38,10 @@ app-info {
       }
 
       &:hover {
+        background-color: var(--fill-3a);
+      }
+
+      &[aria-expanded='true']:hover {
         background-color: var(--fill-4a);
       }
 
