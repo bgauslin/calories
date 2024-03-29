@@ -17,7 +17,7 @@ class NumberTicker extends HTMLElement {
     this.update(oldValue, newValue);
   }
 
-  update(oldValue: string, newValue: string) {
+  private update(oldValue: string, newValue: string) {
     const oldNumber = parseInt(oldValue, 10);
     const newNumber = parseInt(newValue, 10);
 
