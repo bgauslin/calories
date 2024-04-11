@@ -127,35 +127,6 @@ app-info {
   :is(th, td):not(:first-child) {
     text-align: end;
   }
-
-  // Links.
-  a {
-    color: var(--link-color);
-    outline: none;
-    text-decoration: none;
-  }
-  
-  a:visited {
-    color: var(--link-visited-color);
-  }
-  
-  a:focus-visible {
-    color: var(--link-focus-color);
-  }
-  
-  a:active {
-    color: var(--link-active-color, var(--link-focus-color));
-  }
-  
-  @media (any-hover: hover) {
-    a {
-      transition: color var(--transition);
-    }
-  
-    a:hover {
-      color: var(--link-focus-color);
-    }
-  }
 }
 
 // Icon buttons.

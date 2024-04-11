@@ -30,19 +30,42 @@ body {
     display: none;
   }
 
-  // JavasScript disabled.
   &.no-js {
-    align-items: center;
+    place-content: center;
   }
 }
 
+noscript {
+  padding: 1.5em;
+  text-align: center;
+}
+
+// Generic/default link styles.
 a {
   color: var(--link-color);
   outline: none;
   text-decoration: none;
 
+  &:visited {
+    color: var(--link-visited-color);
+  }
+  
+  &:focus-visible {
+    color: var(--link-focus-color);
+  }
+  
+  &:active {
+    color: var(--link-active-color, var(--link-focus-color));
+  }
+  
   @media (any-hover: hover) {
-    transition: color var(--transition) ease-out;
+    & {
+      transition: color var(--transition);
+    }
+  
+    &:hover {
+      color: var(--link-focus-color);
+    }
   }
 }
 
