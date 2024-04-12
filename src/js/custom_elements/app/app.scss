@@ -14,10 +14,6 @@ calories-app {
   place-self: var(--app-place-self, start center);
   position: relative;
 
-  &:not(:defined) {
-    display: none;
-  }
-
   // Prevent the app from scrolling when the dialog is open. Otherwise, bits of
   // the app can scroll into view behind and under the dialog when scrolling the
   // contents of the dialog.
