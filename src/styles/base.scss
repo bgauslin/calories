@@ -10,9 +10,8 @@
 }
 
 html {
-  block-size: -webkit-fill-available;
   -webkit-tap-highlight-color: transparent;
-  text-size-adjust: none;
+  touch-action: manipulation;
 }
 
 body {
@@ -29,10 +28,6 @@ body {
   &::-webkit-scrollbar {
     display: none;
   }
-
-  &.no-js {
-    place-content: center;
-  }
 }
 
 :not(:defined) {
@@ -41,6 +36,7 @@ body {
 
 noscript {
   padding: 1.5em;
+  place-self: center;
   text-align: center;
 }
 
@@ -54,12 +50,9 @@ a {
     color: var(--link-visited-color);
   }
   
-  &:focus-visible {
-    color: var(--link-focus-color);
-  }
-  
+  &:focus-visible,  
   &:active {
-    color: var(--link-active-color, var(--link-focus-color));
+    color: var(--link-focus-color);
   }
   
   @media (any-hover: hover) {
