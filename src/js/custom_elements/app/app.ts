@@ -27,40 +27,37 @@ class App extends HTMLElement {
   }
 
   private setup() {
+    const label = 'Average Daily Calories';
+
     this.innerHTML = `
       <h1>Calories</h1>
       <app-info></app-info>
       <user-values></user-values>
-      <number-ticker label="Average Daily Calories"></number-ticker>
+      <number-ticker label="${label}"></number-ticker>
       <zig-zag></zig-zag>
     `;
 
     this.results = <HTMLElement>this.querySelector('number-ticker');
     this.zigzag = <HTMLElement>this.querySelector('zig-zag');
 
-    this.results.setAttribute('hidden', '');
-    this.zigzag.setAttribute('hidden', '');
+    this.results.hidden = true;
+    this.zigzag.hidden = true;
   }
 
-  private update (event: CustomEvent) {
-    const detail = event.detail;
-    const {bmr, tdee, tdeeMax} = detail;
-    const _bmr = bmr.toFixed();
-    const _tdee = tdee.toFixed();
-    const _tdeeMax = tdeeMax.toFixed();
+  private update(event: CustomEvent) {
+    const {bmr, tdee, tdeeMax} = event.detail;
 
-    this.results.setAttribute('value', _tdee);
-    this.results.setAttribute('bmr', _bmr);
-    this.results.removeAttribute('hidden');
- 
-    this.zigzag.setAttribute('tdee', _tdee);
-    this.zigzag.setAttribute('max-tdee', _tdeeMax);
-    this.zigzag.removeAttribute('hidden');
+    this.results.setAttribute('bmr', bmr.toFixed());
+    this.results.setAttribute('value', tdee.toFixed());
+    this.zigzag.setAttribute('tdee', tdee.toFixed());
+    this.zigzag.setAttribute('max-tdee', tdeeMax.toFixed());
+
+    this.results.hidden = false;
+    this.zigzag.hidden = false;
   }
 
   private handleTouchstart(event: TouchEvent) {
-    const composed = event.composedPath();
-    this.target = <HTMLElement>composed[0];
+    this.target = <HTMLElement>event.composedPath()[0];
 
     if (this.target.tagName === 'BUTTON') {
       this.target.classList.add('touch');
