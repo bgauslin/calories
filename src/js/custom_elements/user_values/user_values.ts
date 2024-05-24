@@ -237,28 +237,19 @@ class UserValues extends HTMLElement {
   private getMeasurements(): UserMeasurements {
     const formData = new FormData(this.form);
 
-    // TODO: Refactor activity and goal defaults.
-    let activity_ = formData.get('activity');
-    if (!activity_) {
-      activity_ = '0';
-    }
-
-    let goal_ = formData.get('goal');
-    if (!goal_) {
-      goal_ = '0';
-    }
-
+    const activity = formData.get('activity') || 0;
     const age = Number(formData.get('age'));
     const feet = Number(formData.get('feet'));
+    const goal = formData.get('goal') || 0;
     const inches = Number(formData.get('inches'));
     const sex = `${formData.get('sex')}`;
     const weight = Number(formData.get('weight'));
 
     return {
-      activity: `${activity_}`,
+      activity: `${activity}`,
       age,
       feet,
-      goal: `${goal_}`,
+      goal: `${goal}`,
       inches,
       sex,
       weight,
