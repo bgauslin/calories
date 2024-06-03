@@ -4,7 +4,7 @@
  */
 class ZigZag extends HTMLElement {
   private days: NodeList;
-  private hasSetup: boolean;
+  private hasSetup: boolean = false;
   private minimumTDEE: number = 1200;
   private modifiers: number[] = [1, .9, 1.1, 1, .8, 1, 1.2];
   private tickers: NodeList;
@@ -12,7 +12,13 @@ class ZigZag extends HTMLElement {
 
   constructor() {
     super();
-    this.hasSetup = false;
+  }
+
+  connectedCallback() {
+    if (!this.hasSetup) {
+      this.setup();
+      this.update();
+    }
   }
 
   static get observedAttributes(): string[] {
@@ -21,13 +27,6 @@ class ZigZag extends HTMLElement {
 
   attributeChangedCallback() {
     if (this.hasSetup) {
-      this.update();
-    }
-  }
-
-  connectedCallback() {
-    if (!this.hasSetup) {
-      this.setup();
       this.update();
     }
   }
