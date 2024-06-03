@@ -1,6 +1,3 @@
-const DIVISOR: number = 11; // Primes work best
-const INTERVAL_MS: number = 30;
-
 /**
  * Custom element that incrementally changes one numeric value to another.
  */
@@ -24,7 +21,7 @@ class NumberTicker extends HTMLElement {
     if (oldNumber && newNumber) {
       let incrementNumber: number = oldNumber;
       const difference = newNumber - oldNumber;
-      const increment = Math.floor(difference / DIVISOR);
+      const increment = Math.floor(difference / 11); // Primes work best.
 
       const interval = setInterval(() => {
         incrementNumber += increment;
@@ -34,7 +31,7 @@ class NumberTicker extends HTMLElement {
           clearInterval(interval);
         }
         this.textContent = `${incrementNumber}`;
-      }, INTERVAL_MS);
+      }, 30);
     } else {
       this.textContent = newValue;
     }

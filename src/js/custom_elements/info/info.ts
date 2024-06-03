@@ -1,5 +1,3 @@
-const ENDPOINT = 'https://gauslin.com/api/etc/calories.json';
-
 /**
  * Custom element that renders content fetched from a JSON endpoint
  * along with a button that toggles the rendered content's visibility.
@@ -8,6 +6,7 @@ class AppInfo extends HTMLElement {
   private button: HTMLButtonElement;
   private clickListener: EventListenerObject;
   private dialog: HTMLElement;
+  private endpoint = 'https://gauslin.com/api/etc/calories.json';
   private keyListener: EventListenerObject;
   private open: boolean;
 
@@ -32,7 +31,7 @@ class AppInfo extends HTMLElement {
 
   private async setup(): Promise<any> {
     try {
-      const response = await fetch(ENDPOINT);
+      const response = await fetch(this.endpoint);
       const json = await response.json();
 
       this.innerHTML += `

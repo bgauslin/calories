@@ -17,8 +17,6 @@ interface UserResults {
   tdeeMax: number,
 }
 
-const STORAGE_ITEM = 'values';
-
 enum OptionsGroup {
   ACTIVITY = 'activity',
   GOAL = 'goal',
@@ -34,6 +32,7 @@ class UserValues extends HTMLElement {
   private fields: string[];
   private form: HTMLFormElement;
   private formulas: Formulas;
+  private storageItem: string = 'values';
 
   constructor() {
     super();
@@ -182,7 +181,7 @@ class UserValues extends HTMLElement {
    * element with its corresponding user value.
    */
   private populateInputs() {
-    const storageItem = localStorage.getItem(STORAGE_ITEM);
+    const storageItem = localStorage.getItem(this.storageItem);
     if (!storageItem) {
       return;
     }
@@ -228,7 +227,7 @@ class UserValues extends HTMLElement {
       }
     }));
     this.enableOptionsGroups(true);
-    localStorage.setItem(STORAGE_ITEM, JSON.stringify(measurements));
+    localStorage.setItem(this.storageItem, JSON.stringify(measurements));
   }
 
   /**

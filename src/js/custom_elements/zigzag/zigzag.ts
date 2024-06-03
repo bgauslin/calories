@@ -1,7 +1,3 @@
-const DAILY_MODIFIERS: number[] = [1, .9, 1.1, 1, .8, 1, 1.2];
-const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-const MINIMUM_TDEE: number = 1200;
-
 /**
  * Custom element that renders daily TDEE based on overall TDEE where each
  * day's TDEE value is adjusted for "zig-zag" calorie counting.
@@ -9,7 +5,10 @@ const MINIMUM_TDEE: number = 1200;
 class ZigZag extends HTMLElement {
   private days: NodeList;
   private hasSetup: boolean;
+  private minimumTDEE: number = 1200;
+  private modifiers: number[] = [1, .9, 1.1, 1, .8, 1, 1.2];
   private tickers: NodeList;
+  private weekdays: string[] = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
   constructor() {
     super();
@@ -40,7 +39,7 @@ class ZigZag extends HTMLElement {
    */
   private setup() {
     let html = '<ol>';
-    for (const day of DAYS) {
+    for (const day of this.weekdays) {
       html += `
         <li>
           <span aria-label="${day}">${day.substring(0, 3)}</span>
@@ -66,8 +65,8 @@ class ZigZag extends HTMLElement {
 
     // Create array of all adjusted TDEE values, and get highest value for
     // setting the bar chart's upper bound.
-    const allValues = DAILY_MODIFIERS.map(day => parseInt(tdee, 10) * day);
-    const maxModifier = Math.max(...DAILY_MODIFIERS);
+    const allValues = this.modifiers.map(day => parseInt(tdee, 10) * day);
+    const maxModifier = Math.max(...this.modifiers);
     const maxValue = Number(tdeeMax) * maxModifier;
 
     // Convert adjusted TDEE values to a percentage relative to the highest
@@ -96,7 +95,7 @@ class ZigZag extends HTMLElement {
     for (const [index, value] of allValues.entries()) {
       const day = <HTMLElement>this.days[index];
       if (day) {
-        if (value < MINIMUM_TDEE) {
+        if (value < this.minimumTDEE) {
           day.classList.add('warning');
         } else {
           day.classList.remove('warning');
