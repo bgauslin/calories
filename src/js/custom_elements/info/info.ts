@@ -6,7 +6,7 @@ class AppInfo extends HTMLElement {
   private button: HTMLButtonElement;
   private clickListener: EventListenerObject;
   private dialog: HTMLElement;
-  private endpoint = 'https://gauslin.com/api/etc/calories.json';
+  private endpoint = 'https://gauslin.com/api/calories.json';
   private keyListener: EventListenerObject;
   private open: boolean;
 
