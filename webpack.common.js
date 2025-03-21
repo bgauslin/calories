@@ -15,8 +15,7 @@ module.exports = {
     new CleanWebpackPlugin(),
     new CopyPlugin({
       patterns: [
-        { from: 'src/icons' },
-        { from: 'src/root' },
+        {from: 'src/root'},
       ],
     }),
     new HtmlWebpackPlugin({
