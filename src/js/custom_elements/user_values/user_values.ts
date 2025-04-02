@@ -50,6 +50,7 @@ class UserValues extends LitElement {
   @state() imperial: boolean = false;
   @state() ready: boolean = false;
   @state() storageItem: string = 'values';
+  @state() weightUnit: string = 'kg';
   
   constructor() {
     super();
@@ -220,12 +221,12 @@ class UserValues extends LitElement {
         </fieldset>
 
         <fieldset id="activity" ?disabled="${!this.ready}">
-          <h2>Exercise (times per week)</h2>
+          <h2>Exercise <span>times per week</span></h2>
           ${this.renderRadioButtons(ActivityLevel, 'activity', 'level')}
         </fieldset>
 
         <fieldset id="goal" ?disabled="${!this.ready}">
-          <h2>Weight Loss (kg per week)</h2>
+          <h2>Weight Loss <span>${this.weightUnit} per week</span></h2>
           ${this.renderRadioButtons(WeightGoal, 'goal', 'goal')}
         </fieldset>
       <form>
