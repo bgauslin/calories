@@ -1,3 +1,5 @@
+import {LitElement, html} from 'lit';
+import {customElement, state} from 'lit/decorators.js';
 import {Formulas} from '../../modules/Formulas';
 
 interface UserMeasurements {
@@ -47,33 +49,45 @@ const WeightGoal: InputRadio[] = [
  * BMR and TDEE via user input, enables/disables a 'results' element based on
  * valid user input, and saves user-provided data to localStorage.
  */
-class UserValues extends HTMLElement {
-  private form: HTMLFormElement;
+@customElement('user-values')
+class UserValues extends LitElement {
   private formulas: Formulas;
-  private storageItem: string = 'values';
+
+  @state() form: HTMLFormElement;
+  @state() storageItem: string = 'values';
+
+  @state() age: number = 0;
+  @state() height: number = 0;
+  @state() weight: number = 0;
 
   constructor() {
     super();
     this.formulas = new Formulas();
-    this.addEventListener('change', this.update, true);
+    this.addEventListener('change', this.updateApp, true);
     this.addEventListener('keyup', this.handleKey);
   }
 
   connectedCallback() {
-    this.setup();
+    super.connectedCallback();
+    // this.setup();
   }
 
   disconnectedCallback() {
-    this.removeEventListener('change', this.update);
+    super.disconnectedCallback();
+    this.removeEventListener('change', this.updateApp);
     this.removeEventListener('keyup', this.handleKey);
+  }
+
+  protected createRenderRoot() {
+    return this;
   }
 
   /**
    * Renders DOM elements and populates them if there are stored values.
    */
   private setup() {
-    this.render();
     // this.populateInputs();
+    // this.form = this.querySelector('form')!;
 
     // Wait a tick, then fire a change on each <radio-marker> to set its
     // marker position.
@@ -85,14 +99,14 @@ class UserValues extends HTMLElement {
     });
 
     // Show results and graph if there are valid values.
-    this.update();
+    this.updateApp();
   }
 
   /**
    * Updates results after getting all values and passing them into the BMR,
    * BMI, and TDEE formulas.
    */
-  private update() {
+  private updateApp() {
     if (this.querySelectorAll(':invalid').length) {
       this.enableOptionsGroups(false);
       return;
@@ -121,19 +135,16 @@ class UserValues extends HTMLElement {
     const formData = new FormData(this.form);
 
     const activity = formData.get('activity') || 0;
-    const age = Number(formData.get('age'));
     const goal = formData.get('goal') || 0;
-    const height = Number(formData.get('height'));
     const sex = `${formData.get('sex')}`;
-    const weight = Number(formData.get('weight'));
 
     return {
       activity: `${activity}`,
-      age,
+      age: this.age,
       goal: `${goal}`,
-      height,
+      height: this.height,
       sex,
-      weight,
+      weight: this.weight,
     }
   }
 
@@ -208,8 +219,8 @@ class UserValues extends HTMLElement {
   /**
    * Renders HTML for user-provided values.
    */
-  private render() {
-    this.innerHTML = `
+  protected render() {
+    return html`
       <form>
         <fieldset id="sex">
           <h2>Sex</h2>
@@ -231,37 +242,41 @@ class UserValues extends HTMLElement {
         </fieldset>
       <form>
     `;
-
-    this.form = this.querySelector('form')!;
   }
 
   /**
    * Renders HTML for a group of radio buttons.
    */
   private renderRadioButtons(field: any, name: string, prefix: string = '') {
-    let html = '<radio-marker>';
-    for (const [index, button] of field.entries()) {
-      const checked = (index === 0) ? 'checked' : '';
-      const {label, value} = button;
-      const id = prefix ? `${prefix}-${value}` : value;
+    console.log('field', field);
 
-      html += `
-        <label for="${id}" tabindex="0">
-          <input type="radio" name="${name}" id="${id}" value="${value}" tabindex="-1" ${checked}>
-          <span>${label}</span>
-        </label>
-      `;
-    }
-    html += '</radio-marker>';
+    return html`
+      <radio-marker>
+      ${field.map((item: any) => {
+        const {value, label} = item;
+        const id = prefix ? `${prefix}-${value}` : value;
 
-    return html;
+        return html`
+          <label for="${id}" tabindex="0">
+            <input
+              type="radio"
+              name="${name}"
+              id="${id}"
+              value="${value}"
+              tabindex="-1">
+            <span>${label}</span>
+          </label>
+        `;
+      })}
+      </radio-marker>
+    `;
   }
 
   /**
    * Renders HTML for a group on input fields.
    */
   private renderTextInputs() {
-    const html = `
+    const inputs = html`
       <ul>
         <li class="height">
           <label for="height">Height</label>
@@ -271,7 +286,8 @@ class UserValues extends HTMLElement {
             name="height"
             pattern="[1-3]?[0-9][0-9]"
             required
-            type="text">
+            type="text"
+            .value="${this.height}">
         </li>
         <li class="age">
           <label for="age">Age</label>
@@ -281,7 +297,8 @@ class UserValues extends HTMLElement {
             name="age"
             pattern="[1-9][0-9]?"
             required
-            type="text">
+            type="text"
+            .value="${this.age}">
         </li>
         <li class="weight">
           <label for="weight">Weight</label>
@@ -291,13 +308,12 @@ class UserValues extends HTMLElement {
             name="weight"
             pattern="[0-9]{0,3}[\.]?[0-9]?"
             required
-            type="text">
+            type="text"
+            .value="${this.weight}">
         </li>
       </ul>
     `;
 
-    return html;
+    return inputs;
   }
 }
-
-customElements.define('user-values', UserValues);
