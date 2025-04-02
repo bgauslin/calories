@@ -1,21 +1,6 @@
 import {LitElement, html} from 'lit';
-import {customElement, state} from 'lit/decorators.js';
+import {customElement, query, queryAll, state} from 'lit/decorators.js';
 import {Formulas} from '../../modules/Formulas';
-
-interface UserMeasurements {
-  activity: string,
-  age: number,
-  goal: string,
-  height: number,
-  sex: string,
-  weight: number,
-}
-
-interface UserResults {
-  bmr: number,
-  tdee: number,
-  tdeeMax: number,
-}
 
 interface InputRadio {
   factor?: number,
@@ -51,30 +36,27 @@ const WeightGoal: InputRadio[] = [
  */
 @customElement('user-values')
 class UserValues extends LitElement {
-  private formulas: Formulas;
-
-  @state() form: HTMLFormElement;
+  @query('form') form: HTMLFormElement;
+  @queryAll(':invalid') invalid: HTMLElement[];
+  @queryAll('radio-marker') radioMarkers: HTMLElement[];
+  @state() formulas: Formulas;
+  @state() imperial: boolean = false;
+  @state() ready: boolean = false;
   @state() storageItem: string = 'values';
-
-  @state() age: number = 0;
-  @state() height: number = 0;
-  @state() weight: number = 0;
-
+  
   constructor() {
     super();
     this.formulas = new Formulas();
-    this.addEventListener('change', this.updateApp, true);
     this.addEventListener('keyup', this.handleKey);
   }
 
   connectedCallback() {
     super.connectedCallback();
-    // this.setup();
+    this.setup();
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    this.removeEventListener('change', this.updateApp);
     this.removeEventListener('keyup', this.handleKey);
   }
 
@@ -82,24 +64,19 @@ class UserValues extends LitElement {
     return this;
   }
 
-  /**
-   * Renders DOM elements and populates them if there are stored values.
-   */
   private setup() {
-    // this.populateInputs();
-    // this.form = this.querySelector('form')!;
+    // TODO: populate inputs from localStorage.
 
     // Wait a tick, then fire a change on each <radio-marker> to set its
     // marker position.
     window.requestAnimationFrame(() => {
-      const radioMarkers = this.querySelectorAll('radio-marker');
-      for (const element of radioMarkers) {
-        element.dispatchEvent(new Event('change'));
+      for (const marker of this.radioMarkers) {
+        marker.dispatchEvent(new Event('change'));
       }
     });
 
-    // Show results and graph if there are valid values.
-    this.updateApp();
+    // Show results and graph.
+    // this.updateApp();
   }
 
   /**
@@ -107,60 +84,27 @@ class UserValues extends LitElement {
    * BMI, and TDEE formulas.
    */
   private updateApp() {
-    if (this.querySelectorAll(':invalid').length) {
-      this.enableOptionsGroups(false);
-      return;
-    }
+    if (this.invalid.length) return;
 
-    const measurements = this.getMeasurements();
-    const {bmr, tdee, tdeeMax} = this.getResults(measurements);
-
-    this.dispatchEvent(new CustomEvent('valuesUpdated', {
-      bubbles: true,
-      composed: true,
-      detail: {
-        bmr,
-        tdee,
-        tdeeMax,
-      }
-    }));
-    this.enableOptionsGroups(true);
-    localStorage.setItem(this.storageItem, JSON.stringify(measurements));
-  }
-
-  /**
-   * Returns user's age, height, sex, and weight from form inputs.
-   */
-  private getMeasurements(): UserMeasurements {
+    // Get user values.
     const formData = new FormData(this.form);
-
-    const activity = formData.get('activity') || 0;
-    const goal = formData.get('goal') || 0;
+    
+    const age = Number(formData.get('age'));
+    const activity = `${formData.get('activity') || 0}`;
+    const goal = `${formData.get('goal') || 0}`;
     const sex = `${formData.get('sex')}`;
 
-    return {
-      activity: `${activity}`,
-      age: this.age,
-      goal: `${goal}`,
-      height: this.height,
-      sex,
-      weight: this.weight,
-    }
-  }
-
-  /**
-   * Returns user's BMR, TDEE, and max TDEE based on their measurements.
-   */
-  private getResults(measurements: UserMeasurements): UserResults {
-    let {activity, age, goal, height, sex, weight} = measurements;
+    let height = Number(formData.get('height'));
+    let weight = Number(formData.get('weight'));
 
     // TODO: Convert from metric to Imperial via checkbox widget.
-    //
-    // Convert height and weight to metric for the formulas.
-    // if (imperial) {
-    //   height = this.formulas.cm((feet * 12) + inches);
-    //   weight = this.formulas.kg(weight);
-    // }
+    // Convert height and weight from Imperial units since formulas require metric.
+    if (this.imperial) {
+      const feet = Number(formData.get('height'));
+      const inches = Number(formData.get('inches'));
+      height = this.formulas.cm(feet, inches);
+      weight = this.formulas.kg(weight);
+    }
 
     // Get BMR and factors based on selected values, then TDEE and maximum TDEE
     // for zig-zag chart.
@@ -173,36 +117,36 @@ class UserValues extends LitElement {
       bmr,
       goal: goalLevel.factor,
     });
+
     const tdeeMax = this.formulas.totalDailyEnergyExpenditure({
       activity: ActivityLevel[ActivityLevel.length - 1].factor,
       bmr,
       goal: WeightGoal[0].factor,
     });
 
-    return {bmr, tdee, tdeeMax};
-  }
-
-  /**
-   * Toggles 'disabled' attribute on input groups and sets a 'tabindex' value
-   * on their children's labels to enable/disable keyboard tabbing.
-   */
-  private enableOptionsGroups(enabled: boolean) {
-    const tabindex = enabled ? '0' : '-1';
-
-    for (const selector of ['#activity', '#goal']) {
-      const group = this.querySelector(selector);
-
-      if (enabled) {
-        group!.removeAttribute('disabled');
-      } else {
-        group!.setAttribute('disabled', '');
+    // Send new values up to app controller.
+    this.dispatchEvent(new CustomEvent('valuesUpdated', {
+      bubbles: true,
+      composed: true,
+      detail: {
+        bmr,
+        tdee,
+        tdeeMax,
       }
+    }));
 
-      const labels = group!.querySelectorAll('label[tabindex]');
-      for (const label of labels) {
-        label.setAttribute('tabindex', tabindex);
-      }
-    }
+    // Store values for return visits.
+    localStorage.setItem(this.storageItem, JSON.stringify({
+      age,
+      activity,
+      goal,
+      height,
+      sex,
+      weight,
+    }));
+
+    // Enable all form elements.
+    this.ready = true;
   }
 
   /**
@@ -221,7 +165,7 @@ class UserValues extends LitElement {
    */
   protected render() {
     return html`
-      <form>
+      <form @change="${this.updateApp}">
         <fieldset id="sex">
           <h2>Sex</h2>
           ${this.renderRadioButtons(Sex, 'sex')}
@@ -231,12 +175,12 @@ class UserValues extends LitElement {
           ${this.renderTextInputs()}
         </fieldset>
 
-        <fieldset id="activity" disabled>
+        <fieldset id="activity" ?disabled="${!this.ready}">
           <h2>Exercise (times per week)</h2>
           ${this.renderRadioButtons(ActivityLevel, 'activity', 'level')}
         </fieldset>
 
-        <fieldset id="goal" disabled>
+        <fieldset id="goal" ?disabled="${!this.ready}">
           <h2>Weight Loss (kg per week)</h2>
           ${this.renderRadioButtons(WeightGoal, 'goal', 'goal')}
         </fieldset>
@@ -248,11 +192,9 @@ class UserValues extends LitElement {
    * Renders HTML for a group of radio buttons.
    */
   private renderRadioButtons(field: any, name: string, prefix: string = '') {
-    console.log('field', field);
-
     return html`
       <radio-marker>
-      ${field.map((item: any) => {
+      ${field.map((item: any, index: number) => {
         const {value, label} = item;
         const id = prefix ? `${prefix}-${value}` : value;
 
@@ -263,7 +205,8 @@ class UserValues extends LitElement {
               name="${name}"
               id="${id}"
               value="${value}"
-              tabindex="-1">
+              tabindex="${this.ready ? '0' : '-1'}"
+              ?checked="${index === 0}">
             <span>${label}</span>
           </label>
         `;
@@ -285,9 +228,16 @@ class UserValues extends LitElement {
             inputmode="numeric"
             name="height"
             pattern="[1-3]?[0-9][0-9]"
-            required
             type="text"
-            .value="${this.height}">
+            required>
+          <input
+            id="inches"
+            inputmode="numeric"
+            name="height"
+            pattern=""
+            type="text"
+            ?hidden="${!this.imperial}"
+            ?required="${this.imperial}">
         </li>
         <li class="age">
           <label for="age">Age</label>
@@ -296,9 +246,8 @@ class UserValues extends LitElement {
             inputmode="numeric"
             name="age"
             pattern="[1-9][0-9]?"
-            required
             type="text"
-            .value="${this.age}">
+            required>
         </li>
         <li class="weight">
           <label for="weight">Weight</label>
@@ -307,9 +256,8 @@ class UserValues extends LitElement {
             inputmode="decimal"
             name="weight"
             pattern="[0-9]{0,3}[\.]?[0-9]?"
-            required
             type="text"
-            .value="${this.weight}">
+            required>
         </li>
       </ul>
     `;

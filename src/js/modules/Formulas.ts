@@ -53,16 +53,16 @@ export class Formulas {
   }
 
   /**
-   * Returns weight in Imperial units converted to metric.
+   * Returns weight in Imperial units converted to weight in metric units.
    */
   public kg(pounds: number): number {
-    return pounds / LBS_TO_KG;
+    return Math.round((pounds / LBS_TO_KG) * 10) / 10;
   }
 
   /**
-   * Returns height in Imperial units converted to metric.
+   * Returns height in Imperial units converted to height in metric units.
    */
-  public cm(inches: number): number {
-    return inches * INCHES_TO_MM;
+  public cm(feet: number, inches: number): number {
+    return ((feet * 12) + inches) * INCHES_TO_MM;
   }
 }
