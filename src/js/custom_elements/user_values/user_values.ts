@@ -37,8 +37,14 @@ const WeightGoal: InputRadio[] = [
 @customElement('user-values')
 class UserValues extends LitElement {
   @query('form') form: HTMLFormElement;
+  @query('#age') age: HTMLInputElement;
+  @query('#height') height: HTMLInputElement;
+  @query('#weight') weight: HTMLInputElement;
+
   @queryAll(':invalid') invalid: HTMLElement[];
+  @queryAll('[type="radio"]') radioButtons: HTMLInputElement[];
   @queryAll('radio-marker') radioMarkers: HTMLElement[];
+
   @state() formulas: Formulas;
   @state() imperial: boolean = false;
   @state() ready: boolean = false;
@@ -64,8 +70,33 @@ class UserValues extends LitElement {
     return this;
   }
 
-  private setup() {
-    // TODO: populate inputs from localStorage.
+  /**
+   * Populates inputs from localStorage..
+   */ 
+  private async setup() {
+    const storage = localStorage.getItem(this.storageItem);
+
+    if (storage) {
+      await this.updateComplete;
+      this.ready = true;
+
+      const {age, activity, goal, height, sex, weight} = JSON.parse(storage);
+
+      // Populate text inputs.
+      this.age.value = age;
+      this.height.value = height;
+      this.weight.value = weight;
+
+      // Pre-check radio buttons.
+      for (const button of this.radioButtons) {
+        // button.checked = targets.includes(button.id);
+        if ([activity, goal, sex].includes(button.id)) {
+          button.setAttribute('checked', '');
+        } else {
+          button.removeAttribute('checked');
+        }
+      }
+    }
 
     // Wait a tick, then fire a change on each <radio-marker> to set its
     // marker position.
@@ -74,9 +105,9 @@ class UserValues extends LitElement {
         marker.dispatchEvent(new Event('change'));
       }
     });
-
-    // Show results and graph.
-    // this.updateApp();
+    
+    // Update the chart and total.
+    this.updateApp();
   }
 
   /**
@@ -89,9 +120,9 @@ class UserValues extends LitElement {
     // Get user values.
     const formData = new FormData(this.form);
     
+    const activity = Number(formData.get('activity')) || 0;
     const age = Number(formData.get('age'));
-    const activity = `${formData.get('activity') || 0}`;
-    const goal = `${formData.get('goal') || 0}`;
+    const goal = Number(formData.get('goal')) || 0;
     const sex = `${formData.get('sex')}`;
 
     let height = Number(formData.get('height'));
@@ -106,11 +137,20 @@ class UserValues extends LitElement {
       weight = this.formulas.kg(weight);
     }
 
+    console.log('updateApp()', {
+      activity,
+      age,
+      goal,
+      height,
+      sex,
+      weight,
+    });
+
     // Get BMR and factors based on selected values, then TDEE and maximum TDEE
     // for zig-zag chart.
     const bmr = this.formulas.basalMetabolicRate({age, height, sex, weight});
-    const activityLevel = ActivityLevel.find(level => parseInt(activity) === level.value);
-    const goalLevel = WeightGoal.find(level => parseInt(goal) === level.value);
+    const activityLevel = ActivityLevel.find(level => activity === level.value);
+    const goalLevel = WeightGoal.find(level => goal === level.value);
 
     const tdee = this.formulas.totalDailyEnergyExpenditure({
       activity: activityLevel.factor,
@@ -138,8 +178,8 @@ class UserValues extends LitElement {
     // Store values for return visits.
     localStorage.setItem(this.storageItem, JSON.stringify({
       age,
-      activity,
-      goal,
+      activity: `level-${activity}`,
+      goal: `goal-${goal}`,
       height,
       sex,
       weight,
@@ -199,7 +239,7 @@ class UserValues extends LitElement {
         const id = prefix ? `${prefix}-${value}` : value;
 
         return html`
-          <label for="${id}" tabindex="0">
+          <label for="${id}" tabindex="${this.ready ? '0' : '-1'}">
             <input
               type="radio"
               name="${name}"
