@@ -1,4 +1,3 @@
-import {ActivityLevel, Sex, WeightGoal} from '../../modules/Datasets';
 import {Formulas} from '../../modules/Formulas';
 
 interface UserMeasurements {
@@ -15,6 +14,33 @@ interface UserResults {
   tdee: number,
   tdeeMax: number,
 }
+
+interface InputRadio {
+  factor?: number,
+  label: string,
+  value: number|string,
+}
+
+const ActivityLevel: InputRadio[] = [
+  {value: 0, label: 'None', factor: 1},
+  {value: 3, label: '3', factor: 1.1455},
+  {value: 4, label: '4', factor: 1.1819},
+  {value: 5, label: '5', factor: 1.2188},
+  {value: 7, label: 'Daily', factor: 1.2916},
+];
+
+const Sex: InputRadio[] = [
+  {value: 'male', label: 'Male'},
+  {value: 'female', label: 'Female'},
+];
+
+const WeightGoal: InputRadio[] = [
+  {value: 0, label: 'None', factor: 0},
+  {value: 1, label: '¼', factor: 250},  // imperial: '½'
+  {value: 2, label: '½', factor: 500},  // imperial: '1'
+  {value: 3, label: '¾', factor: 750},  // imperial: '1½'
+  {value: 4, label: '1', factor: 1000}, // imperial: '2'
+];
 
 /**
  * Custom element that renders input fields for user interaction, calculates
@@ -120,14 +146,16 @@ class UserValues extends HTMLElement {
     // TODO: Convert from metric to Imperial via checkbox widget.
     //
     // Convert height and weight to metric for the formulas.
-    // const height = this.formulas.cm((feet * 12) + inches);
-    // weight = this.formulas.kg(weight);
+    // if (imperial) {
+    //   height = this.formulas.cm((feet * 12) + inches);
+    //   weight = this.formulas.kg(weight);
+    // }
 
     // Get BMR and factors based on selected values, then TDEE and maximum TDEE
     // for zig-zag chart.
     const bmr = this.formulas.basalMetabolicRate({age, height, sex, weight});
-    const activityLevel = ActivityLevel.find(level => activity === level.value);
-    const goalLevel = WeightGoal.find(level => goal === level.value);
+    const activityLevel = ActivityLevel.find(level => parseInt(activity) === level.value);
+    const goalLevel = WeightGoal.find(level => parseInt(goal) === level.value);
 
     const tdee = this.formulas.totalDailyEnergyExpenditure({
       activity: activityLevel.factor,
@@ -198,7 +226,7 @@ class UserValues extends HTMLElement {
         </fieldset>
 
         <fieldset id="goal" disabled>
-          <h2>Weight Loss (lbs. per week)</h2>
+          <h2>Weight Loss (kg per week)</h2>
           ${this.renderRadioButtons(WeightGoal, 'goal', 'goal')}
         </fieldset>
       <form>
@@ -238,32 +266,32 @@ class UserValues extends HTMLElement {
         <li class="height">
           <label for="height">Height</label>
           <input
-            type="text"
-            name="height"
-            id="height"
+            id="height"  
             inputmode="numeric"
+            name="height"
             pattern="[1-3]?[0-9][0-9]"
-            required>
+            required
+            type="text">
         </li>
         <li class="age">
           <label for="age">Age</label>
           <input
-            type="text"
-            name="age"
             id="age"
             inputmode="numeric"
+            name="age"
             pattern="[1-9][0-9]?"
-            required>
+            required
+            type="text">
         </li>
         <li class="weight">
           <label for="weight">Weight</label>
           <input
-            type="text"
-            name="weight"
             id="weight"
             inputmode="decimal"
+            name="weight"
             pattern="[0-9]{0,3}[\.]?[0-9]?"
-            required>
+            required
+            type="text">
         </li>
       </ul>
     `;
