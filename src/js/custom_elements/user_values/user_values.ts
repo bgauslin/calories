@@ -118,6 +118,7 @@ class UserValues extends HTMLElement {
     let {activity, age, goal, height, sex, weight} = measurements;
 
     // TODO: Convert from metric to Imperial via checkbox widget.
+    //
     // Convert height and weight to metric for the formulas.
     // const height = this.formulas.cm((feet * 12) + inches);
     // weight = this.formulas.kg(weight);
@@ -193,12 +194,12 @@ class UserValues extends HTMLElement {
 
         <fieldset id="activity" disabled>
           <h2>Exercise (times per week)</h2>
-          ${this.renderRadioButtons(ActivityLevel, 'activity')}
+          ${this.renderRadioButtons(ActivityLevel, 'activity', 'level')}
         </fieldset>
 
         <fieldset id="goal" disabled>
           <h2>Weight Loss (lbs. per week)</h2>
-          ${this.renderRadioButtons(WeightGoal, 'goal')}
+          ${this.renderRadioButtons(WeightGoal, 'goal', 'goal')}
         </fieldset>
       <form>
     `;
@@ -209,14 +210,16 @@ class UserValues extends HTMLElement {
   /**
    * Renders HTML for a group of radio buttons.
    */
-  private renderRadioButtons(field: any, name: string) {    
+  private renderRadioButtons(field: any, name: string, prefix: string = '') {
     let html = '<radio-marker>';
     for (const [index, button] of field.entries()) {
-      const checkedAttr = (index === 0) ? 'checked' : '';
-      const {id, label, value} = button;
+      const checked = (index === 0) ? 'checked' : '';
+      const {label, value} = button;
+      const id = prefix ? `${prefix}-${value}` : value;
+
       html += `
         <label for="${id}" tabindex="0">
-          <input type="radio" name="${name}" id="${id}" value="${value}" tabindex="-1" ${checkedAttr}>
+          <input type="radio" name="${name}" id="${id}" value="${value}" tabindex="-1" ${checked}>
           <span>${label}</span>
         </label>
       `;
