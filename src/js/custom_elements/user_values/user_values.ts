@@ -21,6 +21,7 @@ const Sex: InputRadio[] = [
   {value: 'female', label: 'Female'},
 ];
 
+// TODO: Display different label for Imperial units.
 const WeightGoal: InputRadio[] = [
   {value: 0, label: 'None', factor: 0},
   {value: 1, label: '¼', factor: 250},  // imperial: '½'
@@ -87,6 +88,7 @@ class UserValues extends LitElement {
       this.height.value = height;
       this.weight.value = weight;
 
+      // TODO: Debug inconsistent pre-checked buttons.
       // Pre-check radio buttons.
       for (const button of this.radioButtons) {
         // button.checked = targets.includes(button.id);
@@ -125,11 +127,11 @@ class UserValues extends LitElement {
     const goal = Number(formData.get('goal')) || 0;
     const sex = `${formData.get('sex')}`;
 
+    // Values may need to be converted from Imperial units since the formulas
+    // require metric values.
     let height = Number(formData.get('height'));
     let weight = Number(formData.get('weight'));
 
-    // TODO: Convert from metric to Imperial via checkbox widget.
-    // Convert height and weight from Imperial units since formulas require metric.
     if (this.imperial) {
       const feet = Number(formData.get('height'));
       const inches = Number(formData.get('inches'));
@@ -137,7 +139,9 @@ class UserValues extends LitElement {
       weight = this.formulas.kg(weight);
     }
 
-    console.log('updateApp()', {
+    // TODO: Convert from metric to Imperial via checkbox widget.
+    console.log('updateApp()');
+    console.log({
       activity,
       age,
       goal,
