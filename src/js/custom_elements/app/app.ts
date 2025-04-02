@@ -1,72 +1,82 @@
+import {LitElement, html} from 'lit';
+import {customElement, query, state} from 'lit/decorators.js';
+
 /**
  * Custom element for the Calorie Calculator which renders all other custom
  * elements into its DOM.
  */
-class App extends HTMLElement {
-  private results: HTMLElement;
-  private target: HTMLElement;
+@customElement('calories-app')
+class App extends LitElement {
+  private touchTarget: HTMLElement;
   private valuesListener: EventListenerObject;
-  private zigzag: HTMLElement;
+
+  @query('number-ticker') results: HTMLElement;
+  @query('zig-zag') zigzag: HTMLElement;
+
+  @state() bmr: number = 0;
+  @state() ready: boolean = false;
+  @state() tdee: number = 0;
+  @state() tdeeMax: number = 0;
 
   constructor() {
     super();
-    this.valuesListener = this.update.bind(this);
+    this.valuesListener = this.updateApp.bind(this);
   }
 
   connectedCallback() {
+    super.connectedCallback();
     this.addEventListener('touchstart', this.handleTouchstart, {passive: true});
     this.addEventListener('touchend', this.handleTouchend, {passive: true});
     this.addEventListener('valuesUpdated', this.valuesListener);
-    this.setup();
   }
 
   disconnectedCallback() {
+    super.disconnectedCallback();
     this.removeEventListener('touchstart', this.handleTouchstart);
     this.removeEventListener('touchend', this.handleTouchend);
     this.removeEventListener('valuesUpdated', this.valuesListener);
   }
 
-  private setup() {
-    const label = 'Average Daily Calories';
-
-    this.innerHTML = `
-      <h1>Calories</h1>
-      <app-info></app-info>
-      <user-values></user-values>
-      <number-ticker label="${label}"></number-ticker>
-      <zig-zag></zig-zag>
-    `;
-
-    this.results = <HTMLElement>this.querySelector('number-ticker');
-    this.zigzag = <HTMLElement>this.querySelector('zig-zag');
-
-    this.results.hidden = true;
-    this.zigzag.hidden = true;
+  protected createRenderRoot() {
+    return this;
   }
 
-  private update(event: CustomEvent) {
+  private updateApp(event: CustomEvent) {
     const {bmr, tdee, tdeeMax} = event.detail;
 
-    this.results.setAttribute('bmr', bmr.toFixed());
-    this.results.setAttribute('value', tdee.toFixed());
-    this.zigzag.setAttribute('tdee', tdee.toFixed());
-    this.zigzag.setAttribute('max-tdee', tdeeMax.toFixed());
+    this.bmr = bmr;
+    this.tdee = tdee;
+    this.tdeeMax = tdeeMax;
 
-    this.results.hidden = false;
-    this.zigzag.hidden = false;
+    this.ready = true;
   }
 
   private handleTouchstart(event: TouchEvent) {
-    this.target = <HTMLElement>event.composedPath()[0];
+    this.touchTarget = <HTMLElement>event.composedPath()[0];
 
-    if (this.target.tagName === 'BUTTON') {
-      this.target.classList.add('touch');
+    if (this.touchTarget.tagName === 'BUTTON') {
+      this.touchTarget.classList.add('touch');
     }
   }
 
   private handleTouchend() {
-    this.target.classList.remove('touch');
+    this.touchTarget.classList.remove('touch');
+  }
+
+  protected render() {
+    return html`
+      <h1>Calories</h1>
+      <app-info></app-info>
+      <user-values></user-values>
+      <number-ticker
+        label="Average Daily Calories"
+        value="${this.tdee.toFixed()}"
+        ?hidden="${!this.ready}"></number-ticker>
+      <zig-zag
+        tdee="${this.tdee.toFixed()}"
+        max-tdee="${this.tdeeMax.toFixed()}"
+        ?hidden="${!this.ready}"></zig-zag>
+    `;
   }
 }
 
-customElements.define('calories-app', App);
