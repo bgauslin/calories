@@ -49,23 +49,22 @@ user-values {
     gap: .75rem;
   }
 
-  :is(.weight, .age) {
+  :where(.age, .height, .weight) {
     flex: 0 0 100%;
   }
 
-  :is(.weight, .age)::after {
+  :where(.age, .height, .weight)::after {
     margin-inline: .5em 0;
     opacity: var(--text-opacity);
     pointer-events: none;
   }
 
-  .feet::before {
-    content: 'Height';
-    inline-size: var(--label-width);
+  .height::after {
+    content: 'cm';
   }
 
   .weight::after {
-    content: 'lbs.';
+    content: 'kg';
   }
 
   .age::after {
@@ -79,18 +78,7 @@ user-values {
     outline: none;
   }
 
-  // Individual <label> adjustments.
-  [for='feet'],
-  [for='inches'] {
-    margin-block: 0;
-    margin-inline: 1rem .5rem;
-    opacity: var(--text-opacity);
-    order: 2;
-    text-transform: lowercase;
-  }
-
-  [for='age'],
-  [for='weight'] {
+  label:where([for='age'], [for='height'], [for='weight']) {
     inline-size: var(--label-width);
   }
 

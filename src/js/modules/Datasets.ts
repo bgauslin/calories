@@ -1,17 +1,30 @@
-export interface InputNumber {
-  id: string,
-  inputmode: string,
-  label: string,
-  name: string,
-  pattern: string,
-}
-
 export interface InputRadio {
   factor?: number,
   id: string,
   label: string,
   value: string,
 }
+
+export const _ActivityLevel = [
+  {value: 0, label: 'None', factor: 1},
+  {value: 3, label: '3', factor: 1.1455},
+  {value: 4, label: '4', factor: 1.1819},
+  {value: 5, label: '5', factor: 1.2188},
+  {value: 7, label: 'Daily', factor: 1.2916},
+];
+
+export const _Sex = [
+  {value: 'male', label: 'Male'},
+  {value: 'female', label: 'Female'},
+];
+
+export const _WeightGoal = [
+  {value: 0, label: 'None', factor: 0},
+  {value: 1, label: '½', factor: 250},    
+  {value: 2, label: '1', factor: 500},
+  {value: 3, label: '1½', factor: 750},
+  {value: 4, label: '2', factor: 1000},
+];
 
 export const ActivityLevel: InputRadio[] = [
   {
@@ -43,37 +56,6 @@ export const ActivityLevel: InputRadio[] = [
     id: 'level-7',
     label: 'Daily',
     value: '7',
-  },
-];
-
-export const Measurements: InputNumber[] = [
-  {
-    id: 'feet',
-    inputmode: 'numeric',
-    label: 'Ft.',
-    name: 'feet',
-    pattern: '[3-7]',
-  },
-  {
-    id: 'inches',
-    inputmode: 'numeric',
-    label: 'In.',
-    name: 'inches',
-    pattern: '[0-9]|1[01]',
-  },
-  {
-    id: 'age',
-    inputmode: 'numeric',
-    label: 'Age',
-    name: 'age',
-    pattern: '[1-9][0-9]?',
-  },
-  {
-    id: 'weight',
-    inputmode: 'decimal',
-    label: 'Weight',
-    name: 'weight',
-    pattern: '[0-9]{0,3}[\\.]?[0-9]?',
   },
 ];
 

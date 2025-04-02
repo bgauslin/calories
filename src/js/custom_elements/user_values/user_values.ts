@@ -1,12 +1,11 @@
-import {ActivityLevel, Measurements, Sex, WeightGoal} from '../../modules/Datasets';
+import {ActivityLevel, Sex, WeightGoal} from '../../modules/Datasets';
 import {Formulas} from '../../modules/Formulas';
 
 interface UserMeasurements {
   activity: string,
   age: number,
-  feet: number,
   goal: string,
-  inches: number,
+  height: number,
   sex: string,
   weight: number,
 }
@@ -17,19 +16,12 @@ interface UserResults {
   tdeeMax: number,
 }
 
-enum OptionsGroup {
-  ACTIVITY = 'activity',
-  GOAL = 'goal',
-  SEX = 'sex',
-}
-
 /**
  * Custom element that renders input fields for user interaction, calculates
  * BMR and TDEE via user input, enables/disables a 'results' element based on
  * valid user input, and saves user-provided data to localStorage.
  */
 class UserValues extends HTMLElement {
-  private fields: string[];
   private form: HTMLFormElement;
   private formulas: Formulas;
   private storageItem: string = 'values';
@@ -54,17 +46,8 @@ class UserValues extends HTMLElement {
    * Renders DOM elements and populates them if there are stored values.
    */
   private setup() {
-    // Create array of all fields to simplify getting/setting things later.
-    const measurementFields = Measurements.map(field => field.name);
-    this.fields = [
-      ...measurementFields,
-      ...Object.values(OptionsGroup),
-    ];
-
-    // Render HTML and create element references.
-    // If user data exists, update elements with that data.
     this.render();
-    this.populateInputs();
+    // this.populateInputs();
 
     // Wait a tick, then fire a change on each <radio-marker> to set its
     // marker position.
@@ -77,131 +60,6 @@ class UserValues extends HTMLElement {
 
     // Show results and graph if there are valid values.
     this.update();
-  }
-
-  /**
-   * Renders HTML for all input groups.
-   */
-  private render() {
-    const fields = {
-      activityLevel: {
-        buttons: ActivityLevel,
-        disabled: true,
-        headingLabel: 'Exercise',
-        headingNote: 'times per week',
-        modifier: 'activity',
-        name: OptionsGroup.ACTIVITY,
-      },
-      measurements: Measurements,
-      sex: {
-        buttons: Sex,
-        headingLabel: 'Sex',
-        modifier:  'sex',
-        name: OptionsGroup.SEX,
-      },
-      weightGoal: {
-        buttons: WeightGoal,
-        disabled: true,
-        headingLabel: 'Weight loss',
-        headingNote: 'lbs. per week',
-        modifier: 'goal',
-        name: OptionsGroup.GOAL,
-      },
-    };
-
-    const {activityLevel, measurements, sex, weightGoal} = fields;
-    this.innerHTML = `
-      <form>
-        ${this.renderRadioButtons(sex, 'sex')}
-        ${this.renderTextInputs(measurements, 'measurements')}
-        ${this.renderRadioButtons(activityLevel, 'activity')}
-        ${this.renderRadioButtons(weightGoal, 'goal')}
-      <form>
-    `;
-
-    this.form = this.querySelector('form')!;
-  }
-
-  /**
-   * Renders HTML for a group of radio buttons.
-   */
-  private renderRadioButtons(field: any, modifier: string) {
-    const {buttons, disabled, headingLabel, headingNote, name} = field;
-    
-    let options = ''
-    for (const [index, button] of buttons.entries()) {
-      const checkedAttr = (index === 0) ? 'checked' : '';
-      const {id, label, value} = button;
-      options += `
-        <label for="${id}" tabindex="0">
-          <input type="radio" name="${name}" id="${id}" value="${value}" tabindex="-1" ${checkedAttr}>
-          <span>${label}</span>
-        </label>
-      `;
-    }
-
-    const note = headingNote ? `<span>${headingNote}</span>` : '';
-    const disabledAttr = disabled ? 'disabled' : '';
-    const html = `
-      <fieldset id="${modifier}" ${disabledAttr}>
-        <h2>${headingLabel}${note}</h2>
-        <radio-marker>${options}</radio-marker>
-      </fieldset>
-    `;
-
-    return html;
-  }
-
-  /**
-   * Renders HTML for a group of text inputs.
-   */
-  private renderTextInputs(list: any, modifier: string): string {
-    let items = '';
-    for (const item of list) {
-      const {id, inputmode, label, name, pattern} = item;
-      items += `
-        <li class="${id}">
-          <label for="${id}">${label}</label>
-          <input type="text" name="${name}" id="${id}" inputmode="${inputmode}" pattern="${pattern}" required>
-        </li>
-      `;
-    }
-
-    const html = `
-      <fieldset id="${modifier}">
-        <ul>${items}</ul>
-      </fieldset>
-    `;
-
-    return html;
-  }
-
-  /**
-   * Converts stored user-provided values to an array, then populates each input
-   * element with its corresponding user value.
-   */
-  private populateInputs() {
-    const storageItem = localStorage.getItem(this.storageItem);
-    if (!storageItem) {
-      return;
-    }
-
-    const stored = JSON.parse(storageItem);
-    for (const name of this.fields) {
-      const inputElements = this.querySelectorAll(`input[name=${name}]`);
-      for (const element of inputElements) {
-        const input = <HTMLInputElement>element;
-        switch (input.type) {
-          case 'number':
-          case 'text':
-            input.value = stored[name];
-            break;
-          case 'radio':
-            input.checked = input.value === stored[name];
-            break;
-        }
-      }
-    }
   }
 
   /**
@@ -238,18 +96,16 @@ class UserValues extends HTMLElement {
 
     const activity = formData.get('activity') || 0;
     const age = Number(formData.get('age'));
-    const feet = Number(formData.get('feet'));
     const goal = formData.get('goal') || 0;
-    const inches = Number(formData.get('inches'));
+    const height = Number(formData.get('height'));
     const sex = `${formData.get('sex')}`;
     const weight = Number(formData.get('weight'));
 
     return {
       activity: `${activity}`,
       age,
-      feet,
       goal: `${goal}`,
-      inches,
+      height,
       sex,
       weight,
     }
@@ -259,11 +115,12 @@ class UserValues extends HTMLElement {
    * Returns user's BMR, TDEE, and max TDEE based on their measurements.
    */
   private getResults(measurements: UserMeasurements): UserResults {
-    let {activity, age, feet, goal, inches, sex, weight} = measurements;
+    let {activity, age, goal, height, sex, weight} = measurements;
 
+    // TODO: Convert from metric to Imperial via checkbox widget.
     // Convert height and weight to metric for the formulas.
-    const height = this.formulas.cm((feet * 12) + inches);
-    weight = this.formulas.kg(weight);
+    // const height = this.formulas.cm((feet * 12) + inches);
+    // weight = this.formulas.kg(weight);
 
     // Get BMR and factors based on selected values, then TDEE and maximum TDEE
     // for zig-zag chart.
@@ -311,25 +168,104 @@ class UserValues extends HTMLElement {
   /**
    * Adds [enter] key functionality to radio buttons.
    */
-  private handleKey(e: KeyboardEvent) {
-    const target = <HTMLElement>e.target;
+  private handleKey(event: KeyboardEvent) {
+    const target = <HTMLElement>event.target;
     const radio = target.querySelector('input[type=radio]');
-    if (radio && e.code === 'Enter') {
+    if (radio && event.code === 'Enter') {
       target.click();
     }
   }
 
   /**
-   * Places the cursor at the end of a text input field when it's focused.
+   * Renders HTML for user-provided values.
    */
-  private handleInputFocus() {
-    const names = Measurements.map(field => field.name);
-    for (const name of names) {
-      const element = <HTMLInputElement>this.querySelector(`[name=${name}]`);
-      element.addEventListener('focus', () => {
-        element.selectionStart = element.selectionEnd = element.value.length;
-      });
+  private render() {
+    this.innerHTML = `
+      <form>
+        <fieldset id="sex">
+          <h2>Sex</h2>
+          ${this.renderRadioButtons(Sex, 'sex')}
+        </fieldset>
+        
+        <fieldset id="measurements">
+          ${this.renderTextInputs()}
+        </fieldset>
+
+        <fieldset id="activity" disabled>
+          <h2>Exercise (times per week)</h2>
+          ${this.renderRadioButtons(ActivityLevel, 'activity')}
+        </fieldset>
+
+        <fieldset id="goal" disabled>
+          <h2>Weight Loss (lbs. per week)</h2>
+          ${this.renderRadioButtons(WeightGoal, 'goal')}
+        </fieldset>
+      <form>
+    `;
+
+    this.form = this.querySelector('form')!;
+  }
+
+  /**
+   * Renders HTML for a group of radio buttons.
+   */
+  private renderRadioButtons(field: any, name: string) {    
+    let html = '<radio-marker>';
+    for (const [index, button] of field.entries()) {
+      const checkedAttr = (index === 0) ? 'checked' : '';
+      const {id, label, value} = button;
+      html += `
+        <label for="${id}" tabindex="0">
+          <input type="radio" name="${name}" id="${id}" value="${value}" tabindex="-1" ${checkedAttr}>
+          <span>${label}</span>
+        </label>
+      `;
     }
+    html += '</radio-marker>';
+
+    return html;
+  }
+
+  /**
+   * Renders HTML for a group on input fields.
+   */
+  private renderTextInputs() {
+    const html = `
+      <ul>
+        <li class="height">
+          <label for="height">Height</label>
+          <input
+            type="text"
+            name="height"
+            id="height"
+            inputmode="numeric"
+            pattern="[1-3]?[0-9][0-9]"
+            required>
+        </li>
+        <li class="age">
+          <label for="age">Age</label>
+          <input
+            type="text"
+            name="age"
+            id="age"
+            inputmode="numeric"
+            pattern="[1-9][0-9]?"
+            required>
+        </li>
+        <li class="weight">
+          <label for="weight">Weight</label>
+          <input
+            type="text"
+            name="weight"
+            id="weight"
+            inputmode="decimal"
+            pattern="[0-9]{0,3}[\.]?[0-9]?"
+            required>
+        </li>
+      </ul>
+    `;
+
+    return html;
   }
 }
 
