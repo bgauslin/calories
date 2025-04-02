@@ -8,6 +8,15 @@ interface InputRadio {
   value: number|string,
 }
 
+interface Measurements {
+  age: number,
+  activity: number,
+  goal: number,
+  height: number,
+  sex: string,
+  weight: number,
+}
+
 const ActivityLevel: InputRadio[] = [
   {value: 0, label: 'None', factor: 1},
   {value: 3, label: '3', factor: 1.1455},
@@ -73,83 +82,77 @@ class UserValues extends LitElement {
   }
 
   /**
-   * Populates inputs from localStorage..
+   * Populates inputs from localStorage.
    */ 
   private async setup() {
+    await this.updateComplete;
+    this.setMarkers();
+
     const storage = localStorage.getItem(this.storageItem);
 
-    if (storage) {
-      await this.updateComplete;
-      this.ready = true;
+    if (!storage) return;
 
-      const {age, activity, goal, height, sex, weight} = JSON.parse(storage);
+    const {age, activity, goal, height, sex, weight} = JSON.parse(storage);
 
-      // Populate text inputs.
-      this.age.value = age;
-      this.height.value = height;
-      this.weight.value = weight;
+    // Populate text inputs from earlier visit.
+    this.age.value = age;
+    this.height.value = height;
+    this.weight.value = weight;
 
-      // TODO: Debug inconsistent pre-checked buttons.
-      // Pre-check radio buttons.
-      for (const button of this.radioButtons) {
-        // button.checked = targets.includes(button.id);
-        if ([activity, goal, sex].includes(button.id)) {
-          button.setAttribute('checked', '');
-        } else {
-          button.removeAttribute('checked');
-        }
+    // Pre-check radio buttons from earlier visit.
+    for (const marker of <HTMLInputElement[]>this.radioMarkers) {
+      marker.checked = false;
+    }
+
+    const elements = [
+      [activity, '#activity'],
+      [goal, '#goal'],
+      [sex, '#sex'],
+    ];
+
+    for (const element of elements) {
+      const [value, parent] = element;
+      const target = <HTMLInputElement>this.querySelector(`${parent} input[value="${value}"]`);
+      if (target) {
+        target.checked = true;
       }
     }
 
-    // Wait a tick, then fire a change on each <radio-marker> to set its
-    // marker position.
+    this.setMarkers();
+
+    // Bundle everything up for sending up to the app.
+    const measurements = {
+      age,
+      activity,
+      goal,
+      height,
+      sex,
+      weight,
+    };    
+    
+    // Update the chart.
+    this.updateApp(measurements);
+    this.ready = true;
+  }
+
+  /**
+   * Waits a tick, then fires a change on each <radio-marker> to set its
+   * marker position.
+   */
+  private setMarkers() {
     window.requestAnimationFrame(() => {
       for (const marker of this.radioMarkers) {
         marker.dispatchEvent(new Event('change'));
       }
     });
-    
-    // Update the chart and total.
-    this.updateApp();
   }
 
   /**
    * Updates results after getting all values and passing them into the BMR,
    * BMI, and TDEE formulas.
    */
-  private updateApp() {
-    if (this.invalid.length) return;
-
-    // Get user values.
-    const formData = new FormData(this.form);
-    
-    const activity = Number(formData.get('activity')) || 0;
-    const age = Number(formData.get('age'));
-    const goal = Number(formData.get('goal')) || 0;
-    const sex = `${formData.get('sex')}`;
-
-    // Values may need to be converted from Imperial units since the formulas
-    // require metric values.
-    let height = Number(formData.get('height'));
-    let weight = Number(formData.get('weight'));
-
-    if (this.imperial) {
-      const feet = Number(formData.get('height'));
-      const inches = Number(formData.get('inches'));
-      height = this.formulas.cm(feet, inches);
-      weight = this.formulas.kg(weight);
-    }
-
-    // TODO: Convert from metric to Imperial via checkbox widget.
-    console.log('updateApp()');
-    console.log({
-      activity,
-      age,
-      goal,
-      height,
-      sex,
-      weight,
-    });
+  private updateApp(measurements: Measurements) {
+    const {activity, age, goal, height, sex, weight} = measurements;
 
     // Get BMR and factors based on selected values, then TDEE and maximum TDEE
     // for zig-zag chart.
@@ -168,7 +171,7 @@ class UserValues extends LitElement {
       bmr,
       goal: WeightGoal[0].factor,
     });
-
+    
     // Send new values up to app controller.
     this.dispatchEvent(new CustomEvent('valuesUpdated', {
       bubbles: true,
@@ -182,16 +185,53 @@ class UserValues extends LitElement {
 
     // Store values for return visits.
     localStorage.setItem(this.storageItem, JSON.stringify({
+      activity,
       age,
-      activity: `level-${activity}`,
-      goal: `goal-${goal}`,
+      goal,
       height,
       sex,
       weight,
     }));
+  }
 
-    // Enable all form elements.
+  private getFormData() {
+    if (this.invalid.length) return;
+
     this.ready = true;
+
+    // Get user-provided values.
+    const formData = new FormData(this.form);
+
+    // Values as-is.
+    const age = Number(formData.get('age'));
+    const sex = `${formData.get('sex')}`;
+
+    const activity = Number(formData.get('activity')) || 0;
+    const goal = Number(formData.get('goal')) || 0;
+    
+    // Values may need to be converted from Imperial units since the formulas
+    // require metric values.
+    let height = Number(formData.get('height'));
+    let weight = Number(formData.get('weight'));
+
+    // TODO: Convert from metric to Imperial via checkbox widget.
+    if (this.imperial) {
+      const feet = Number(formData.get('height'));
+      const inches = Number(formData.get('inches'));
+      height = this.formulas.cm(feet, inches);
+      weight = this.formulas.kg(weight);
+    }
+
+    const measurements = {
+      age,
+      activity: Number(activity),
+      goal: Number(goal),
+      height,
+      sex,
+      weight,
+    }
+
+    this.updateApp(measurements);
   }
 
   /**
@@ -210,7 +250,7 @@ class UserValues extends LitElement {
    */
   protected render() {
     return html`
-      <form @change="${this.updateApp}">
+      <form @change="${this.getFormData}">
         <fieldset id="sex">
           <h2>Sex</h2>
           ${this.renderRadioButtons(Sex, 'sex')}
@@ -235,6 +275,7 @@ class UserValues extends LitElement {
 
   /**
    * Renders HTML for a group of radio buttons.
+   * TODO: Update 'any' types to proper type.
    */
   private renderRadioButtons(field: any, name: string, prefix: string = '') {
     return html`
@@ -260,6 +301,7 @@ class UserValues extends LitElement {
     `;
   }
 
+  // TODO: Verify/update 'pattern' values for height/weight for imperial/metric.
   /**
    * Renders HTML for a group on input fields.
    */
