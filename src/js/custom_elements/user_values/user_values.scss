@@ -1,14 +1,10 @@
 user-values {
+  --toggle-size: 1.5rem;
+
   display: block;
   grid-area: values;
+  position: relative;
   place-self: end stretch;
-
-  fieldset {
-    border: 0;
-    opacity: 1;
-    padding: 0;
-    transition: opacity var(--transition);
-  }
 
   [disabled] {
     opacity: .3;
@@ -16,9 +12,16 @@ user-values {
   }
 
   form {
-    display: grid;
+    display: flex;
+    flex-flow: column;
     gap: .75em;
-    grid: auto-flow / 1fr;
+  }
+
+  fieldset {
+    border: 0;
+    opacity: 1;
+    padding: 0;
+    transition: opacity var(--transition);
   }
 
   h2 {
@@ -32,20 +35,6 @@ user-values {
     opacity: var(--text-opacity);
   }
 
-  // Metric/Imperial units toggle.
-  input[type="checkbox"] {
-    aspect-ratio: 1;
-    background-color: var(--gray3);
-    block-size: 1.5rem;
-    border-radius: 1.5rem;
-    cursor: pointer;
-    display: block;
-  }
-
-  input[type="checkbox"]:checked {
-    background-color: var(--gray1);
-  }
-
   // Lists for radio buttons.
   :is(ul, li) {
     align-items: center;
@@ -55,6 +44,48 @@ user-values {
 
   ul {
     margin: 0;
+  }
+
+  // Label for metric/Imperial units toggle.
+  [for='units'] {
+    background-color: var(--gray5);
+    border-radius: 10rem;
+    display: grid; // Override default <label> display set below.
+    grid: 1fr / 1fr;
+    inline-size: 5rem;
+    inset-block: -.125rem auto;
+    inset-inline: auto 0;
+    margin-block: 0.5em; // Match the headings.
+    position: absolute;
+    transition: background-color var(--transition);
+  }
+
+  @media (any-hover: hover) {  
+    [for='units']:hover {
+      background-color: var(--gray1);
+    }
+  }  
+
+  [for='units'] > * {
+    grid-area: 1 / 1 / -1 / -1;
+    place-self: center;
+  }
+
+  // Checkbox for units toggle..
+  [id='units'] {
+    block-size: 2rem;
+    cursor: pointer;
+    display: block;
+    inline-size: 100%;
+  }
+
+  // Checkbox text.
+  [for='units'] > span {
+    font-size: .9em;
+    font-variation-settings: 'wght' 600;
+    opacity: .7;
+    padding-inline: .5rem;
+    text-align: center;
   }
 
   // Adjustments for individual sections and fields.
@@ -76,10 +107,6 @@ user-values {
 
   label:where([for='age'], [for='height'], [for='weight']) {
     inline-size: var(--label-width);
-  }
-
-  [for='units'] {
-    display: revert;
   }
 
   // Text inputs.

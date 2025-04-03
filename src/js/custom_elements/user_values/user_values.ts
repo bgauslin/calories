@@ -46,8 +46,8 @@ const WeightGoal: InputRadio[] = [
  */
 @customElement('user-values')
 class UserValues extends LitElement {
-  @query('form') form: HTMLFormElement;
   @query('#age') age: HTMLInputElement;
+  @query('form') form: HTMLFormElement;
   @query('#height') height: HTMLInputElement;
   @query('#inches') inches: HTMLInputElement;
   @query('#weight') weight: HTMLInputElement;
@@ -55,7 +55,7 @@ class UserValues extends LitElement {
   @queryAll(':invalid') invalid: HTMLElement[];
   @queryAll('[type="radio"]') radioButtons: HTMLInputElement[];
   @queryAll('radio-marker') radioMarkers: HTMLElement[];
-
+  
   @state() formulas: Formulas;
   @state() imperial: boolean = false;
   @state() ready: boolean = false;
@@ -272,16 +272,9 @@ class UserValues extends LitElement {
    */
   protected render() {
     return html`
-      <label for="units">
-        <input
-          id="units"
-          type="checkbox"
-          @click="${this.toggleUnits}">
-      </label>
+      ${this.renderToggle()}
 
-      <form
-        ?data-imperial="${this.imperial}"
-        @change="${this.getFormData}">
+      <form @change="${this.getFormData}">
         <fieldset id="sex">
           <h2>Sex</h2>
           ${this.renderRadioButtons(Sex, 'sex')}
@@ -301,6 +294,18 @@ class UserValues extends LitElement {
           ${this.renderRadioButtons(WeightGoal, 'goal', 'goal')}
         </fieldset>
       <form>
+    `;
+  }
+
+  private renderToggle() {
+    return html`
+      <label for="units">
+      <input
+        id="units"
+        type="checkbox"
+        @click="${this.toggleUnits}">
+        <span>${this.imperial ? 'ft · lbs' : 'cm · kg'}</span>
+      </label>
     `;
   }
 
