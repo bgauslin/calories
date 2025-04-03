@@ -16,7 +16,7 @@ zig-zag {
   }
 
   li {
-    background: var(--fill-2);
+    background-color: var(--fill-2);
     border-radius: 0 4px 4px 0;
     display: flex;
     gap: 0 .5em;
@@ -31,7 +31,7 @@ zig-zag {
   }
 
   .warning {
-    background: var(--warning-background);
+    background-color: var(--warning-background);
     color: var(--warning-color);
   }
 }

@@ -352,7 +352,7 @@ class UserValues extends LitElement {
         <li class="height">
           <label for="height">Height</label>
           <input
-            id="height"  
+            id="height"
             inputmode="numeric"
             name="height"
             pattern="${this.imperial ? '[3-7]' : '[1-3]?[0-9][0-9]'}"

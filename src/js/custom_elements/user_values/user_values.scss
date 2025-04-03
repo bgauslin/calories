@@ -35,10 +35,11 @@ user-values {
   // Metric/Imperial units toggle.
   input[type="checkbox"] {
     aspect-ratio: 1;
-    border-radius: 1.5rem;
     background-color: var(--gray3);
     block-size: 1.5rem;
+    border-radius: 1.5rem;
     cursor: pointer;
+    display: block;
   }
 
   input[type="checkbox"]:checked {
@@ -83,7 +84,7 @@ user-values {
 
   // Text inputs.
   [type='text'] {
-    background: var(--fill-3);
+    background-color: var(--fill-3);
     block-size: var(--input-height);
     border: 2px solid var(--fill-1);
     border-radius: 6px;

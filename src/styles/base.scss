@@ -15,7 +15,7 @@ html {
 }
 
 body {
-  background: var(--body-fill);
+  background-color: var(--body-fill);
   color: var(--text-color);
   display: grid;
   font: var(--font);
@@ -69,7 +69,7 @@ a {
 input,
 button {
   appearance: none;
-  background: 0;
+  background: none;
   border: 0;
   margin: 0;
   outline: none;
