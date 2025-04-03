@@ -65,7 +65,7 @@ class App extends LitElement {
 
   protected render() {
     return html`
-      <h1>Calories</h1>
+      <h1>${document.title}</h1>
       <app-info></app-info>
       <user-values></user-values>
       <number-ticker
