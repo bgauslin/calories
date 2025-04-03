@@ -12,7 +12,7 @@ interface Measurements {
 }
 
 const BMR_MULTIPLIER: number = 1.2;
-const INCHES_TO_MM = 2.54;
+const INCHES_TO_CM = 2.54;
 const LBS_TO_KG = 2.2;
 
 /**
@@ -53,16 +53,37 @@ export class Formulas {
   }
 
   /**
-   * Returns weight in Imperial units converted to weight in metric units.
+   * Converts weight in Imperial units to metric.
    */
-  public kg(pounds: number): number {
+  public weightMetric(pounds: number): number {
     return Math.round((pounds / LBS_TO_KG) * 10) / 10;
   }
 
   /**
-   * Returns height in Imperial units converted to height in metric units.
+   * Converts weight in metric units to Imperial.
    */
-  public cm(feet: number, inches: number): number {
-    return ((feet * 12) + inches) * INCHES_TO_MM;
+    public weightImperial(kg: number): number {
+      return Math.round((kg * LBS_TO_KG) * 10) / 10;
+    }
+
+  // TODO: Update 'any' return type.
+  /**
+   * Converts height in metric units to Imperial.
+   *
+   */
+  public heightImperial(cm: number): any {
+    const total = Math.round(cm / INCHES_TO_CM);
+    const feet = Math.floor(total / 12);
+    const inches = total % 12;
+
+    return {feet, inches};
+  }
+
+  /**
+   * Converts height in Imperial units to metric.
+   */
+  public heightMetric(feet: number, inches: number): number {
+    const result = ((feet * 12) + inches) * INCHES_TO_CM;
+    return Math.round(result);
   }
 }

@@ -32,6 +32,19 @@ user-values {
     opacity: var(--text-opacity);
   }
 
+  // Metric/Imperial units toggle.
+  input[type="checkbox"] {
+    aspect-ratio: 1;
+    border-radius: 1.5rem;
+    background-color: var(--gray3);
+    block-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  input[type="checkbox"]:checked {
+    background-color: var(--gray1);
+  }
+
   // Lists for radio buttons.
   :is(ul, li) {
     align-items: center;
@@ -53,24 +66,6 @@ user-values {
     flex: 0 0 100%;
   }
 
-  :where(.age, .height, .weight)::after {
-    margin-inline: .5em 0;
-    opacity: var(--text-opacity);
-    pointer-events: none;
-  }
-
-  .height::after {
-    content: 'cm';
-  }
-
-  .weight::after {
-    content: 'kg';
-  }
-
-  .age::after {
-    content: 'yrs.';
-  }
-
   // Wrapper for <input> and <span> elements.
   label {
     cursor: pointer;
@@ -80,6 +75,10 @@ user-values {
 
   label:where([for='age'], [for='height'], [for='weight']) {
     inline-size: var(--label-width);
+  }
+
+  [for='units'] {
+    display: revert;
   }
 
   // Text inputs.
@@ -94,6 +93,12 @@ user-values {
     inline-size: 3rem;
     padding-inline: .5rem;
     text-align: end;
+  }
+
+  .units {
+    margin-inline: .5em;
+    opacity: var(--text-opacity);
+    pointer-events: none;
   }
 
   // Text labels for radio buttons.

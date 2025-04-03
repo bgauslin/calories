@@ -49,6 +49,7 @@ class UserValues extends LitElement {
   @query('form') form: HTMLFormElement;
   @query('#age') age: HTMLInputElement;
   @query('#height') height: HTMLInputElement;
+  @query('#inches') inches: HTMLInputElement;
   @query('#weight') weight: HTMLInputElement;
 
   @queryAll(':invalid') invalid: HTMLElement[];
@@ -194,6 +195,27 @@ class UserValues extends LitElement {
     }));
   }
 
+  private toggleUnits() {
+    this.imperial = !this.imperial;
+
+    if (this.imperial) {
+      const height = Number(this.height.value);
+      const {feet, inches} = this.formulas.heightImperial(height);
+      const weight = Number(this.weight.value);
+      
+      this.height.value = feet;
+      this.inches.value = inches;
+      this.weight.value = `${this.formulas.weightImperial(weight)}`;
+    } else {
+      const feet = Number(this.height.value);
+      const inches = Number(this.inches.value);
+      const weight = Number(this.weight.value);
+
+      this.weight.value = `${this.formulas.weightMetric(weight)}`;
+      this.height.value = `${this.formulas.heightMetric(feet, inches)}`;      
+    }
+  }
+
   private getFormData() {
     if (this.invalid.length) return;
 
@@ -214,12 +236,12 @@ class UserValues extends LitElement {
     let height = Number(formData.get('height'));
     let weight = Number(formData.get('weight'));
 
-    // TODO: Convert from metric to Imperial via checkbox widget.
+    // Convert saved metric values to Imperial units.
     if (this.imperial) {
       const feet = Number(formData.get('height'));
       const inches = Number(formData.get('inches'));
-      height = this.formulas.cm(feet, inches);
-      weight = this.formulas.kg(weight);
+      height = this.formulas.heightMetric(feet, inches);
+      weight = this.formulas.weightMetric(weight);
     }
 
     const measurements = {
@@ -250,7 +272,16 @@ class UserValues extends LitElement {
    */
   protected render() {
     return html`
-      <form @change="${this.getFormData}">
+      <label for="units">
+        <input
+          id="units"
+          type="checkbox"
+          @click="${this.toggleUnits}">
+      </label>
+
+      <form
+        ?data-imperial="${this.imperial}"
+        @change="${this.getFormData}">
         <fieldset id="sex">
           <h2>Sex</h2>
           ${this.renderRadioButtons(Sex, 'sex')}
@@ -301,31 +332,12 @@ class UserValues extends LitElement {
     `;
   }
 
-  // TODO: Verify/update 'pattern' values for height/weight for imperial/metric.
   /**
    * Renders HTML for a group on input fields.
    */
   private renderTextInputs() {
     const inputs = html`
       <ul>
-        <li class="height">
-          <label for="height">Height</label>
-          <input
-            id="height"  
-            inputmode="numeric"
-            name="height"
-            pattern="[1-3]?[0-9][0-9]"
-            type="text"
-            required>
-          <input
-            id="inches"
-            inputmode="numeric"
-            name="height"
-            pattern=""
-            type="text"
-            ?hidden="${!this.imperial}"
-            ?required="${this.imperial}">
-        </li>
         <li class="age">
           <label for="age">Age</label>
           <input
@@ -335,6 +347,29 @@ class UserValues extends LitElement {
             pattern="[1-9][0-9]?"
             type="text"
             required>
+          <span class="units">yrs</span>
+        </li>
+        <li class="height">
+          <label for="height">Height</label>
+          <input
+            id="height"  
+            inputmode="numeric"
+            name="height"
+            pattern="${this.imperial ? '[3-7]' : '[1-3]?[0-9][0-9]'}"
+            type="text"
+            required>
+          <span class="units">${this.imperial ? 'ft' : 'cm'}</span>
+          <input
+            id="inches"
+            inputmode="numeric"
+            name="height"
+            pattern="[0-9]|1[01]"
+            type="text"
+            ?hidden="${!this.imperial}"
+            ?required="${this.imperial}">
+          <span
+            class="units"
+            ?hidden="${!this.imperial}">in</span>
         </li>
         <li class="weight">
           <label for="weight">Weight</label>
@@ -345,6 +380,7 @@ class UserValues extends LitElement {
             pattern="[0-9]{0,3}[\.]?[0-9]?"
             type="text"
             required>
+          <span class="units">${this.imperial ? 'lb' : 'kg'}</span>
         </li>
       </ul>
     `;
