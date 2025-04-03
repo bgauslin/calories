@@ -1,107 +1,52 @@
+import {LitElement, html} from 'lit';
+import {customElement, property, query, state} from 'lit/decorators.js';
+import {ifDefined} from 'lit/directives/if-defined.js';
+
 /**
  * Custom element that renders daily TDEE based on overall TDEE where each
  * day's TDEE value is adjusted for "zig-zag" calorie counting.
  */
-class ZigZag extends HTMLElement {
-  private days: NodeList;
-  private hasSetup: boolean = false;
-  private minimumTDEE: number = 1200;
-  private modifiers: number[] = [1, .9, 1.1, 1, .8, 1, 1.2];
-  private tickers: NodeList;
-  private weekdays: string[] = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+@customElement('zig-zag')
+class ZigZag extends LitElement {
+  @property({attribute: 'tdee', type: Number}) tdee: number = 0;
+  @property({attribute: 'max-tdee', type: Number}) tdeeMax: number = 0;
+  @query('li') days: HTMLElement[];
+  @query('number-ticker') tickers: HTMLElement[];
+  @state() minimumTDEE: number = 1200;
+  @state() modifiers: number[] = [1, .9, 1.1, 1, .8, 1, 1.2];
+  @state() weekdays: string[] = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-  constructor() {
-    super();
+  protected createRenderRoot() {
+    return this;
   }
 
-  connectedCallback() {
-    if (!this.hasSetup) {
-      this.setup();
-      this.update();
-    }
-  }
-
-  static get observedAttributes(): string[] {
-    return ['tdee', 'max-tdee'];
-  }
-
-  attributeChangedCallback() {
-    if (this.hasSetup) {
-      this.update();
-    }
-  }
-
-  /**
-   * Renders the custom element's DOM and creates reference to its elements
-   * that will udpate on user interaction. Because expandable is within this
-   * element, it needs a sibling element to target for expanding/collapsing.
-   */
-  private setup() {
-    let html = '<ol>';
-    for (const day of this.weekdays) {
-      html += `
-        <li>
-          <span aria-label="${day}">${day.substring(0, 3)}</span>
-          <number-ticker value="0"></number-ticker>
-        </li>
-      `;
-    }
-    html += '</ol>';
-    this.innerHTML = html;
-
-    this.days = this.querySelectorAll('zig-zag li');
-    this.tickers = this.querySelectorAll('number-ticker');
-    
-    this.hasSetup = true;
-  }
-
-  /**
-   * Updates all tickers with each day's zig-zag value.
-   */
-  private update() {
-    const tdee = this.getAttribute('tdee');
-    const tdeeMax = this.getAttribute('max-tdee');
-
+  protected render() {
     // Create array of all adjusted TDEE values, and get highest value for
     // setting the bar chart's upper bound.
-    const allValues = this.modifiers.map(day => parseInt(tdee, 10) * day);
-    const maxModifier = Math.max(...this.modifiers);
-    const maxValue = Number(tdeeMax) * maxModifier;
+    const tdeeAll = this.modifiers.map(day => Math.round(this.tdee * day));
+    const modifierMax = Math.max(...this.modifiers);
+    const valueMax = this.tdeeMax * modifierMax;
 
     // Convert adjusted TDEE values to a percentage relative to the highest
     // possible value for drawing a bar chart via CSS.
-    const barLengths = allValues.map(value => Math.round((value / maxValue) * 100));
+    const widths = tdeeAll.map(value => Math.round((value / valueMax) * 100));
     
-    // Set attribute values on <number-ticker> elements which will trigger 
-    // their attributeChangedCallback and update themselves.
-    for (const [index, value] of allValues.entries()) {
-      const ticker = <HTMLElement>this.tickers[index];
-      if (ticker) {
-        ticker.setAttribute('value', value.toFixed());
-      }
-    }
+    return html`
+      <ol>
+      ${this.weekdays.map((day, index) => {
+        const width = widths[index];
+        const value = tdeeAll[index];
+        const className = (value < this.minimumTDEE) ? 'warning' : undefined;
 
-    // Set inline style for each day as a width percentage so that the CSS
-    // displays each as a bar graph value.
-    for (const [index, length] of barLengths.entries()) {
-      const day = <HTMLElement>this.days[index];
-      if (day) {
-        day.style.width = `${length}%`;
-      }
-    }
-
-    // Set warning class for extremely low values.
-    for (const [index, value] of allValues.entries()) {
-      const day = <HTMLElement>this.days[index];
-      if (day) {
-        if (value < this.minimumTDEE) {
-          day.classList.add('warning');
-        } else {
-          day.classList.remove('warning');
-        }
-      }
-    }
+        return html`
+        <li
+          class="${ifDefined(className ? className : undefined)}"
+          style="width: ${width}%">
+          <span aria-label="${day}">${day.substring(0, 3)}</span>
+          <number-ticker value="${value}"></number-ticker>
+        </li>
+        `})}
+      </ol>
+    `;
   }
 }
-
-customElements.define('zig-zag', ZigZag);
