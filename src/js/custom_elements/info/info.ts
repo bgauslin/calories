@@ -10,7 +10,7 @@ class AppInfo extends HTMLElement {
   private clickListener: EventListenerObject;
   private keyListener: EventListenerObject;
 
-  @query('button' button: HTMLButtonElement;
+  @query('button') button: HTMLButtonElement;
   @query('.dialog') dialog: HTMLElement;
   @state() open: boolean = false;
   @state() json: any;
