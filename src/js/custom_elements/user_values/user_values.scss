@@ -3,7 +3,6 @@ user-values {
 
   display: block;
   grid-area: values;
-  position: relative;
   place-self: end stretch;
 
   [disabled] {
@@ -53,10 +52,10 @@ user-values {
     display: grid; // Override default <label> display set below.
     grid: 1fr / 1fr;
     inline-size: 5rem;
-    inset-block: -.125rem auto;
+    inset-block: 50% auto;
     inset-inline: auto 0;
-    margin-block: 0.5em; // Match the headings.
     position: absolute;
+    transform: translateY(-50%);
     transition: background-color var(--transition);
   }
 
@@ -89,6 +88,10 @@ user-values {
   }
 
   // Adjustments for individual sections and fields.
+  [id='measurements'] {
+    position: relative;
+  }
+
   [id='measurements'] ul {
     flex-wrap: wrap;
     gap: .75rem;

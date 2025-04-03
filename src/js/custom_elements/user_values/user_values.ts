@@ -272,8 +272,6 @@ class UserValues extends LitElement {
    */
   protected render() {
     return html`
-      ${this.renderToggle()}
-
       <form @change="${this.getFormData}">
         <fieldset id="sex">
           <h2>Sex</h2>
@@ -304,7 +302,7 @@ class UserValues extends LitElement {
         id="units"
         type="checkbox"
         @click="${this.toggleUnits}">
-        <span>${this.imperial ? 'ft · lbs' : 'cm · kg'}</span>
+        <span>${this.imperial ? 'lbs · ft' : 'kg · cm'}</span>
       </label>
     `;
   }
@@ -342,6 +340,7 @@ class UserValues extends LitElement {
    */
   private renderTextInputs() {
     const inputs = html`
+      ${this.renderToggle()}
       <ul>
         <li class="age">
           <label for="age">Age</label>
@@ -353,6 +352,17 @@ class UserValues extends LitElement {
             type="text"
             required>
           <span class="units">yrs</span>
+        </li>
+        <li class="weight">
+          <label for="weight">Weight</label>
+          <input
+            id="weight"
+            inputmode="decimal"
+            name="weight"
+            pattern="[0-9]{0,3}[\.]?[0-9]?"
+            type="text"
+            required>
+          <span class="units">${this.imperial ? 'lbs' : 'kg'}</span>
         </li>
         <li class="height">
           <label for="height">Height</label>
@@ -375,17 +385,6 @@ class UserValues extends LitElement {
           <span
             class="units"
             ?hidden="${!this.imperial}">in</span>
-        </li>
-        <li class="weight">
-          <label for="weight">Weight</label>
-          <input
-            id="weight"
-            inputmode="decimal"
-            name="weight"
-            pattern="[0-9]{0,3}[\.]?[0-9]?"
-            type="text"
-            required>
-          <span class="units">${this.imperial ? 'lb' : 'kg'}</span>
         </li>
       </ul>
     `;
