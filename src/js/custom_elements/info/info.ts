@@ -1,5 +1,6 @@
 import {LitElement, html} from 'lit';
 import {customElement, property, query, state} from 'lit/decorators.js';
+import {unsafeHTML} from 'lit/directives/unsafe-html.js';
 
 /**
  * Custom element that renders content fetched from a JSON endpoint
@@ -34,6 +35,10 @@ class Info extends LitElement {
     super.disconnectedCallback();
     document.removeEventListener('click', this.clickListener);
     document.removeEventListener('keyup', this.keyListener);
+  }
+
+  protected createRenderRoot() {
+    return this;
   }
 
   private async fetchInfo(): Promise<any> {
@@ -95,7 +100,7 @@ class Info extends LitElement {
         id="info"
         ?data-open="${this.open}">
         <article>
-          ${this.json.info}
+          ${unsafeHTML(this.json.info)}
         </article>
       </div>
     `;
