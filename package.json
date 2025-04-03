@@ -1,7 +1,7 @@
 {
   "name": "calories",
   "description": "Web app for calculating daily calorie needs",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "license": "UNLICENSED",
   "repository": "https://github.com/bgauslin/calories",
   "scripts": {
