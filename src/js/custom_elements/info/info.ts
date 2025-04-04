@@ -13,10 +13,10 @@ class Info extends LitElement {
 
   @property({reflect: true, type: Boolean}) hidden: boolean = true;
   @query('button') button: HTMLButtonElement;
-  @query('.dialog') dialog: HTMLElement; // TODO: <dialog> element
+  @query('.dialog') dialog: HTMLElement;
   @state() endpoint: string = 'https://gauslin.com/api/calories.json';
   @state() open: boolean = false;
-  @state() json: any; // TODO: type/interface
+  @state() json: any;
 
   constructor() {
     super();
@@ -76,6 +76,8 @@ class Info extends LitElement {
     }
   }
 
+  // TODO: a11y for keyboard.
+  // TODO: replace <div.dialog> with <dialog> element.
   protected render() {
     if (!this.json) return;
 
