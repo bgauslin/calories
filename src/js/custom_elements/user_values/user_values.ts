@@ -93,7 +93,7 @@ class UserValues extends LitElement {
 
     if (!storage) return;
 
-    const {age, activity, goal, height, sex, weight} = JSON.parse(storage);
+    const {activity, age, goal, height, sex, weight} = JSON.parse(storage);
 
     // Populate text inputs from earlier visit.
     this.age.value = age;
@@ -199,20 +199,28 @@ class UserValues extends LitElement {
     this.imperial = !this.imperial;
 
     if (this.imperial) {
+      // Convert height to Imperial feet and inches.
       const height = Number(this.height.value);
       const {feet, inches} = this.formulas.heightImperial(height);
-      const weight = Number(this.weight.value);
+      this.height.value = `${feet}`;
+      this.inches.value = `${inches}`;
       
-      this.height.value = feet;
-      this.inches.value = inches;
-      this.weight.value = `${this.formulas.weightImperial(weight)}`;
+      // Convert metric weight to Imperial lbs.
+      const weight = Number(this.weight.value);
+      const weightImperial = this.formulas.weightImperial(weight);
+      this.weight.value = `${weightImperial}`;
+      
     } else {
+      // Convert Imperial height to metric cm.
       const feet = Number(this.height.value);
       const inches = Number(this.inches.value);
-      const weight = Number(this.weight.value);
+      const heightMetric = this.formulas.heightMetric(feet, inches);
+      this.height.value = `${heightMetric}`;
 
-      this.weight.value = `${this.formulas.weightMetric(weight)}`;
-      this.height.value = `${this.formulas.heightMetric(feet, inches)}`;      
+      // Convert Imperial weight to metric kg.
+      const weight = Number(this.weight.value);
+      const weightMetric = this.formulas.weightMetric(weight);
+      this.weight.value = `${weightMetric}`;
     }
   }
 
@@ -377,7 +385,7 @@ class UserValues extends LitElement {
           <input
             id="inches"
             inputmode="numeric"
-            name="height"
+            name="inches"
             pattern="[0-9]|1[01]"
             type="text"
             ?hidden="${!this.imperial}"
