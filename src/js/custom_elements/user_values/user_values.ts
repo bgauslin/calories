@@ -5,6 +5,7 @@ import {Formulas} from '../../modules/Formulas';
 interface InputRadio {
   factor?: number,
   label: string,
+  labelImperial?: string,
   value: number|string,
 }
 
@@ -15,6 +16,7 @@ interface Measurements {
   height: number,
   sex: string,
   weight: number,
+  imperial: boolean, 
 }
 
 const ActivityLevel: InputRadio[] = [
@@ -30,13 +32,12 @@ const Sex: InputRadio[] = [
   {value: 'female', label: 'Female'},
 ];
 
-// TODO: Display different label for Imperial units.
 const WeightGoal: InputRadio[] = [
   {value: 0, label: 'None', factor: 0},
-  {value: 1, label: '¼', factor: 250},  // imperial: '½'
-  {value: 2, label: '½', factor: 500},  // imperial: '1'
-  {value: 3, label: '¾', factor: 750},  // imperial: '1½'
-  {value: 4, label: '1', factor: 1000}, // imperial: '2'
+  {value: 1, label: '¼', labelImperial: '½', factor: 250},
+  {value: 2, label: '½', labelImperial: '1', factor: 500},
+  {value: 3, label: '¾', labelImperial: '1½', factor: 750},
+  {value: 4, label: '1', labelImperial: '2', factor: 1000},
 ];
 
 /**
@@ -60,7 +61,6 @@ class UserValues extends LitElement {
   @state() imperial: boolean = false;
   @state() ready: boolean = false;
   @state() storageItem: string = 'values';
-  @state() weightUnit: string = 'kg';
   
   constructor() {
     super();
@@ -93,12 +93,25 @@ class UserValues extends LitElement {
 
     if (!storage) return;
 
-    const {activity, age, goal, height, sex, weight} = JSON.parse(storage);
+    const {age, activity, goal, height, sex, weight, imperial} = JSON.parse(storage);
+
+    this.imperial = imperial;
 
     // Populate text inputs from earlier visit.
     this.age.value = age;
-    this.height.value = height;
-    this.weight.value = weight;
+    
+    if (this.imperial) {
+      const {feet, inches} = this.formulas.heightImperial(height);
+      const weightImperial = this.formulas.weightImperial(weight);
+
+      this.height.value = `${feet}`;
+      this.inches.value = `${inches}`;
+      this.weight.value = `${weightImperial}`;
+
+    } else {
+      this.height.value = height;
+      this.weight.value = weight;
+    }
 
     // Pre-check radio buttons from earlier visit.
     for (const marker of <HTMLInputElement[]>this.radioMarkers) {
@@ -121,7 +134,7 @@ class UserValues extends LitElement {
 
     this.setMarkers();
 
-    // Bundle everything up for sending up to the app.
+    // Bundle everything up and update the app.
     const measurements = {
       age,
       activity,
@@ -129,6 +142,7 @@ class UserValues extends LitElement {
       height,
       sex,
       weight,
+      imperial: this.imperial,
     };    
     
     // Update the chart.
@@ -192,6 +206,7 @@ class UserValues extends LitElement {
       height,
       sex,
       weight,
+      imperial: this.imperial,
     }));
   }
 
@@ -201,26 +216,36 @@ class UserValues extends LitElement {
     if (this.imperial) {
       // Convert height to Imperial feet and inches.
       const height = Number(this.height.value);
-      const {feet, inches} = this.formulas.heightImperial(height);
-      this.height.value = `${feet}`;
-      this.inches.value = `${inches}`;
+      
+      if (height) {
+        const {feet, inches} = this.formulas.heightImperial(height);
+        this.height.value = `${feet}`;
+        this.inches.value = `${inches}`;
+      }
       
       // Convert metric weight to Imperial lbs.
       const weight = Number(this.weight.value);
-      const weightImperial = this.formulas.weightImperial(weight);
-      this.weight.value = `${weightImperial}`;
-      
+
+      if (weight) {
+        const weightImperial = this.formulas.weightImperial(weight);
+        this.weight.value = `${weightImperial}`;
+      }
     } else {
       // Convert Imperial height to metric cm.
       const feet = Number(this.height.value);
       const inches = Number(this.inches.value);
-      const heightMetric = this.formulas.heightMetric(feet, inches);
-      this.height.value = `${heightMetric}`;
+      
+      if (feet && inches) {
+        const heightMetric = this.formulas.heightMetric(feet, inches);
+        this.height.value = `${heightMetric}`;
+      }
 
       // Convert Imperial weight to metric kg.
       const weight = Number(this.weight.value);
-      const weightMetric = this.formulas.weightMetric(weight);
-      this.weight.value = `${weightMetric}`;
+      if (weight) {
+        const weightMetric = this.formulas.weightMetric(weight);
+        this.weight.value = `${weightMetric}`;
+      }
     }
   }
 
@@ -244,7 +269,6 @@ class UserValues extends LitElement {
     let height = Number(formData.get('height'));
     let weight = Number(formData.get('weight'));
 
-    // Convert saved metric values to Imperial units.
     if (this.imperial) {
       const feet = Number(formData.get('height'));
       const inches = Number(formData.get('inches'));
@@ -254,11 +278,12 @@ class UserValues extends LitElement {
 
     const measurements = {
       age,
-      activity: Number(activity),
-      goal: Number(goal),
+      activity,
+      goal,
       height,
       sex,
       weight,
+      imperial: this.imperial,
     }
 
     this.updateApp(measurements);
@@ -296,7 +321,7 @@ class UserValues extends LitElement {
         </fieldset>
 
         <fieldset id="goal" ?disabled="${!this.ready}">
-          <h2>Weight Loss <span>${this.weightUnit} per week</span></h2>
+          <h2>Weight Loss <span>${this.imperial ? 'lbs' : 'kg'} per week</span></h2>
           ${this.renderRadioButtons(WeightGoal, 'goal', 'goal')}
         </fieldset>
       <form>
@@ -310,20 +335,19 @@ class UserValues extends LitElement {
         id="units"
         type="checkbox"
         @click="${this.toggleUnits}">
-        <span>${this.imperial ? 'lbs · ft' : 'kg · cm'}</span>
+        <span>${this.imperial ? 'kg · cm' : 'lbs · ft'}</span>
       </label>
     `;
   }
 
   /**
    * Renders HTML for a group of radio buttons.
-   * TODO: Update 'any' types to proper type.
    */
   private renderRadioButtons(field: any, name: string, prefix: string = '') {
     return html`
       <radio-marker>
       ${field.map((item: any, index: number) => {
-        const {value, label} = item;
+        const {value, label, labelImperial} = item;
         const id = prefix ? `${prefix}-${value}` : value;
 
         return html`
@@ -335,7 +359,7 @@ class UserValues extends LitElement {
               value="${value}"
               tabindex="${this.ready ? '0' : '-1'}"
               ?checked="${index === 0}">
-            <span>${label}</span>
+            <span>${this.imperial && labelImperial ? labelImperial : label}</span>
           </label>
         `;
       })}
