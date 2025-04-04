@@ -353,11 +353,11 @@ class UserValues extends LitElement {
         return html`
           <label for="${id}" tabindex="${this.ready ? '0' : '-1'}">
             <input
-              type="radio"
-              name="${name}"
               id="${id}"
-              value="${value}"
+              name="${name}"
               tabindex="${this.ready ? '0' : '-1'}"
+              type="radio"
+              value="${value}"
               ?checked="${index === 0}">
             <span>${this.imperial && labelImperial ? labelImperial : label}</span>
           </label>
