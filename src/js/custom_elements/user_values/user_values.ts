@@ -335,7 +335,7 @@ class UserValues extends LitElement {
         id="units"
         type="checkbox"
         @click="${this.toggleUnits}">
-        <span>Use ${this.imperial ? 'kg/cm' : 'lbs/ft'}</span>
+        <span>${this.imperial ? 'kg · cm' : 'lbs · ft'}</span>
       </label>
     `;
   }
