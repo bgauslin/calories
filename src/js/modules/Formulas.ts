@@ -4,6 +4,11 @@ interface CalorieNeeds {
   goal: number,
 }
 
+interface ImperialHeight {
+  feet: number,
+  inches: number,
+}
+
 interface Measurements {
   age: number,
   height: number,
@@ -62,16 +67,14 @@ export class Formulas {
   /**
    * Converts weight in metric units to Imperial.
    */
-    public weightImperial(kg: number): number {
-      return Math.round((kg * LBS_TO_KG) * 10) / 10;
-    }
+  public weightImperial(kg: number): number {
+    return Math.round((kg * LBS_TO_KG) * 10) / 10;
+  }
 
-  // TODO: Update 'any' return type.
   /**
    * Converts height in metric units to Imperial.
-   *
    */
-  public heightImperial(cm: number): any {
+  public heightImperial(cm: number): ImperialHeight {
     const total = Math.round(cm / INCHES_TO_CM);
     const feet = Math.floor(total / 12);
     const inches = total % 12;
