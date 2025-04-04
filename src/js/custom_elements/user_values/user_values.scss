@@ -70,7 +70,7 @@ user-values {
     place-self: center;
   }
 
-  // Checkbox for units toggle..
+  // Units toggle checkbox.
   [id='units'] {
     block-size: 2rem;
     cursor: pointer;
@@ -78,10 +78,9 @@ user-values {
     inline-size: 100%;
   }
 
-  // Checkbox text.
+  // Units toggle text.
   [for='units'] > span {
     font-size: .9em;
-    font-variation-settings: 'wght' 600;
     opacity: .7;
     padding-inline: .5rem;
     text-align: center;
