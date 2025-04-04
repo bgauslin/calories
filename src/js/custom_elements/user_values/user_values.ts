@@ -93,7 +93,7 @@ class UserValues extends LitElement {
 
     if (!storage) return;
 
-    const {age, activity, goal, height, sex, weight, imperial} = JSON.parse(storage);
+    const {activity, age, goal, height, imperial, sex, weight} = JSON.parse(storage);
 
     this.imperial = imperial;
 
@@ -136,8 +136,8 @@ class UserValues extends LitElement {
 
     // Bundle everything up and update the app.
     const measurements = {
-      age,
       activity,
+      age,
       goal,
       height,
       sex,
@@ -277,13 +277,13 @@ class UserValues extends LitElement {
     }
 
     const measurements = {
-      age,
       activity,
+      age,
       goal,
       height,
+      imperial: this.imperial,
       sex,
       weight,
-      imperial: this.imperial,
     }
 
     this.updateApp(measurements);
@@ -335,7 +335,7 @@ class UserValues extends LitElement {
         id="units"
         type="checkbox"
         @click="${this.toggleUnits}">
-        <span>${this.imperial ? 'kg · cm' : 'lbs · ft'}</span>
+        <span>Use ${this.imperial ? 'kg/cm' : 'lbs/ft'}</span>
       </label>
     `;
   }
