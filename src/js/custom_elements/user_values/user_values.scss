@@ -147,6 +147,10 @@ user-values {
     opacity: var(--text-opacity);
   }
 
+  label:focus-visible > [type='radio'] + span {
+    opacity: 1;
+  }
+
   @media (any-hover: hover) {
     label:hover > [type='radio'] + span {
       opacity: 1;
