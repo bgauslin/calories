@@ -122,6 +122,7 @@ class UserValues extends LitElement {
    * BMI, and TDEE formulas.
    */
   private updateApp(measurements: Measurements) {
+    // TODO: Remove after refactoring localStorage parsing.
     const {activity, age, goal, height, sex, weight} = measurements;
 
     // Send new values up to app controller.
@@ -129,12 +130,7 @@ class UserValues extends LitElement {
       bubbles: true,
       composed: true,
       detail: {
-        activity,
-        age,
-        goal,
-        height,
-        sex,
-        weight,
+        measurements,
       }
     }));
 

@@ -46,7 +46,8 @@ class App extends LitElement {
   }
 
   private updateApp(event: CustomEvent) {
-    const {activity, age, goal, height, sex, weight} = event.detail;
+    const detail = event.detail;
+    const {activity, age, goal, height, sex, weight} = detail.measurements;
     
     // Get BMR and factors based on selected values, then TDEE and maximum TDEE
     // for zig-zag chart.
