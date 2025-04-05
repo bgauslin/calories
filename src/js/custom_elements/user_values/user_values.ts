@@ -50,8 +50,9 @@ class UserValues extends LitElement {
 
     if (!storage) return;
 
-    const {activity, age, goal, height, imperial, sex, weight} = JSON.parse(storage);
-
+    // Get the stored values.
+    const {measurements_, imperial} = JSON.parse(storage)
+    const {activity, age, goal, height, sex, weight} = measurements_;
     this.imperial = imperial;
 
     // Populate text inputs from earlier visit.
@@ -118,14 +119,9 @@ class UserValues extends LitElement {
   }
 
   /**
-   * Updates results after getting all values and passing them into the BMR,
-   * BMI, and TDEE formulas.
+   * Sends measurements up to the app for rendering other UI elements.
    */
   private updateApp(measurements: Measurements) {
-    // TODO: Remove after refactoring localStorage parsing.
-    const {activity, age, goal, height, sex, weight} = measurements;
-
-    // Send new values up to app controller.
     this.dispatchEvent(new CustomEvent('valuesUpdated', {
       bubbles: true,
       composed: true,
@@ -134,14 +130,8 @@ class UserValues extends LitElement {
       }
     }));
 
-    // Store values for return visits.
     localStorage.setItem(this.storageItem, JSON.stringify({
-      activity,
-      age,
-      goal,
-      height,
-      sex,
-      weight,
+      measurements,
       imperial: this.imperial,
     }));
   }
