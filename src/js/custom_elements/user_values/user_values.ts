@@ -1,44 +1,7 @@
 import {LitElement, html} from 'lit';
 import {customElement, query, queryAll, state} from 'lit/decorators.js';
 import {Formulas} from '../../modules/Formulas';
-
-interface InputRadio {
-  factor?: number,
-  label: string,
-  labelImperial?: string,
-  value: number|string,
-}
-
-interface Measurements {
-  age: number,
-  activity: number,
-  goal: number,
-  height: number,
-  sex: string,
-  weight: number,
-  imperial: boolean, 
-}
-
-const ActivityLevel: InputRadio[] = [
-  {value: 0, label: 'None', factor: 1},
-  {value: 3, label: '3', factor: 1.1455},
-  {value: 4, label: '4', factor: 1.1819},
-  {value: 5, label: '5', factor: 1.2188},
-  {value: 7, label: 'Daily', factor: 1.2916},
-];
-
-const Sex: InputRadio[] = [
-  {value: 'male', label: 'Male'},
-  {value: 'female', label: 'Female'},
-];
-
-const WeightGoal: InputRadio[] = [
-  {value: 0, label: 'None', factor: 0},
-  {value: 1, label: '¼', labelImperial: '½', factor: 250},
-  {value: 2, label: '½', labelImperial: '1', factor: 500},
-  {value: 3, label: '¾', labelImperial: '1½', factor: 750},
-  {value: 4, label: '1', labelImperial: '2', factor: 1000},
-];
+import {ActivityLevel, Measurements, Sex, WeightGoal} from '../../modules/shared';
 
 /**
  * Custom element that renders input fields for user interaction, calculates
@@ -169,32 +132,17 @@ class UserValues extends LitElement {
   private updateApp(measurements: Measurements) {
     const {activity, age, goal, height, sex, weight} = measurements;
 
-    // Get BMR and factors based on selected values, then TDEE and maximum TDEE
-    // for zig-zag chart.
-    const bmr = this.formulas.basalMetabolicRate({age, height, sex, weight});
-    const activityLevel = ActivityLevel.find(level => activity === level.value);
-    const goalLevel = WeightGoal.find(level => goal === level.value);
-
-    const tdee = this.formulas.totalDailyEnergyExpenditure({
-      activity: activityLevel.factor,
-      bmr,
-      goal: goalLevel.factor,
-    });
-
-    const tdeeMax = this.formulas.totalDailyEnergyExpenditure({
-      activity: ActivityLevel[ActivityLevel.length - 1].factor,
-      bmr,
-      goal: WeightGoal[0].factor,
-    });
-    
     // Send new values up to app controller.
     this.dispatchEvent(new CustomEvent('valuesUpdated', {
       bubbles: true,
       composed: true,
       detail: {
-        bmr,
-        tdee,
-        tdeeMax,
+        activity,
+        age,
+        goal,
+        height,
+        sex,
+        weight,
       }
     }));
 

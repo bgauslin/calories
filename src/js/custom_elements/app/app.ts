@@ -1,5 +1,7 @@
 import {LitElement, html} from 'lit';
 import {customElement, query, state} from 'lit/decorators.js';
+import {Formulas} from '../../modules/Formulas';
+import {ActivityLevel, WeightGoal} from '../../modules/shared';
 
 /**
  * Custom element for the Calorie Calculator which renders all other custom
@@ -9,17 +11,19 @@ import {customElement, query, state} from 'lit/decorators.js';
 class App extends LitElement {
   private touchTarget: HTMLElement;
   private valuesListener: EventListenerObject;
-
+  
   @query('number-ticker') results: HTMLElement;
   @query('zig-zag') zigzag: HTMLElement;
 
   @state() bmr: number = 0;
+  @state() formulas: Formulas;
   @state() ready: boolean = false;
   @state() tdee: number = 0;
   @state() tdeeMax: number = 0;
 
   constructor() {
     super();
+    this.formulas = new Formulas();
     this.valuesListener = this.updateApp.bind(this);
   }
 
@@ -42,12 +46,27 @@ class App extends LitElement {
   }
 
   private updateApp(event: CustomEvent) {
-    const {bmr, tdee, tdeeMax} = event.detail;
+    const {activity, age, goal, height, sex, weight} = event.detail;
+    
+    // Get BMR and factors based on selected values, then TDEE and maximum TDEE
+    // for zig-zag chart.
+    this.bmr = this.formulas.basalMetabolicRate({age, height, sex, weight});
 
-    this.bmr = bmr;
-    this.tdee = tdee;
-    this.tdeeMax = tdeeMax;
+    const activityLevel = ActivityLevel.find(level => activity === level.value);
+    const goalLevel = WeightGoal.find(level => goal === level.value);
 
+    this.tdee = this.formulas.totalDailyEnergyExpenditure({
+      activity: activityLevel.factor,
+      bmr: this.bmr,
+      goal: goalLevel.factor,
+    });
+
+    this.tdeeMax = this.formulas.totalDailyEnergyExpenditure({
+      activity: ActivityLevel[ActivityLevel.length - 1].factor,
+      bmr: this.bmr,
+      goal: WeightGoal[0].factor,
+    });
+    
     this.ready = true;
   }
 
