@@ -28,17 +28,11 @@ class UserValues extends LitElement {
   constructor() {
     super();
     this.formulas = new Formulas();
-    this.addEventListener('keyup', this.handleKey);
   }
 
   connectedCallback() {
     super.connectedCallback();
     this.setup();
-  }
-
-  disconnectedCallback() {
-    super.disconnectedCallback();
-    this.removeEventListener('keyup', this.handleKey);
   }
 
   protected createRenderRoot() {
@@ -106,8 +100,7 @@ class UserValues extends LitElement {
       sex,
       weight,
     };    
-    
-    // Update the chart.
+
     this.updateApp(measurements);
     this.ready = true;
   }
@@ -233,17 +226,6 @@ class UserValues extends LitElement {
     }
 
     this.updateApp(measurements);
-  }
-
-  /**
-   * Adds [enter] key functionality to radio buttons.
-   */
-  private handleKey(event: KeyboardEvent) {
-    const target = <HTMLElement>event.target;
-    const radio = target.querySelector('input[type=radio]');
-    if (radio && event.code === 'Enter') {
-      target.click();
-    }
   }
 
   /**

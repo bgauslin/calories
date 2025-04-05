@@ -9,13 +9,16 @@ class RadioMarker extends HTMLElement {
   constructor() {
     super();
     this.addEventListener('change', this.update, true);
+    this.addEventListener('keyup', this.handleKey);
     this.resizeListener = this.update.bind(this);
     window.addEventListener('resize', this.resizeListener);
   }
 
   disconnectedCallback() {
     this.removeEventListener('change', this.update);
+    this.removeEventListener('keyup', this.handleKey);
     window.removeEventListener('resize', this.resizeListener);
+
   }
 
   /**
@@ -38,6 +41,17 @@ class RadioMarker extends HTMLElement {
       this.style.setProperty('--height', `${height / 16}rem`);
       this.style.setProperty('--left', `${leftPos / 16}rem`);
       this.style.setProperty('--width', `${target.clientWidth / 16}rem`);
+    }
+  }
+
+/**
+ * Adds [enter] key functionality to radio buttons.
+ */
+  private handleKey(event: KeyboardEvent) {
+    const target = <HTMLElement>event.target;
+    const radio = target.querySelector('input[type=radio]');
+    if (radio && event.code === 'Enter') {
+      target.click();
     }
   }
 }
