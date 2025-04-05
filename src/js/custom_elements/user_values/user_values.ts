@@ -51,7 +51,10 @@ class UserValues extends LitElement {
     if (!storage) return;
 
     // Get the stored values.
-    const {measurements_, imperial} = JSON.parse(storage)
+    const {measurements_, imperial} = JSON.parse(storage);
+
+    if (!measurements_ || !imperial) return;
+
     const {activity, age, goal, height, sex, weight} = measurements_;
     this.imperial = imperial;
 
