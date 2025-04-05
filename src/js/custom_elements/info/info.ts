@@ -91,6 +91,7 @@ class Info extends LitElement {
         aria-haspopup="true"
         aria-label="About this app"
         id="toggle"
+        tabindex="${this.open ? '0' : '-1'}"
         type="button">
         <svg class="icon icon--${iconClass}" viewbox="0 0 24 24" aria-hidden="true">
           <path d="${iconPath}"/>
