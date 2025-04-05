@@ -105,7 +105,6 @@ class UserValues extends LitElement {
       height,
       sex,
       weight,
-      imperial: this.imperial,
     };    
     
     // Update the chart.
@@ -229,7 +228,6 @@ class UserValues extends LitElement {
       age,
       goal,
       height,
-      imperial: this.imperial,
       sex,
       weight,
     }

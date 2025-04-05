@@ -12,7 +12,6 @@ export interface Measurements {
   height: number,
   sex: string,
   weight: number,
-  imperial: boolean, 
 }
 
 export const ActivityLevel: InputRadio[] = [
