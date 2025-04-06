@@ -51,11 +51,11 @@ class UserValues extends LitElement {
     if (!storage) return;
 
     // Get the stored values.
-    const {measurements_, imperial} = JSON.parse(storage);
+    const {measurements, imperial} = JSON.parse(storage);
 
-    if (!measurements_ || !imperial) return;
+    if (!measurements) return;
 
-    const {activity, age, goal, height, sex, weight} = measurements_;
+    const {activity, age, goal, height, sex, weight} = measurements;
     this.imperial = imperial;
 
     // Populate text inputs from earlier visit.
@@ -96,7 +96,7 @@ class UserValues extends LitElement {
     this.setMarkers();
 
     // Bundle everything up and update the app.
-    const measurements = {
+    const measurements_ = {
       activity,
       age,
       goal,
@@ -105,7 +105,7 @@ class UserValues extends LitElement {
       weight,
     };    
 
-    this.updateApp(measurements);
+    this.updateApp(measurements_);
     this.ready = true;
   }
 
