@@ -18,7 +18,7 @@ calories-app {
   // the app can scroll into view behind and under the dialog when scrolling the
   // contents of the dialog.
   @media (orientation: portrait) {
-    &:has(.dialog[data-open]) {
+    &:has(dialog[open]) {
       block-size: 100dvh;
     }
   }
