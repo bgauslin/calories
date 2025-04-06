@@ -178,7 +178,9 @@ class UserValues extends LitElement {
       }
     }
 
-    this.updateApp();
+    if (this.measurements) {
+      this.updateApp();
+    }
   }
 
   private getFormData() {
