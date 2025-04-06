@@ -3,6 +3,7 @@ number-ticker {
   transition: opacity var(--transition);
 
   &[hidden] {
+    display: none;
     opacity: 0;
   }
 }
