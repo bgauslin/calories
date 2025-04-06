@@ -51,6 +51,7 @@ app-info {
     color: inherit;
     display: block; // [1]
     inline-size: 100%;
+    max-block-size: 100dvh;
     outline: none;
     overflow: auto;
     scrollbar-width: none;
