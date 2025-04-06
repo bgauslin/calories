@@ -51,26 +51,27 @@ app-info {
     }
   }
 
-  .dialog {
+  // [1] Override defaults to enable transitions.
+  dialog {
     background-color: var(--fill-1);
-    block-size: var(--dialog-block-size, 100dvh);
+    block-size: 100%;
+    border: none;
+    color: inherit;
+    display: block; // [1]
     inline-size: 100%;
-    inset: 0;
-    max-block-size: var(--dialog-block-size, 100dvh);
+    outline: none;
     overflow: auto;
-    position: absolute;
     scrollbar-width: none;
-    transition: opacity var(--transition), transform var(--transition);
+    transition: transform var(--transition);
     z-index: 2;
-
-    &:not([data-open]) {
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(var(--dialog-offset, 100dvh));
-    }
 
     &::-webkit-scrollbar {
       display: none;
+    }
+
+    &[inert] {
+      pointer-events: none;
+      transform: translateY(var(--dialog-offset, 100%));
     }
   }
 
