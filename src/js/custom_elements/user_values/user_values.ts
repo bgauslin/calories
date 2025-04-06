@@ -80,14 +80,14 @@ class UserValues extends LitElement {
     }
 
     const elements = [
-      [activity, '#activity'],
-      [goal, '#goal'],
-      [sex, '#sex'],
+      [activity, 'activity'],
+      [goal, 'goal'],
+      [sex, 'sex'],
     ];
 
     for (const element of elements) {
       const [value, parent] = element;
-      const target = <HTMLInputElement>this.querySelector(`${parent} input[value="${value}"]`);
+      const target = <HTMLInputElement>this.querySelector(`[id="${parent}"] input[value="${value}"]`);
       if (target) {
         target.checked = true;
       }
@@ -246,14 +246,17 @@ class UserValues extends LitElement {
   }
 
   private renderToggle() {
+    const ariaLabel = this.imperial ? 'Go metric!' : 'Use Imperial units';
+    const label =  this.imperial ? 'kg · cm' : 'lbs · ft';
+
     return html`
-      <label for="units">
-      <input
+      <button
+        aria-label="${ariaLabel}"
         id="units"
-        type="checkbox"
+        type="button"
         @click="${this.toggleUnits}">
-        <span>${this.imperial ? 'kg · cm' : 'lbs · ft'}</span>
-      </label>
+        <span>${label}</span>
+      </button>
     `;
   }
 

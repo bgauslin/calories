@@ -45,45 +45,33 @@ user-values {
     margin: 0;
   }
 
-  // Label for metric/Imperial units toggle.
-  [for='units'] {
+  // Metric/Imperial units toggle.
+  [id='units'] {
     background-color: var(--gray5);
-    border-radius: 10rem;
-    display: grid; // Override default <label> display set below.
-    grid: 1fr / 1fr;
-    inline-size: 5rem;
+    block-size: 2rem;
+    border-radius: 2rem;
+    color: inherit;
+    cursor: pointer;
+    display: block;
+    font-size: .9em;
     inset-block: 50% auto;
     inset-inline: auto 0;
+    padding-inline: .75em;
     position: absolute;
     transform: translateY(-50%);
     transition: background-color var(--transition);
+    white-space: nowrap;
   }
 
   @media (any-hover: hover) {  
-    [for='units']:hover {
+    [id='units']:hover {
       background-color: var(--gray1);
     }
   }  
 
-  [for='units'] > * {
-    grid-area: 1 / 1 / -1 / -1;
-    place-self: center;
-  }
-
-  // Units toggle checkbox.
-  [id='units'] {
-    block-size: 2rem;
-    cursor: pointer;
-    display: block;
-    inline-size: 100%;
-  }
-
   // Units toggle text.
-  [for='units'] > span {
-    font-size: .9em;
+  [id='units'] span {
     opacity: .7;
-    padding-inline: .5rem;
-    text-align: center;
   }
 
   // Adjustments for individual sections and fields.
