@@ -14,7 +14,7 @@ class Info extends LitElement {
   @property({reflect: true, type: Boolean}) hidden: boolean = true;
   @query('button') button: HTMLButtonElement;
   @query('dialog') dialog: HTMLDialogElement;
-  @state() endpoint: string = 'https://gauslin.com/api/calories.json';
+  @state() endpoint: string = '/calories.json';
   @state() open: boolean = false;
   @state() json: any;
 
