@@ -22,6 +22,7 @@ class UserValues extends LitElement {
   
   @state() formulas: Formulas;
   @state() imperial: boolean = false;
+  @state() measurements: Measurements;
   @state() ready: boolean = false;
   @state() storageItem: string = 'values';
   
@@ -68,7 +69,6 @@ class UserValues extends LitElement {
       this.height.value = `${feet}`;
       this.inches.value = `${inches}`;
       this.weight.value = `${weightImperial}`;
-
     } else {
       this.height.value = height;
       this.weight.value = weight;
@@ -96,7 +96,7 @@ class UserValues extends LitElement {
     this.setMarkers();
 
     // Bundle everything up and update the app.
-    const measurements_ = {
+    this.measurements = {
       activity,
       age,
       goal,
@@ -105,7 +105,8 @@ class UserValues extends LitElement {
       weight,
     };    
 
-    this.updateApp(measurements_);
+    this.updateApp();
+
     this.ready = true;
   }
 
@@ -124,17 +125,17 @@ class UserValues extends LitElement {
   /**
    * Sends measurements up to the app for rendering other UI elements.
    */
-  private updateApp(measurements: Measurements) {
+  private updateApp() {
     this.dispatchEvent(new CustomEvent('valuesUpdated', {
       bubbles: true,
       composed: true,
       detail: {
-        measurements,
+        measurements: this.measurements,
       }
     }));
 
     localStorage.setItem(this.storageItem, JSON.stringify({
-      measurements,
+      measurements: this.measurements,
       imperial: this.imperial,
     }));
   }
@@ -176,6 +177,8 @@ class UserValues extends LitElement {
         this.weight.value = `${weightMetric}`;
       }
     }
+
+    this.updateApp();
   }
 
   private getFormData() {
@@ -205,7 +208,7 @@ class UserValues extends LitElement {
       weight = this.formulas.weightMetric(weight);
     }
 
-    const measurements = {
+    this.measurements = {
       activity,
       age,
       goal,
@@ -214,7 +217,7 @@ class UserValues extends LitElement {
       weight,
     }
 
-    this.updateApp(measurements);
+    this.updateApp();
   }
 
   /**
