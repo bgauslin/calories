@@ -54,6 +54,7 @@ app-info {
     max-block-size: 100dvh;
     outline: none;
     overflow: auto;
+    padding: 0;
     scrollbar-width: none;
     transition: transform var(--transition);
     z-index: 2;
