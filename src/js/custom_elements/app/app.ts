@@ -84,18 +84,21 @@ class App extends LitElement {
   }
 
   protected render() {
+    const tdee_ = this.tdee.toFixed();
+    const tdeeMax_ = this.tdeeMax.toFixed();
+
     return html`
       <h1>${document.title}</h1>
       <app-info></app-info>
       <user-values></user-values>
       <number-ticker
         label="Average Daily Calories"
-        value="${this.tdee.toFixed()}"
+        value="${tdee_}"
         ?hidden="${!this.ready}"></number-ticker>
       <zig-zag
-        aria-hidden="${!this.ready}"
-        tdee="${this.tdee.toFixed()}"
-        max-tdee="${this.tdeeMax.toFixed()}"></zig-zag>
+        tdee="${tdee_}"
+        max-tdee="${tdeeMax_}"
+        ?hidden="${!this.ready}"></zig-zag>
     `;
   }
 }
