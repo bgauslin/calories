@@ -45,23 +45,27 @@ class UserValues extends LitElement {
    */ 
   private async setup() {
     await this.updateComplete;
+
+    // Set default marker positions in case this is first run.
     this.setMarkers();
 
+    // Try to get local storage and bail early if necessary.
     const storage = localStorage.getItem(this.storageItem);
-
     if (!storage) return;
 
-    // Get the stored values.
     const {measurements, imperial} = JSON.parse(storage);
-
     if (!measurements) return;
 
+    // User has been here before; get their stored values.
     const {activity, age, goal, height, sex, weight} = measurements;
     this.imperial = imperial;
 
     // Populate text inputs from earlier visit.
     this.age.value = age;
+    this.height.value = height;
+    this.weight.value = weight;
     
+    // Override values as needed for Imperial units UX.
     if (this.imperial) {
       const {feet, inches} = this.formulas.heightImperial(height);
       const weightImperial = this.formulas.weightImperial(weight);
@@ -69,9 +73,6 @@ class UserValues extends LitElement {
       this.height.value = `${feet}`;
       this.inches.value = `${inches}`;
       this.weight.value = `${weightImperial}`;
-    } else {
-      this.height.value = height;
-      this.weight.value = weight;
     }
 
     // Pre-check radio buttons from earlier visit.
@@ -80,13 +81,13 @@ class UserValues extends LitElement {
     }
 
     const elements = [
-      [activity, 'activity'],
-      [goal, 'goal'],
-      [sex, 'sex'],
+      ['activity', activity],
+      ['goal', goal],
+      ['sex', sex],
     ];
 
     for (const element of elements) {
-      const [value, parent] = element;
+      const [parent, value] = element;
       const target = <HTMLInputElement>this.querySelector(`[id="${parent}"] input[value="${value}"]`);
       if (target) {
         target.checked = true;
@@ -95,7 +96,10 @@ class UserValues extends LitElement {
 
     this.setMarkers();
 
-    // Bundle everything up and update the app.
+    // Remove first run guard.
+    this.ready = true;
+
+    // Bundle everything up and update the rest of the UX.
     this.measurements = {
       activity,
       age,
@@ -106,8 +110,6 @@ class UserValues extends LitElement {
     };    
 
     this.updateApp();
-
-    this.ready = true;
   }
 
   /**
@@ -123,7 +125,8 @@ class UserValues extends LitElement {
   }
 
   /**
-   * Sends measurements up to the app for rendering other UI elements.
+   * Sends measurements up to the app for rendering other UI elements and
+   * saves user values for return visits.
    */
   private updateApp() {
     this.dispatchEvent(new CustomEvent('valuesUpdated', {
@@ -144,9 +147,8 @@ class UserValues extends LitElement {
     this.imperial = !this.imperial;
 
     if (this.imperial) {
-      // Convert height to Imperial feet and inches.
+      // Convert metric height to Imperial feet and inches.
       const height = Number(this.height.value);
-      
       if (height) {
         const {feet, inches} = this.formulas.heightImperial(height);
         this.height.value = `${feet}`;
@@ -155,16 +157,15 @@ class UserValues extends LitElement {
       
       // Convert metric weight to Imperial lbs.
       const weight = Number(this.weight.value);
-
       if (weight) {
         const weightImperial = this.formulas.weightImperial(weight);
         this.weight.value = `${weightImperial}`;
       }
+
     } else {
       // Convert Imperial height to metric cm.
       const feet = Number(this.height.value);
       const inches = Number(this.inches.value);
-      
       if (feet && inches) {
         const heightMetric = this.formulas.heightMetric(feet, inches);
         this.height.value = `${heightMetric}`;
@@ -186,23 +187,18 @@ class UserValues extends LitElement {
   private getFormData() {
     if (this.invalid.length) return;
 
-    this.ready = true;
-
     // Get user-provided values.
     const formData = new FormData(this.form);
 
-    // Values as-is.
+    const activity = Number(formData.get('activity')) || 0;
     const age = Number(formData.get('age'));
+    const goal = Number(formData.get('goal')) || 0;
     const sex = `${formData.get('sex')}`;
 
-    const activity = Number(formData.get('activity')) || 0;
-    const goal = Number(formData.get('goal')) || 0;
-    
-    // Values may need to be converted from Imperial units since the formulas
-    // require metric values.
     let height = Number(formData.get('height'));
     let weight = Number(formData.get('weight'));
 
+    // Convert values to metric for consistency with formulas.
     if (this.imperial) {
       const feet = Number(formData.get('height'));
       const inches = Number(formData.get('inches'));
@@ -210,6 +206,7 @@ class UserValues extends LitElement {
       weight = this.formulas.weightMetric(weight);
     }
 
+    // Send updated values up to the app.
     this.measurements = {
       activity,
       age,
@@ -220,6 +217,9 @@ class UserValues extends LitElement {
     }
 
     this.updateApp();
+
+    // Ensure first run guard is removed.
+    this.ready = true;
   }
 
   /**
@@ -253,7 +253,6 @@ class UserValues extends LitElement {
   private renderToggle() {
     const ariaLabel = this.imperial ? 'Go metric!' : 'Use Imperial units';
     const label =  this.imperial ? 'kg · cm' : 'lbs · ft';
-
     return html`
       <button
         aria-label="${ariaLabel}"
@@ -274,7 +273,6 @@ class UserValues extends LitElement {
       ${field.map((item: any, index: number) => {
         const {value, label, labelImperial} = item;
         const id = prefix ? `${prefix}-${value}` : value;
-
         return html`
           <label for="${id}" tabindex="${this.ready ? '0' : '-1'}">
             <input
@@ -296,7 +294,7 @@ class UserValues extends LitElement {
    * Renders HTML for a group on input fields.
    */
   private renderTextInputs() {
-    const inputs = html`
+    return html`
       ${this.renderToggle()}
       <ul>
         <li class="age">
@@ -345,7 +343,5 @@ class UserValues extends LitElement {
         </li>
       </ul>
     `;
-
-    return inputs;
   }
 }
