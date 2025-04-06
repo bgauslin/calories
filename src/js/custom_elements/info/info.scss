@@ -24,10 +24,6 @@ app-info {
       background-color: var(--fill-3a);
     }
 
-    &[aria-expanded='true'] {
-      background-color: var(--fill-4a);
-    }
-
     &.touch {
       transform: scale(.8);
     }
@@ -39,10 +35,6 @@ app-info {
 
       &:hover {
         background-color: var(--fill-3a);
-      }
-
-      &[aria-expanded='true']:hover {
-        background-color: var(--fill-4a);
       }
 
       &:active {
