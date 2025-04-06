@@ -47,7 +47,7 @@ user-values {
 
   // Metric/Imperial units toggle.
   [id='units'] {
-    background-color: var(--gray5);
+    background-color: var(--fill-2);
     block-size: 2rem;
     border-radius: 2rem;
     color: inherit;
@@ -61,17 +61,30 @@ user-values {
     transform: translateY(-50%);
     transition: background-color var(--transition);
     white-space: nowrap;
-  }
 
-  @media (any-hover: hover) {  
-    [id='units']:hover {
-      background-color: var(--gray1);
+    // Units toggle text.
+    span {
+      opacity: .7;
+      transition: opacity var(--transition);
     }
-  }  
 
-  // Units toggle text.
-  [id='units'] span {
-    opacity: .7;
+    &:focus-visible {
+      background-color: var(--fill-4);
+      
+      span {
+        opacity: 1;
+      }
+    }
+
+    @media (any-hover: hover) {
+      &:hover {
+        background-color: var(--fill-4);
+        
+        span {
+          opacity: 1;
+        }
+      }
+    }
   }
 
   // Adjustments for individual sections and fields.
