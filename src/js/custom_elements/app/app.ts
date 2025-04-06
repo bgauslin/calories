@@ -93,9 +93,9 @@ class App extends LitElement {
         value="${this.tdee.toFixed()}"
         ?hidden="${!this.ready}"></number-ticker>
       <zig-zag
+        aria-hidden="${!this.ready}"
         tdee="${this.tdee.toFixed()}"
-        max-tdee="${this.tdeeMax.toFixed()}"
-        ?hidden="${!this.ready}"></zig-zag>
+        max-tdee="${this.tdeeMax.toFixed()}"></zig-zag>
     `;
   }
 }

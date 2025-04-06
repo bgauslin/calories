@@ -3,7 +3,7 @@ zig-zag {
   place-self: end stretch;
   transition: opacity var(--transition) ease-out;
 
-  &[hidden] {
+  &[aria-hidden='true'] {
     opacity: 0;
   }
 
