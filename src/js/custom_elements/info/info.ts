@@ -14,9 +14,9 @@ class Info extends LitElement {
   @property({reflect: true, type: Boolean}) hidden: boolean = true;
   @query('button') button: HTMLButtonElement;
   @query('dialog') dialog: HTMLDialogElement;
-  @state() endpoint: string = './calories.json';
-  @state() open: boolean = false;
+  @state() inert: boolean = true;
   @state() json: any;
+  @state() open: boolean = false;
 
   constructor() {
     super();
@@ -42,7 +42,7 @@ class Info extends LitElement {
 
   private async fetchInfo(): Promise<any> {
     try {
-      const response = await fetch(this.endpoint);
+      const response = await fetch('calories.json');
       this.json = await response.json();
       this.hidden = false;
     } catch (error) {
@@ -51,13 +51,15 @@ class Info extends LitElement {
     }
   }
 
-  private togglePanel() {
-    if (this.dialog.open) {
-      this.open = false;
+  togglePanel() {
+    if (this.open) {
+      this.inert = true;
       this.dialog.addEventListener('transitionend', () => {
         this.dialog.close();
+        this.open = false;
       }, {once: true});
     } else {
+      this.inert = false;
       this.dialog.show();
       this.open = true;
     }
@@ -65,19 +67,18 @@ class Info extends LitElement {
 
   private handleClick(event: Event) {
     const target = event.composedPath()[0];
-
-    if (target === this.button || target === document.body && this.open) {
+    if (target === this.button || (target === document.body && this.open)) {
       this.togglePanel();
     }
   }
 
   private handleKey(event: KeyboardEvent) {
     if (event.code === 'Escape' && this.open) {
-      this.open = false;
+      event.preventDefault();
+      this.togglePanel();
     }
   }
 
-  // TODO: Verify ARIA / a11y for <dialog>.
   protected render() {
     if (!this.json) return;
 
@@ -95,10 +96,11 @@ class Info extends LitElement {
           <path d="${iconPath}"/>
         </svg>
       </button>
+
       <dialog
         id="info"
-        ?inert="${!this.open}"
-        ?open="${this.open}">
+        ?open="${this.open}"
+        ?inert="${this.inert}">
         <article>
           ${unsafeHTML(this.json.info)}
         </article>

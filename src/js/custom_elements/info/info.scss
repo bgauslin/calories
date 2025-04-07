@@ -44,6 +44,8 @@ app-info {
   }
 
   // [1] Override defaults to enable transitions.
+  // [2] Ensure closed <dialog> occupies no space since app can be taller than
+  //     viewport on small/portrait screens.
   dialog {
     background-color: var(--fill-1);
     block-size: 100%;
@@ -64,8 +66,11 @@ app-info {
     }
 
     &[inert] {
-      pointer-events: none;
-      transform: translateY(var(--dialog-offset, 100%));
+      transform: translateY(100%);
+    }
+
+    &:not([open]) {
+      block-size: 0; // [2]
     }
   }
 
