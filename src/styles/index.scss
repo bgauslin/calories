@@ -1,9 +1,9 @@
 @use 'vars';
 @use 'base';
 
-@use '../js/custom_elements/app/app';
-@use '../js/custom_elements/info/info';
-@use '../js/custom_elements/number_ticker/number_ticker';
-@use '../js/custom_elements/radio_marker/radio_marker';
-@use '../js/custom_elements/user_values/user_values';
-@use '../js/custom_elements/zigzag/zigzag';
+@use '../js/components/app/app';
+@use '../js/components/info/info';
+@use '../js/components/number_ticker/number_ticker';
+@use '../js/components/radio_marker/radio_marker';
+@use '../js/components/user_values/user_values';
+@use '../js/components/zigzag/zigzag';

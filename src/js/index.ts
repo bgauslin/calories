@@ -1,10 +1,10 @@
 // Custom elements.
-import './custom_elements/app/app';
-import './custom_elements/info/info';
-import './custom_elements/number_ticker/number_ticker';
-import './custom_elements/radio_marker/radio_marker';
-import './custom_elements/user_values/user_values';
-import './custom_elements/zigzag/zigzag';
+import './components/app/app';
+import './components/info/info';
+import './components/number_ticker/number_ticker';
+import './components/radio_marker/radio_marker';
+import './components/user_values/user_values';
+import './components/zigzag/zigzag';
 
 // CSS entry file for Webpack.
 import '../styles/index.scss';
