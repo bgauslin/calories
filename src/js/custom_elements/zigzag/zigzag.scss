@@ -1,3 +1,4 @@
+// [1] Prevent layout shift on first run transition.
 zig-zag {
   grid-area: graph;
   place-self: end stretch;
@@ -5,6 +6,10 @@ zig-zag {
 
   &[hidden] {
     opacity: 0;
+
+    @media (orientation: landscape) {
+      display: block; // [1]
+    }
   }
 
   ol {

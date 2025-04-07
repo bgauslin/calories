@@ -1,3 +1,6 @@
+// [1] Prevent the app from scrolling with opened <dialog>. Otherwise, bits
+// of the app can scroll into view behind/under the <dialog> when scrolling
+// its contents.
 calories-app {
   background-color: var(--fill-1);
   border: var(--app-border);
@@ -14,12 +17,9 @@ calories-app {
   place-self: var(--app-place-self, start center);
   position: relative;
 
-  // Prevent the app from scrolling when the dialog is open. Otherwise, bits of
-  // the app can scroll into view behind and under the dialog when scrolling the
-  // contents of the dialog.
   @media (orientation: portrait) {
     &:has(dialog[open]) {
-      block-size: 100dvh;
+      block-size: 100dvh; // [1]
     }
   }
 
@@ -33,10 +33,11 @@ calories-app {
   }
 
   // Results <number-ticker> element.
+  // [1] Prevent layout shift on first run transition.
   & > number-ticker {
     background: -webkit-linear-gradient(var(--brand-orange), var(--brand-red));
-    -webkit-background-clip: text;
     background-clip: text;
+    -webkit-background-clip: text;
     font-size: 400%;
     grid-area: results;
     inline-size: 100%;
@@ -47,6 +48,12 @@ calories-app {
     position: relative;
     text-align: center;
     -webkit-text-fill-color: transparent;
+
+    @media (orientation: landscape) {
+      &[hidden] {
+        display: block; // [1]
+      }
+    }
   }
 
   & > number-ticker::after {
