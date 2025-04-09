@@ -10,19 +10,22 @@
   --label-width: 4em;
 
   @media (orientation: landscape) {
-    --app-border: var(--border);
-    --app-gap: 0 var(--gap);
-    --app-grid: 'title info' var(--header-size) 'values results' 'values graph' '. .' var(--gap) / 1fr 1fr;
-    --app-margin: var(--gap);
-    --app-max-width: 48em;
-    --app-min-block-size: none;
-    --app-place-self: center;
-    --body-fill: var(--fill-0);
-    --dialog-block-size: 100%;
-    --dialog-offset: 100%;
-    --results-margin-gap: 0 .5em;
+    & {
+      --app-border: var(--border);
+      --app-gap: 0 var(--gap);
+      --app-grid: 'title info' var(--header-size) 'values results' 'values graph' '. .' var(--gap) / 1fr 1fr;
+      --app-margin: var(--gap);
+      --app-max-width: 48em;
+      --app-min-block-size: none;
+      --app-place-self: center;
+      --dialog-block-size: 100%;
+      --dialog-offset: 100%;
+      --results-margin-gap: 0 .5em;
+    }
   }
+}
 
+:root {
   // Typography.
   --font: clamp(1em, .75em + 1vw, 1.25em) / 1.4 var(--font-family);
   --font-family: 'Avenir Variable', sans-serif;
@@ -50,7 +53,6 @@
 
   // Theming.
   --backdrop-filter: blur(6px);
-  --body-fill: var(--fill-1);
   --border: 1px solid var(--gray5);
   --fill-0: var(--gray6);
   --fill-1: white;
@@ -69,28 +71,30 @@
   --warning-color: rgb(202, 36, 48);
 
   @media (prefers-color-scheme: dark) {
-    // Dark mode grays.
-    --gray1: rgb(142, 142, 147);
-    --gray2: rgb(99, 99, 102);
-    --gray3: rgb(72, 72, 74);
-    --gray4: rgb(58, 58, 60);
-    --gray5: rgb(44, 44, 46);
-    --gray6: rgb(28, 28, 30);
+    & {
+      // Dark mode grays.
+      --gray1: rgb(142, 142, 147);
+      --gray2: rgb(99, 99, 102);
+      --gray3: rgb(72, 72, 74);
+      --gray4: rgb(58, 58, 60);
+      --gray5: rgb(44, 44, 46);
+      --gray6: rgb(28, 28, 30);
 
-    // Dark mode theming.
-    --fill-0: black;
-    --fill-1: var(--gray6);
-    --fill-2: var(--gray5);
-    --fill-2a: rgba(44, 44, 46, .7);  // --fill-2 with alpha
-    --fill-3: var(--gray4);
-    --fill-3a: rgba(58, 58, 60, .7);  // --fill-3 with alpha
-    --fill-4: var(--gray3);
-    --fill-4a: rgba(72, 72, 74, .7);  // --fill-4 with alpha
-    --link-color: CornflowerBlue;
-    --link-focus-color: DarkOrange;
-    --link-visited-color: MediumPurple;
-    --text-color: white;
-    --warning-background: rgb(64, 39, 46);
-    --warning-color: rgb(254, 127, 140);
+      // Dark mode theming.
+      --fill-0: black;
+      --fill-1: var(--gray6);
+      --fill-2: var(--gray5);
+      --fill-2a: rgba(44, 44, 46, .7);  // --fill-2 with alpha
+      --fill-3: var(--gray4);
+      --fill-3a: rgba(58, 58, 60, .7);  // --fill-3 with alpha
+      --fill-4: var(--gray3);
+      --fill-4a: rgba(72, 72, 74, .7);  // --fill-4 with alpha
+      --link-color: CornflowerBlue;
+      --link-focus-color: DarkOrange;
+      --link-visited-color: MediumPurple;
+      --text-color: white;
+      --warning-background: rgb(64, 39, 46);
+      --warning-color: rgb(254, 127, 140);
+    }
   }
 }
