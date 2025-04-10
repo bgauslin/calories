@@ -4,9 +4,9 @@ import {Formulas} from '../../modules/Formulas';
 import {ActivityLevel, Measurements, Sex, WeightGoal} from '../../modules/shared';
 
 /**
- * Custom element that renders input fields for user interaction, calculates
- * BMR and TDEE via user input, enables/disables a 'results' element based on
- * valid user input, and saves user-provided data to localStorage.
+ * Web Component that renders fields for user input, converts
+ * to/from Imperial units, sends user-provided data up the DOM,
+ * and saves the data to localStorage.
  */
 @customElement('user-values')
 class UserValues extends LitElement {
@@ -125,7 +125,7 @@ class UserValues extends LitElement {
   }
 
   /**
-   * Sends measurements up to the app for rendering other UI elements and
+   * Sends measurements up the DOM for rendering other UI elements and
    * saves user values for return visits.
    */
   private updateApp() {
@@ -143,6 +143,9 @@ class UserValues extends LitElement {
     }));
   }
 
+  /**
+   * Converts height and weight to/from metric and Imperial.
+   */
   private toggleUnits() {
     this.imperial = !this.imperial;
 
@@ -222,9 +225,6 @@ class UserValues extends LitElement {
     this.ready = true;
   }
 
-  /**
-   * Renders HTML for user-provided values.
-   */
   protected render() {
     return html`
       <form @change="${this.getFormData}">
@@ -264,9 +264,6 @@ class UserValues extends LitElement {
     `;
   }
 
-  /**
-   * Renders HTML for a group of radio buttons.
-   */
   private renderRadioButtons(field: any, name: string, prefix: string = '') {
     return html`
       <radio-marker>
@@ -290,9 +287,6 @@ class UserValues extends LitElement {
     `;
   }
 
-  /**
-   * Renders HTML for a group on input fields.
-   */
   private renderTextInputs() {
     return html`
       ${this.renderToggle()}
