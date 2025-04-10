@@ -2,12 +2,21 @@
   // Layout.
   --app-gap: 0;
   --app-grid: 'title info' var(--header-size) 'values values' 'results results' 'graph graph' 1fr '. .' var(--header-size) / 1fr var(--button-size);
-  --app-max-width: 24em;
+  --app-max-width: 24em; // Matches media query 'min-width' below.
   --button-size: 44px;
   --gap: clamp(1em, .75em + 2vw, 2em);
   --header-size: clamp(3em, 2em + 1vw, 4em);
   --input-height: 2em;
   --label-width: 4em;
+
+  // Media query 'min-width' matches '--app-max-width' above.
+  @media (min-width: 24em) {
+    & {
+      --app-border-radius: 1em;
+      --app-margin: var(--gap);
+      --app-min-block-size: none;
+    }
+  }
 
   @media (orientation: landscape) {
     & {
@@ -16,7 +25,6 @@
       --app-grid: 'title info' var(--header-size) 'values results' 'values graph' '. .' var(--gap) / 1fr 1fr;
       --app-margin: var(--gap);
       --app-max-width: 48em;
-      --app-min-block-size: none;
       --app-place-self: center;
       --dialog-block-size: 100%;
       --dialog-offset: 100%;
