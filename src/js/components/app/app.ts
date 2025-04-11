@@ -9,14 +9,13 @@ import {ActivityLevel, WeightGoal} from '../../modules/shared';
  */
 @customElement('calories-app')
 class App extends LitElement {
+  private formulas: Formulas;
   private touchTarget: HTMLElement;
   private valuesListener: EventListenerObject;
   
   @query('number-ticker') results: HTMLElement;
   @query('zig-zag') zigzag: HTMLElement;
-
   @state() bmr: number = 0;
-  @state() formulas: Formulas;
   @state() ready: boolean = false;
   @state() tdee: number = 0;
   @state() tdeeMax: number = 0;
