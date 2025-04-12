@@ -92,15 +92,18 @@ class Info extends LitElement {
         id="toggle"
         title="${label}"
         type="button">
-        <svg class="icon icon--${iconClass}" viewbox="0 0 24 24" aria-hidden="true">
+        <svg
+          aria-hidden="true"  
+          class="icon icon--${iconClass}"
+          viewbox="0 0 24 24">
           <path d="${iconPath}"/>
         </svg>
       </button>
 
       <dialog
         id="info"
-        ?open="${this.open}"
-        ?inert="${this.inert}">
+        ?inert="${this.inert}"
+        ?open="${this.open}">
         <article>
           ${unsafeHTML(this.json.info)}
         </article>
