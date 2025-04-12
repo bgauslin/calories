@@ -3,6 +3,7 @@
   --app-gap: 0;
   --app-grid: 'title info' var(--header-size) 'values values' 'results results' 'graph graph' 1fr '. .' var(--header-size) / 1fr var(--button-size);
   --app-max-width: 24em; // Matches media query 'min-width' below.
+  --body-fill: var(--fill-1);
   --button-size: 44px;
   --gap: clamp(1em, .75em + 2vw, 2em);
   --header-size: clamp(3em, 2em + 1vw, 4em);
@@ -15,6 +16,7 @@
       --app-border-radius: 1em;
       --app-margin: var(--gap);
       --app-min-block-size: none;
+      --body-fill: revert;
     }
   }
 
