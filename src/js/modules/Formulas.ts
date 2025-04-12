@@ -59,16 +59,18 @@ export class Formulas {
 
   /**
    * Converts weight in Imperial units to metric.
+   * TODO: Support decimal value and [\.,]? pattern.
    */
   public weightMetric(pounds: number): number {
-    return Math.round((pounds / LBS_TO_KG) * 10) / 10;
+    return Math.ceil(pounds / LBS_TO_KG);
   }
 
   /**
    * Converts weight in metric units to Imperial.
+   * TODO: Support decimal value and [\.,]? pattern.
    */
   public weightImperial(kg: number): number {
-    return Math.round((kg * LBS_TO_KG) * 10) / 10;
+    return Math.floor(kg * LBS_TO_KG);
   }
 
   /**

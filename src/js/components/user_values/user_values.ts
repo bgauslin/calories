@@ -290,6 +290,7 @@ class UserValues extends LitElement {
   }
 
   private renderTextInputs() {
+    // TODO: Support height and weight 'decimal' inputmode with [\.,]? pattern.
     return html`
       ${this.renderToggle()}
       <ul>
@@ -308,9 +309,9 @@ class UserValues extends LitElement {
           <label for="weight">Weight</label>
           <input
             id="weight"
-            inputmode="decimal"
+            inputmode="numeric"
             name="weight"
-            pattern="[0-9]{0,3}[,\.]?[0-9]?"
+            pattern="[1-3]?[0-9][0-9]"
             type="text"
             required>
           <span class="units">${this.imperial ? 'lbs' : 'kg'}</span>
@@ -321,7 +322,7 @@ class UserValues extends LitElement {
             id="height"
             inputmode="numeric"
             name="height"
-            pattern="${this.imperial ? '[3-7]' : '[1-3]?[0-9][0-9]'}"
+            pattern="${this.imperial ? '[3-7]' : '[1-2]?[0-9][0-9]'}"
             type="text"
             required>
           <span class="units">${this.imperial ? 'ft' : 'cm'}</span>
