@@ -1,5 +1,5 @@
 import {LitElement, html} from 'lit';
-import {customElement, property, query, state} from 'lit/decorators.js';
+import {customElement, property} from 'lit/decorators.js';
 import {ifDefined} from 'lit/directives/if-defined.js';
 
 /**
@@ -8,13 +8,12 @@ import {ifDefined} from 'lit/directives/if-defined.js';
  */
 @customElement('zig-zag')
 class ZigZag extends LitElement {
+  private modifiers: number[] = [1, .9, 1.1, 1, .8, 1, 1.2];
+  private tdeeMin: number = 1200;
+  private weekdays: string[] = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
   @property({attribute: 'tdee', type: Number}) tdee = 0;
   @property({attribute: 'tdee-max', type: Number}) tdeeMax = 0;
-  @query('li') days: HTMLElement[];
-  @query('number-ticker') tickers: HTMLElement[];
-  @state() minimumTDEE: number = 1200;
-  @state() modifiers: number[] = [1, .9, 1.1, 1, .8, 1, 1.2];
-  @state() weekdays: string[] = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
   protected createRenderRoot() {
     return this;
@@ -36,7 +35,7 @@ class ZigZag extends LitElement {
       ${this.weekdays.map((day, index) => {
         const width = widths[index];
         const value = tdeeAll[index];
-        const className = (value < this.minimumTDEE) ? 'warning' : undefined;
+        const className = (value < this.tdeeMin) ? 'warning' : undefined;
 
         return html`
         <li
