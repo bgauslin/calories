@@ -310,7 +310,7 @@ class UserValues extends LitElement {
             id="weight"
             inputmode="decimal"
             name="weight"
-            pattern="[0-9]{0,3}[\.]?[0-9]?"
+            pattern="[0-9]{0,3}[,\.]?[0-9]?"
             type="text"
             required>
           <span class="units">${this.imperial ? 'lbs' : 'kg'}</span>
