@@ -8,9 +8,12 @@ class RadioMarker extends HTMLElement {
 
   constructor() {
     super();
+    this.resizeListener = this.update.bind(this);
+  }
+
+  connectedCallback() {
     this.addEventListener('change', this.update, true);
     this.addEventListener('keyup', this.handleKey);
-    this.resizeListener = this.update.bind(this);
     window.addEventListener('resize', this.resizeListener);
   }
 
@@ -18,7 +21,6 @@ class RadioMarker extends HTMLElement {
     this.removeEventListener('change', this.update);
     this.removeEventListener('keyup', this.handleKey);
     window.removeEventListener('resize', this.resizeListener);
-
   }
 
   /**
@@ -38,9 +40,9 @@ class RadioMarker extends HTMLElement {
       const height = target.clientHeight;
 
       // Update custom properties and let the CSS take over.
-      this.style.setProperty('--height', `${height / 16}rem`);
-      this.style.setProperty('--left', `${leftPos / 16}rem`);
-      this.style.setProperty('--width', `${target.clientWidth / 16}rem`);
+      this.style.setProperty('--height', `${height}px`);
+      this.style.setProperty('--left', `${leftPos}px`);
+      this.style.setProperty('--width', `${target.clientWidth}px`);
     }
   }
 
