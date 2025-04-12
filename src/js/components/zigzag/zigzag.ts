@@ -8,8 +8,8 @@ import {ifDefined} from 'lit/directives/if-defined.js';
  */
 @customElement('zig-zag')
 class ZigZag extends LitElement {
-  @property({attribute: 'tdee', type: Number}) tdee: number = 0;
-  @property({attribute: 'max-tdee', type: Number}) tdeeMax: number = 0;
+  @property({attribute: 'tdee', type: Number}) tdee = 0;
+  @property({attribute: 'tdee-max', type: Number}) tdeeMax = 0;
   @query('li') days: HTMLElement[];
   @query('number-ticker') tickers: HTMLElement[];
   @state() minimumTDEE: number = 1200;
@@ -43,7 +43,9 @@ class ZigZag extends LitElement {
           class="${ifDefined(className ? className : undefined)}"
           style="width: ${width}%">
           <span aria-label="${day}">${day.substring(0, 3)}</span>
-          <number-ticker value="${value}"></number-ticker>
+          <number-ticker
+            aria-label="${value}"
+            value="${value}"></number-ticker>
         </li>
         `})}
       </ol>
