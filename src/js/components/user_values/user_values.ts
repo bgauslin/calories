@@ -159,8 +159,9 @@ class UserValues extends LitElement {
       }
       
       // Convert metric weight to Imperial lbs.
-      const weight = Number(this.weight.value);
-      if (weight) {
+      const weight_ = `${this.weight.value.replace(',', '.')}`;
+      const weight = Number(weight_);
+      if (weight) {  
         const weightImperial = this.formulas.weightImperial(weight);
         this.weight.value = `${weightImperial}`;
       }
@@ -175,7 +176,8 @@ class UserValues extends LitElement {
       }
 
       // Convert Imperial weight to metric kg.
-      const weight = Number(this.weight.value);
+      const weight_ = `${this.weight.value.replace(',', '.')}`;
+      const weight = Number(weight_);
       if (weight) {
         const weightMetric = this.formulas.weightMetric(weight);
         this.weight.value = `${weightMetric}`;
@@ -197,9 +199,10 @@ class UserValues extends LitElement {
     const age = Number(formData.get('age'));
     const goal = Number(formData.get('goal')) || 0;
     const sex = `${formData.get('sex')}`;
+    const weight_ = `${formData.get('weight')}`;
 
+    let weight = Number(weight_.replace(',', '.'));
     let height = Number(formData.get('height'));
-    let weight = Number(formData.get('weight'));
 
     // Convert values to metric for consistency with formulas.
     if (this.imperial) {
@@ -290,7 +293,6 @@ class UserValues extends LitElement {
   }
 
   private renderTextInputs() {
-    // TODO: Support height and weight 'decimal' inputmode with [\.,]? pattern.
     return html`
       ${this.renderToggle()}
       <ul>
@@ -309,9 +311,9 @@ class UserValues extends LitElement {
           <label for="weight">Weight</label>
           <input
             id="weight"
-            inputmode="numeric"
+            inputmode="decimal"
             name="weight"
-            pattern="[1-3]?[0-9][0-9]"
+            pattern="[1-3]?[0-9][0-9][,\.]?[0-9]?"
             type="text"
             required>
           <span class="units">${this.imperial ? 'lbs' : 'kg'}</span>
