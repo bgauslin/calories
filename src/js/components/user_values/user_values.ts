@@ -20,6 +20,7 @@ class UserValues extends LitElement {
   @queryAll('[type="radio"]') radioButtons: HTMLInputElement[];
   @queryAll('radio-marker') radioMarkers: HTMLElement[];
   
+  @state() commas: boolean = false;
   @state() formulas: Formulas;
   @state() imperial: boolean = false;
   @state() measurements: Measurements;
@@ -53,26 +54,31 @@ class UserValues extends LitElement {
     const storage = localStorage.getItem(this.storageItem);
     if (!storage) return;
 
-    const {measurements, imperial} = JSON.parse(storage);
+    const {commas, imperial, measurements} = JSON.parse(storage);
     if (!measurements) return;
 
     // User has been here before; get their stored values.
-    const {activity, age, goal, height, sex, weight} = measurements;
+    this.commas = commas;
     this.imperial = imperial;
+    const {activity, age, goal, height, sex, weight} = measurements;
 
     // Populate text inputs from earlier visit.
     this.age.value = age;
     this.height.value = height;
-    this.weight.value = weight;
+
+    const weight_ = `${weight}`;
+    const weightDisplay = this.commas ? weight_.replace('.', ',') : weight;
+    this.weight.value = weightDisplay;
     
     // Override values as needed for Imperial units UX.
     if (this.imperial) {
       const {feet, inches} = this.formulas.heightImperial(height);
-      const weightImperial = this.formulas.weightImperial(weight);
+      const weightImperial = `${this.formulas.weightImperial(weight)}`;
+      const weightDisplay = this.commas ? weightImperial.replace('.', ',') : weightImperial;
 
       this.height.value = `${feet}`;
       this.inches.value = `${inches}`;
-      this.weight.value = `${weightImperial}`;
+      this.weight.value = weightDisplay;
     }
 
     // Pre-check radio buttons from earlier visit.
@@ -138,8 +144,9 @@ class UserValues extends LitElement {
     }));
 
     localStorage.setItem(this.storageItem, JSON.stringify({
-      measurements: this.measurements,
+      commas: this.commas,
       imperial: this.imperial,
+      measurements: this.measurements,
     }));
   }
 
@@ -162,8 +169,9 @@ class UserValues extends LitElement {
       const weight_ = `${this.weight.value.replace(',', '.')}`;
       const weight = Number(weight_);
       if (weight) {  
-        const weightImperial = this.formulas.weightImperial(weight);
-        this.weight.value = `${weightImperial}`;
+        const weightImperial = `${this.formulas.weightImperial(weight)}`;
+        const display = this.commas ? weightImperial.replace('.', ',') : weightImperial;
+        this.weight.value = display;
       }
 
     } else {
@@ -179,8 +187,9 @@ class UserValues extends LitElement {
       const weight_ = `${this.weight.value.replace(',', '.')}`;
       const weight = Number(weight_);
       if (weight) {
-        const weightMetric = this.formulas.weightMetric(weight);
-        this.weight.value = `${weightMetric}`;
+        const weightMetric = `${this.formulas.weightMetric(weight)}`;
+        const display = this.commas ? weightMetric.replace('.', ',') : weightMetric;
+        this.weight.value = display;
       }
     }
 
@@ -199,9 +208,14 @@ class UserValues extends LitElement {
     const age = Number(formData.get('age'));
     const goal = Number(formData.get('goal')) || 0;
     const sex = `${formData.get('sex')}`;
-    const weight_ = `${formData.get('weight')}`;
 
+    // Get weight and set formatting flag if they use commas for decimals.
+    const weight_ = `${formData.get('weight')}`;
+    const found = weight_.match(/[,]/g);
+    this.commas = found && found.length !== 0;
     let weight = Number(weight_.replace(',', '.'));
+
+    // Get height.
     let height = Number(formData.get('height'));
 
     // Convert values to metric for consistency with formulas.
@@ -235,16 +249,13 @@ class UserValues extends LitElement {
           <h2>Sex</h2>
           ${this.renderRadioButtons(Sex, 'sex')}
         </fieldset>
-        
         <fieldset id="measurements">
           ${this.renderTextInputs()}
         </fieldset>
-
         <fieldset id="activity" ?disabled="${!this.ready}">
           <h2>Exercise <span>times per week</span></h2>
           ${this.renderRadioButtons(ActivityLevel, 'activity', 'level')}
         </fieldset>
-
         <fieldset id="goal" ?disabled="${!this.ready}">
           <h2>Weight Loss <span>${this.imperial ? 'lbs' : 'kg'} per week</span></h2>
           ${this.renderRadioButtons(WeightGoal, 'goal', 'goal')}
