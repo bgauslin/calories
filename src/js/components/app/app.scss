@@ -32,9 +32,9 @@ calories-app {
     white-space: nowrap;
   }
 
-  // Results <number-ticker> element.
+  // Results <calories-ticker> element.
   // [1] Prevent layout shift on first run transition.
-  & > number-ticker {
+  & > calories-ticker {
     background: -webkit-linear-gradient(var(--brand-orange), var(--brand-red));
     background-clip: text;
     -webkit-background-clip: text;
@@ -56,7 +56,7 @@ calories-app {
     }
   }
 
-  & > number-ticker::after {
+  & > calories-ticker::after {
     background: inherit;
     content: attr(label);
     display: block;

@@ -8,7 +8,7 @@ import {ActivityLevel, Measurements, Sex, WeightGoal} from '../../modules/shared
  * to/from Imperial units, sends user-provided data up the DOM,
  * and saves the data to localStorage.
  */
-@customElement('user-values')
+@customElement('calories-values')
 class UserValues extends LitElement {
   @query('#age') age: HTMLInputElement;
   @query('form') form: HTMLFormElement;

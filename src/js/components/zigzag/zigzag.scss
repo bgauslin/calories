@@ -1,5 +1,5 @@
 // [1] Prevent layout shift on first run transition.
-zig-zag {
+calories-zigzag {
   grid-area: graph;
   place-self: end stretch;
   transition: opacity var(--transition) ease-out;

@@ -13,8 +13,8 @@ class App extends LitElement {
   private touchTarget: HTMLElement;
   private valuesListener: EventListenerObject;
   
-  @query('number-ticker') results: HTMLElement;
-  @query('zig-zag') zigzag: HTMLElement;
+  @query('calories-ticker') results: HTMLElement;
+  @query('calories-zigzag') zigzag: HTMLElement;
   @state() bmr: number = 0;
   @state() ready: boolean = false;
   @state() tdee: number = 0;
@@ -89,17 +89,17 @@ class App extends LitElement {
 
     return html`
       <h1>${document.title}</h1>
-      <app-info></app-info>
-      <user-values></user-values>
-      <number-ticker
+      <calories-info></calories-info>
+      <calories-values></calories-values>
+      <calories-ticker
         aria-label="${tdee_} ${caption}"
         label="${caption}"
         value="${tdee_}"
-        ?hidden="${!this.ready}"></number-ticker>
-      <zig-zag
+        ?hidden="${!this.ready}"></calories-ticker>
+      <calories-zigzag
         tdee="${tdee_}"
         tdee-max="${tdeeMax_}"
-        ?hidden="${!this.ready}"></zig-zag>
+        ?hidden="${!this.ready}"></calories-zigzag>
     `;
   }
 }

@@ -6,7 +6,7 @@ import {ifDefined} from 'lit/directives/if-defined.js';
  * Custom element that renders daily TDEE based on overall TDEE where each
  * day's TDEE value is adjusted for "zig-zag" calorie counting.
  */
-@customElement('zig-zag')
+@customElement('calories-zigzag')
 class ZigZag extends LitElement {
   private modifiers: number[] = [1, .9, 1.1, 1, .8, 1, 1.2];
   private tdeeMin: number = 1200;
@@ -42,9 +42,9 @@ class ZigZag extends LitElement {
           class="${ifDefined(className ? className : undefined)}"
           style="width: ${width}%">
           <span aria-label="${day}">${day.substring(0, 3)}</span>
-          <number-ticker
+          <calories-ticker
             aria-label="${value}"
-            value="${value}"></number-ticker>
+            value="${value}"></calories-ticker>
         </li>
         `})}
       </ol>

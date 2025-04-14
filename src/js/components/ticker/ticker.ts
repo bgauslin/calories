@@ -38,4 +38,4 @@ class NumberTicker extends HTMLElement {
   }
 }
 
-customElements.define('number-ticker', NumberTicker);
+customElements.define('calories-ticker', NumberTicker);
