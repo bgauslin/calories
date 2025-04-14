@@ -5,15 +5,15 @@
   --app-max-width: 24em; // Matches media query 'min-width' below.
   --body-fill: var(--fill-1);
   --button-size: 44px;
-  --gap: clamp(1em, .75em + 2vw, 2em);
-  --header-size: clamp(3em, 2em + 1vw, 4em);
+  --gap: 1em;
+  --header-size: 3em;
   --input-height: 2em;
   --label-width: 4em;
 
   // Media query 'min-width' matches '--app-max-width' above.
   @media (min-width: 24em) {
     & {
-      --app-border-radius: 1em;
+      --app-border-radius: 1.5em;
       --app-margin: var(--gap);
       --app-min-block-size: none;
       --body-fill: revert;
