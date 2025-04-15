@@ -17,9 +17,8 @@ class UserValues extends LitElement {
   @query('#weight') weight: HTMLInputElement;
 
   @queryAll(':invalid') invalid: HTMLElement[];
-  @queryAll('[type="radio"]') radioButtons: HTMLInputElement[];
-  @queryAll('radio-marker') radioMarkers: HTMLElement[];
-  
+  @queryAll('calories-marker') markers: HTMLElement[];
+
   @state() commas: boolean = false;
   @state() formulas: Formulas;
   @state() imperial: boolean = false;
@@ -82,7 +81,7 @@ class UserValues extends LitElement {
     }
 
     // Pre-check radio buttons from earlier visit.
-    for (const marker of <HTMLInputElement[]>this.radioMarkers) {
+    for (const marker of <HTMLInputElement[]>this.markers) {
       marker.checked = false;
     }
 
@@ -119,12 +118,12 @@ class UserValues extends LitElement {
   }
 
   /**
-   * Waits a tick, then fires a change on each <radio-marker> to set its
+   * Waits a tick, then fires a change on each <calories-marker> to set its
    * marker position.
    */
   private setMarkers() {
     window.requestAnimationFrame(() => {
-      for (const marker of this.radioMarkers) {
+      for (const marker of this.markers) {
         marker.dispatchEvent(new Event('change'));
       }
     });
@@ -280,7 +279,7 @@ class UserValues extends LitElement {
 
   private renderRadioButtons(field: any, name: string, prefix: string = '') {
     return html`
-      <radio-marker>
+      <calories-marker>
       ${field.map((item: any, index: number) => {
         const {value, label, labelImperial} = item;
         const id = prefix ? `${prefix}-${value}` : value;
@@ -299,7 +298,7 @@ class UserValues extends LitElement {
           </label>
         `;
       })}
-      </radio-marker>
+      </calories-marker>
     `;
   }
 

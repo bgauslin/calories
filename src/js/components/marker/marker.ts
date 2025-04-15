@@ -3,7 +3,7 @@
  * visual marker that slides from the previously checked button to the
  * currently checked button.
  */
-class RadioMarker extends HTMLElement {
+customElements.define('calories-marker', class extends HTMLElement {
   private resizeListener: EventListenerObject;
 
   constructor() {
@@ -56,6 +56,4 @@ class RadioMarker extends HTMLElement {
       target.click();
     }
   }
-}
-
-customElements.define('radio-marker', RadioMarker);
+});

@@ -16,8 +16,8 @@
     "src/js/index.ts",
     "src/js/components/app/app.ts",
     "src/js/components/info/info.ts",
+    "src/js/components/marker/marker.ts",
     "src/js/components/ticker/ticker.ts",
-    "src/js/components/radio_marker/radio_marker.ts",
     "src/js/components/values/values.ts",
     "src/js/components/zigzag/zigzag.ts"
   ]
