@@ -289,12 +289,12 @@ class UserValues extends LitElement {
             for="${id}"
             tabindex="${this.ready ? '0' : '-1'}">
             <input
+              ?checked="${index === 0}"
               id="${id}"
               name="${name}"
               tabindex="${this.ready ? '0' : '-1'}"
               type="radio"
-              value="${value}"
-              ?checked="${index === 0}">
+              value="${value}">
             <span>${this.imperial && labelImperial ? labelImperial : label}</span>
           </label>
         `;
@@ -314,8 +314,8 @@ class UserValues extends LitElement {
             inputmode="numeric"
             name="age"
             pattern="[1-9][0-9]?"
-            type="text"
-            required>
+            required
+            type="text">
           <span class="units">yrs</span>
         </li>
         <li class="weight">
@@ -325,8 +325,8 @@ class UserValues extends LitElement {
             inputmode="decimal"
             name="weight"
             pattern="[1-3]?[0-9][0-9][,\.]?[0-9]?"
-            type="text"
-            required>
+            required
+            type="text">
           <span class="units">${this.imperial ? 'lbs' : 'kg'}</span>
         </li>
         <li class="height">
@@ -336,17 +336,17 @@ class UserValues extends LitElement {
             inputmode="numeric"
             name="height"
             pattern="${this.imperial ? '[3-7]' : '[1-2]?[0-9][0-9]'}"
-            type="text"
-            required>
+            required
+            type="text">
           <span class="units">${this.imperial ? 'ft' : 'cm'}</span>
           <input
+            ?hidden="${!this.imperial}"
             id="inches"
             inputmode="numeric"
             name="inches"
             pattern="[0-9]|1[01]"
-            type="text"
-            ?hidden="${!this.imperial}"
-            ?required="${this.imperial}">
+            ?required="${this.imperial}"
+            type="text">
           <span
             class="units"
             ?hidden="${!this.imperial}">in</span>

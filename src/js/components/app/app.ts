@@ -93,13 +93,13 @@ class App extends LitElement {
       <calories-values></calories-values>
       <calories-ticker
         aria-label="${tdee_} ${caption}"
+        ?hidden="${!this.ready}"
         label="${caption}"
-        value="${tdee_}"
-        ?hidden="${!this.ready}"></calories-ticker>
+        value="${tdee_}"></calories-ticker>
       <calories-zigzag
+        ?hidden="${!this.ready}"
         tdee="${tdee_}"
-        tdee-max="${tdeeMax_}"
-        ?hidden="${!this.ready}"></calories-zigzag>
+        tdee-max="${tdeeMax_}"></calories-zigzag>
     `;
   }
 }

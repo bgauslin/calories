@@ -100,7 +100,6 @@ class Info extends LitElement {
           <path d="${iconPath}"/>
         </svg>
       </button>
-
       <dialog
         id="info"
         ?inert="${this.inert}"
