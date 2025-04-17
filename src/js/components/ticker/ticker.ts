@@ -6,9 +6,7 @@ class NumberTicker extends HTMLElement {
     super();
   }
 
-  static get observedAttributes(): string[] {
-    return ['value'];
-  }
+  static observedAttributes: string[] = ['value'];
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
     this.update(oldValue, newValue);
