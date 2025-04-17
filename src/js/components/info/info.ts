@@ -52,7 +52,7 @@ class Info extends LitElement {
     }
   }
 
-  togglePanel() {
+  private togglePanel() {
     if (this.open) {
       this.inert = true;
       this.dialog.addEventListener('transitionend', () => {
