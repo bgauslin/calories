@@ -40,7 +40,7 @@ class ZigZag extends LitElement {
         return html`
         <li
           class="${ifDefined(className ? className : undefined)}"
-          style="width: ${width}%">
+          style="inline-size:${width}%">
           <span aria-label="${day}">${day.substring(0, 3)}</span>
           <calories-ticker
             aria-label="${value}"
