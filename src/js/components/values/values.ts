@@ -243,7 +243,7 @@ class UserValues extends LitElement {
 
   protected render() {
     return html`
-      <form @change="${this.getFormData}">
+      <form @input="${this.getFormData}">
         <fieldset id="sex">
           <h2>Sex</h2>
           ${this.renderRadioButtons(Sex, 'sex')}
