@@ -177,7 +177,7 @@ class UserValues extends LitElement {
       // Convert Imperial height to metric cm.
       const feet = Number(this.height.value);
       const inches = Number(this.inches.value);
-      if (feet && inches) {
+      if (feet && inches >= 0) {
         const heightMetric = this.formulas.heightMetric(feet, inches);
         this.height.value = `${heightMetric}`;
       }
