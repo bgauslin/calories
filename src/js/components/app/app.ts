@@ -45,7 +45,7 @@ class App extends LitElement {
   }
 
   private updateApp(event: CustomEvent) {
-    const detail = event.detail;
+    const {detail} = event;
     const {activity, age, goal, height, sex, weight} = detail.measurements;
     
     // Get BMR and factors based on selected values, then TDEE and maximum TDEE
