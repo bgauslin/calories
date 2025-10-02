@@ -29,21 +29,22 @@ customElements.define('calories-marker', class extends HTMLElement {
    */
   private update() {
     const checked = this.querySelector(':checked');
-    if (checked) {
-      const target = <HTMLElement>checked.parentNode;
+    
+    if (!checked) return;
 
-      // The marker and this element rely on relative/absolute positioning, so
-      // subtract this element's position in the viewport from the marker
-      // target's position in order to make the starting edge of this element
-      // equal to zero.
-      const leftPos = target.getBoundingClientRect().left - this.getBoundingClientRect().left;
-      const height = target.clientHeight;
+    const target = <HTMLElement>checked.parentNode;
 
-      // Update custom properties and let the CSS take over.
-      this.style.setProperty('--height', `${height}px`);
-      this.style.setProperty('--left', `${leftPos}px`);
-      this.style.setProperty('--width', `${target.clientWidth}px`);
-    }
+    // The marker and this element rely on relative/absolute positioning, so
+    // subtract this element's position in the viewport from the marker
+    // target's position in order to make the starting edge of this element
+    // equal to zero.
+    const leftPos = target.getBoundingClientRect().left - this.getBoundingClientRect().left;
+    const height = target.clientHeight;
+
+    // Update custom properties and let the CSS take over.
+    this.style.setProperty('--height', `${height}px`);
+    this.style.setProperty('--left', `${leftPos}px`);
+    this.style.setProperty('--width', `${target.clientWidth}px`);
   }
 
 /**
