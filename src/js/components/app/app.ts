@@ -15,6 +15,7 @@ class App extends LitElement {
   
   @query('calories-ticker') results: HTMLElement;
   @query('calories-zigzag') zigzag: HTMLElement;
+
   @state() bmr: number = 0;
   @state() ready: boolean = false;
   @state() tdee: number = 0;
