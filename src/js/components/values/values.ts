@@ -197,13 +197,13 @@ class UserValues extends LitElement {
     }
   }
 
-  private updateValues() {
+  private updateTextValues() {
     let timer;
     clearTimeout(timer);
-    timer = setTimeout(() => this.getFormData(), 300);
+    timer = setTimeout(() => this.updateAllValues(), 300);
   }
 
-  private getFormData() {
+  private updateAllValues() {
     if (this.invalid.length) return;
 
     // Get user-provided values.
@@ -249,19 +249,29 @@ class UserValues extends LitElement {
 
   protected render() {
     return html`
-      <form @input="${this.updateValues}">
-        <fieldset id="sex">
+      <form>
+        <fieldset
+          id="sex"
+          @input="${this.updateAllValues}">
           <h2>Sex</h2>
           ${this.renderRadioButtons(Sex, 'sex')}
         </fieldset>
-        <fieldset id="measurements">
+        <fieldset
+          id="measurements"
+          @input="${this.updateTextValues}">
           ${this.renderTextInputs()}
         </fieldset>
-        <fieldset id="activity" ?disabled="${!this.ready}">
+        <fieldset
+          id="activity"
+          ?disabled="${!this.ready}"
+          @input="${this.updateAllValues}">
           <h2>Exercise <span>times per week</span></h2>
           ${this.renderRadioButtons(ActivityLevel, 'activity', 'level')}
         </fieldset>
-        <fieldset id="goal" ?disabled="${!this.ready}">
+        <fieldset
+          id="goal"
+          ?disabled="${!this.ready}"
+          @input="${this.updateAllValues}">
           <h2>Weight Loss <span>${this.imperial ? 'lbs' : 'kg'} per week</span></h2>
           ${this.renderRadioButtons(WeightGoal, 'goal', 'goal')}
         </fieldset>
