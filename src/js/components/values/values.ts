@@ -197,7 +197,7 @@ class UserValues extends LitElement {
     }
   }
 
-  private debounceFormData() {
+  private updateValues() {
     let timer;
     clearTimeout(timer);
     timer = setTimeout(() => this.getFormData(), 300);
@@ -249,7 +249,7 @@ class UserValues extends LitElement {
 
   protected render() {
     return html`
-      <form @input="${this.debounceFormData}">
+      <form @input="${this.updateValues}">
         <fieldset id="sex">
           <h2>Sex</h2>
           ${this.renderRadioButtons(Sex, 'sex')}
