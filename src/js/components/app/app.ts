@@ -3,6 +3,7 @@ import {customElement, query, state} from 'lit/decorators.js';
 import {Formulas} from '../../modules/Formulas';
 import {ActivityLevel, WeightGoal} from '../../modules/shared';
 
+
 /**
  * Custom element for the Calorie Calculator which renders all other custom
  * elements into its DOM.

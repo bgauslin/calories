@@ -3,6 +3,7 @@ import {customElement, query, queryAll, state} from 'lit/decorators.js';
 import {Formulas} from '../../modules/Formulas';
 import {ActivityLevel, Measurements, Sex, WeightGoal} from '../../modules/shared';
 
+
 /**
  * Web Component that renders fields for user input, converts
  * to/from Imperial units, sends user-provided data up the DOM,

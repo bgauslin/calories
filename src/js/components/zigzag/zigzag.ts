@@ -2,6 +2,7 @@ import {LitElement, html} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 import {ifDefined} from 'lit/directives/if-defined.js';
 
+
 /**
  * Custom element that renders daily TDEE based on overall TDEE where each
  * day's TDEE value is adjusted for "zig-zag" calorie counting.
