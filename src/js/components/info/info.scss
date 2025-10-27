@@ -131,7 +131,7 @@ calories-info {
 
 // Icon buttons.
 .icon {
-  inline-size: 24px;
+  inline-size: 1.5rem;
   opacity: var(--text-opacity);
   pointer-events: none;
 }
@@ -158,6 +158,9 @@ calories-info {
 }
 
 .icon--info {
+  border: 2px solid var(--text-color);
+  border-radius: 1.5rem;
+
   path {
     fill: none;
     stroke: currentColor;

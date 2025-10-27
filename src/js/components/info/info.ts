@@ -84,7 +84,7 @@ class Info extends LitElement {
   protected render() {
     if (!this.info) return;
 
-    const iconPath = this.open ? 'M5,5 L19,19 M5,19 L19,5'  : 'M9,11 L12,11 L12,18 M9,18 L15,18 M12,12 m11,0 a11,11 0 1,0 -22,0 a11,11 0 1,0 22,0 M11,6 m1,0 a0.5,0.5 0 1,0 -1,0 a0.5,0.5 0 1,0 1,0';
+    const iconPath = this.open ? 'M5,5 L19,19 M5,19 L19,5'  : 'M 9,11 L12,11 L12,18 M9,18 L15,18 M12,12 m11,0 M11,6 m1,0 a0.5,0.5 0 1,0 -1,0 a0.5,0.5 0 1,0 1,0';
     const iconClass = this.open ? 'close' : 'info';
     const label = this.open ? 'Close window' : 'About this app';
 
