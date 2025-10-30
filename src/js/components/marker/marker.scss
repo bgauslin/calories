@@ -2,7 +2,7 @@
 // that slides to the selected radio button.
 calories-marker {
   align-items: center;
-  background-color: var(--fill-2);
+  background-color: var(--fill-0);
   border-radius: 8px;
   display: flex;
   padding: 4px;
@@ -21,7 +21,7 @@ calories-marker {
 
   // Marker underneath the radio buttons that slides over to the checked one.
   &::after {
-    background-color: var(--fill-3);
+    background-color: var(--fill-2);
     block-size: var(--height);
     border-radius: 4px;
     content: '';
