@@ -12,7 +12,7 @@ import {ActivityLevel, WeightGoal} from '../../modules/shared';
 class App extends LitElement {
   private formulas: Formulas;
   private touchTarget: HTMLElement;
-  private valuesListener: EventListenerObject;
+  private valuesHandler: EventListenerObject;
   
   @query('calories-ticker') results: HTMLElement;
   @query('calories-zigzag') zigzag: HTMLElement;
@@ -25,21 +25,21 @@ class App extends LitElement {
   constructor() {
     super();
     this.formulas = new Formulas();
-    this.valuesListener = this.updateApp.bind(this);
+    this.valuesHandler = this.updateApp.bind(this);
   }
 
   connectedCallback() {
     super.connectedCallback();
     this.addEventListener('touchstart', this.handleTouchstart, {passive: true});
     this.addEventListener('touchend', this.handleTouchend, {passive: true});
-    this.addEventListener('valuesUpdated', this.valuesListener);
+    this.addEventListener('valuesUpdated', this.valuesHandler);
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
     this.removeEventListener('touchstart', this.handleTouchstart);
     this.removeEventListener('touchend', this.handleTouchend);
-    this.removeEventListener('valuesUpdated', this.valuesListener);
+    this.removeEventListener('valuesUpdated', this.valuesHandler);
   }
 
   protected createRenderRoot() {

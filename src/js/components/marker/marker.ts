@@ -4,23 +4,23 @@
  * currently checked button.
  */
 customElements.define('calories-marker', class extends HTMLElement {
-  private resizeListener: EventListenerObject;
+  private resizeHandler: EventListenerObject;
 
   constructor() {
     super();
-    this.resizeListener = this.update.bind(this);
+    this.resizeHandler = this.update.bind(this);
   }
 
   connectedCallback() {
     this.addEventListener('change', this.update, true);
     this.addEventListener('keyup', this.handleKey);
-    window.addEventListener('resize', this.resizeListener);
+    window.addEventListener('resize', this.resizeHandler);
   }
 
   disconnectedCallback() {
     this.removeEventListener('change', this.update);
     this.removeEventListener('keyup', this.handleKey);
-    window.removeEventListener('resize', this.resizeListener);
+    window.removeEventListener('resize', this.resizeHandler);
   }
 
   /**
