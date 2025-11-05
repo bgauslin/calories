@@ -3,11 +3,23 @@
 calories-marker {
   align-items: center;
   background-color: var(--fill-2);
+  border: 2px solid var(--fill-1);
   border-radius: 8px;
   display: flex;
   padding: 4px;
   position: relative;
+  transition: border-color var(--transition);
   z-index: 1;
+
+  &:focus-within {
+    border-color: var(--text-color);
+  }
+
+  @media (any-hover: hover) {
+    &:hover {
+      border-color: var(--text-color);
+    }
+  }
 
   // Each radio button is within a <label> for easier clicking, and the text
   // of each <label> is within a <span> for sibling element styling.

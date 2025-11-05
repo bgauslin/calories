@@ -48,8 +48,9 @@ calories-values {
   // Metric/Imperial units toggle.
   [id='units'] {
     background-color: var(--fill-2);
-    block-size: 2rem;
-    border-radius: 2rem;
+    block-size: var(--input-height);
+    border: 2px solid var(--fill-2);
+    border-radius: var(--input-height);
     color: inherit;
     cursor: pointer;
     display: block;
@@ -61,7 +62,7 @@ calories-values {
     padding-inline: .75em;
     position: absolute;
     transform: translateY(-50%);
-    transition: background-color var(--transition);
+    transition: background-color var(--transition), border-color var(--transition), opacity var(--transition);
     white-space: nowrap;
 
     // Units toggle text.
@@ -71,7 +72,7 @@ calories-values {
     }
 
     &:focus-visible {
-      background-color: var(--fill-4);
+      border-color: var(--text-color);
       
       span {
         opacity: 1;
@@ -81,6 +82,7 @@ calories-values {
     @media (any-hover: hover) {
       &:hover {
         background-color: var(--fill-4);
+        border-color: var(--fill-4);
         
         span {
           opacity: 1;

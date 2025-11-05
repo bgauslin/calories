@@ -301,9 +301,7 @@ class UserValues extends LitElement {
         const {value, label, labelImperial} = item;
         const id = prefix ? `${prefix}-${value}` : value;
         return html`
-          <label
-            for="${id}"
-            tabindex="${this.ready ? '0' : '-1'}">
+          <label for="${id}">
             <input
               ?checked="${index === 0}"
               id="${id}"

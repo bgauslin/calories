@@ -38,7 +38,11 @@ customElements.define('calories-marker', class extends HTMLElement {
     // subtract this element's position in the viewport from the marker
     // target's position in order to make the starting edge of this element
     // equal to zero.
-    const leftPos = target.getBoundingClientRect().left - this.getBoundingClientRect().left;
+    const {left: myLeft} = this.getBoundingClientRect();
+    const {left: targetLeft} = target.getBoundingClientRect();
+    const borderWidth = 2;
+
+    const leftPos = targetLeft - myLeft - borderWidth;
     const height = target.clientHeight;
 
     // Update custom properties and let the CSS take over.
