@@ -255,7 +255,7 @@ class UserValues extends LitElement {
           id="sex"
           @input="${this.updateAllValues}">
           <h2>Sex</h2>
-          ${this.renderRadioButtons(Sex, 'sex')}
+          ${this.renderRadioButtons(Sex, 'sex', true)}
         </fieldset>
         <fieldset
           id="measurements"
@@ -267,14 +267,14 @@ class UserValues extends LitElement {
           ?disabled="${!this.ready}"
           @input="${this.updateAllValues}">
           <h2>Exercise <span>times per week</span></h2>
-          ${this.renderRadioButtons(ActivityLevel, 'activity', 'level')}
+          ${this.renderRadioButtons(ActivityLevel, 'activity', false, 'level')}
         </fieldset>
         <fieldset
           id="goal"
           ?disabled="${!this.ready}"
           @input="${this.updateAllValues}">
           <h2>Weight Loss <span>${this.imperial ? 'lbs' : 'kg'} per week</span></h2>
-          ${this.renderRadioButtons(WeightGoal, 'goal', 'goal')}
+          ${this.renderRadioButtons(WeightGoal, 'goal', false, 'goal')}
         </fieldset>
       <form>
     `;
@@ -294,7 +294,7 @@ class UserValues extends LitElement {
     `;
   }
 
-  private renderRadioButtons(field: any, name: string, prefix: string = '') {
+  private renderRadioButtons(field: any, name: string, enabled: boolean, prefix: string = '') {
     return html`
       <calories-marker>
       ${field.map((item: any, index: number) => {
@@ -306,7 +306,7 @@ class UserValues extends LitElement {
               ?checked="${index === 0}"
               id="${id}"
               name="${name}"
-              tabindex="${this.ready ? '0' : '-1'}"
+              tabindex="${this.ready || enabled ? '0' : '-1'}"
               type="radio"
               value="${value}">
             <span>${this.imperial && labelImperial ? labelImperial : label}</span>
