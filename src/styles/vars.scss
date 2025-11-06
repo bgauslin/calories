@@ -3,8 +3,8 @@
   --app-gap: 0;
   --app-grid: 'title info' var(--header-size) 'values values' 'results results' 'graph graph' 1fr '. .' var(--header-size) / 1fr var(--button-size);
   --app-max-width: 24em; // Matches media query 'min-width' below.
-  --body-fill: var(--fill-1);
-  --button-size: 2.75em;
+  --body-background: var(--fill-1);
+  --button-size: 3em;
   --gap: 1em;
   --header-size: 3em;
   --input-height: 2em;
@@ -16,7 +16,7 @@
       --app-border-radius: 1.5em;
       --app-margin: var(--gap);
       --app-min-block-size: none;
-      --body-fill: revert;
+      --body-background: revert;
     }
   }
 
@@ -63,6 +63,8 @@
 
   // Theming.
   --border: 1px solid var(--gray5);
+  --button-background: var(--gray6);
+  --button-background-focus: var(--gray5);
   --fill-0: var(--gray6);
   --fill-1: white;
   --fill-2: var(--gray5);
@@ -90,6 +92,9 @@
       --gray6: rgb(28, 28, 30);
 
       // Dark mode theming.
+      --button-background: var(--gray5);
+      --button-background-focus: var(--gray4);
+
       --fill-0: black;
       --fill-1: var(--gray6);
       --fill-2: var(--gray5);

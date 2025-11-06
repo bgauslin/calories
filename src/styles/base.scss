@@ -15,7 +15,7 @@ html {
 }
 
 body {
-  background-color: var(--body-fill, var(--fill-0));
+  background-color: var(--body-background, var(--fill-0));
   color: var(--text-color);
   display: grid;
   font: var(--font);

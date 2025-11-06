@@ -15,7 +15,7 @@ calories-info {
     z-index: 3;
 
     &[data-type='closer'] {
-      background-color: var(--fill-0);
+      background-color: var(--button-background);
     }
 
     [hidden] > & {
@@ -23,7 +23,7 @@ calories-info {
     }
 
     &:focus-visible {
-      background-color: var(--fill-2);
+      background-color: var(--button-background-focus);
     }
 
     &.touch {
@@ -36,7 +36,7 @@ calories-info {
       }
 
       &:hover {
-        background-color: var(--fill-2);
+        background-color: var(--button-background-focus);
       }
 
       &:active {
