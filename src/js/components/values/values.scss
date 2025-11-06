@@ -57,17 +57,18 @@ calories-values {
     font: var(--font);
     font-size: .9em;
     font-variation-settings: 'wght' 500;
-    inset-block: 50% auto;
+    inline-size: 5em;
+    inset-block: calc(50% - calc(var(--input-height) / 2)) auto;
     inset-inline: auto 0;
     padding-inline: .75em;
     position: absolute;
-    transform: translateY(-50%);
-    transition: background-color var(--transition), border-color var(--transition), opacity var(--transition);
+    transition: background-color var(--transition), border-color var(--transition), opacity var(--transition), transform var(--transition);
     white-space: nowrap;
 
     // Units toggle text.
     span {
       opacity: .7;
+      pointer-events: none;
       transition: opacity var(--transition);
     }
 
@@ -79,6 +80,10 @@ calories-values {
       }
     }
 
+    &.touch {
+      transform: scale(.8);
+    }
+
     @media (any-hover: hover) {
       &:hover {
         background-color: var(--fill-4);
@@ -87,6 +92,10 @@ calories-values {
         span {
           opacity: 1;
         }
+      }
+
+      &:active {
+        transform: scale(.8);
       }
     }
   }
