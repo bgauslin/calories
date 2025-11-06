@@ -84,13 +84,15 @@ class Info extends LitElement {
   protected render() {
     if (!this.info) return;
 
-    const iconPath = this.open ? 'M5,5 L19,19 M5,19 L19,5'  : 'M 9,11 L12,11 L12,18 M9,18 L15,18 M12,12 m11,0 M11,6 m1,0 a0.5,0.5 0 1,0 -1,0 a0.5,0.5 0 1,0 1,0';
-    const iconClass = this.open ? 'close' : 'info';
-    const label = this.open ? 'Close window' : 'About this app';
+    const iconPath = !this.inert ? 'M6,6 L18,18 M6,18 L18,6'  : 'M 9,11 L12,11 L12,18 M9,18 L15,18 M12,12 m11,0 M11,6 m1,0 a0.5,0.5 0 1,0 -1,0 a0.5,0.5 0 1,0 1,0';
+    const iconClass = !this.inert ? 'close' : 'info';
+    const label = !this.inert ? 'Close window' : 'About this app';
+    const type = !this.inert ? 'closer' : 'opener';
 
     return html`
       <button
         aria-label="${label}"
+        data-type="${type}"
         id="toggle"
         title="${label}"
         type="button">

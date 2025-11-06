@@ -4,7 +4,7 @@
   --app-grid: 'title info' var(--header-size) 'values values' 'results results' 'graph graph' 1fr '. .' var(--header-size) / 1fr var(--button-size);
   --app-max-width: 24em; // Matches media query 'min-width' below.
   --body-fill: var(--fill-1);
-  --button-size: 44px;
+  --button-size: 2.75em;
   --gap: 1em;
   --header-size: 3em;
   --input-height: 2em;
@@ -62,7 +62,6 @@
   --gray6: rgb(242, 242, 247);
 
   // Theming.
-  --backdrop-filter: blur(6px);
   --border: 1px solid var(--gray5);
   --fill-0: var(--gray6);
   --fill-1: white;

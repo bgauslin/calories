@@ -3,8 +3,6 @@ calories-info {
 
   button {
     aspect-ratio: 1;
-    backdrop-filter: var(--backdrop-filter);
-    -webkit-backdrop-filter: var(--backdrop-filter);
     border-radius: var(--button-size);
     color: inherit;
     cursor: pointer;
@@ -16,12 +14,16 @@ calories-info {
     transition: opacity var(--transition), transform var(--transition);
     z-index: 3;
 
+    &[data-type='closer'] {
+      background-color: var(--fill-0);
+    }
+
     [hidden] > & {
       opacity: 0;
     }
 
     &:focus-visible {
-      background-color: var(--fill-3a);
+      background-color: var(--fill-2);
     }
 
     &.touch {
@@ -34,7 +36,7 @@ calories-info {
       }
 
       &:hover {
-        background-color: var(--fill-3a);
+        background-color: var(--fill-2);
       }
 
       &:active {
@@ -132,28 +134,17 @@ calories-info {
 // Icon buttons.
 .icon {
   inline-size: 1.5rem;
-  opacity: var(--text-opacity);
   pointer-events: none;
-}
 
-:focus-visible > .icon {
-  opacity: 1;
-}
-
-@media (any-hover: hover) {
-  .icon {
-    transition: opacity var(--transition);
-  }
-
-  :hover > .icon {
-    opacity: 1;
+  path {
+    stroke-linecap: round;
+    stroke-width: 2;
   }
 }
 
 .icon--close {
   path {
     stroke: var(--text-color);
-    stroke-width: 2.5;
   }
 }
 
@@ -164,7 +155,5 @@ calories-info {
   path {
     fill: none;
     stroke: currentColor;
-    stroke-linecap: round;
-    stroke-width: 2;
   }
 }
