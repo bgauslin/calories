@@ -40,7 +40,8 @@ customElements.define('calories-marker', class extends HTMLElement {
     // equal to zero.
     const {left: myLeft} = this.getBoundingClientRect();
     const {left: targetLeft} = target.getBoundingClientRect();
-    const borderWidth = 2;
+    const style = window.getComputedStyle(this);
+    const borderWidth = parseInt(style.getPropertyValue('border-width'));
 
     const leftPos = targetLeft - myLeft - borderWidth;
     const height = target.clientHeight;
