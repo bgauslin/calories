@@ -1,7 +1,7 @@
 import {LitElement, html} from 'lit';
 import {customElement, query, state} from 'lit/decorators.js';
-import {Formulas} from '../../modules/formulas';
-import {ActivityLevel, WeightGoal} from '../../modules/shared';
+import {Formulas} from './formulas';
+import {ActivityLevel, WeightGoal} from './shared';
 
 
 /**

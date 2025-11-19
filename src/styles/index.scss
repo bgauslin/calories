@@ -1,9 +1,9 @@
 @use 'vars';
 @use 'base';
 
-@use '../js/components/app/app';
-@use '../js/components/info/info';
-@use '../js/components/marker/marker';
-@use '../js/components/ticker/ticker';
-@use '../js/components/values/values';
-@use '../js/components/zigzag/zigzag';
+@use 'app';
+@use 'info';
+@use 'marker';
+@use 'ticker';
+@use 'values';
+@use 'zigzag';

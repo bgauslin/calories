@@ -14,11 +14,11 @@
   ],
   "files": [
     "src/js/index.ts",
-    "src/js/components/app/app.ts",
-    "src/js/components/info/info.ts",
-    "src/js/components/marker/marker.ts",
-    "src/js/components/ticker/ticker.ts",
-    "src/js/components/values/values.ts",
-    "src/js/components/zigzag/zigzag.ts"
+    "src/js/app.ts",
+    "src/js/info.ts",
+    "src/js/marker.ts",
+    "src/js/ticker.ts",
+    "src/js/values.ts",
+    "src/js/zigzag.ts"
   ]
 }
