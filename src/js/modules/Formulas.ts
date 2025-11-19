@@ -23,7 +23,7 @@ const LBS_TO_KG = 2.2;
 /**
  * Formulas for calculating Basal Metabolic Rate (BMR), Body Mass Index (BMI),
  * Total Daily Energy Expenditure (TDEE), and converting height and weight in
- * Imperial units to metric.
+ * Imperial units to metric (and vice versa).
  */
 export class Formulas {
   /**
