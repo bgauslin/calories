@@ -21,7 +21,7 @@ module.exports = {
     new FontPreloadPlugin({
       index: 'index.html',
       insertBefore: 'link:first-of-type',
-      loadType: 'preload',
+      loadType: 'prefetch',
     }),
   ],
   module: {
