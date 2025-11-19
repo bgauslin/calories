@@ -9,9 +9,6 @@
     "noImplicitAny": true,
     "target": "es6"
   },
-  "include": [
-    "global.d.ts"
-  ],
   "files": [
     "src/js/index.ts",
     "src/js/app.ts",

@@ -45,15 +45,17 @@ calories-info {
     }
   }
 
-  // [1] Override defaults to enable transitions.
-  // [2] Ensure closed <dialog> occupies no space since app can be taller than
-  //     viewport on small/portrait screens.
+  /**
+   * [1] Override defaults to enable transitions.
+   * [2] Ensure closed <dialog> occupies no space since app can be taller than
+   *     viewport on small/portrait screens.
+   */
   dialog {
     background-color: var(--fill-1);
     block-size: 100%;
     border: none;
     color: inherit;
-    display: block; // [1]
+    display: block;  /* [1] */
     inline-size: 100%;
     max-block-size: 100dvh;
     outline: none;
@@ -72,11 +74,13 @@ calories-info {
     }
 
     &:not([open]) {
-      block-size: 0; // [2]
+      block-size: 0;  /* [2] */
     }
   }
 
-  // Content wrapper.
+  /**
+   * Content wrapper.
+   */
   article {
     margin-inline: auto;
     max-inline-size: 48ch;
@@ -84,7 +88,9 @@ calories-info {
     padding-inline: var(--gap);
   }
 
-  // Headings.
+  /**
+   * Headings.
+   */
   h1 {
     font-size: var(--h1-font-size);
     grid-area: 1 / 2;
@@ -108,7 +114,9 @@ calories-info {
     font-size: var(--copy-font-size);
   }
 
-  // Tables.
+  /**
+   * Tables
+   */
   table {
     border-collapse: collapse;
     inline-size: 100%;
@@ -131,7 +139,9 @@ calories-info {
   }
 }
 
-// Icon buttons.
+/**
+ * Icon buttons.
+ */
 .icon {
   inline-size: 1.5rem;
   pointer-events: none;

@@ -32,7 +32,7 @@ module.exports = {
         use: 'ts-loader',
       },
       {
-        test: /\.scss$/,
+        test: /\.css$/,
         include: [
           path.resolve(__dirname, 'src/styles')
         ],
@@ -40,17 +40,11 @@ module.exports = {
           MiniCssExtractPlugin.loader,
           'css-loader',
           'postcss-loader',
-          {
-            loader: 'sass-loader',
-            options: {
-              api: 'modern',
-            },
-          },
         ],
       },
     ],
   },
   resolve: {
-    extensions: ['.ts', '.js', '.scss'],
+    extensions: ['.ts', '.js', '.css'],
   },
 }

@@ -1,5 +1,7 @@
-// The custom element displays as a tray containing radio buttons with a marker
-// that slides to the selected radio button.
+/**
+ * The custom element displays as a tray containing radio buttons with a marker
+ * that slides to the selected radio button.
+ */
 calories-marker {
   align-items: center;
   background-color: var(--fill-2);
@@ -14,8 +16,10 @@ calories-marker {
     border-color: var(--text-color);
   }
 
-  // Each radio button is within a <label> for easier clicking, and the text
-  // of each <label> is within a <span> for sibling element styling.
+  /**
+   * Each radio button is within a <label> for easier clicking, and the text
+   * of each <label> is within a <span> for sibling element styling.
+   */
   label {
     flex: 1;
   }
@@ -24,7 +28,9 @@ calories-marker {
     block-size: var(--input-height);
   }
 
-  // Marker underneath the radio buttons that slides over to the checked one.
+  /**
+   * Marker underneath the radio buttons that slides over to the checked one.
+   */
   &::after {
     background-color: var(--fill-3);
     block-size: var(--height);

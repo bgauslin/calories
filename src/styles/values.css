@@ -34,7 +34,9 @@ calories-values {
     opacity: var(--text-opacity);
   }
 
-  // Lists for radio buttons.
+  /**
+   * Lists for radio buttons.
+   */
   :is(ul, li) {
     align-items: center;
     display: flex;
@@ -45,7 +47,9 @@ calories-values {
     margin: 0;
   }
 
-  // Metric/Imperial units toggle.
+  /**
+   * Metric/Imperial units toggle.
+   */
   [id='units'] {
     background-color: var(--fill-2);
     block-size: var(--input-height);
@@ -65,7 +69,7 @@ calories-values {
     transition: background-color var(--transition), border-color var(--transition), opacity var(--transition), transform var(--transition);
     white-space: nowrap;
 
-    // Units toggle text.
+    /* Units toggle text. */
     span {
       opacity: .7;
       pointer-events: none;
@@ -100,7 +104,9 @@ calories-values {
     }
   }
 
-  // Adjustments for individual sections and fields.
+  /**
+   * Adjustments for individual sections and fields.
+   */
   [id='measurements'] {
     position: relative;
   }
@@ -114,7 +120,9 @@ calories-values {
     flex: 0 0 100%;
   }
 
-  // Wrapper for <input> and <span> elements.
+  /**
+   * Wrapper for <input> and <span> elements.
+   */
   label {
     cursor: pointer;
     display: flex;
@@ -125,7 +133,9 @@ calories-values {
     inline-size: var(--label-width);
   }
 
-  // Text inputs.
+  /**
+   * Text inputs.
+   */
   [type='text'] {
     background-color: var(--fill-2);
     block-size: var(--input-height);
@@ -145,7 +155,9 @@ calories-values {
     pointer-events: none;
   }
 
-  // Text labels for radio buttons.
+  /**
+   * Text labels for radio buttons.
+   */
   [type='radio'] + span {
     align-items: center;
     border-radius: 2px;

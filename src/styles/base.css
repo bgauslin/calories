@@ -40,7 +40,9 @@ noscript {
   text-align: center;
 }
 
-// Generic/default link styles.
+/**
+ * Generic/default link styles.
+ */
 a {
   color: var(--link-color);
   outline: none;

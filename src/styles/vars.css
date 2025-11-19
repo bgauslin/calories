@@ -1,8 +1,10 @@
 :root {
-  // Layout.
+  /**
+   * Layout.
+   */
   --app-gap: 0;
   --app-grid: 'title info' var(--header-size) 'values values' 'results results' 'graph graph' 1fr '. .' var(--header-size) / 1fr var(--button-size);
-  --app-max-width: 24em; // Matches media query 'min-width' below.
+  --app-max-width: 24em;  /* Matches media query 'min-width' below. */
   --body-background: var(--fill-1);
   --button-size: 3em;
   --gap: 1em;
@@ -10,7 +12,9 @@
   --input-height: 2em;
   --label-width: 4em;
 
-  // Media query 'min-width' matches '--app-max-width' above.
+  /**
+   * Media query 'min-width' matches '--app-max-width' above.
+   */
   @media (min-width: 24em) {
     & {
       --app-border-radius: 1.5em;
@@ -36,7 +40,9 @@
 }
 
 :root {
-  // Typography.
+  /**
+   * Typography.
+   */
   --font: clamp(1em, .75em + 1vw, 1.25em) / 1.4 var(--font-family);
   --font-family: 'Avenir Variable', sans-serif;
   --h1-font-size: 1.125em;
@@ -44,16 +50,22 @@
   --h2-font-size: 1em;
   --h3-font-size: .875em;
 
-  // Animations and transitions.
+  /**
+   * Animations and transitions.
+   */
   --transition: .3s;
   --transition-slow: .5s;
 
-  // Branding colors.
+  /**
+   * Branding colors.
+   */
   --brand-red: rgb(178, 34, 34);
   --brand-orange: rgb(255, 122, 0);
 
-  // Grays via Apple HIG.
-  // @see https://developer.apple.com/design/human-interface-guidelines/ios/visual-design/color
+  /**
+   * Grays via Apple HIG.
+   * https://developer.apple.com/design/human-interface-guidelines/ios/visual-design/color
+   */
   --gray1: rgb(142, 142, 147);
   --gray2: rgb(174, 174, 178);
   --gray3: rgb(199, 199, 204);
@@ -61,18 +73,20 @@
   --gray5: rgb(229, 229, 234);
   --gray6: rgb(242, 242, 247);
 
-  // Theming.
+  /**
+   * Theming.
+   */
   --border: 1px solid var(--gray5);
   --button-background: var(--gray6);
   --button-background-focus: var(--gray5);
   --fill-0: var(--gray6);
   --fill-1: white;
   --fill-2: var(--gray5);
-  --fill-2a: rgba(229, 229, 234, .7);  // --fill-2 with alpha
+  --fill-2a: rgba(229, 229, 234, .7);  /* --fill-2 with alpha */
   --fill-3: var(--gray4);
-  --fill-3a: rgba(209, 209, 214, .7);  // --fill-3 with alpha
+  --fill-3a: rgba(209, 209, 214, .7);  /* --fill-3 with alpha */
   --fill-4: var(--gray3);
-  --fill-4a: rgba(199, 199, 204, .7);  // --fill-4 with alpha
+  --fill-4a: rgba(199, 199, 204, .7);  /* --fill-4 with alpha */
   --link-color: DodgerBlue;
   --link-focus-color: OrangeRed;
   --link-visited-color: RebeccaPurple;
@@ -83,7 +97,9 @@
 
   @media (prefers-color-scheme: dark) {
     & {
-      // Dark mode grays.
+      /**
+       * Dark mode grays.
+       */
       --gray1: rgb(142, 142, 147);
       --gray2: rgb(99, 99, 102);
       --gray3: rgb(72, 72, 74);
@@ -91,18 +107,19 @@
       --gray5: rgb(44, 44, 46);
       --gray6: rgb(28, 28, 30);
 
-      // Dark mode theming.
+      /**
+       * Dark mode theming.
+       */
       --button-background: var(--gray5);
       --button-background-focus: var(--gray4);
-
       --fill-0: black;
       --fill-1: var(--gray6);
       --fill-2: var(--gray5);
-      --fill-2a: rgba(44, 44, 46, .7);  // --fill-2 with alpha
+      --fill-2a: rgba(44, 44, 46, .7);  /* --fill-2 with alpha */
       --fill-3: var(--gray4);
-      --fill-3a: rgba(58, 58, 60, .7);  // --fill-3 with alpha
+      --fill-3a: rgba(58, 58, 60, .7);  /* --fill-3 with alpha */
       --fill-4: var(--gray3);
-      --fill-4a: rgba(72, 72, 74, .7);  // --fill-4 with alpha
+      --fill-4a: rgba(72, 72, 74, .7);  /* --fill-4 with alpha */
       --link-color: CornflowerBlue;
       --link-focus-color: DarkOrange;
       --link-visited-color: MediumPurple;

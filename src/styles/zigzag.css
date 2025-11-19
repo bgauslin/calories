@@ -1,4 +1,6 @@
-// [1] Prevent layout shift on first run transition.
+/**
+ * [1] Prevent layout shift on first run transition.
+ */
 calories-zigzag {
   grid-area: graph;
   place-self: end stretch;
@@ -8,7 +10,7 @@ calories-zigzag {
     opacity: 0;
 
     @media (orientation: landscape) {
-      display: block; // [1]
+      display: block;  /* [1] */
     }
   }
 
