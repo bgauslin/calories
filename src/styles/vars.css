@@ -1,11 +1,11 @@
+/**
+ * Layout.
+ */
 :root {
-  /**
-   * Layout.
-   */
   --app-gap: 0;
   --app-grid: 'title info' var(--header-size) 'values values' 'results results' 'graph graph' 1fr '. .' var(--header-size) / 1fr var(--button-size);
-  --app-max-width: 24em;  /* Matches media query 'min-width' below. */
-  --body-background: var(--fill-1);
+  --app-max-width: 24em;  /* NOTE: Value matches media query 'min-width' below. */
+
   --button-size: 3em;
   --gap: 1em;
   --header-size: 3em;
@@ -13,40 +13,55 @@
   --label-width: 4em;
 
   /**
-   * Media query 'min-width' matches '--app-max-width' above.
+   * Background color for <body> is defined with layout vars instead of with
+   * theming vars since it changes relative to viewport size.
    */
+  --body-background: var(--fill-1);
+
+  /* NOTE: Media query 'min-width' value matches '--app-max-width' above. */
   @media (min-width: 24em) {
     & {
+      --app-border: var(--border);
       --app-border-radius: 1.5em;
       --app-margin: var(--gap);
       --app-min-block-size: none;
+
+      /**
+       * Revert the var and apply element's fallback value when viewport is
+       * wide enough to trigger card look-and-feel for the app element.
+       */
       --body-background: revert;
     }
   }
 
   @media (orientation: landscape) {
     & {
-      --app-border: var(--border);
       --app-gap: 0 var(--gap);
       --app-grid: 'title info' var(--header-size) 'values results' 'values graph' '. .' var(--gap) / 1fr 1fr;
       --app-margin: var(--gap);
       --app-max-width: 48em;
       --app-place-self: center;
+
       --dialog-block-size: 100%;
       --dialog-offset: 100%;
+      
       --results-margin-gap: 0 .5em;
     }
   }
 }
 
+/**
+ * Global vars for typography and theming with colors via Apple HIG.
+ * @see https://developer.apple.com/design/human-interface-guidelines/color
+ */
 :root {
   /**
    * Typography.
    */
+  --copy-font-size: .875em;
   --font: clamp(1em, .75em + 1vw, 1.25em) / 1.4 var(--font-family);
   --font-family: 'Avenir Variable', sans-serif;
   --h1-font-size: 1.125em;
-  --copy-font-size: .875em;
   --h2-font-size: 1em;
   --h3-font-size: .875em;
 
@@ -63,69 +78,90 @@
   --brand-orange: rgb(255, 122, 0);
 
   /**
-   * Grays via Apple HIG.
-   * https://developer.apple.com/design/human-interface-guidelines/ios/visual-design/color
+   * Grays.
    */
   --gray1: rgb(142, 142, 147);
+  --gray1-dark: rgb(142, 142, 147);
+
   --gray2: rgb(174, 174, 178);
+  --gray2-dark: rgb(99, 99, 102);
+  
   --gray3: rgb(199, 199, 204);
+  --gray3-dark: rgb(72, 72, 74);
+  
   --gray4: rgb(209, 209, 214);
+  --gray4-dark: rgb(58, 58, 60);
+  
   --gray5: rgb(229, 229, 234);
+  --gray5-dark: rgb(44, 44, 46);
+  
   --gray6: rgb(242, 242, 247);
+  --gray6-dark: rgb(28, 28, 30);
+
+  /**
+   * Colors.
+   */
+  --red: rgb(255, 56, 60);
+  --red-dark: rgb(255, 66, 69);
+  --red-contrast: rgb(233, 21, 45);  
+  --red-dark-contrast: rgb(255, 97, 101);
+
+  --blue: rgb(0, 136, 255);
+  --blue-dark: rgb(0, 145, 255);
+  --blue-contrast: rgb(30, 110, 244);      
+  --blue-dark-contrast: rgb(92, 184, 255);
+  
+  --indigo: rgb(97, 85, 245);
+  --indigo-dark: rgb(109, 124, 255);
+  --indigo-contrast: rgb(86, 74, 222);  
+  --indigo-dark-contrast: rgb(167, 170, 255);
 
   /**
    * Theming.
    */
   --border: 1px solid var(--gray5);
+
   --button-background: var(--gray6);
   --button-background-focus: var(--gray5);
+
   --fill-0: var(--gray6);
   --fill-1: white;
   --fill-2: var(--gray5);
-  --fill-2a: rgba(229, 229, 234, .7);  /* --fill-2 with alpha */
   --fill-3: var(--gray4);
-  --fill-3a: rgba(209, 209, 214, .7);  /* --fill-3 with alpha */
   --fill-4: var(--gray3);
-  --fill-4a: rgba(199, 199, 204, .7);  /* --fill-4 with alpha */
-  --link-color: DodgerBlue;
-  --link-focus-color: OrangeRed;
-  --link-visited-color: RebeccaPurple;
+  
+  --link-color: var(--blue-contrast);
+  --link-focus-color: var(--red);
+  --link-visited-color: var(--indigo-contrast);
+  
   --text-color: black;
   --text-opacity: .7;
+
   --warning-background: rgb(246, 234, 236);
   --warning-color: rgb(202, 36, 48);
+}
 
-  @media (prefers-color-scheme: dark) {
-    & {
-      /**
-       * Dark mode grays.
-       */
-      --gray1: rgb(142, 142, 147);
-      --gray2: rgb(99, 99, 102);
-      --gray3: rgb(72, 72, 74);
-      --gray4: rgb(58, 58, 60);
-      --gray5: rgb(44, 44, 46);
-      --gray6: rgb(28, 28, 30);
+/**
+  * Dark mode theming.
+  */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --button-background: var(--gray5);
+    --button-background-focus: var(--gray4);
 
-      /**
-       * Dark mode theming.
-       */
-      --button-background: var(--gray5);
-      --button-background-focus: var(--gray4);
-      --fill-0: black;
-      --fill-1: var(--gray6);
-      --fill-2: var(--gray5);
-      --fill-2a: rgba(44, 44, 46, .7);  /* --fill-2 with alpha */
-      --fill-3: var(--gray4);
-      --fill-3a: rgba(58, 58, 60, .7);  /* --fill-3 with alpha */
-      --fill-4: var(--gray3);
-      --fill-4a: rgba(72, 72, 74, .7);  /* --fill-4 with alpha */
-      --link-color: CornflowerBlue;
-      --link-focus-color: DarkOrange;
-      --link-visited-color: MediumPurple;
-      --text-color: white;
-      --warning-background: rgb(64, 39, 46);
-      --warning-color: rgb(254, 127, 140);
-    }
+    --fill-0: black;
+    --fill-1: var(--gray6-dark);
+    --fill-2: var(--gray5-dark);
+    --fill-3: var(--gray4-dark);
+    --fill-4: var(--gray3-dark);
+
+    --link-color: var(--blue-dark-contrast);
+    --link-focus-color: var(--red-dark-contrast);
+    --link-visited-color: var(--indigo-dark-contrast);
+      
+    --text-color: white;
+
+    --warning-background: rgb(64, 39, 46);
+    --warning-color: rgb(254, 127, 140);
   }
 }
