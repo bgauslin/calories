@@ -45,11 +45,12 @@ module.exports = {
     ],
   },
   optimization: {
+    minimize: true,
     minimizer: [
       new CssMinimizerPlugin(),
     ],
   },
   resolve: {
-    extensions: ['.ts', '.css'],
+    extensions: ['.ts', '.js', '.css'],
   },
 }
