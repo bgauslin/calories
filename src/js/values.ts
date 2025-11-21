@@ -1,7 +1,7 @@
 import {LitElement, html} from 'lit';
 import {customElement, query, queryAll, state} from 'lit/decorators.js';
 import {Formulas} from './formulas';
-import {ActivityLevel, Measurements, Sex, WeightGoal} from './shared';
+import {ActivityLevel, Measurements, Sex, WeightGoal, pattern} from './shared';
 
 
 /**
@@ -318,23 +318,6 @@ class UserValues extends LitElement {
   }
 
   private renderTextInputs() {
-    // 10-99 yrs
-    // 88-440 lbs | 40-200 kg (both with decimal)
-    // 3'-0" - 7'-0" | 91-213 cm
-    const regex = {
-      age: '[1-9][0-9]?',  
-      weight: {
-        imperial: '8[89][,\.]?[1-9]?|(9[0-9]|[1-3][0-9]{2}|4[0-3][0-9])[,\.]?[1-9]?|440',
-        metric: '40[,\.]?[1-9]?|([5-9][0-9]|1[0-9]{2})[,\.]?[1-9]?|200',
-      },
-      height: {
-        imperial: {
-          feet: '[3-7]',
-          inches: '[0-9]|1[01]',
-        },
-        metric: '9[1-9]|1[0-9]{2}|20[0-9]|21[0-3]',
-      }
-    }
     return html`
       ${this.renderToggle()}
       <ul>
@@ -344,7 +327,7 @@ class UserValues extends LitElement {
             id="age"
             inputmode="numeric"
             name="age"
-            pattern="${regex.age}"
+            pattern="${pattern.age}"
             required
             type="text">
           <span class="units">yrs</span>
@@ -355,7 +338,7 @@ class UserValues extends LitElement {
             id="weight"
             inputmode="decimal"
             name="weight"
-            pattern="${this.imperial ? regex.weight.imperial : regex.weight.metric}"
+            pattern="${this.imperial ? pattern.weight.imperial : pattern.weight.metric}"
             required
             type="text">
           <span class="units">${this.imperial ? 'lbs' : 'kg'}</span>
@@ -366,7 +349,7 @@ class UserValues extends LitElement {
             id="height"
             inputmode="numeric"
             name="height"
-            pattern="${this.imperial ? regex.height.imperial.feet : regex.height.metric}"
+            pattern="${this.imperial ? pattern.height.imperial.feet : pattern.height.metric}"
             required
             type="text">
           <span class="units">${this.imperial ? 'ft' : 'cm'}</span>
@@ -375,7 +358,7 @@ class UserValues extends LitElement {
             id="inches"
             inputmode="numeric"
             name="inches"
-            pattern="${regex.height.imperial.inches}"
+            pattern="${pattern.height.imperial.inches}"
             ?required="${this.imperial}"
             type="text">
           <span
