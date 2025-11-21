@@ -146,8 +146,10 @@
   */
 @media (prefers-color-scheme: dark) {
   :root {
-    --button-background: var(--gray5);
-    --button-background-focus: var(--gray4);
+    --button-background: var(--gray5-dark);
+    --button-background-focus: var(--gray4-dark);
+
+    --border: 1px solid var(--gray5-dark);
 
     --fill-0: black;
     --fill-1: var(--gray6-dark);
