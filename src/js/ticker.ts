@@ -1,7 +1,7 @@
 /**
  * Custom element that incrementally changes one numeric value to another.
  */
-class NumberTicker extends HTMLElement {
+customElements.define('calories-ticker', class extends HTMLElement {
   constructor() {
     super();
   }
@@ -34,6 +34,4 @@ class NumberTicker extends HTMLElement {
       this.textContent = newValue;
     }
   }
-}
-
-customElements.define('calories-ticker', NumberTicker);
+});
