@@ -8,8 +8,7 @@ import {ActivityLevel, WeightGoal} from './shared';
  * Custom element for the Calorie Calculator which renders all other custom
  * elements into its DOM.
  */
-@customElement('calories-app')
-class App extends LitElement {
+@customElement('calories-app') class App extends LitElement {
   private formulas: Formulas;
   private touchTarget: HTMLElement;
   private valuesHandler: EventListenerObject;

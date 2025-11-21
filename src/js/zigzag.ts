@@ -7,8 +7,7 @@ import {ifDefined} from 'lit/directives/if-defined.js';
  * Custom element that renders daily TDEE based on overall TDEE where each
  * day's TDEE value is adjusted for "zig-zag" calorie counting.
  */
-@customElement('calories-zigzag')
-class ZigZag extends LitElement {
+@customElement('calories-zigzag') class ZigZag extends LitElement {
   private modifiers: number[] = [1, .9, 1.1, 1, .8, 1, 1.2];
   private tdeeMin: number = 1200;
   private weekdays: string[] = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];

@@ -7,8 +7,7 @@ import {unsafeHTML} from 'lit/directives/unsafe-html.js';
  * Custom element that renders content fetched from a JSON endpoint
  * along with a button that toggles the rendered content's visibility.
  */
-@customElement('calories-info')
-class Info extends LitElement {
+@customElement('calories-info') class Info extends LitElement {
   private clickHandler: EventListenerObject;
   private keyHandler: EventListenerObject;
 
