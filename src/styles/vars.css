@@ -4,13 +4,13 @@
 :root {
   --app-gap: 0;
   --app-grid: 'title info' var(--header-size) 'values values' 'results results' 'graph graph' 1fr '. .' var(--header-size) / 1fr var(--button-size);
-  --app-max-width: 24em;  /* NOTE: Value matches media query 'min-width' below. */
+  --app-max-inline-size: 24em;  /* NOTE: Value matches media query 'min-width' below. */
 
   --button-size: 3em;
   --gap: 1em;
   --header-size: 3em;
-  --input-height: 2em;
-  --label-width: 4em;
+  --input-size: 2em;
+  --label-size: 4em;
 
   /**
    * Background color for <body> is defined with layout vars instead of with
@@ -18,7 +18,7 @@
    */
   --body-background: var(--fill-1);
 
-  /* NOTE: Media query 'min-width' value matches '--app-max-width' above. */
+  /* NOTE: Media query 'min-width' value matches '--app-max-inline-size' above. */
   @media (min-width: 24em) {
     & {
       --app-border: var(--border);
@@ -39,7 +39,7 @@
       --app-gap: 0 var(--gap);
       --app-grid: 'title info' var(--header-size) 'values results' 'values graph' '. .' var(--gap) / 1fr 1fr;
       --app-margin: var(--gap);
-      --app-max-width: 48em;
+      --app-max-inline-size: 48em;
       --app-place-self: center;
 
       --dialog-block-size: 100%;

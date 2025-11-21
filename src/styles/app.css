@@ -11,7 +11,7 @@ calories-app {
   gap: var(--app-gap, var(--gap));
   grid: var(--app-grid);
   margin: var(--app-margin);
-  max-inline-size: var(--app-max-width);
+  max-inline-size: var(--app-max-inline-size);
   min-block-size: var(--app-min-block-size, 100dvh);
   overflow: hidden;
   padding-block: 0;

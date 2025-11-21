@@ -13,13 +13,11 @@ customElements.define('calories-marker', class extends HTMLElement {
 
   connectedCallback() {
     this.addEventListener('change', this.update, true);
-    this.addEventListener('keyup', this.handleKey);
     window.addEventListener('resize', this.resizeHandler);
   }
 
   disconnectedCallback() {
     this.removeEventListener('change', this.update);
-    this.removeEventListener('keyup', this.handleKey);
     window.removeEventListener('resize', this.resizeHandler);
   }
 
@@ -38,28 +36,19 @@ customElements.define('calories-marker', class extends HTMLElement {
     // subtract this element's position in the viewport from the marker
     // target's position in order to make the starting edge of this element
     // equal to zero.
-    const {left: myLeft} = this.getBoundingClientRect();
+    const {left} = this.getBoundingClientRect();
     const {left: targetLeft} = target.getBoundingClientRect();
+
     const style = window.getComputedStyle(this);
     const borderWidth = parseInt(style.getPropertyValue('border-width'));
 
-    const leftPos = targetLeft - myLeft - borderWidth;
-    const height = target.clientHeight;
+    const blockSize = target.clientHeight;
+    const inlineSize = target.clientWidth;
+    const insetBlockStart = targetLeft - left - borderWidth;
 
     // Update custom properties and let the CSS take over.
-    this.style.setProperty('--height', `${height}px`);
-    this.style.setProperty('--left', `${leftPos}px`);
-    this.style.setProperty('--width', `${target.clientWidth}px`);
-  }
-
-/**
- * Adds [enter] key functionality to radio buttons.
- */
-  private handleKey(event: KeyboardEvent) {
-    const target = <HTMLElement>event.target;
-    const radio = target.querySelector('input[type=radio]');
-    if (radio && event.code === 'Enter') {
-      target.click();
-    }
+    this.style.setProperty('--block-size', `${blockSize}px`);
+    this.style.setProperty('--inset-block-start', `${insetBlockStart}px`);
+    this.style.setProperty('--inline-size', `${inlineSize}px`);
   }
 });

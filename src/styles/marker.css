@@ -25,22 +25,25 @@ calories-marker {
   }
 
   span {
-    block-size: var(--input-height);
+    block-size: var(--input-size);
   }
 
   /**
    * Marker underneath the radio buttons that slides over to the checked one.
+   * NOTE: The --block-size and --inline-size values are set by JS.
+   * [1] Logical properties don't work with Safari here, so we have to use
+   *     'left' and 'top' instead of 'inset-*' properties.
    */
   &::after {
     background-color: var(--fill-3);
-    block-size: var(--height);
+    block-size: var(--block-size);
     border-radius: 4px;
     content: '';
     display: block;
-    inline-size: var(--width);
-    left: var(--left);
+    inline-size: var(--inline-size);
+    left: var(--inset-block-start);  /* [1] */
     position: absolute;
-    top: 4px;
+    top: 4px;  /* [1] */
     transition: left var(--transition) ease-out, inline-size var(--transition) ease-out;
     z-index: -1;
   }
