@@ -15,6 +15,18 @@ import {ifDefined} from 'lit/directives/if-defined.js';
   @property({attribute: 'tdee', type: Number}) tdee = 0;
   @property({attribute: 'tdee-max', type: Number}) tdeeMax = 0;
 
+  constructor() {
+    super();
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+  }
+
   protected createRenderRoot() {
     return this;
   }

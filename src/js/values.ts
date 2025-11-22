@@ -36,6 +36,10 @@ import {ActivityLevel, Measurements, Sex, WeightGoal, pattern} from './shared';
     this.setup();
   }
 
+  disconnectedCallback() {
+    super.disconnectedCallback();
+  }
+
   protected createRenderRoot() {
     return this;
   }

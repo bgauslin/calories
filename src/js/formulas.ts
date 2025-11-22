@@ -78,7 +78,6 @@ export class Formulas {
     const total = Math.round(cm / INCHES_TO_CM);
     const feet = Math.floor(total / 12);
     const inches = total % 12;
-
     return {feet, inches};
   }
 
