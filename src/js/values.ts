@@ -1,7 +1,7 @@
 import {LitElement, html} from 'lit';
 import {customElement, query, queryAll, state} from 'lit/decorators.js';
 import {Formulas} from './formulas';
-import {ActivityLevel, Measurements, Sex, WeightGoal, pattern} from './shared';
+import {ActivityLevel, Measurements, Sex, WeightGoal, pattern, STORAGE_ITEM} from './shared';
 
 
 /**
@@ -24,7 +24,6 @@ import {ActivityLevel, Measurements, Sex, WeightGoal, pattern} from './shared';
   @state() imperial: boolean = false;
   @state() measurements: Measurements;
   @state() ready: boolean = false;
-  @state() storageItem: string = 'values';
   
   constructor() {
     super();
@@ -54,7 +53,7 @@ import {ActivityLevel, Measurements, Sex, WeightGoal, pattern} from './shared';
     this.setMarkers();
 
     // Try to get local storage and bail early if necessary.
-    const storage = localStorage.getItem(this.storageItem);
+    const storage = localStorage.getItem(STORAGE_ITEM);
     if (!storage) return;
 
     const {commas, imperial, measurements} = JSON.parse(storage);
@@ -146,7 +145,7 @@ import {ActivityLevel, Measurements, Sex, WeightGoal, pattern} from './shared';
       }
     }));
 
-    localStorage.setItem(this.storageItem, JSON.stringify({
+    localStorage.setItem(STORAGE_ITEM, JSON.stringify({
       commas: this.commas,
       imperial: this.imperial,
       measurements: this.measurements,

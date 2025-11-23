@@ -1,3 +1,5 @@
+export const STORAGE_ITEM = 'values';
+
 export interface InputRadio {
   factor?: number,
   label: string,
@@ -48,7 +50,7 @@ export const WeightGoal: InputRadio[] = [
  * Regex patterns for text input elements.
  * 10-99 yrs
  * 3'-0" - 7'-0" | 91-213 cm
- * 88-440 lbs | 40-200 kg (with decimal)
+ * 53-440 lbs | 24-200 kg (with decimal)
  */
 export const pattern = {
   age: '[1-9][0-9]?',  
@@ -60,7 +62,7 @@ export const pattern = {
     metric: '9[1-9]|1[0-9]{2}|20[0-9]|21[0-3]',
   },
   weight: {
-    imperial: '8[89][,\.]?[1-9]?|(9[0-9]|[1-3][0-9]{2}|4[0-3][0-9])[,\.]?[1-9]?|440',
-    metric: '40[,\.]?[1-9]?|([5-9][0-9]|1[0-9]{2})[,\.]?[1-9]?|200',
+    imperial: '5[3-9]([,\.][1-9])?|[6-9][0-9]([,\.][1-9])?|[1-3][0-9]{2}([,\.][1-9])?|4[0-3][0-9]([,\.][1-9])?|440',
+    metric: '2[4-9]([,\.][1-9])?|[3-9][0-9]([,\.][1-9])?|1[0-9]{2}([,\.][1-9])?|200',
   },
 }
