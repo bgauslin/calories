@@ -49,12 +49,12 @@ a {
   text-decoration: none;
 
   &:visited {
-    color: var(--link-visited-color);
+    color: var(--link-color-visited);
   }
   
   &:focus-visible,  
   &:active {
-    color: var(--link-focus-color);
+    color: var(--link-color-focus);
   }
   
   @media (any-hover: hover) {
@@ -63,7 +63,7 @@ a {
     }
   
     &:hover {
-      color: var(--link-focus-color);
+      color: var(--link-color-focus);
     }
   }
 }
