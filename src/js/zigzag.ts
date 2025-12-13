@@ -17,6 +17,8 @@ import {ifDefined} from 'lit/directives/if-defined.js';
     ['Friday', 1],
     ['Saturday', 1.2],
   ]);
+  private modifiers = [...this.days.values()];
+  private tdeeMin = 1200;
 
   @property({reflect: true, type: Number}) tdee = 0;
   @property({attribute: 'tdee-max', reflect: true, type: Number}) tdeeMax = 0;
@@ -38,15 +40,13 @@ import {ifDefined} from 'lit/directives/if-defined.js';
   }
 
   protected render() {
-    const tdeeMin = 1200;
-    const modifiers = [...this.days.values()];
-    const dailyMax = this.tdeeMax * Math.max(...modifiers);
-
+    const dailyMax = this.tdeeMax * Math.max(...this.modifiers);
+    
     const dailyTdee = [];
     for (const [label, modifier] of this.days.entries()) {
       const dailyModified = Math.round(this.tdee * modifier);
       const percent = Math.round((dailyModified / dailyMax) * 100);
-      const className = (dailyModified < tdeeMin) ? 'warning' : undefined;
+      const className = (dailyModified < this.tdeeMin) ? 'warning' : undefined;
       dailyTdee.push(html`
         <li
           class="${ifDefined(className ? className : undefined)}"
