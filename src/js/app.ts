@@ -1,7 +1,7 @@
 import {LitElement, html} from 'lit';
-import {customElement, query, state} from 'lit/decorators.js';
+import {customElement, property, query, state} from 'lit/decorators.js';
 import {Formulas} from './formulas';
-import {ActivityLevel, Events, WeightGoal} from './shared';
+import {ActivityLevel, Measurements, WeightGoal} from './shared';
 
 
 /**
@@ -10,9 +10,11 @@ import {ActivityLevel, Events, WeightGoal} from './shared';
  */
 @customElement('calories-app') class App extends LitElement {
   private formulas: Formulas;
-  private touchTarget: HTMLElement;
-  private valuesHandler: EventListenerObject;
-  
+
+  @property() commas: boolean = false;
+  @property() imperial: boolean = false;
+  @property() measurements: Measurements;
+
   @query('calories-ticker') results: HTMLElement;
   @query('calories-zigzag') zigzag: HTMLElement;
 
@@ -24,21 +26,14 @@ import {ActivityLevel, Events, WeightGoal} from './shared';
   constructor() {
     super();
     this.formulas = new Formulas();
-    this.valuesHandler = this.updateApp.bind(this);
   }
 
   connectedCallback() {
     super.connectedCallback();
-    this.addEventListener(Events.TouchStart, this.handleTouchStart, {passive: true});
-    this.addEventListener(Events.TouchEnd, this.handleTouchEnd, {passive: true});
-    this.addEventListener(Events.Values, this.valuesHandler);
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    this.removeEventListener(Events.TouchStart, this.handleTouchStart);
-    this.removeEventListener(Events.TouchEnd, this.handleTouchEnd);
-    this.removeEventListener(Events.Values, this.valuesHandler);
   }
 
   protected createRenderRoot() {
@@ -71,18 +66,6 @@ import {ActivityLevel, Events, WeightGoal} from './shared';
     this.ready = true;
   }
 
-  private handleTouchStart(event: TouchEvent) {
-    this.touchTarget = <HTMLElement>event.composedPath()[0];
-
-    if (this.touchTarget.tagName === 'BUTTON') {
-      this.touchTarget.classList.add('touch');
-    }
-  }
-
-  private handleTouchEnd() {
-    this.touchTarget.classList.remove('touch');
-  }
-
   protected render() {
     const tdee_ = this.tdee.toFixed();
     const tdeeMax_ = this.tdeeMax.toFixed();
@@ -91,16 +74,20 @@ import {ActivityLevel, Events, WeightGoal} from './shared';
     return html`
       <h1>${document.title}</h1>
       <calories-info></calories-info>
-      <calories-values></calories-values>
+      <calories-values
+        .commas=${this.commas}
+        .imperial=${this.imperial}
+        .measurements=${this.measurements}
+        @valuesUpdated=${this.updateApp}></calories-values>
       <calories-ticker
         aria-label="${tdee_} ${caption}"
         label="${caption}"
         value="${tdee_}"
         ?hidden=${!this.ready}></calories-ticker>
       <calories-zigzag
-        tdee="${tdee_}"
-        tdee-max="${tdeeMax_}"
-        ?hidden=${!this.ready}></calories-zigzag>
+        ?hidden=${!this.ready}  
+        .tdee=${tdee_}
+        .tdeeMax=${tdeeMax_}></calories-zigzag>
     `;
   }
 }

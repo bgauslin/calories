@@ -15,6 +15,7 @@
     "src/js/info.ts",
     "src/js/marker.ts",
     "src/js/ticker.ts",
+    "src/js/touch.ts",
     "src/js/values.ts",
     "src/js/zigzag.ts"
   ]

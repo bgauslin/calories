@@ -1,7 +1,7 @@
 import {LitElement, html} from 'lit';
-import {customElement, query, queryAll, state} from 'lit/decorators.js';
+import {customElement, property, query, queryAll, state} from 'lit/decorators.js';
 import {Formulas} from './formulas';
-import {ActivityLevel, Measurements, Sex, WeightGoal, pattern, STORAGE_ITEM} from './shared';
+import {ActivityLevel, Measurements, Sex, WeightGoal, pattern, STORAGE_ITEM, Events} from './shared';
 
 
 /**
@@ -10,6 +10,12 @@ import {ActivityLevel, Measurements, Sex, WeightGoal, pattern, STORAGE_ITEM} fro
  * and saves the data to localStorage.
  */
 @customElement('calories-values') class UserValues extends LitElement {
+  private formulas: Formulas;
+
+  @property() commas: boolean = false;
+  @property() imperial: boolean = false;
+  @property() measurements: Measurements;
+
   @query('#age') age: HTMLInputElement;
   @query('form') form: HTMLFormElement;
   @query('#height') height: HTMLInputElement;
@@ -19,10 +25,6 @@ import {ActivityLevel, Measurements, Sex, WeightGoal, pattern, STORAGE_ITEM} fro
   @queryAll(':invalid') invalid: HTMLElement[];
   @queryAll('calories-marker') markers: HTMLElement[];
 
-  @state() commas: boolean = false;
-  @state() formulas: Formulas;
-  @state() imperial: boolean = false;
-  @state() measurements: Measurements;
   @state() ready: boolean = false;
   
   constructor() {
@@ -52,6 +54,7 @@ import {ActivityLevel, Measurements, Sex, WeightGoal, pattern, STORAGE_ITEM} fro
     // Set default marker positions in case this is first run.
     this.setMarkers();
 
+    // TODO: Move localStorage up to app; pass down props.
     // Try to get local storage and bail early if necessary.
     const storage = localStorage.getItem(STORAGE_ITEM);
     if (!storage) return;
@@ -137,14 +140,13 @@ import {ActivityLevel, Measurements, Sex, WeightGoal, pattern, STORAGE_ITEM} fro
    * saves user values for return visits.
    */
   private updateApp() {
-    this.dispatchEvent(new CustomEvent('valuesUpdated', {
-      bubbles: true,
-      composed: true,
+    this.dispatchEvent(new CustomEvent(Events.Values, {
       detail: {
         measurements: this.measurements,
       }
     }));
 
+    // TODO: Move localStorage up to app; pass down props.
     localStorage.setItem(STORAGE_ITEM, JSON.stringify({
       commas: this.commas,
       imperial: this.imperial,

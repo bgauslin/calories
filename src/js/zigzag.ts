@@ -12,8 +12,8 @@ import {ifDefined} from 'lit/directives/if-defined.js';
   private tdeeMin: number = 1200;
   private weekdays: string[] = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-  @property({attribute: 'tdee', type: Number}) tdee = 0;
-  @property({attribute: 'tdee-max', type: Number}) tdeeMax = 0;
+  @property({reflect: true, type: Number}) tdee = 0;
+  @property({attribute: 'tdee-max', reflect: true, type: Number}) tdeeMax = 0;
 
   constructor() {
     super();

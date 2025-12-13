@@ -3,6 +3,7 @@ import './app';
 import './info';
 import './marker';
 import './ticker';
+import './touch';
 import './values';
 import './zigzag';
 
