@@ -88,6 +88,7 @@ import {ActivityLevel, Measurements, WeightGoal} from './shared';
         ?hidden=${!this.ready}  
         .tdee=${tdee_}
         .tdeeMax=${tdeeMax_}></calories-zigzag>
+      <calories-touch></calories-touch>
     `;
   }
 }
