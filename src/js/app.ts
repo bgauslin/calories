@@ -82,11 +82,10 @@ import {ActivityLevel, Measurements, WeightGoal, STORAGE_ITEM} from './shared';
     this.ready = true;
 
     const {activity, age, goal, height, sex, weight} = this.measurements;
-    
-    this.bmr = this.formulas.basalMetabolicRate({age, height, sex, weight});
-
     const activityLevel = ActivityLevel.find(level => activity === level.value);
     const goalLevel = WeightGoal.find(level => goal === level.value);
+
+    this.bmr = this.formulas.basalMetabolicRate({age, height, sex, weight});
 
     this.tdee = this.formulas.totalDailyEnergyExpenditure({
       activity: activityLevel.factor,
