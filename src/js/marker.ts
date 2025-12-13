@@ -1,3 +1,6 @@
+import {Events} from './shared';
+
+
 /**
  * Custom element that provides a group of radio buttons with an animated 
  * visual marker that slides from the previously checked button to the
@@ -12,13 +15,13 @@ customElements.define('calories-marker', class extends HTMLElement {
   }
 
   connectedCallback() {
-    this.addEventListener('change', this.update, true);
-    window.addEventListener('resize', this.resizeHandler);
+    this.addEventListener(Events.Change, this.update, true);
+    window.addEventListener(Events.Resize, this.resizeHandler);
   }
 
   disconnectedCallback() {
-    this.removeEventListener('change', this.update);
-    window.removeEventListener('resize', this.resizeHandler);
+    this.removeEventListener(Events.Change, this.update);
+    window.removeEventListener(Events.Resize, this.resizeHandler);
   }
 
   /**

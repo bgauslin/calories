@@ -1,7 +1,7 @@
 import {LitElement, html} from 'lit';
 import {customElement, query, state} from 'lit/decorators.js';
 import {Formulas} from './formulas';
-import {ActivityLevel, WeightGoal} from './shared';
+import {ActivityLevel, Events, WeightGoal} from './shared';
 
 
 /**
@@ -29,16 +29,16 @@ import {ActivityLevel, WeightGoal} from './shared';
 
   connectedCallback() {
     super.connectedCallback();
-    this.addEventListener('touchstart', this.handleTouchstart, {passive: true});
-    this.addEventListener('touchend', this.handleTouchend, {passive: true});
-    this.addEventListener('valuesUpdated', this.valuesHandler);
+    this.addEventListener(Events.TouchStart, this.handleTouchStart, {passive: true});
+    this.addEventListener(Events.TouchEnd, this.handleTouchEnd, {passive: true});
+    this.addEventListener(Events.Values, this.valuesHandler);
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    this.removeEventListener('touchstart', this.handleTouchstart);
-    this.removeEventListener('touchend', this.handleTouchend);
-    this.removeEventListener('valuesUpdated', this.valuesHandler);
+    this.removeEventListener(Events.TouchStart, this.handleTouchStart);
+    this.removeEventListener(Events.TouchEnd, this.handleTouchEnd);
+    this.removeEventListener(Events.Values, this.valuesHandler);
   }
 
   protected createRenderRoot() {
@@ -71,7 +71,7 @@ import {ActivityLevel, WeightGoal} from './shared';
     this.ready = true;
   }
 
-  private handleTouchstart(event: TouchEvent) {
+  private handleTouchStart(event: TouchEvent) {
     this.touchTarget = <HTMLElement>event.composedPath()[0];
 
     if (this.touchTarget.tagName === 'BUTTON') {
@@ -79,7 +79,7 @@ import {ActivityLevel, WeightGoal} from './shared';
     }
   }
 
-  private handleTouchend() {
+  private handleTouchEnd() {
     this.touchTarget.classList.remove('touch');
   }
 
@@ -94,13 +94,13 @@ import {ActivityLevel, WeightGoal} from './shared';
       <calories-values></calories-values>
       <calories-ticker
         aria-label="${tdee_} ${caption}"
-        ?hidden="${!this.ready}"
         label="${caption}"
-        value="${tdee_}"></calories-ticker>
+        value="${tdee_}"
+        ?hidden=${!this.ready}></calories-ticker>
       <calories-zigzag
-        ?hidden="${!this.ready}"
         tdee="${tdee_}"
-        tdee-max="${tdeeMax_}"></calories-zigzag>
+        tdee-max="${tdeeMax_}"
+        ?hidden=${!this.ready}></calories-zigzag>
     `;
   }
 }

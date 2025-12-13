@@ -1,6 +1,7 @@
 import {LitElement, html} from 'lit';
 import {customElement, property, query, state} from 'lit/decorators.js';
 import {unsafeHTML} from 'lit/directives/unsafe-html.js';
+import {Events} from './shared';
 
 
 /**
@@ -26,14 +27,14 @@ import {unsafeHTML} from 'lit/directives/unsafe-html.js';
 
   connectedCallback() {
     super.connectedCallback();
-    document.addEventListener('click', this.clickHandler);
-    document.addEventListener('keyup', this.keyHandler);
+    document.addEventListener(Events.Click, this.clickHandler);
+    document.addEventListener(Events.KeyUp, this.keyHandler);
     this.fetchInfo();
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    document.removeEventListener('keyup', this.keyHandler);
+    document.removeEventListener(Events.KeyUp, this.keyHandler);
   }
 
   protected createRenderRoot() {
@@ -55,7 +56,7 @@ import {unsafeHTML} from 'lit/directives/unsafe-html.js';
   private togglePanel() {
     if (this.open) {
       this.inert = true;
-      this.dialog.addEventListener('transitionend', () => {
+      this.dialog.addEventListener(Events.TransitionEnd, () => {
         this.dialog.close();
         this.open = false;
       }, {once: true});
@@ -98,14 +99,14 @@ import {unsafeHTML} from 'lit/directives/unsafe-html.js';
         <svg
           aria-hidden="true"  
           class="icon icon--${iconClass}"
-          viewbox="0 0 24 24">
+          viewBox="0 0 24 24">
           <path d="${iconPath}"/>
         </svg>
       </button>
       <dialog
         id="info"
-        ?inert="${this.inert}"
-        ?open="${this.open}">
+        ?inert=${this.inert}
+        ?open=${this.open}>
         <article>
           ${unsafeHTML(this.info)}
         </article>

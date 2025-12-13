@@ -66,3 +66,17 @@ export const pattern = {
     metric: '2[4-9]([,\.][1-9])?|[3-9][0-9]([,\.][1-9])?|1[0-9]{2}([,\.][1-9])?|200',
   },
 }
+
+/**
+ * Events.
+ */
+export enum Events {
+  Change = 'change',
+  Click = 'click',
+  KeyUp ='keyup',
+  Resize = 'resize',
+  TouchEnd = 'touchend',
+  TouchStart = 'touchstart',
+  TransitionEnd = 'transitionend',
+  Values = 'valuesUpdated',
+}

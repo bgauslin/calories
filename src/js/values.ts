@@ -255,26 +255,26 @@ import {ActivityLevel, Measurements, Sex, WeightGoal, pattern, STORAGE_ITEM} fro
       <form>
         <fieldset
           id="sex"
-          @input="${this.updateAllValues}">
+          @input=${this.updateAllValues}>
           <h2>Sex</h2>
           ${this.renderRadioButtons(Sex, 'sex', true)}
         </fieldset>
         <fieldset
           id="measurements"
-          @input="${this.updateTextValues}">
+          @input=${this.updateTextValues}>
           ${this.renderTextInputs()}
         </fieldset>
         <fieldset
           id="activity"
-          ?disabled="${!this.ready}"
-          @input="${this.updateAllValues}">
+          ?disabled=${!this.ready}
+          @input=${this.updateAllValues}>
           <h2>Exercise <span>times per week</span></h2>
           ${this.renderRadioButtons(ActivityLevel, 'activity', false, 'level')}
         </fieldset>
         <fieldset
           id="goal"
-          ?disabled="${!this.ready}"
-          @input="${this.updateAllValues}">
+          ?disabled=${!this.ready}
+          @input=${this.updateAllValues}>
           <h2>Weight Loss <span>${this.imperial ? 'lbs' : 'kg'} per week</span></h2>
           ${this.renderRadioButtons(WeightGoal, 'goal', false, 'goal')}
         </fieldset>
@@ -305,12 +305,12 @@ import {ActivityLevel, Measurements, Sex, WeightGoal, pattern, STORAGE_ITEM} fro
         return html`
           <label for="${id}">
             <input
-              ?checked="${index === 0}"
               id="${id}"
               name="${name}"
               tabindex="${this.ready || enabled ? '0' : '-1'}"
               type="radio"
-              value="${value}">
+              value="${value}"
+              ?checked=${index === 0}>
             <span>${this.imperial && labelImperial ? labelImperial : label}</span>
           </label>
         `;
@@ -330,8 +330,8 @@ import {ActivityLevel, Measurements, Sex, WeightGoal, pattern, STORAGE_ITEM} fro
             inputmode="numeric"
             name="age"
             pattern="${pattern.age}"
-            required
-            type="text">
+            type="text"
+            required>
           <span class="units">yrs</span>
         </li>
         <li class="weight">
@@ -341,8 +341,8 @@ import {ActivityLevel, Measurements, Sex, WeightGoal, pattern, STORAGE_ITEM} fro
             inputmode="decimal"
             name="weight"
             pattern="${this.imperial ? pattern.weight.imperial : pattern.weight.metric}"
-            required
-            type="text">
+            type="text"
+            required>
           <span class="units">${this.imperial ? 'lbs' : 'kg'}</span>
         </li>
         <li class="height">
@@ -352,8 +352,8 @@ import {ActivityLevel, Measurements, Sex, WeightGoal, pattern, STORAGE_ITEM} fro
             inputmode="numeric"
             name="height"
             pattern="${this.imperial ? pattern.height.imperial.feet : pattern.height.metric}"
-            required
-            type="text">
+            type="text"
+            required>
           <span class="units">${this.imperial ? 'ft' : 'cm'}</span>
           <input
             ?hidden="${!this.imperial}"
@@ -361,11 +361,11 @@ import {ActivityLevel, Measurements, Sex, WeightGoal, pattern, STORAGE_ITEM} fro
             inputmode="numeric"
             name="inches"
             pattern="${pattern.height.imperial.inches}"
-            ?required="${this.imperial}"
-            type="text">
+            type="text"
+            ?required=${this.imperial}>
           <span
             class="units"
-            ?hidden="${!this.imperial}">in</span>
+            ?hidden=${!this.imperial}>in</span>
         </li>
       </ul>
     `;
