@@ -157,7 +157,6 @@ import {ActivityLevel, Measurements, Sex, WeightGoal, pattern, STORAGE_ITEM, Eve
         const display = this.commas ? weightImperial.replace('.', ',') : weightImperial;
         this.weight.value = display;
       }
-
     } else {
       // Convert Imperial height to metric cm.
       const feet = Number(this.height.value);
@@ -185,7 +184,7 @@ import {ActivityLevel, Measurements, Sex, WeightGoal, pattern, STORAGE_ITEM, Eve
   /**
    * Debounces text input fields.
    */
-  private updateTextValues() {
+  private getTextValues() {
     let timer;
     clearTimeout(timer);
     timer = setTimeout(() => this.getFormValues(), 300);
@@ -251,7 +250,7 @@ import {ActivityLevel, Measurements, Sex, WeightGoal, pattern, STORAGE_ITEM, Eve
         </fieldset>
         <fieldset
           id="measurements"
-          @input=${this.updateTextValues}>
+          @input=${this.getTextValues}>
           ${this.renderTextInputs()}
         </fieldset>
         <fieldset
