@@ -75,15 +75,14 @@ import {ActivityLevel, Measurements, WeightGoal, STORAGE_ITEM} from './shared';
   }
 
   /**
-   * Displays average daily calorie needs and zig-zag chart.
+   * Calculates BMR, TDEE, and maximum TDEE and displays average daily calorie
+   * needs and a zig-zag chart.
    */
   private updateResults() {
     this.ready = true;
 
     const {activity, age, goal, height, sex, weight} = this.measurements;
     
-    // Get BMR and factors based on selected values, then TDEE and maximum TDEE
-    // for zig-zag chart.
     this.bmr = this.formulas.basalMetabolicRate({age, height, sex, weight});
 
     const activityLevel = ActivityLevel.find(level => activity === level.value);
@@ -103,8 +102,8 @@ import {ActivityLevel, Measurements, WeightGoal, STORAGE_ITEM} from './shared';
   }
 
   protected render() {
-    const tdee_ = this.tdee.toFixed();
-    const tdeeMax_ = this.tdeeMax.toFixed();
+    const tdee = this.tdee.toFixed();
+    const tdeeMax = this.tdeeMax.toFixed();
     const caption = 'Average Daily Calories';
 
     return html`
@@ -116,14 +115,14 @@ import {ActivityLevel, Measurements, WeightGoal, STORAGE_ITEM} from './shared';
         .measurements=${this.measurements}
         @valuesUpdated=${this.updateApp}></calories-values>
       <calories-ticker
-        aria-label="${tdee_} ${caption}"
+        aria-label="${tdee} ${caption}"
         label="${caption}"
-        value="${tdee_}"
+        value="${tdee}"
         ?hidden=${!this.ready}></calories-ticker>
       <calories-zigzag
         ?hidden=${!this.ready}  
-        .tdee=${tdee_}
-        .tdeeMax=${tdeeMax_}></calories-zigzag>
+        .tdee=${tdee}
+        .tdeeMax=${tdeeMax}></calories-zigzag>
       <calories-touch></calories-touch>
     `;
   }
