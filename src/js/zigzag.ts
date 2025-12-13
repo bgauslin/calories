@@ -8,9 +8,15 @@ import {ifDefined} from 'lit/directives/if-defined.js';
  * day's TDEE value is adjusted for "zig-zag" calorie counting.
  */
 @customElement('calories-zigzag') class ZigZag extends LitElement {
-  private modifiers: number[] = [1, .9, 1.1, 1, .8, 1, 1.2];
-  private tdeeMin: number = 1200;
-  private weekdays: string[] = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  private days = new Map([
+    ['Sunday', 1], 
+    ['Monday', .9],
+    ['Tuesday', 1.1],
+    ['Wednesday', 1],
+    ['Thursday', .8],
+    ['Friday', 1],
+    ['Saturday', 1.2],
+  ]);
 
   @property({reflect: true, type: Number}) tdee = 0;
   @property({attribute: 'tdee-max', reflect: true, type: Number}) tdeeMax = 0;
@@ -32,34 +38,27 @@ import {ifDefined} from 'lit/directives/if-defined.js';
   }
 
   protected render() {
-    // Create array of all adjusted TDEE values, and get highest value for
-    // setting the bar chart's upper bound.
-    const tdeeAll = this.modifiers.map(day => Math.round(this.tdee * day));
-    const modifierMax = Math.max(...this.modifiers);
-    const valueMax = this.tdeeMax * modifierMax;
+    const tdeeMin = 1200;
+    const modifiers = [...this.days.values()];
+    const dailyMax = this.tdeeMax * Math.max(...modifiers);
 
-    // Convert adjusted TDEE values to a percentage relative to the highest
-    // possible value for drawing a bar chart via CSS.
-    const widths = tdeeAll.map(value => Math.round((value / valueMax) * 100));
-    
-    return html`
-      <ol>
-      ${this.weekdays.map((day, index) => {
-        const width = widths[index];
-        const value = tdeeAll[index];
-        const className = (value < this.tdeeMin) ? 'warning' : undefined;
-
-        return html`
+    const dailyTdee = [];
+    for (const [label, modifier] of this.days.entries()) {
+      const dailyModified = Math.round(this.tdee * modifier);
+      const percent = Math.round((dailyModified / dailyMax) * 100);
+      const className = (dailyModified < tdeeMin) ? 'warning' : undefined;
+      dailyTdee.push(html`
         <li
           class="${ifDefined(className ? className : undefined)}"
-          style="inline-size:${width}%">
-          <span aria-label="${day}">${day.substring(0, 3)}</span>
+          style="inline-size:${percent}%">
+          <span aria-label="${label}">${label.substring(0, 3)}</span>
           <calories-ticker
-            aria-label="${value}"
-            value="${value}"></calories-ticker>
+            aria-label="${dailyModified}"
+            value="${dailyModified}"></calories-ticker>
         </li>
-        `})}
-      </ol>
-    `;
+      `);
+    }
+
+    return html`<ol>${dailyTdee}</ol>`;
   }
 }
