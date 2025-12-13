@@ -6,8 +6,7 @@ import {ActivityLevel, Measurements, Sex, WeightGoal, pattern, STORAGE_ITEM, Eve
 
 /**
  * Web Component that renders fields for user input, converts
- * to/from Imperial units, sends user-provided data up the DOM,
- * and saves the data to localStorage.
+ * to/from Imperial units, and sends user-provided data up the DOM.
  */
 @customElement('calories-values') class UserValues extends LitElement {
   private formulas: Formulas;
@@ -34,7 +33,6 @@ import {ActivityLevel, Measurements, Sex, WeightGoal, pattern, STORAGE_ITEM, Eve
 
   connectedCallback() {
     super.connectedCallback();
-    this.setup();
   }
 
   disconnectedCallback() {
@@ -46,51 +44,46 @@ import {ActivityLevel, Measurements, Sex, WeightGoal, pattern, STORAGE_ITEM, Eve
   }
 
   /**
-   * Populates inputs from localStorage.
-   */ 
-  private async setup() {
-    await this.updateComplete;
-
-    // Set default marker positions in case this is first run.
+   * Sets default marker positions and populates all fields if there are
+   * measurements values from a previous visit.
+   */
+  protected firstUpdated() {
+    // Set the fancy radio button markers.
     this.setMarkers();
 
-    // TODO: Move localStorage up to app; pass down props.
-    // Try to get local storage and bail early if necessary.
-    const storage = localStorage.getItem(STORAGE_ITEM);
-    if (!storage) return;
+    // Bail if there's no data to pre-populate the fields with.
+    if (!this.measurements) return;
 
-    const {commas, imperial, measurements} = JSON.parse(storage);
-    if (!measurements) return;
+    // Get measurements and modify as needed for metric/Imperial and
+    // comma/period formatting.
+    const {activity, age, goal, height, sex, weight} = this.measurements;
 
-    // User has been here before; get their stored values.
-    this.commas = commas;
-    this.imperial = imperial;
-    const {activity, age, goal, height, sex, weight} = measurements;
+    // Populate age input.
+    this.age.value = `${age}`;
 
-    // Populate text inputs from earlier visit.
-    this.age.value = age;
-    this.height.value = height;
-
+    // Determine weight in metric units with comma/period formatting, then
+    // override with Imperial units if needed.
     const weight_ = `${weight}`;
-    const weightDisplay = this.commas ? weight_.replace('.', ',') : weight;
-    this.weight.value = weightDisplay;
-    
-    // Override values as needed for Imperial units UX.
+    let weightDisplay = this.commas ? weight_.replace('.', ',') : weight;
+
+    if (this.imperial) {
+      const weightImperial = `${this.formulas.weightImperial(weight)}`;
+      weightDisplay = this.commas ? weightImperial.replace('.', ',') : weightImperial;
+    } 
+
+    // Populate weight input.
+    this.weight.value = `${weightDisplay}`;
+
+    // Populate height input(s).
     if (this.imperial) {
       const {feet, inches} = this.formulas.heightImperial(height);
-      const weightImperial = `${this.formulas.weightImperial(weight)}`;
-      const weightDisplay = this.commas ? weightImperial.replace('.', ',') : weightImperial;
-
       this.height.value = `${feet}`;
       this.inches.value = `${inches}`;
-      this.weight.value = weightDisplay;
+    } else {
+      this.height.value = `${height}`;
     }
 
-    // Pre-check radio buttons from earlier visit.
-    for (const marker of <HTMLInputElement[]>this.markers) {
-      marker.checked = false;
-    }
-
+    // Check radio button inputs.
     const elements = [
       ['activity', activity],
       ['goal', goal],
@@ -105,22 +98,14 @@ import {ActivityLevel, Measurements, Sex, WeightGoal, pattern, STORAGE_ITEM, Eve
       }
     }
 
+    // Check radio button markers and activate them.
+    for (const marker of <HTMLInputElement[]>this.markers) {
+      marker.checked = false;
+    }
     this.setMarkers();
 
-    // Remove first run guard.
+    // All set, enable the radio buttons.
     this.ready = true;
-
-    // Bundle everything up and update the rest of the UX.
-    this.measurements = {
-      activity,
-      age,
-      goal,
-      height,
-      sex,
-      weight,
-    };    
-
-    this.updateApp();
   }
 
   /**
@@ -136,21 +121,16 @@ import {ActivityLevel, Measurements, Sex, WeightGoal, pattern, STORAGE_ITEM, Eve
   }
 
   /**
-   * Sends measurements up the DOM for rendering other UI elements and
-   * saves user values for return visits.
+   * Sends everything up to the app so it can render other elements and save
+   * the data for return visits.
    */
-  private updateApp() {
+  private notifyApp() {
     this.dispatchEvent(new CustomEvent(Events.Values, {
       detail: {
+        commas: this.commas,
+        imperial: this.imperial,
         measurements: this.measurements,
       }
-    }));
-
-    // TODO: Move localStorage up to app; pass down props.
-    localStorage.setItem(STORAGE_ITEM, JSON.stringify({
-      commas: this.commas,
-      imperial: this.imperial,
-      measurements: this.measurements,
     }));
   }
 
@@ -198,18 +178,28 @@ import {ActivityLevel, Measurements, Sex, WeightGoal, pattern, STORAGE_ITEM, Eve
     }
 
     if (this.measurements) {
-      this.updateApp();
+      this.notifyApp();
     }
   }
 
+  /**
+   * Debounces text input fields.
+   */
   private updateTextValues() {
     let timer;
     clearTimeout(timer);
-    timer = setTimeout(() => this.updateAllValues(), 300);
+    timer = setTimeout(() => this.getFormValues(), 300);
   }
 
-  private updateAllValues() {
+  /**
+   * Gets all form field values, determines comma/period formatting, and sends
+   * everything up to the app.
+   */
+  private getFormValues() {
     if (this.invalid.length) return;
+
+    // Enable the radio buttons.
+    this.ready = true;
 
     // Get user-provided values.
     const formData = new FormData(this.form);
@@ -223,12 +213,14 @@ import {ActivityLevel, Measurements, Sex, WeightGoal, pattern, STORAGE_ITEM, Eve
     const weight_ = `${formData.get('weight')}`;
     const found = weight_.match(/[,]/g);
     this.commas = found && found.length !== 0;
+    
+    // Get weight.
     let weight = Number(weight_.replace(',', '.'));
 
     // Get height.
     let height = Number(formData.get('height'));
 
-    // Convert values to metric for consistency with formulas.
+    // Convert height and weight to metric for consistency with formulas.
     if (this.imperial) {
       const feet = Number(formData.get('height'));
       const inches = Number(formData.get('inches'));
@@ -236,7 +228,7 @@ import {ActivityLevel, Measurements, Sex, WeightGoal, pattern, STORAGE_ITEM, Eve
       weight = this.formulas.weightMetric(weight);
     }
 
-    // Send updated values up to the app.
+    // Bundle updated values and send it off.
     this.measurements = {
       activity,
       age,
@@ -245,11 +237,7 @@ import {ActivityLevel, Measurements, Sex, WeightGoal, pattern, STORAGE_ITEM, Eve
       sex,
       weight,
     }
-
-    this.updateApp();
-
-    // Ensure first run guard is removed.
-    this.ready = true;
+    this.notifyApp();
   }
 
   protected render() {
@@ -257,7 +245,7 @@ import {ActivityLevel, Measurements, Sex, WeightGoal, pattern, STORAGE_ITEM, Eve
       <form>
         <fieldset
           id="sex"
-          @input=${this.updateAllValues}>
+          @input=${this.getFormValues}>
           <h2>Sex</h2>
           ${this.renderRadioButtons(Sex, 'sex', true)}
         </fieldset>
@@ -269,14 +257,14 @@ import {ActivityLevel, Measurements, Sex, WeightGoal, pattern, STORAGE_ITEM, Eve
         <fieldset
           id="activity"
           ?disabled=${!this.ready}
-          @input=${this.updateAllValues}>
+          @input=${this.getFormValues}>
           <h2>Exercise <span>times per week</span></h2>
           ${this.renderRadioButtons(ActivityLevel, 'activity', false, 'level')}
         </fieldset>
         <fieldset
           id="goal"
           ?disabled=${!this.ready}
-          @input=${this.updateAllValues}>
+          @input=${this.getFormValues}>
           <h2>Weight Loss <span>${this.imperial ? 'lbs' : 'kg'} per week</span></h2>
           ${this.renderRadioButtons(WeightGoal, 'goal', false, 'goal')}
         </fieldset>
@@ -292,7 +280,7 @@ import {ActivityLevel, Measurements, Sex, WeightGoal, pattern, STORAGE_ITEM, Eve
         aria-label="${ariaLabel}"
         id="units"
         type="button"
-        @click="${this.toggleUnits}">
+        @click=${this.toggleUnits}>
         <span>${label}</span>
       </button>
     `;
@@ -358,12 +346,12 @@ import {ActivityLevel, Measurements, Sex, WeightGoal, pattern, STORAGE_ITEM, Eve
             required>
           <span class="units">${this.imperial ? 'ft' : 'cm'}</span>
           <input
-            ?hidden="${!this.imperial}"
             id="inches"
             inputmode="numeric"
             name="inches"
             pattern="${pattern.height.imperial.inches}"
             type="text"
+            ?hidden=${!this.imperial}
             ?required=${this.imperial}>
           <span
             class="units"

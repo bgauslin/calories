@@ -1,7 +1,7 @@
 import {LitElement, html} from 'lit';
 import {customElement, property, query, state} from 'lit/decorators.js';
 import {Formulas} from './formulas';
-import {ActivityLevel, Measurements, WeightGoal} from './shared';
+import {ActivityLevel, Measurements, WeightGoal, STORAGE_ITEM} from './shared';
 
 
 /**
@@ -30,6 +30,7 @@ import {ActivityLevel, Measurements, WeightGoal} from './shared';
 
   connectedCallback() {
     super.connectedCallback();
+    this.getLocalStorage();
   }
 
   disconnectedCallback() {
@@ -40,9 +41,46 @@ import {ActivityLevel, Measurements, WeightGoal} from './shared';
     return this;
   }
 
+  private getLocalStorage() {
+    const storage = localStorage.getItem(STORAGE_ITEM);
+    if (!storage) return;
+
+    const {commas, imperial, measurements} = JSON.parse(storage);
+    this.commas = commas;
+    this.imperial = imperial;
+    this.measurements = measurements;
+
+    this.updateResults();
+  }
+
+  /**
+   * Save's user values for return visits.
+   */
+  private setLocalStorage() {
+    localStorage.setItem(STORAGE_ITEM, JSON.stringify({
+      commas: this.commas,
+      imperial: this.imperial,
+      measurements: this.measurements,
+    }));
+  }
+
   private updateApp(event: CustomEvent) {
-    const {detail} = event;
-    const {activity, age, goal, height, sex, weight} = detail.measurements;
+    const {commas, imperial, measurements} = event.detail;
+    this.commas = commas;
+    this.imperial = imperial;
+    this.measurements = measurements;
+
+    this.updateResults();
+    this.setLocalStorage();
+  }
+
+  /**
+   * Displays average daily calorie needs and zig-zag chart.
+   */
+  private updateResults() {
+    this.ready = true;
+
+    const {activity, age, goal, height, sex, weight} = this.measurements;
     
     // Get BMR and factors based on selected values, then TDEE and maximum TDEE
     // for zig-zag chart.
@@ -62,8 +100,6 @@ import {ActivityLevel, Measurements, WeightGoal} from './shared';
       bmr: this.bmr,
       goal: WeightGoal[0].factor,
     });
-    
-    this.ready = true;
   }
 
   protected render() {
