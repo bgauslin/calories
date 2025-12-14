@@ -5,7 +5,7 @@ import {ActivityLevel, Measurements, Sex, WeightGoal, pattern, STORAGE_ITEM, Eve
 
 
 /**
- * Web Component that renders fields for user input, converts
+ * Lit custom element that displays fields for user input, converts
  * to/from Imperial units, and sends user-provided data up the DOM.
  */
 @customElement('calories-values') class UserValues extends LitElement {

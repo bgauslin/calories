@@ -2,9 +2,9 @@ import {Events} from './shared';
 
 
 /**
- * Custom element that provides a group of radio buttons with an animated 
- * visual marker that slides from the previously checked button to the
- * currently checked button.
+ * Vanilla custom element that provides a group of radio buttons with an
+ * animated  visual marker that slides from the previously checked radio button
+ * to the currently checked radio button.
  */
 customElements.define('calories-marker', class extends HTMLElement {
   private resizeHandler: EventListenerObject;

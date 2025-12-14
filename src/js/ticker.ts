@@ -1,5 +1,6 @@
 /**
- * Custom element that incrementally changes one numeric value to another.
+ * Vanilla custom element that incrementally changes one numeric value
+ * to another.
  */
 customElements.define('calories-ticker', class extends HTMLElement {
   constructor() {

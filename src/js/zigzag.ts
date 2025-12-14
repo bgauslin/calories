@@ -4,8 +4,8 @@ import {ifDefined} from 'lit/directives/if-defined.js';
 
 
 /**
- * Custom element that renders daily TDEE based on overall TDEE where each
- * day's TDEE value is adjusted for "zig-zag" calorie counting.
+ * Lit custom element that renders daily TDEE based on overall TDEE where
+ * each day's TDEE value is adjusted for 'zig-zag' calorie counting.
  */
 @customElement('calories-zigzag') class ZigZag extends LitElement {
   private days = new Map([

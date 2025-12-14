@@ -5,8 +5,8 @@ import {ActivityLevel, Measurements, WeightGoal, STORAGE_ITEM} from './shared';
 
 
 /**
- * Custom element for the Calorie Calculator which renders all other custom
- * elements into its DOM.
+ * Lit custom element for calculating daily calorie needs based on user-provided
+ * values.
  */
 @customElement('calories-app') class App extends LitElement {
   private formulas: Formulas;

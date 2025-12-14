@@ -5,8 +5,8 @@ import {Events} from './shared';
 
 
 /**
- * Custom element that renders content fetched from a JSON endpoint
- * along with a button that toggles the rendered content's visibility.
+ * Lit custom element that displays content fetched from a JSON endpoint
+ * with a button that toggles the content's visibility.
  */
 @customElement('calories-info') class Info extends LitElement {
   private clickHandler: EventListenerObject;
