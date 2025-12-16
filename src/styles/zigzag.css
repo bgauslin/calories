@@ -23,7 +23,7 @@ calories-zigzag {
   }
 
   li {
-    background-color: var(--fill-2);
+    background-color: var(--zig-zag-background); 
     border-radius: 0 4px 4px 0;
     display: flex;
     gap: 0 .5em;

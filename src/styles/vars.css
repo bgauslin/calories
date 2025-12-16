@@ -122,6 +122,7 @@
   --fill-4: var(--gray3);
 
   --app-background: var(--fill-0);
+
   --border: 1px solid var(--fill-2);
   --border-color-focus: var(--indigo);
 
@@ -146,6 +147,8 @@
 
   --warning-background: rgb(246, 234, 236);
   --warning-color: rgb(202, 36, 48);
+
+  --zig-zag-background: var(--fill-1);
 }
 
 
@@ -163,10 +166,14 @@
 
     --app-background: var(--fill-1);
     --body-background: var(--fill-0);
+
     --border-color-focus: var(--indigo-dark-contrast);
+
     --button-background: var(--fill-4);
     --button-background-focus: var(--fill-5);
+    
     --input-background: var(--fill-4);
+    
     --markers-background: var(--fill-2);
     --marker-background: var(--fill-4);
 
@@ -178,6 +185,8 @@
 
     --warning-background: rgb(64, 39, 46);
     --warning-color: rgb(254, 127, 140);
+
+    --zig-zag-background: var(--fill-3);
   }
 }
 
