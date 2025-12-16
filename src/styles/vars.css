@@ -123,6 +123,7 @@
 
   --app-background: var(--fill-0);
   --border: 1px solid var(--fill-2);
+  --border-color-focus: var(--indigo);
 
   --button-background: var(--fill-1);
   --button-background-focus: var(--fill-2);
@@ -162,6 +163,7 @@
 
     --app-background: var(--fill-1);
     --body-background: var(--fill-0);
+    --border-color-focus: var(--indigo-dark-contrast);
     --button-background: var(--fill-4);
     --button-background-focus: var(--fill-5);
     --input-background: var(--fill-4);

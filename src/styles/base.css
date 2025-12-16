@@ -91,7 +91,7 @@ input[type='text'] {
   font-variation-settings: 'wght' 500;
 
   &:focus-visible {
-    border-color: var(--text-color);
+    border-color: var(--border-color-focus);
   }
 
   &:invalid {

@@ -77,7 +77,7 @@ calories-values {
     }
 
     &:focus-visible {
-      border-color: var(--text-color);
+      border-color: var(--border-color-focus);
       
       span {
         opacity: 1;

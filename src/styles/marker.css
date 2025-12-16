@@ -13,7 +13,7 @@ calories-marker {
   z-index: 1;
 
   &:focus-within {
-    border-color: var(--text-color);
+    border-color: var(--border-color-focus);
   }
 
   /**
