@@ -38,6 +38,7 @@ calories-marker {
     background-color: var(--marker-background);
     block-size: var(--block-size);
     border-radius: 4px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, .1);
     content: '';
     display: block;
     inline-size: var(--inline-size);
