@@ -4,6 +4,7 @@ calories-info {
   button {
     aspect-ratio: 1;
     border-radius: var(--button-size);
+    border: 2px solid var(--app-background);
     color: inherit;
     cursor: pointer;
     grid-area: info;
@@ -23,7 +24,7 @@ calories-info {
     }
 
     &:focus-visible {
-      background-color: var(--button-background-focus);
+      border-color: var(--border-color-focus);
     }
 
     &.touch {
