@@ -143,8 +143,8 @@
   --link-color-focus: var(--red);
   --link-color-visited: var(--indigo-contrast);
   
-  --text-color: black;
-  --text-opacity: .7;
+  --text-color: var(--gray5-dark);
+  --text-color-secondary: var(--gray2-dark);
 
   --warning-background: rgb(246, 234, 236);
   --warning-color: rgb(202, 36, 48);
@@ -182,7 +182,8 @@
     --link-color-focus: var(--red-dark-contrast);
     --link-color-visited: var(--indigo-dark-contrast);
       
-    --text-color: white;
+    --text-color: var(--gray5);
+    --text-color-secondary: var(--gray2);
 
     --warning-background: rgb(64, 39, 46);
     --warning-color: rgb(254, 127, 140);

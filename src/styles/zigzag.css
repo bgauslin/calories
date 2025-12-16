@@ -32,9 +32,9 @@ calories-zigzag {
   }
 
   span {
+    color: var(--text-color-secondary);
     flex: 1;
-    opacity: var(--text-opacity);
-    transition: opacity var(--transition-slow) ease-out;
+    transition: color var(--transition-slow) ease-out;
   }
 
   .warning {

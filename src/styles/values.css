@@ -30,8 +30,8 @@ calories-values {
   }
 
   h2 > span {
+    color: var(--text-color-secondary);
     margin-inline: auto 0;
-    opacity: var(--text-opacity);
   }
 
   /**
@@ -66,22 +66,16 @@ calories-values {
     inset-inline: auto 0;
     padding-inline: .75em;
     position: absolute;
-    transition: background-color var(--transition), border-color var(--transition), opacity var(--transition), transform var(--transition);
+    transition: background-color var(--transition), border-color var(--transition), transform var(--transition);
     white-space: nowrap;
 
     /* Units toggle text. */
     span {
-      opacity: .7;
       pointer-events: none;
-      transition: opacity var(--transition);
     }
 
     &:focus-visible {
       border-color: var(--border-color-focus);
-      
-      span {
-        opacity: 1;
-      }
     }
 
     &.touch {
@@ -150,8 +144,8 @@ calories-values {
   }
 
   .units {
+    color: var(--text-color-secondary);
     margin-inline: .5em;
-    opacity: var(--text-opacity);
     pointer-events: none;
   }
 
@@ -165,20 +159,20 @@ calories-values {
     inline-size: 100%;
     justify-content: center;
     pointer-events: none;
-    transition: opacity var(--transition);
+    transition: color var(--transition);
   }
 
   [type='radio']:not(:checked) + span {
-    opacity: var(--text-opacity);
+    color: var(--text-color-secondary);
   }
 
   label:focus-visible > [type='radio'] + span {
-    opacity: 1;
+    color: var(--text-color);
   }
 
   @media (any-hover: hover) {
     label:hover > [type='radio'] + span {
-      opacity: 1;
+      color: var(--text-color);
     }
   }
 }
