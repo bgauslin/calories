@@ -51,9 +51,9 @@ calories-values {
    * Metric/Imperial units toggle.
    */
   [id='units'] {
-    background-color: var(--fill-2);
+    background-color: var(--button-background);
     block-size: var(--input-size);
-    border: 2px solid var(--fill-2);
+    border: var(--button-border);
     border-radius: var(--input-size);
     color: inherit;
     cursor: pointer;
@@ -90,8 +90,8 @@ calories-values {
 
     @media (any-hover: hover) {
       &:hover {
-        background-color: var(--fill-4);
-        border-color: var(--fill-4);
+        background-color: var(--button-background-focus);
+        border: var(--button-border-focus);
         
         span {
           opacity: 1;
@@ -137,9 +137,9 @@ calories-values {
    * Text inputs.
    */
   [type='text'] {
-    background-color: var(--fill-2);
+    background-color: var(--input-background);
     block-size: var(--input-size);
-    border: 2px solid var(--fill-1);
+    border: var(--input-border);
     border-radius: 6px;
     box-sizing: content-box;
     color: var(--text-color);

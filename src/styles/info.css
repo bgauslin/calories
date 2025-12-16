@@ -51,7 +51,7 @@ calories-info {
    *     viewport on small/portrait screens.
    */
   dialog {
-    background-color: var(--fill-1);
+    background-color: var(--app-background);
     block-size: 100%;
     border: none;
     color: inherit;

@@ -4,8 +4,8 @@
  */
 calories-marker {
   align-items: center;
-  background-color: var(--fill-2);
-  border: 2px solid var(--fill-1);
+  background-color: var(--markers-background);
+  border: var(--markers-border);
   border-radius: 8px;
   display: flex;
   padding: 4px;
@@ -35,7 +35,7 @@ calories-marker {
    *     'left' and 'top' instead of 'inset-*' properties.
    */
   &::after {
-    background-color: var(--fill-3);
+    background-color: var(--marker-background);
     block-size: var(--block-size);
     border-radius: 4px;
     content: '';

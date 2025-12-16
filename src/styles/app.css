@@ -4,7 +4,7 @@
  * its contents.
  */
 calories-app {
-  background-color: var(--fill-1);
+  background-color: var(--app-background);
   border: var(--app-border);
   border-radius: var(--app-border-radius, 0);
   display: grid;

@@ -16,7 +16,7 @@
    * Background color for <body> is defined with layout vars instead of with
    * theming vars since it changes relative to viewport size.
    */
-  --body-background: var(--fill-1);
+  --body-background: var(--fill-0);
 
   /* NOTE: Media query 'min-width' value matches '--app-max-inline-size' above. */
   @media (min-width: 24em) {
@@ -26,11 +26,7 @@
       --app-margin: var(--gap);
       --app-min-block-size: none;
 
-      /**
-       * Revert the var and apply element's fallback value when viewport is
-       * wide enough to trigger card look-and-feel for the app element.
-       */
-      --body-background: revert;
+      --body-background: var(--fill-1);
     }
   }
 
@@ -119,17 +115,27 @@
   /**
    * Theming.
    */
-  --border: 1px solid var(--gray5);
-
-  --button-background: var(--gray6);
-  --button-background-focus: var(--gray5);
-
-  --fill-0: var(--gray6);
-  --fill-1: white;
+  --fill-0: white;
+  --fill-1: var(--gray6);
   --fill-2: var(--gray5);
   --fill-3: var(--gray4);
   --fill-4: var(--gray3);
-  
+
+  --app-background: var(--fill-0);
+  --border: 1px solid var(--fill-2);
+
+  --button-background: var(--fill-2);
+  --button-background-focus: var(--fill-3);
+  --button-border: 2px solid var(--button-background);
+  --button-border-focus: 2px solid var(--button-background-focus);
+
+  --input-background: var(--fill-2);
+  --input-border: 2px solid var(--app-background);
+
+  --markers-background: var(--fill-2);
+  --markers-border: 2px solid var(--app-background);
+  --marker-background: var(--fill-3);
+
   --link-color: var(--blue-contrast);
   --link-color-focus: var(--red);
   --link-color-visited: var(--indigo-contrast);
@@ -146,16 +152,14 @@
   */
 @media (prefers-color-scheme: dark) {
   :root {
-    --button-background: var(--gray5-dark);
-    --button-background-focus: var(--gray4-dark);
-
-    --border: 1px solid var(--gray5-dark);
-
     --fill-0: black;
     --fill-1: var(--gray6-dark);
     --fill-2: var(--gray5-dark);
     --fill-3: var(--gray4-dark);
     --fill-4: var(--gray3-dark);
+
+    --app-background: var(--fill-1);
+    --body-background: var(--fill-0);
 
     --link-color: var(--blue-dark-contrast);
     --link-color-focus: var(--red-dark-contrast);
@@ -165,5 +169,11 @@
 
     --warning-background: rgb(64, 39, 46);
     --warning-color: rgb(254, 127, 140);
+  }
+}
+
+@media (prefers-color-scheme: dark) and (min-width: 24em) {
+  :root {
+    --body-background: var(--fill-0);
   }
 }
