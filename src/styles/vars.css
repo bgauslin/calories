@@ -113,7 +113,7 @@
   --indigo-dark-contrast: rgb(167, 170, 255);
 
   /**
-   * Theming.
+   * Light mode theming.
    */
   --fill-0: white;
   --fill-1: var(--gray6);
@@ -124,17 +124,17 @@
   --app-background: var(--fill-0);
   --border: 1px solid var(--fill-2);
 
-  --button-background: var(--fill-2);
-  --button-background-focus: var(--fill-3);
+  --button-background: var(--fill-1);
+  --button-background-focus: var(--fill-2);
   --button-border: 2px solid var(--button-background);
   --button-border-focus: 2px solid var(--button-background-focus);
 
-  --input-background: var(--fill-2);
+  --input-background: var(--fill-1);
   --input-border: 2px solid var(--app-background);
 
-  --markers-background: var(--fill-2);
+  --markers-background: var(--fill-1);
   --markers-border: 2px solid var(--app-background);
-  --marker-background: var(--fill-3);
+  --marker-background: var(--fill-0);
 
   --link-color: var(--blue-contrast);
   --link-color-focus: var(--red);
@@ -147,19 +147,26 @@
   --warning-color: rgb(202, 36, 48);
 }
 
-/**
-  * Dark mode theming.
-  */
+
 @media (prefers-color-scheme: dark) {
+  /**
+   * Dark mode theming.
+   */
   :root {
     --fill-0: black;
     --fill-1: var(--gray6-dark);
     --fill-2: var(--gray5-dark);
     --fill-3: var(--gray4-dark);
     --fill-4: var(--gray3-dark);
+    --fill-5: var(--gray2-dark);
 
     --app-background: var(--fill-1);
     --body-background: var(--fill-0);
+    --button-background: var(--fill-4);
+    --button-background-focus: var(--fill-5);
+    --input-background: var(--fill-4);
+    --markers-background: var(--fill-2);
+    --marker-background: var(--fill-4);
 
     --link-color: var(--blue-dark-contrast);
     --link-color-focus: var(--red-dark-contrast);
