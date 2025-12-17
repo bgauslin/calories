@@ -6,7 +6,7 @@
   --app-grid: 'title info' var(--header-size) 'values values' 'results results' 'graph graph' 1fr '. .' var(--header-size) / 1fr var(--button-size);
   --app-max-inline-size: 24em;  /* NOTE: Value matches media query 'min-width' below. */
 
-  --button-size: 3em;
+  --button-size: 2.75em;
   --gap: 1em;
   --header-size: 3em;
   --input-size: 2em;

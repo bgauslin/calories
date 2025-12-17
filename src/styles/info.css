@@ -17,6 +17,7 @@ calories-info {
 
     &[data-type='closer'] {
       background-color: var(--button-background);
+      border-color: var(--button-background);
     }
 
     [hidden] > & {
@@ -33,11 +34,12 @@ calories-info {
 
     @media (any-hover: hover) {
       & {
-        transition: background-color var(--transition), opacity var(--transition-slow) ease-out, transform var(--transition);
+        transition: border var(--transition), background-color var(--transition), opacity var(--transition-slow) ease-out, transform var(--transition);
       }
 
       &:hover {
         background-color: var(--button-background-focus);
+        border-color: var(--button-background-focus);
       }
 
       &:active {
@@ -144,7 +146,7 @@ calories-info {
  * Icon buttons.
  */
 .icon {
-  inline-size: 1.75em;
+  inline-size: 1.5rem;
   pointer-events: none;
 
   path {
